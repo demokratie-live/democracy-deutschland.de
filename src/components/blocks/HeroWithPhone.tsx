@@ -19,8 +19,8 @@ export function HeroWithPhone({
   phoneImage = "/files/images/List.png",
   phoneAlt = "DEMOCRACY App Screenshot",
   browserUrl = "https://democracy-app.de",
-  apkUrl = "/files/download/democracy-app.apk",
-  aabUrl = "/files/download/democracy-app.aab",
+  apkUrl = "https://github.com/demokratie-live/democracy-client/releases/latest/download/democracy-app.apk",
+  aabUrl = "https://github.com/demokratie-live/democracy-client/releases/latest/download/democracy-app.aab",
   apkLabel = "APK (v1.5.10)",
 }: HeroWithPhoneProps) {
   return (
