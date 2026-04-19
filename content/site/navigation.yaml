@@ -1,0 +1,53 @@
+main:
+  - label: "Wahl-O-Meter"
+    href: "/wahlometer"
+  - label: "DEMOCRACY"
+    href: "/"
+  - label: "Über Uns"
+    href: "/ueber-uns"
+  - label: "Presse"
+    href: "/presse"
+  - label: "Spenden"
+    href: "/spenden"
+    highlight: true
+
+legal:
+  - label: "Impressum"
+    href: "/impressum"
+  - label: "Datenschutz"
+    href: "/datenschutz"
+  - label: "Nutzungsbedingungen"
+    href: "/nutzungsbedingungen"
+
+social:
+  - label: "Facebook"
+    href: "https://www.facebook.com/democracygermany/"
+    icon: "facebook"
+    external: true
+  - label: "Twitter"
+    href: "https://twitter.com/democracy_de"
+    icon: "twitter"
+    external: true
+  - label: "YouTube"
+    href: "https://www.youtube.com/channel/UC2R4cGTq1LjFZ2DvDaVhDyg"
+    icon: "youtube"
+    external: true
+  - label: "GitHub"
+    href: "https://github.com/demokratie-live/"
+    icon: "github"
+    external: true
+  - label: "Discord"
+    href: "https://discord.gg/ZWcFrEc"
+    icon: "discord"
+    external: true
+  - label: "E-Mail"
+    href: "mailto:contact@democracy-deutschland.de"
+    icon: "email"
+  - label: "Instagram"
+    href: "https://instagram.com/democracy_app"
+    icon: "instagram"
+    external: true
+  - label: "Telegram"
+    href: "https://t.me/democracy_app"
+    icon: "telegram"
+    external: true
