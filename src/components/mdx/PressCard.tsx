@@ -2,6 +2,7 @@
 
 import { ExternalLink, FileText, Image as ImageIcon, Video, Download } from "lucide-react";
 import type { SerializedPressEntry } from "@/lib/schemas";
+import { asset } from "@/lib/base-path";
 
 const TYPE_ICONS: Record<string, typeof ExternalLink> = {
   article: ExternalLink,
@@ -52,7 +53,7 @@ export function PressCardItem({ entry }: PressCardItemProps) {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={entry.image}
+            src={asset(entry.image)}
             alt=""
             loading="lazy"
             className="aspect-video w-full object-cover"

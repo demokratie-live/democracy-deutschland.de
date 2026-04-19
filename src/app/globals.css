@@ -1,28 +1,12 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* DEMOCRACY display fonts — ported from legacy site */
-@font-face {
-  font-family: "Edosz";
-  src: url("/fonts/edosz.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Isabelle Layne";
-  src: url("/fonts/isabelle-layne.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Isabelle Layne";
-  src: url("/fonts/isabelle-layne-bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+/*
+ * DEMOCRACY display fonts — ported from legacy site.
+ * Loaded via next/font/local in src/app/layout.tsx (see the edosz /
+ * isabelleLayne definitions) so Next.js bundles them with the correct
+ * basePath/assetPrefix and exposes them as CSS variables below.
+ */
 
 @theme inline {
   --color-primary-50: #eef6fd;
@@ -64,8 +48,8 @@
   --color-surface-dark-heading: #4494d3;
 
   --font-sans: "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Edosz", "Archivo Black", "Helvetica Neue", sans-serif;
-  --font-script: "Isabelle Layne", "Caveat", cursive;
+  --font-display: var(--font-edosz), "Archivo Black", "Helvetica Neue", sans-serif;
+  --font-script: var(--font-isabelle-layne), "Caveat", cursive;
 }
 
 body {

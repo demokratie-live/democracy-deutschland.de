@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -10,6 +11,21 @@ import { getNavigation, getFooter, getGlobalSEO } from "@/lib/content";
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
+});
+
+const edosz = localFont({
+  src: "../fonts/edosz.ttf",
+  display: "swap",
+  variable: "--font-edosz",
+});
+
+const isabelleLayne = localFont({
+  src: [
+    { path: "../fonts/isabelle-layne.ttf", weight: "400", style: "normal" },
+    { path: "../fonts/isabelle-layne-bold.ttf", weight: "700", style: "normal" },
+  ],
+  display: "swap",
+  variable: "--font-isabelle-layne",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -54,7 +70,7 @@ export default async function RootLayout({
   const [navigation, footer] = await Promise.all([getNavigation(), getFooter()]);
 
   return (
-    <html lang="de" className={`${inter.className} h-full antialiased`}>
+    <html lang="de" className={`${inter.className} ${edosz.variable} ${isabelleLayne.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <HashRedirect />
         <a

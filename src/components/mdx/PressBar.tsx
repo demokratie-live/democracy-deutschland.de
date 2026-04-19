@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { asset } from "@/lib/base-path";
 
 interface PressBarProps {
   children: ReactNode;
@@ -28,7 +29,7 @@ export function PressLink({ name, url, logo }: PressLinkProps) {
     >
       {logo ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={logo} alt={name} className="h-10 w-auto max-w-[160px] object-contain md:h-12" />
+        <img src={asset(logo)} alt={name} className="h-10 w-auto max-w-[160px] object-contain md:h-12" />
       ) : (
         <span className="text-lg font-semibold text-muted-foreground transition-colors hover:text-foreground">
           {name}

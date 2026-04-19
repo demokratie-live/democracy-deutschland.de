@@ -5,6 +5,7 @@ import { Hero } from "@/components/blocks/Hero";
 import { HeroWithPhone } from "@/components/blocks/HeroWithPhone";
 import { VideoPlayer } from "@/components/blocks/VideoPlayer";
 import { AppBadges } from "@/components/blocks/AppBadges";
+import { asset } from "@/lib/base-path";
 
 import { Section } from "./Section";
 import { Grid } from "./Grid";
@@ -38,6 +39,13 @@ function isSameTabProtocol(href: string) {
 }
 
 type AnchorProps = ComponentPropsWithoutRef<"a">;
+type ImgProps = ComponentPropsWithoutRef<"img">;
+
+function MdxImg({ src, alt, ...props }: ImgProps) {
+  const resolved = typeof src === "string" ? asset(src) : src;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={resolved} alt={alt ?? ""} {...props} />;
+}
 
 function MdxLink({ href, children, ...props }: AnchorProps) {
   if (!href) {
@@ -66,6 +74,7 @@ function MdxLink({ href, children, ...props }: AnchorProps) {
 
 export const mdxComponents = {
   a: MdxLink,
+  img: MdxImg,
   Hero,
   HeroWithPhone,
   VideoPlayer,

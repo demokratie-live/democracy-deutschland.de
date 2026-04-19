@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import type { Navigation, NavItem } from "@/lib/schemas";
+import { asset } from "@/lib/base-path";
 
 interface NavbarProps {
   navigation: Navigation;
@@ -29,7 +30,7 @@ export function Navbar({ navigation }: NavbarProps) {
         <Link href="/" aria-label="DEMOCRACY Startseite" className="flex items-center gap-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/files/images/logo.png"
+            src={asset("/files/images/logo.png")}
             alt=""
             aria-hidden="true"
             className="h-9 w-9 rounded-full object-contain"
