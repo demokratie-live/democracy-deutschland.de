@@ -75,6 +75,7 @@ function MdxLink({ href, children, ...props }: AnchorProps) {
 export const mdxComponents = {
   a: MdxLink,
   img: MdxImg,
+  Img: MdxImg,
   Hero,
   HeroWithPhone,
   VideoPlayer,
