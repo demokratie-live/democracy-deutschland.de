@@ -72,10 +72,28 @@ function MdxLink({ href, children, ...props }: AnchorProps) {
   );
 }
 
+function MdxH2({ children, ...props }: ComponentPropsWithoutRef<"h2">) {
+  return (
+    <h2 className="mb-6 text-3xl font-bold md:text-4xl" {...props}>
+      {children}
+    </h2>
+  );
+}
+
+function MdxH3({ children, ...props }: ComponentPropsWithoutRef<"h3">) {
+  return (
+    <h3 className="mb-4 text-2xl font-bold md:text-3xl" {...props}>
+      {children}
+    </h3>
+  );
+}
+
 export const mdxComponents = {
   a: MdxLink,
   img: MdxImg,
   Img: MdxImg,
+  h2: MdxH2,
+  h3: MdxH3,
   Hero,
   HeroWithPhone,
   VideoPlayer,

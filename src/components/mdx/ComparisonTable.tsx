@@ -64,6 +64,64 @@ interface ComparisonTableProps {
   children: ReactNode;
 }
 
+interface ColumnItem {
+  title: string;
+  description: string;
+}
+
+interface ComparisonColumnProps {
+  label: string;
+  labelColor: string;
+  items: ColumnItem[];
+  openIndex: number | null;
+  onToggle: (index: number) => void;
+}
+
+function ComparisonColumn({
+  label,
+  labelColor,
+  items,
+  openIndex,
+  onToggle,
+}: ComparisonColumnProps) {
+  return (
+    <div className="flex flex-col">
+      <div
+        className={`relative z-10 -mb-2 inline-block self-start rounded-md ${labelColor} px-5 py-2 text-base font-semibold text-white shadow-sm`}
+      >
+        {label}
+      </div>
+      <div className="flex flex-col gap-3">
+        {items.map((item, index) => {
+          const isOpen = openIndex === index;
+          return (
+            <div key={index} className="flex flex-col">
+              <button
+                type="button"
+                onClick={() => onToggle(index)}
+                aria-expanded={isOpen}
+                className="flex w-full items-center justify-between gap-4 rounded-md bg-muted/70 px-5 py-4 text-left shadow-sm transition-colors hover:bg-muted"
+              >
+                <span className="text-base font-bold">{item.title}</span>
+                <ChevronDown
+                  className={`h-5 w-5 shrink-0 text-muted-foreground transition-transform ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isOpen && (
+                <div className="px-5 pb-2 pt-4">
+                  <p className="text-base leading-relaxed text-foreground">{item.description}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function ComparisonTable({
   leftLabel,
   rightLabel,
@@ -71,48 +129,37 @@ export function ComparisonTable({
   rightColor = "bg-primary-500",
   children,
 }: ComparisonTableProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const rows = extractComparisonRows(children);
+  const leftItems: ColumnItem[] = rows.map((r) => ({
+    title: r.left,
+    description: r.leftDescription,
+  }));
+  const rightItems: ColumnItem[] = rows.map((r) => ({
+    title: r.right,
+    description: r.rightDescription,
+  }));
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const handleToggle = (index: number) => {
+    setOpenIndex((current) => (current === index ? null : index));
+  };
 
   return (
     <section className="py-12">
-      <div className="mb-4 grid grid-cols-2 gap-2">
-        <div className={`rounded-lg ${leftColor} px-4 py-2 text-center font-semibold text-white`}>
-          {leftLabel}
-        </div>
-        <div className={`rounded-lg ${rightColor} px-4 py-2 text-center font-semibold text-white`}>
-          {rightLabel}
-        </div>
-      </div>
-      <div className="space-y-3">
-        {rows.map((row, index) => (
-          <div key={index} className="overflow-hidden rounded-lg ring-1 ring-border">
-            <button
-              type="button"
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-muted/50"
-              onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              aria-expanded={openIndex === index}
-            >
-              <div className="grid flex-1 grid-cols-2 gap-4">
-                <span className="text-sm font-medium">{row.left}</span>
-                <span className="text-sm font-medium">{row.right}</span>
-              </div>
-              <ChevronDown
-                className={`h-5 w-5 shrink-0 text-muted-foreground transition-transform ${
-                  openIndex === index ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-            {openIndex === index && (
-              <div className="border-t border-border bg-muted/30 px-5 py-4">
-                <div className="grid gap-6 md:grid-cols-2">
-                  <p className="text-sm text-muted-foreground">{row.leftDescription}</p>
-                  <p className="text-sm text-muted-foreground">{row.rightDescription}</p>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8">
+        <ComparisonColumn
+          label={leftLabel}
+          labelColor={leftColor}
+          items={leftItems}
+          openIndex={openIndex}
+          onToggle={handleToggle}
+        />
+        <ComparisonColumn
+          label={rightLabel}
+          labelColor={rightColor}
+          items={rightItems}
+          openIndex={openIndex}
+          onToggle={handleToggle}
+        />
       </div>
     </section>
   );
