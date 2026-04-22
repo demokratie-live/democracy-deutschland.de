@@ -5,12 +5,14 @@ This repository contains the website for **DEMOCRACY Deutschland e.V.**, a Germa
 ## Repository Structure
 
 The repository has two parts:
+
 - **the repo root** — The active Next.js website (this is where all development happens)
 - Root directory — Legacy PHP website (deprecated, do not modify)
 
 ## Getting Started
 
 All work should be done inside the repo root. See `AGENTS.md` for comprehensive project documentation including:
+
 - Architecture and file structure
 - Content system (MDX + YAML + Zod validation)
 - MDX component system and gotchas

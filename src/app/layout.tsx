@@ -70,7 +70,10 @@ export default async function RootLayout({
   const [navigation, footer] = await Promise.all([getNavigation(), getFooter()]);
 
   return (
-    <html lang="de" className={`${inter.className} ${edosz.variable} ${isabelleLayne.variable} h-full antialiased`}>
+    <html
+      lang="de"
+      className={`${inter.className} ${edosz.variable} ${isabelleLayne.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col">
         <HashRedirect />
         <a

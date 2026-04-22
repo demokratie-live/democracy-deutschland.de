@@ -30,7 +30,11 @@ export function HeroWithPhone({
         {/* Phone mockup */}
         <div className="order-2 flex justify-center lg:order-1">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={asset(phoneImage)} alt={phoneAlt} className="max-h-[520px] w-auto drop-shadow-2xl" />
+          <img
+            src={asset(phoneImage)}
+            alt={phoneAlt}
+            className="max-h-[520px] w-auto drop-shadow-2xl"
+          />
         </div>
 
         {/* Brand block */}

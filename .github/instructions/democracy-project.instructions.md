@@ -77,6 +77,7 @@ Content and layout structure belong in the `.mdx` file, not in `page.tsx`.
 ## Auto-Update Context Files
 
 When introducing new patterns, components, or conventions:
+
 1. Update `AGENTS.md` with new commands, components, or gotchas
 2. Update relevant `.github/instructions/*.instructions.md` files
 3. Update `.github/instructions/mdx-content.instructions.md` when adding MDX components
