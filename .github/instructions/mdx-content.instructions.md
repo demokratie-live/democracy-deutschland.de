@@ -1,117 +1,31 @@
 ---
-description: "Guidelines for editing MDX content files in the DEMOCRACY website. Covers frontmatter, component usage, and common pitfalls with German text."
+description: "Guidelines for editing MDX page files of the DEMOCRACY website: frontmatter, section components, whitespace and German quotes."
 applyTo: "content/**/*.mdx"
 ---
 
 # MDX Content Editing Guide
 
-## File Structure
+Component list and gotchas: `AGENTS.md` ("MDX components", "MDX gotchas").
 
-Every MDX page file requires YAML frontmatter:
+## Frontmatter
 
 ```yaml
 ---
-title: "Page Title"
-slug: "/url-path"
-seo:
-  title: "SEO Title"
-  description: "Meta description for search engines"
+state: wahlometer # state of the old hash router, must exist in content/site/routes.yaml
+# optional, only where live differs from content/site/head.yaml:
+# title: "…"
+# meta: { DC.Description: "…" }
+# openGraph: { description: "…" }
 ---
 ```
 
-All fields in `seo` are required. To render a hero, use the `<Hero />` or `<HeroWithPhone />` component in the MDX body.
+## Rules
 
-## Available Components
-
-Use these components directly in MDX — no imports needed:
-
-### Layout
-
-- `<Section bg="white|muted|primary-light|none" centered>` — Page section wrapper (default `bg="none"`)
-- `<Grid cols={2|3}>` — Responsive column grid
-- `<CTA bg="primary-light">` — Call-to-action block
-
-### Content
-
-- `<Hero headline="..." subline="..." />` — Hero banner
-- `<FeatureCard icon="icon-name" title="...">description</FeatureCard>`
-- `<InfoCard icon="icon-name" title="..." subtitle="..." link="/path">text</InfoCard>`
-- `<Quote author="Name">quote text</Quote>`
-- `<PhilosophyCard icon="icon-name" title="...">description</PhilosophyCard>`
-- `<VideoPlayer url="https://youtube.com/embed/..." title="..." />`
-- `<AppBadges />` — App store download buttons
-
-### Data Tables
-
-- `<ComparisonTable leftLabel="A" rightLabel="B">` with `<ComparisonRow>` children
-- `<ValueTable>` with `<ValueRow>` children
-
-### Press
-
-- `<PressBar>` with `<PressLink name="..." url="..." />` children
-
-### Team
-
-- `<TeamSection />` — Automatically loads team data from YAML
-
-## Icons
-
-Pass icon names as strings. Available icons (see `src/components/mdx/icons.ts`):
-`list`, `file-text`, `vote`, `bar-chart`, `pie-chart`, `users`, `landmark`,
-`search`, `shield`, `heart`, `arrow-right`, `play`, `external-link`, `mail`,
-`check`, `x`, `chevron-down`, `server`, `code`, `share-2`, `smartphone`,
-`tech-typescript`, `tech-react`, `tech-node`
-
-Example: `<FeatureCard icon="vote" title="Vote">...</FeatureCard>`
-
-## ⚠️ Common Pitfalls
-
-### German Quotation Marks
-
-German uses `„` (opening, U+201E) and `“` (closing, U+201C). Inside JSX attribute values,
-do **not** use an ASCII double quote (`"`, U+0022) as the closing mark — it terminates the attribute.
-
-```mdx
-<!-- ❌ WRONG — ASCII double quote " (U+0022) breaks the JSX attribute -->
-
-<ValueRow democracy="Gemeinschaft „Bürger"" />
-
-<!-- ✅ CORRECT — Unicode closing quote “ (U+201C) is part of the text value -->
-
-<ValueRow democracy="Gemeinschaft „Bürger“" />
-```
-
-### No JavaScript Expressions with Optional Chaining
-
-```mdx
-<!-- ❌ BREAKS the MDX parser -->
-
-{data?.title}
-
-<!-- ✅ Use component props instead -->
-
-<Hero headline="Title" />
-```
-
-### No Direct Imports
-
-MDX files cannot use `import` statements. All components are pre-registered and available globally.
-
-### Headings
-
-Use standard Markdown headings (`##`, `###`). They work inside `<Section>` wrappers:
-
-```mdx
-<Section bg="white" centered>
-## This is a Section Heading
-
-Regular paragraph text here.
-
-</Section>
-```
-
-### Special Characters
-
-- `e.V.` — works fine in headings and text
-- `&` — use the literal character, not `&amp;`
-- Umlauts (ä, ö, ü, ß) — use directly, no escaping needed
+- The text must match the live page word for word (`pnpm compare <path>` checks it against `?_escaped_fragment_`).
+- Write text as props or Markdown children of the section components; keep the order of the original template.
+- Children on the same line as the tag stay inline, children on their own lines become `<p>`. Pick the form the original has.
+- Internal links use the new paths (`/ueber-uns/`, `/wahlometer/#wom-campaign-container`), never `#!state`.
+- JS expressions in props are allowed (`style={{ minHeight: "unset" }}`, `subtitle={<>… <br />…</>}`), optional chaining is not.
+- Inside JSX attribute values the German closing quote must be `“` (U+201C), never ASCII `"`.
+- Page MDX is not formatted by Prettier; keep the indentation by hand.
+- After editing: `pnpm validate-content` and `pnpm build`.

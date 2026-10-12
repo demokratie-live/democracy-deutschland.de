@@ -1,24 +1,20 @@
 # DEMOCRACY Deutschland – Website
 
-Static website for [DEMOCRACY Deutschland e.V.](https://www.democracy-deutschland.de),
-built with Next.js 16 App Router and exported as static HTML.
+Static 1:1 port of [democracy-deutschland.de](https://democracy-deutschland.de) for
+[DEMOCRACY Deutschland e.V.](https://democracy-deutschland.de), built with the Next.js
+App Router and exported as static HTML. The pages use the original CSS (Bootstrap 4,
+Font Awesome, the module stylesheets) and reproduce the original markup in React; all
+texts and data live in MDX and YAML.
 
-> **Looking for project conventions, architecture and content guidelines?**
-> See [`AGENTS.md`](./AGENTS.md) — it is the single source of truth for how this
-> codebase is organized.
+> **Conventions, architecture and how to port a module:** see [`AGENTS.md`](./AGENTS.md).
 
 ## Tech stack
 
-- **Next.js 16** (App Router, `output: "export"`)
-- **React 19**, **TypeScript** (strict)
-- **Tailwind CSS v4**
+- **Next.js 16** (App Router, `output: "export"`), **React 19**, **TypeScript** (strict)
+- Original **Bootstrap 4.0.0** and **Font Awesome 5** CSS from the PHP site, no jQuery
 - **MDX + YAML** for content, validated with **Zod v4**
-- **pnpm** (v10+) for dependency management
-
-## Prerequisites
-
-- Node.js 20+
-- [pnpm](https://pnpm.io/) 10+
+- **Playwright** for end-to-end tests and the live comparison tool
+- **pnpm** (v10+)
 
 ## Getting started
 
@@ -27,36 +23,29 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000). Old links such as
+`http://localhost:3000/#!wahlometer` forward to the new paths.
 
 ## Common commands
 
-All commands are run from the repo root.
+| Command                 | What it does                                                             |
+| ----------------------- | ------------------------------------------------------------------------ |
+| `pnpm dev`              | Dev server with Turbopack                                                |
+| `pnpm build`            | Static export to `out/`                                                  |
+| `pnpm start`            | Serve `out/` on port 3000                                                |
+| `pnpm validate-content` | Validate MDX/YAML against the Zod schemas and internal links             |
+| `pnpm compare <path>`   | Screenshots, text and head data of a local page against the live site    |
+| `pnpm lint`             | ESLint                                                                   |
+| `pnpm format`           | Prettier (MDX pages and the original CSS are excluded)                   |
+| `pnpm test:unit`        | Unit tests                                                               |
+| `pnpm test:e2e`         | Build and run the Playwright tests (desktop and mobile)                  |
+| `pnpm test:basepath`    | Build with the GitHub Pages basePath and test assets and redirects there |
 
-| Command                 | What it does                                        |
-| ----------------------- | --------------------------------------------------- |
-| `pnpm dev`              | Start the dev server with Turbopack                 |
-| `pnpm build`            | Build the static site to `out/`                     |
-| `pnpm validate-content` | Validate all MDX/YAML content against Zod schemas   |
-| `pnpm lint`             | Run ESLint                                          |
-| `pnpm format`           | Format all files with Prettier                      |
-| `pnpm format:check`     | Check formatting without writing                    |
-| `pnpm test:e2e`         | Run Playwright smoke tests (requires a build first) |
-| `npx serve out`         | Preview the built static site locally               |
+`pnpm compare /wahlometer/ --local http://localhost:3000` writes its results to
+`compare-results/wahlometer/index.html`.
 
-> ⚠️ `pnpm start` does **not** work — this project uses static export.
-> Use `npx serve out` after `pnpm build` to preview the production output.
+## Documentation
 
-## Content
-
-All content lives under [`content/`](./content) as MDX (pages, blog posts) and
-YAML (site-wide data, FAQs, team, donate, navigation, footer, …). Run
-`pnpm validate-content` after every content change.
-
-After editing any MDX file, also run `pnpm build` — MDX compile errors only
-surface during the build, not during schema validation.
-
-## Project documentation
-
-- [`AGENTS.md`](./AGENTS.md) — architecture, content system, conventions, gotchas
-- [`CLAUDE.md`](./CLAUDE.md) — guidance for AI coding assistants
+- [`AGENTS.md`](./AGENTS.md) – architecture, rules for 1:1 markup, porting steps, gotchas
+- [`docs/abweichungen.md`](./docs/abweichungen.md) – deviations from the live site and fixed bugs
+- [`docs/server-funktionen.md`](./docs/server-funktionen.md) – server functions of the old site and their replacement
