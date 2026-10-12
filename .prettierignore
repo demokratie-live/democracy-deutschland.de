@@ -3,3 +3,10 @@ out
 build
 node_modules
 pnpm-lock.yaml
+# Page MDX: Prettier's MDX parser (MDX 1) does not understand nested JSX with
+# Markdown and changes whitespace that the 1:1 markup depends on.
+content/pages/*.mdx
+# Original CSS, copied verbatim from the PHP site
+public/css
+# Original manifest of the live site, kept verbatim
+public/manifest.json
