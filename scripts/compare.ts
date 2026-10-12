@@ -16,6 +16,7 @@
  *   <viewport>/live.png, local.png, diff.png  (1280 px Desktop, 375 px Mobil)
  *   text-visible.diff   sichtbarer Text (innerText) live gegen lokal, Desktop
  *   text-content.diff   Text von #content: ?_escaped_fragment_=<state> gegen lokal
+ *   head.diff           Titel, Meta-Tags, Icons und Manifest live gegen lokal
  *   report.md, index.html
  */
 
@@ -129,8 +130,40 @@ async function capture(
     mask: options.mask ? [page.locator("video"), page.locator("iframe")] : [],
   });
   const text = viewport.isMobile ? "" : await page.evaluate(() => document.body.innerText);
+  const head = viewport.isMobile ? "" : await headEntries(page);
   await context.close();
-  return text;
+  return { text, head };
+}
+
+/**
+ * Title, <meta> and icon/manifest <link> of the rendered page as sorted lines.
+ * Stylesheets are left out (live: one minified bundle). URLs are reduced to
+ * their path without basePath so local and live are comparable.
+ */
+async function headEntries(page: Page) {
+  // No backslashes in this string: it is a template literal.
+  return page.evaluate<string>(`(() => {
+    const manifest = document.querySelector('link[rel="manifest"]')?.getAttribute("href") ?? "";
+    const suffix = "/manifest.json";
+    const base = manifest.endsWith(suffix) && manifest.startsWith("/")
+      ? manifest.slice(0, -suffix.length)
+      : "";
+    const short = (href) => {
+      const url = new URL(href, location.href);
+      const path = url.origin === location.origin ? url.pathname : url.href;
+      return base && path.startsWith(base + "/") ? path.slice(base.length) : path;
+    };
+    const lines = ["title: " + document.title];
+    for (const meta of document.head.querySelectorAll("meta")) {
+      const key = meta.getAttribute("name") || meta.getAttribute("property") || meta.getAttribute("http-equiv");
+      if (key) lines.push("meta " + key + ": " + meta.getAttribute("content"));
+    }
+    for (const link of document.head.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"], link[rel="manifest"]')) {
+      const attrs = ["sizes", "type"].map((a) => link.getAttribute(a)).filter(Boolean).join(" ");
+      lines.push("link " + link.rel + (attrs ? " " + attrs : "") + ": " + short(link.getAttribute("href")));
+    }
+    return lines.sort().join(String.fromCharCode(10));
+  })()`);
 }
 
 /** Text of #content without scripts; for live from the server-rendered HTML. */
@@ -216,6 +249,8 @@ async function main() {
   const results: Array<{ viewport: string } & Awaited<ReturnType<typeof diffImages>>> = [];
   let liveText = "";
   let localText = "";
+  let liveHead = "";
+  let localHead = "";
 
   try {
     for (const viewport of VIEWPORTS) {
@@ -230,8 +265,8 @@ async function main() {
         path.join(dir, "local.png"),
       );
       if (!viewport.isMobile) {
-        liveText = live;
-        localText = local;
+        ({ text: liveText, head: liveHead } = live);
+        ({ text: localText, head: localHead } = local);
       }
       const result = await diffImages(
         path.join(dir, "live.png"),
@@ -252,6 +287,11 @@ async function main() {
       normalizeLines(localText) + "\n",
     );
     await fs.writeFile(path.join(outDir, "text-visible.diff"), visiblePatch);
+
+    // Head data: title, meta tags, icons, manifest.
+    const headPatch = createTwoFilesPatch("live", "lokal", liveHead + "\n", localHead + "\n");
+    await fs.writeFile(path.join(outDir, "head.diff"), headPatch);
+    const headChanges = headPatch.split("\n").filter((line) => /^[+-][^+-]/.test(line));
 
     // #content text word by word against the server-rendered live HTML.
     const escaped = await contentText(
@@ -291,6 +331,7 @@ async function main() {
       "",
       `- Sichtbarer Text (text-visible.diff): ${visibleChanges} geänderte Zeilen`,
       `- Text von #content gegen ?_escaped_fragment_=${state} (text-content.diff): ${wordChanges.length} Abweichungen`,
+      `- Head-Daten (head.diff): ${headChanges.length} geänderte Zeilen`,
       "",
     ]
       .filter((line) => line !== null)
@@ -300,6 +341,7 @@ async function main() {
 
     console.log(`  Text sichtbar: ${visibleChanges} geänderte Zeilen`);
     console.log(`  Text #content gegen ?_escaped_fragment_: ${wordChanges.length} Abweichungen`);
+    console.log(`  Head-Daten: ${headChanges.length} geänderte Zeilen`);
     console.log(`\n📁 ${path.relative(process.cwd(), outDir)}/index.html\n`);
   } finally {
     await browser.close();
@@ -322,7 +364,7 @@ function html(route: string, results: Array<{ viewport: string; percent: number 
 <style>body{font-family:sans-serif;margin:16px}.row{display:flex;gap:12px;align-items:flex-start}
 figure{flex:1;margin:0}img{width:100%;border:1px solid #ccc}</style>
 <h1>Vergleich ${route}</h1>
-<p><a href="report.md">report.md</a> · <a href="text-visible.diff">text-visible.diff</a> · <a href="text-content.diff">text-content.diff</a></p>
+<p><a href="report.md">report.md</a> · <a href="text-visible.diff">text-visible.diff</a> · <a href="text-content.diff">text-content.diff</a> · <a href="head.diff">head.diff</a></p>
 ${sections}`;
 }
 
