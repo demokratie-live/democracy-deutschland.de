@@ -31,10 +31,17 @@ export function Navbar({ navigation, routes }: { navigation: Navigation; routes:
   // Bootstrap only adds "collapsed" to the toggler after the first hide.
   const [togglerCollapsed, setTogglerCollapsed] = useState(false);
   const collapseRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
 
   // $(document).scroll(() => $nav.toggleClass('scrolled', scrollTop > 0))
+  // The class is also toggled synchronously like jQuery: init_home() reads the
+  // navbar height right after scrolling.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 0);
+    const onScroll = () => {
+      const isScrolled = window.scrollY > 0;
+      navRef.current?.classList.toggle("scrolled", isScrolled);
+      setScrolled(isScrolled);
+    };
     document.addEventListener("scroll", onScroll);
     return () => document.removeEventListener("scroll", onScroll);
   }, []);
@@ -96,9 +103,9 @@ export function Navbar({ navigation, routes }: { navigation: Navigation; routes:
   const { brand, items } = navigation;
 
   return (
-    <nav className={navClass}>
+    <nav className={navClass} ref={navRef}>
       <div className="container">
-        <Link className="navbar-brand" href={brand.href}>
+        <Link className="navbar-brand" href={brand.href} prefetch={false}>
           <img src={asset(brand.logo)} alt={brand.alt} />
           {"\u00a0\u00a0"}
           {brand.name}
@@ -127,6 +134,7 @@ export function Navbar({ navigation, routes }: { navigation: Navigation; routes:
                   id={`menu_${item.id}`}
                   className={item.important ? "nav-link menu-important" : "nav-link"}
                   href={item.href}
+                  prefetch={false}
                   onClick={hide}
                 >
                   {item.label}

@@ -34,7 +34,9 @@ export function Footer({ footer }: { footer: FooterData }) {
             <ul>
               {column.links.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href}>{link.label}</Link>
+                  <Link href={link.href} prefetch={false}>
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>

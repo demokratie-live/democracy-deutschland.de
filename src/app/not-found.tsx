@@ -10,7 +10,7 @@ export default function NotFound() {
       <div className="main-container">
         <h1>404</h1>
         <p>Diese Seite gibt es nicht.</p>
-        <Link href="/" className="whitelink">
+        <Link href="/" className="whitelink" prefetch={false}>
           Zur Startseite
         </Link>
       </div>

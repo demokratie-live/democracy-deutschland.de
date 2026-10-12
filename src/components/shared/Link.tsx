@@ -12,6 +12,8 @@ type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
  * Link for page content. Internal paths ("/ueber-uns/") go through next/link
  * (basePath, client navigation). An anchor on the current page scrolls like
  * SYSTEM.scroll() of the old hash router: animated, jQuery speed "slow".
+ * No prefetching: like live, a page loads on click (and links to pages that
+ * are not ported yet would produce 404 requests).
  */
 export function Link({ href, onClick, ...props }: LinkProps) {
   const pathname = usePathname();
@@ -33,5 +35,5 @@ export function Link({ href, onClick, ...props }: LinkProps) {
     animateScrollTo(offsetTop(target), SLOW);
   };
 
-  return <NextLink href={href} onClick={handleClick} {...props} />;
+  return <NextLink href={href} prefetch={false} onClick={handleClick} {...props} />;
 }
