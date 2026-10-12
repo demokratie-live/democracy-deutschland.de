@@ -1,0 +1,55 @@
+import { Link } from "./Link";
+import { YouTubeHDThumbnail } from "./YouTubeHDThumbnail";
+
+/** "Worum geht es bei DEMOCRACY (2:30)?" block with link and YouTube video. */
+export function VideoSection({
+  raised = false,
+  titleBefore,
+  titleEmphasis,
+  titleAfter,
+  linkHref,
+  linkLabel,
+  youtube,
+}: {
+  raised?: boolean;
+  titleBefore: string;
+  titleEmphasis: string;
+  titleAfter: string;
+  linkHref: string;
+  linkLabel: string;
+  /** Embed URL, e.g. https://www.youtube.com/embed/DFXcnRdXA7k */
+  youtube: string;
+}) {
+  return (
+    <div
+      className="background-white"
+      style={raised ? { zIndex: 100, position: "relative" } : undefined}
+    >
+      <div
+        id="video-box"
+        className="container page"
+        style={{ minHeight: "unset", paddingBottom: "10vh" }}
+      >
+        <div className="row video-content">
+          <div id="video-title" className="col-lg-7">
+            <h1 id="video-title">{titleBefore}</h1>{" "}
+            <h1 id="video-title-emphasis">{titleEmphasis}</h1>{" "}
+            <h1 id="video-title">{titleAfter}</h1>
+          </div>
+          <div
+            id="video-applink"
+            className="col-lg-5"
+            style={{ textAlign: "right", paddingTop: "20px" }}
+          >
+            <Link href={linkHref} style={{ color: "rgb(74,74,74)", fontSize: "20px" }}>
+              {linkLabel}
+            </Link>
+          </div>
+          <div className="col-lg-12" id="video" style={{ paddingTop: "35px" }}>
+            <YouTubeHDThumbnail src={youtube} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

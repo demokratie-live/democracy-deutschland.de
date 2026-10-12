@@ -1,6 +1,7 @@
 /**
  * Content-Validierungs-Script
- * Prüft alle Content-Dateien gegen ihre Zod-Schemas.
+ * Prüft alle Content-Dateien gegen ihre Zod-Schemas und interne Verweise
+ * (State der Seiten, interne Links) gegen content/site/routes.yaml.
  * Nutzung: pnpm validate-content
  */
 
@@ -11,110 +12,110 @@ import yaml from "yaml";
 import { z } from "zod";
 
 import { pageFrontmatterSchema } from "../src/lib/schemas/page";
-import { blogFrontmatterSchema } from "../src/lib/schemas/blog";
-import { faqListSchema } from "../src/lib/schemas/faq";
-import { teamDataSchema } from "../src/lib/schemas/team";
-import { navigationSchema } from "../src/lib/schemas/navigation";
-import { footerSchema } from "../src/lib/schemas/footer";
-import { donateConfigSchema } from "../src/lib/schemas/donate";
-import { roadmapListSchema } from "../src/lib/schemas/roadmap";
-import { pressListSchema } from "../src/lib/schemas/press";
-import { globalSeoSchema } from "../src/lib/schemas/seo";
+import {
+  appLinksSchema,
+  footerSchema,
+  headSchema,
+  navigationSchema,
+  routesSchema,
+  type Routes,
+} from "../src/lib/schemas/site";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
 let errors = 0;
 let validated = 0;
 
-async function fileExists(filePath: string): Promise<boolean> {
-  try {
-    await fs.access(filePath);
-    return true;
-  } catch {
-    return false;
-  }
+function fail(label: string, messages: string[]) {
+  errors++;
+  console.error(`  ❌ ${label}`);
+  for (const message of messages) console.error(`     → ${message}`);
 }
 
-async function validateMdxFiles(dir: string, schema: z.ZodType, label: string) {
-  const fullDir = path.join(CONTENT_DIR, dir);
-  if (!(await fileExists(fullDir))) {
-    errors++;
-    console.error(`  ❌ ${label}`);
-    console.error(`     → Verzeichnis fehlt: ${dir}`);
-    return;
+function describe(err: unknown): string[] {
+  if (err instanceof z.ZodError) {
+    return err.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`);
   }
-
-  const files = await fs.readdir(fullDir);
-  const mdxFiles = files.filter((f) => f.endsWith(".mdx") || f.endsWith(".md"));
-
-  for (const file of mdxFiles) {
-    const filePath = path.join(fullDir, file);
-    try {
-      const raw = await fs.readFile(filePath, "utf-8");
-      const { data } = matter(raw);
-      schema.parse(data);
-      validated++;
-      console.log(`  ✅ ${label}/${file}`);
-    } catch (err) {
-      errors++;
-      console.error(`  ❌ ${label}/${file}`);
-      if (err instanceof z.ZodError) {
-        for (const issue of err.issues) {
-          console.error(`     → ${issue.path.join(".")}: ${issue.message}`);
-        }
-      } else {
-        console.error(`     → ${err}`);
-      }
-    }
-  }
+  return [String(err)];
 }
 
-async function validateYamlFile(filePath: string, schema: z.ZodType, label: string) {
-  const fullPath = path.join(CONTENT_DIR, filePath);
-  if (!(await fileExists(fullPath))) {
-    errors++;
-    console.error(`  ❌ ${label}`);
-    console.error(`     → Datei fehlt: ${filePath}`);
-    return;
-  }
-
+async function readYaml(filePath: string, schema: z.ZodType): Promise<unknown> {
   try {
-    const raw = await fs.readFile(fullPath, "utf-8");
-    const data = yaml.parse(raw);
-    schema.parse(data);
+    const raw = await fs.readFile(path.join(CONTENT_DIR, filePath), "utf-8");
+    const data = schema.parse(yaml.parse(raw));
     validated++;
-    console.log(`  ✅ ${label}`);
+    console.log(`  ✅ ${filePath}`);
+    return data;
   } catch (err) {
-    errors++;
-    console.error(`  ❌ ${label}`);
-    if (err instanceof z.ZodError) {
-      for (const issue of err.issues) {
-        console.error(`     → ${issue.path.join(".")}: ${issue.message}`);
-      }
-    } else {
-      console.error(`     → ${err}`);
-    }
+    fail(filePath, describe(err));
+    return undefined;
   }
+}
+
+/** Internal links must point to a path of routes.yaml (anchor allowed). */
+function checkLinks(label: string, hrefs: string[], routes: Routes | undefined) {
+  if (!routes) return;
+  const known = new Set([
+    ...routes.routes.map((route) => route.path),
+    ...routes.aliases.map((alias) => alias.from),
+  ]);
+  const unknown = hrefs
+    .filter((href) => href.startsWith("/") && !href.startsWith("/files/"))
+    .filter((href) => !known.has(href.split("#")[0]));
+  if (unknown.length > 0)
+    fail(
+      label,
+      unknown.map((href) => `unbekannter Pfad: ${href}`),
+    );
 }
 
 async function main() {
   console.log("\n🔍 Validiere Content-Dateien...\n");
 
-  console.log("📄 Seiten (MDX):");
-  await validateMdxFiles("pages", pageFrontmatterSchema, "pages");
+  console.log("📊 Site-Daten (YAML):");
+  const routes = (await readYaml("site/routes.yaml", routesSchema)) as Routes | undefined;
+  await readYaml("site/head.yaml", headSchema);
+  await readYaml("site/app-links.yaml", appLinksSchema);
+  const navigation = (await readYaml("site/navigation.yaml", navigationSchema)) as
+    | z.infer<typeof navigationSchema>
+    | undefined;
+  const footer = (await readYaml("site/footer.yaml", footerSchema)) as
+    | z.infer<typeof footerSchema>
+    | undefined;
 
-  console.log("\n📝 Blog-Artikel (MDX):");
-  await validateMdxFiles("blog", blogFrontmatterSchema, "blog");
+  if (navigation) {
+    checkLinks(
+      "site/navigation.yaml",
+      [navigation.brand.href, ...navigation.items.map((i) => i.href)],
+      routes,
+    );
+  }
+  if (footer) {
+    checkLinks(
+      "site/footer.yaml",
+      footer.columns.flatMap((column) => column.links.map((link) => link.href)),
+      routes,
+    );
+  }
 
-  console.log("\n📊 YAML-Dateien:");
-  await validateYamlFile("site/navigation.yaml", navigationSchema, "site/navigation.yaml");
-  await validateYamlFile("site/footer.yaml", footerSchema, "site/footer.yaml");
-  await validateYamlFile("site/seo.yaml", globalSeoSchema, "site/seo.yaml");
-  await validateYamlFile("faq/allgemein.yaml", faqListSchema, "faq/allgemein.yaml");
-  await validateYamlFile("team/members.yaml", teamDataSchema, "team/members.yaml");
-  await validateYamlFile("donate/config.yaml", donateConfigSchema, "donate/config.yaml");
-  await validateYamlFile("roadmap/goals.yaml", roadmapListSchema, "roadmap/goals.yaml");
-  await validateYamlFile("press/media.yaml", pressListSchema, "press/media.yaml");
+  console.log("\n📄 Seiten (MDX):");
+  const pagesDir = path.join(CONTENT_DIR, "pages");
+  const files = (await fs.readdir(pagesDir)).filter((f) => f.endsWith(".mdx"));
+  const states = new Set(routes?.routes.map((route) => route.state));
+  for (const file of files) {
+    try {
+      const raw = await fs.readFile(path.join(pagesDir, file), "utf-8");
+      const { data } = matter(raw);
+      const frontmatter = pageFrontmatterSchema.parse(data);
+      if (routes && !states.has(frontmatter.state)) {
+        throw new Error(`state "${frontmatter.state}" fehlt in site/routes.yaml`);
+      }
+      validated++;
+      console.log(`  ✅ pages/${file}`);
+    } catch (err) {
+      fail(`pages/${file}`, describe(err));
+    }
+  }
 
   console.log(`\n📋 Ergebnis: ${validated} Dateien validiert, ${errors} Fehler\n`);
 

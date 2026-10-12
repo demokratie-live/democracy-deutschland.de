@@ -1,0 +1,27 @@
+# Navbar of default_page.tpl. `id` becomes the element id "menu_<id>" and is
+# referenced by routes.yaml `menu`.
+
+brand:
+  href: "/"
+  logo: "/files/images/logo.png"
+  alt: "DEMOCRACY Deutschland Logo"
+  name: "DEMOCRACY"
+  suffix: "App"
+
+items:
+  - id: wahlometer
+    label: "Wahl-O-Meter"
+    href: "/wahlometer/"
+  - id: home
+    label: "DEMOCRACY"
+    href: "/"
+  - id: about
+    label: "Über Uns"
+    href: "/ueber-uns/"
+  - id: press
+    label: "Presse"
+    href: "/presse/"
+  - id: donate
+    label: "Spenden"
+    href: "/spenden/"
+    important: true

@@ -1,0 +1,135 @@
+---
+# Wahl-O-Meter (live: State wahlometer, default_wahlometer.tpl)
+state: wahlometer
+---
+
+<AppHeader
+  variant="wahlometer"
+  title="Wahl-O-Meter"
+  headline="Dein faktenbasierter Wahlhelfer"
+  apkLabel="APK (v1.5.9) "
+/>
+
+<ScrollIcon />
+
+<SymbolInfoPanel>
+  <SymbolInfo id="si-container-1" icon="crosshair" heading={<>faktenbasierter <br />Wahlhelfer </>}>
+    Der Wahl-O-Meter von DEMOCRACY gleicht Deine Stellungnahmen zu Gesetzen & Anträgen des Bundestages mit den Entscheidungen der Fraktionen und Politiker ab und ermittelt Eure Übereinstimmung.
+  </SymbolInfo>
+
+  <SymbolInfo id="si-container-2" icon="edit" heading={<>schnell & <br />individuell </>}>
+    App herunterladen, Themen anklicken, die dich interessieren, Abstimmen und direkt Dein Ergebnis erhalten – in weniger als 5 Minuten.
+
+    <br />
+
+  </SymbolInfo>
+
+  <SymbolInfo id="si-container-3" icon="fingerprint" heading={<>kostenlos & <br />gemeinnützig </>}>
+    DEMOCRACY ist kostenlos – die Entwicklung der App open source und spendenfinanziert. Als gemeinnütziger Verein wollen wir Politik transparenter machen.
+
+    <Link className="si-link" href="/ueber-uns/"> Mehr erfahren</Link>
+    <br />
+
+  </SymbolInfo>
+</SymbolInfoPanel>
+
+<VideoSection
+  titleBefore="Wie funktioniert der "
+  titleEmphasis="Wahl-O-Meter "
+  titleAfter="(1:00)?"
+  linkHref="/wahlometer/#wom-campaign-container"
+  linkLabel="DEMOCRACY App herunterladen"
+  youtube="https://www.youtube.com/embed/uWwQquy_MD0"
+/>
+
+<Section id="about" style={{ minHeight: "unset" }}>
+  <PressLogos heading=" bekannt aus" headingId="press-heading-wom">
+    <PressLogo
+      id="tagesschau-logo"
+      href="https://www.youtube.com/watch?v=B1N2ySUYXBY?autoplay=0"
+      src="/files/images/tagesschau_logo.png"
+      alt="Logo der Tagesschau"
+      style={{ marginRight: 0 }}
+    />
+    <PressLogo
+      id="br-logo"
+      href="https://www.br.de/nachrichten/netzwelt/bundestagswahl-alternativen-zum-wahl-o-mat"
+      src="/files/images/br_logo.png"
+      alt="Logo des Bayerischen Rundfunks"
+    />
+    <PressLogo
+      id="golem-logo"
+      href="https://www.golem.de/news/democracy-der-verbesserte-wahl-o-mat-in-einer-app-1906-141599.html"
+      src="/files/images/golem_logo.png"
+      alt="Logo der IT-News-Seite Golem"
+    />
+    <PressLogo
+      id="focus-logo"
+      href="https://www.focus.de/digital/bundestagswahl-2021-mit-dieser-app-koennen-sie-abstimmungen-im-bundestag-mit-ihren-ansichten-vergleichen_id_24262915.html"
+      src="/files/images/focus_logo.png"
+      alt="Logo der Zeitschrift FOCUS"
+      imgStyle={{ transform: "scale(0.9)" }}
+    />
+  </PressLogos>
+</Section>
+
+<Section id="about" style={{ minHeight: "unset" }} after={<div className="vspace-acc"></div>}>
+  <h1 style={{ paddingBottom: "5vh" }}>Was ist der Unterschied zum Wahl-O-Mat?</h1>
+
+  <ComparisonAccordion leftTitle="Wahl-O-Mat" leftColor="#f5a623" rightTitle="Wahl-O-Meter" rightColor="#4494d3">
+    <ComparisonRow
+      left="basiert auf Versprechen"
+      right="basiert auf Handlungen"
+      leftText="Der Wahl-O-Mat ermöglicht den Vergleich eigener Stellungnahmen zu bestimmten Statements mit den autorisierten Antworten der Parteien. Er kreuzt insofern die Wahlversprechen der Parteien mit den eigenen Erwartungen für die Zukunft."
+      rightText="Der Wahl-O-Meter (meter = messen) vergleicht rückblickend das tatsächliche Abstimmungsverhalten der Parteien und Politiker mit den eigenen Stellungnahmen bei konkreten Gesetzen/Anträgen des Bundestag."
+    />
+    <ComparisonRow
+      left="Parteien haben Finger im Spiel"
+      right="Parteien wird auf Finger geschaut"
+      leftText="Beim Wahl-O-Mat geben die Parteien ihre theoretischen Positionen zu vorgefertigten Statements über die Zukunft ab."
+      rightText="Der Wahl-O-Meter braucht keine Eigenangaben der Parteien, er zieht Parteien und Abgeordnete für ihre Arbeit in der letzten Legislaturperiode zur Rechenschaft."
+    />
+    <ComparisonRow
+      left="macht Wahlkampf einfacher"
+      right="macht Politik transparent"
+      leftText="Der Wahl-O-Mat hilft dabei, die Wahlversprechen der Parteien auf einige verständliche Thesen zu komprimieren."
+      rightText="Der Wahl-O-Meter stellt die Abstimmungen der Parteien und Politiker im Bundestag in den Fokus und bietet so einen Einblick in den politischen Prozess."
+    />
+    <ComparisonRow
+      left="ausgesuchte Themen"
+      right="alle Themen"
+      leftText="Der Wahl-O-Mat behandelt nur die Themen, welche von einer Redaktion für die Statements ausgesucht werden."
+      rightText={<>Der Wahl-O-Meter verarbeitet alle Gesetze und Anträge der vergangenen Legislaturperiode des Bundestags und ist damit nur dadurch begrenzt, wie viel Zeit du den Abstimmungen widmen möchtest. <br /><br /> Falls du trotzdem eine redaktionell ausgewählte Orientierungshilfe möchtest, gibt es bis zur Bundestagswahl 2021 den Reiter ‘Empfohlen’. </>}
+    />
+    <ComparisonRow
+      left="von der Regierung"
+      right="independent"
+      leftText="Der Wahl-O-Mat wird von der Bundeszentrale für politische Bildung betrieben, welche von der Bundesregierung finanziert wird."
+      rightText="Die DEMOCRACY App und damit auch der Wahl-O-Meter sind unabhängig, gemeinnützig und spendenfinanziert - von Bürgern für Bürger."
+    />
+  </ComparisonAccordion>
+</Section>
+
+<Section
+  id="wom-about"
+  after={<CampaignCorner src="/files/images/campaigncorner@3x.png" alt="Democracy 1.4 - finde die Taten hinter den Worten" />}
+>
+  <WhyUs
+    heading="Warum gibt es uns?"
+    linkHref="/ueber-uns/"
+    linkLabel="Zur Vision von DEMOCRACY"
+    title="Wir wollen"
+    subtitle={<>Menschen einfachen <br />Zugang zur Politik bieten </>}
+    quoteName="Marius Krüger, "
+    quoteRole="Gründer"
+  >
+    Mit DEMOCRACY geben wir Menschen die Möglichkeit, sich über die Abstimmungen im Bundestag zu informieren und ihre Meinung mit den der Parteien und Abgeordneten abzugleichen.
+  </WhyUs>
+
+  <Campaign
+    heading="Finde die Partei, die Dich wirklich vertritt"
+    title="DEMOCRACY"
+    version="1.5"
+    subtitle="Dein faktenbasierter Wahlhelfer"
+  />
+</Section>
