@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "validate-content": "tsx scripts/validate-content.ts",
+    "compare": "tsx scripts/compare.ts",
     "prepare": "git config --local core.hooksPath .husky"
   },
   "dependencies": {
@@ -26,10 +27,14 @@
   "devDependencies": {
     "@playwright/test": "^1.59.1",
     "@types/node": "^20",
+    "@types/pngjs": "^6.0.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "diff": "^9.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
+    "pixelmatch": "^8.0.0",
+    "pngjs": "^7.0.0",
     "prettier": "^3.8.2",
     "serve": "^14.2.6",
     "tsx": "^4.21.0",

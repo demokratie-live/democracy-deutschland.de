@@ -43,3 +43,6 @@ next-env.d.ts
 # playwright
 test-results/
 playwright-report/
+
+# comparison tool (pnpm compare)
+/compare-results/
