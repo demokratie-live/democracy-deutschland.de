@@ -11,6 +11,7 @@
  *   --click <selektor> vor dem Screenshot auf beiden Seiten klicken (mehrfach möglich)
  *   --no-mask          <video> und <iframe> nicht abdecken
  *   --viewport-only    nur den sichtbaren Bereich statt der ganzen Seite
+ *   --only <name>      nur "desktop" oder "mobile" (z.B. für das Mobil-Menü)
  *
  * Ergebnis unter compare-results/<slug>/:
  *   <viewport>/live.png, local.png, diff.png  (1280 px Desktop, 375 px Mobil)
@@ -42,6 +43,7 @@ interface Options {
   clicks: string[];
   mask: boolean;
   fullPage: boolean;
+  only?: string;
 }
 
 function parseArgs(argv: string[]): Options {
@@ -59,6 +61,7 @@ function parseArgs(argv: string[]): Options {
     else if (arg === "--click") options.clicks.push(argv[++i]);
     else if (arg === "--no-mask") options.mask = false;
     else if (arg === "--viewport-only") options.fullPage = false;
+    else if (arg === "--only") options.only = argv[++i];
     else if (!arg.startsWith("--")) options.route = arg;
     else throw new Error(`Unbekannte Option: ${arg}`);
   }
@@ -253,7 +256,8 @@ async function main() {
   let localHead = "";
 
   try {
-    for (const viewport of VIEWPORTS) {
+    const viewports = VIEWPORTS.filter((v) => !options.only || v.name.startsWith(options.only));
+    for (const viewport of viewports) {
       const dir = path.join(outDir, viewport.name);
       await fs.mkdir(dir, { recursive: true });
       const live = await capture(browser, liveUrl, viewport, options, path.join(dir, "live.png"));
@@ -278,6 +282,9 @@ async function main() {
         `  ${viewport.name}: ${result.percent.toFixed(2)} % Pixel abweichend (live ${result.live}, lokal ${result.local})`,
       );
     }
+
+    // Text and head are read with the desktop viewport.
+    const desktopNote = viewports.some((v) => !v.isMobile) ? null : "nur mit Desktop-Viewport";
 
     // Visible text, line by line.
     const visiblePatch = createTwoFilesPatch(
@@ -329,9 +336,9 @@ async function main() {
         (r) => `| ${r.viewport} | ${r.percent.toFixed(2)} % | ${r.live} | ${r.local} |`,
       ),
       "",
-      `- Sichtbarer Text (text-visible.diff): ${visibleChanges} geänderte Zeilen`,
+      `- Sichtbarer Text (text-visible.diff): ${desktopNote ?? `${visibleChanges} geänderte Zeilen`}`,
       `- Text von #content gegen ?_escaped_fragment_=${state} (text-content.diff): ${wordChanges.length} Abweichungen`,
-      `- Head-Daten (head.diff): ${headChanges.length} geänderte Zeilen`,
+      `- Head-Daten (head.diff): ${desktopNote ?? `${headChanges.length} geänderte Zeilen`}`,
       "",
     ]
       .filter((line) => line !== null)
@@ -339,9 +346,9 @@ async function main() {
     await fs.writeFile(path.join(outDir, "report.md"), report);
     await fs.writeFile(path.join(outDir, "index.html"), html(options.route, results));
 
-    console.log(`  Text sichtbar: ${visibleChanges} geänderte Zeilen`);
+    console.log(`  Text sichtbar: ${desktopNote ?? `${visibleChanges} geänderte Zeilen`}`);
     console.log(`  Text #content gegen ?_escaped_fragment_: ${wordChanges.length} Abweichungen`);
-    console.log(`  Head-Daten: ${headChanges.length} geänderte Zeilen`);
+    console.log(`  Head-Daten: ${desktopNote ?? `${headChanges.length} geänderte Zeilen`}`);
     console.log(`\n📁 ${path.relative(process.cwd(), outDir)}/index.html\n`);
   } finally {
     await browser.close();
