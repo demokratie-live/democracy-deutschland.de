@@ -56,6 +56,9 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /democracy-deutschland.de
         run: pnpm build
 
+      - name: E2E tests with basePath
+        run: pnpm exec playwright test --config playwright.basepath.config.ts
+
       - name: Upload preview artifact
         uses: actions/upload-artifact@v4.6.2
         with:

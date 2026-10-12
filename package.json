@@ -13,7 +13,8 @@
     "format:check": "prettier --check .",
     "validate-content": "tsx scripts/validate-content.ts",
     "compare": "tsx scripts/compare.ts",
-    "prepare": "git config --local core.hooksPath .husky"
+    "prepare": "git config --local core.hooksPath .husky",
+    "test:basepath": "NEXT_PUBLIC_BASE_PATH=/democracy-deutschland.de next build && playwright test --config playwright.basepath.config.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
