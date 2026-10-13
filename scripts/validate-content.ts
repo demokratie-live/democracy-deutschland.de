@@ -11,6 +11,7 @@ import matter from "gray-matter";
 import yaml from "yaml";
 import { z } from "zod";
 
+import { donationSchema } from "../src/lib/schemas/donation";
 import { pageFrontmatterSchema } from "../src/lib/schemas/page";
 import {
   appLinksSchema,
@@ -97,6 +98,9 @@ async function main() {
       routes,
     );
   }
+
+  console.log("\n💶 Spendenstand (YAML):");
+  await readYaml("donate/donation.yaml", donationSchema);
 
   console.log("\n📄 Seiten (MDX):");
   const pagesDir = path.join(CONTENT_DIR, "pages");

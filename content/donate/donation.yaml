@@ -1,0 +1,113 @@
+# Spendenstand: Spendenbox und Posten-Tabelle auf /spenden/ sowie das JSON für die
+# App (/api.php?call=donation_status und /api/donation_status.json).
+# Früher im SAI gepflegt (Texte „donation“ und Tabelle `donate`), Schlüssel wie im JSON.
+# Ablauf zum Aktualisieren: README, Abschnitt „Spendenstand aktualisieren“.
+
+# Freier Text, wird unverändert angezeigt („Stand: …“) und ausgeliefert.
+donation_date: "14.06.2026 * 09:25 Uhr"
+# Patenschaften (Anzahl) und Ziel
+donation_paten: 354
+donation_paten_goal: 2000
+# Monatliche Spenden in Euro und Ziel (min. Finanzierungsziel/Monat).
+# Der Prozentwert wird beim Build daraus berechnet.
+donation_value: 1563
+donation_value_goal: 9300
+
+# Posten der Tabelle, sortiert nach `order`.
+#   type 0 = Überschrift (nur text_description wird angezeigt)
+#   type 1 = Posten: value von max Euro gedeckt, der Balken zeigt value/max.
+# Leere Felder dürfen bei Überschriften fehlen. Die id bleibt fest, auch wenn
+# sich die Reihenfolge ändert (die App nutzt sie als Schlüssel).
+donation_data:
+  - id: 6
+    order: 10
+    type: 0
+    text_description: INFRASTRUKTUR
+  - id: 2
+    order: 11
+    type: 1
+    value: 300
+    max: 300
+    text_cost: Live-Betrieb
+    text_description: Serverkosten
+    text_description_subtext: inkl 19% MwSt.
+    text_date: "01.01.2024"
+  - id: 3
+    order: 12
+    type: 1
+    value: 300
+    max: 300
+    text_cost: Live-Betrieb
+    text_description: SMS-Versandkosten
+    text_description_subtext: 4.000 SMS á 7,8 ct (kalkuliert)
+    text_date: "01.01.2024"
+  - id: 8
+    order: 13
+    type: 0
+  - id: 4
+    order: 14
+    type: 1
+    value: 0
+    max: 3000
+    text_cost: Developer
+    text_description: AG-Brutto-Gehaltskosten
+    text_description_subtext: (1.750€ netto)
+    text_date: ab sofort
+  - id: 9
+    order: 15
+    type: 1
+    value: 650
+    max: 650
+    text_cost: Manuel Ruck
+    text_description: AG-Minijob-Kosten
+    text_description_subtext: (520€ netto)
+    text_date: "01.07.2024"
+  - id: 5
+    order: 20
+    type: 0
+    text_description: PRODUKTDESIGN & VERWALTUNG
+  - id: 10
+    order: 21
+    type: 1
+    value: 0
+    max: 3000
+    text_cost: Operative Projektleitung
+    text_description: AG-Brutto-Gehaltskosten
+    text_description_subtext: (1.750€ netto)
+    text_date: ab sofort
+  - id: 7
+    order: 22
+    type: 1
+    value: 150
+    max: 650
+    text_cost: Marius Krüger
+    text_description: AG-Minijob-Kosten
+    text_description_subtext: (520€ netto)
+    text_date: "01.03.2024"
+  - id: 11
+    order: 23
+    type: 1
+    value: 0
+    max: 650
+    text_cost: Administration
+    text_description: AG-Minijob-Kosten
+    text_description_subtext: (520€ netto)
+    text_date: ab sofort
+  - id: 12
+    order: 24
+    type: 1
+    value: 0
+    max: 650
+    text_cost: UX-Design
+    text_description: AG-Minijob-Kosten
+    text_description_subtext: (520€ netto)
+    text_date: ab sofort
+  - id: 13
+    order: 25
+    type: 1
+    value: 100
+    max: 100
+    text_cost: Lohn
+    text_description: Lohnabrechnung
+    text_description_subtext: inkl 19% MwSt.
+    text_date: "01.01.2024"

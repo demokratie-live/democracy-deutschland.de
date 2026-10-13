@@ -1,11 +1,13 @@
 import {
   appLinksSchema,
+  donationSchema,
   footerSchema,
   headSchema,
   navigationSchema,
   pageFrontmatterSchema,
   routesSchema,
   type AppLinks,
+  type Donation,
   type Footer,
   type Head,
   type Navigation,
@@ -38,4 +40,9 @@ export async function getFooter(): Promise<Footer> {
 
 export async function getAppLinks(): Promise<AppLinks> {
   return loadYaml("site/app-links.yaml", appLinksSchema);
+}
+
+/** content/donate/donation.yaml: donation status for /spenden/ and the app JSON. */
+export async function getDonation(): Promise<Donation> {
+  return loadYaml("donate/donation.yaml", donationSchema);
 }
