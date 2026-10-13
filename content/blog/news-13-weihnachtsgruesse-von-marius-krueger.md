@@ -1,5 +1,6 @@
 ---
 wpId: 247
+guid: "https://www.democracy-deutschland.de/blog/?p=247"
 title: "News #13 – Weihnachtsgrüße von Marius Krüger"
 slug: news-13-weihnachtsgruesse-von-marius-krueger
 date: "2018-12-22T15:53:50"

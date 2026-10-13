@@ -18,6 +18,11 @@ const uploadPath = z
 export const blogPostFrontmatterSchema = z.object({
   /** WordPress post ID (`?p=<id>`). */
   wpId: z.number().int().positive(),
+  /**
+   * `guid`: identity of the post in feeds, fixed when it was created (older
+   * posts carry https://www.democracy-deutschland.de/blog/?p=<id>).
+   */
+  guid: z.url(),
   /** `post_title` as stored in WordPress, without wptexturize ("'25", not "’25"). */
   title: z.string().min(1),
   /** `post_name`; the permalink is /blog/<year>/<month>/<slug>/. */
@@ -85,5 +90,7 @@ export const blogSiteSchema = z.object({
   headerImage: uploadPath,
   postsPerPage: z.number().int().positive(),
   latestPosts: z.number().int().positive(),
+  /** Settings > Reading: feeds show the newest … posts (posts_per_rss). */
+  postsPerFeed: z.number().int().positive(),
 });
 export type BlogSite = z.infer<typeof blogSiteSchema>;

@@ -1,5 +1,6 @@
 ---
 wpId: 865
+guid: "https://democracy-deutschland.de/blog/?p=865"
 title: "News #32 – Klappflyer & 1.5 Pressemitteilung"
 slug: news-32-klappflyer-1-5-pressemitteilung
 date: "2022-01-28T20:52:00"

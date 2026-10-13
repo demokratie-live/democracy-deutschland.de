@@ -1,5 +1,6 @@
 ---
 wpId: 214
+guid: "https://www.democracy-deutschland.de/blog/?p=214"
 title: "News #4 – Prototypmonat April"
 slug: news-4-prototypmonat-april
 date: "2018-04-06T14:17:13"

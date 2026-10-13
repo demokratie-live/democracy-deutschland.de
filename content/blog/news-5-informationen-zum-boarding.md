@@ -1,5 +1,6 @@
 ---
 wpId: 217
+guid: "https://www.democracy-deutschland.de/blog/?p=217"
 title: "News #5 – Informationen zum Boarding"
 slug: news-5-informationen-zum-boarding
 date: "2018-04-23T13:52:15"

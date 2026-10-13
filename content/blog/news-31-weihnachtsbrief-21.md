@@ -1,5 +1,6 @@
 ---
 wpId: 873
+guid: "https://democracy-deutschland.de/blog/?p=873"
 title: "News #31 – Weihnachtsbrief ’21"
 slug: news-31-weihnachtsbrief-21
 date: "2021-12-17T20:58:00"

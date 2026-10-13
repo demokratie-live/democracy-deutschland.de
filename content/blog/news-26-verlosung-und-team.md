@@ -1,5 +1,6 @@
 ---
 wpId: 545
+guid: "https://www.democracy-deutschland.de/blog/?p=545"
 title: "News 26 - Verlosung und Team"
 slug: news-26-verlosung-und-team
 date: "2021-02-06T11:06:25"

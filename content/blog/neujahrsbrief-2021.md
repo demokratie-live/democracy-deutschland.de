@@ -1,5 +1,6 @@
 ---
 wpId: 513
+guid: "https://www.democracy-deutschland.de/blog/?p=513"
 title: "News #25 – Neujahrsbrief 2021"
 slug: neujahrsbrief-2021
 date: "2021-01-08T16:30:43"

@@ -1,5 +1,6 @@
 ---
 wpId: 328
+guid: "https://www.democracy-deutschland.de/blog/?p=328"
 title: "News #20 – 1.3 & Corona"
 slug: news-20-1-3-corona
 date: "2020-05-07T13:00:52"

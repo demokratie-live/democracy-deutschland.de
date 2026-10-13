@@ -1,5 +1,6 @@
 ---
 wpId: 862
+guid: "https://democracy-deutschland.de/blog/?p=862"
 title: "Impfpflicht – Der Abschied von der Menschenwürde"
 slug: impfpflicht-der-abschied-von-der-menschenwuerde
 date: "2022-03-12T20:50:00"

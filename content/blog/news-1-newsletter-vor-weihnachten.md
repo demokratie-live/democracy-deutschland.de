@@ -1,5 +1,6 @@
 ---
 wpId: 196
+guid: "https://www.democracy-deutschland.de/blog/?p=196"
 title: "News #1 – Newsletter vor Weihnachten"
 slug: news-1-newsletter-vor-weihnachten
 date: "2017-12-23T12:21:14"

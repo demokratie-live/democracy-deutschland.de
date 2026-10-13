@@ -1,5 +1,6 @@
 ---
 wpId: 854
+guid: "https://democracy-deutschland.de/blog/?p=854"
 title: "News #33 – Impfpflicht und 12.000 Euro"
 slug: news-33-impfpflicht-und-12-000-euro
 date: "2022-04-01T20:49:00"

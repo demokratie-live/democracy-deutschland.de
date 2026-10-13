@@ -1,5 +1,6 @@
 ---
 wpId: 828
+guid: "https://democracy-deutschland.de/blog/?p=828"
 title: "News #35 – Weihnachtsbrief ’22"
 slug: news-35-weihnachtsbrief-22
 date: "2022-12-19T20:19:00"

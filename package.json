@@ -16,7 +16,8 @@
     "prepare": "git config --local core.hooksPath .husky",
     "test:basepath": "NEXT_PUBLIC_BASE_PATH=/democracy-deutschland.de NEXT_PUBLIC_CONTACT_ENDPOINT=/contact-endpoint NEXT_PUBLIC_BUGREPORT_ENDPOINT=/bugreport-endpoint NEXT_PUBLIC_VOLUNTEER_ENDPOINT=/volunteer-endpoint next build && playwright test --config playwright.basepath.config.ts",
     "import-blog": "tsx scripts/import-blog.ts",
-    "compare-blog-dom": "tsx scripts/compare-blog-dom.ts"
+    "compare-blog-dom": "tsx scripts/compare-blog-dom.ts",
+    "compare-blog-feed": "tsx scripts/compare-blog-feed.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

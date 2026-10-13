@@ -1,5 +1,6 @@
 ---
 wpId: 843
+guid: "https://democracy-deutschland.de/blog/?p=843"
 title: "News #34 – Geschichte der Demokratie"
 slug: news-34-geschichte-der-demokratie
 date: "2022-07-05T20:34:00"

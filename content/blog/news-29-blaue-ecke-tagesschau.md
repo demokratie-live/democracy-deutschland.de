@@ -1,5 +1,6 @@
 ---
 wpId: 887
+guid: "https://democracy-deutschland.de/blog/?p=887"
 title: "News #29 – Blaue Ecke & Tagesschau"
 slug: news-29-blaue-ecke-tagesschau
 date: "2021-09-23T21:08:00"

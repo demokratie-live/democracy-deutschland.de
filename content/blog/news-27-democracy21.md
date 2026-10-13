@@ -1,5 +1,6 @@
 ---
 wpId: 594
+guid: "https://www.democracy-deutschland.de/blog/?p=594"
 title: "News #27 – DEMOCRACY'21"
 slug: news-27-democracy21
 date: "2021-04-02T20:54:07"

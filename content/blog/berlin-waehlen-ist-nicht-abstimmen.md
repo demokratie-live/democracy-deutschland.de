@@ -1,5 +1,6 @@
 ---
 wpId: 816
+guid: "https://democracy-deutschland.de/blog/?p=816"
 title: "Berlin, \u2028Wählen ist nicht \u2028abstimmen!"
 slug: berlin-waehlen-ist-nicht-abstimmen
 date: "2023-02-15T19:50:00"

@@ -1,5 +1,6 @@
 ---
 wpId: 285
+guid: "https://www.democracy-deutschland.de/blog/?p=285"
 title: "News #17 – Anstellung(en) & Vortragsreise"
 slug: news-17-anstellungen-vortragsreise
 date: "2019-06-29T14:36:18"

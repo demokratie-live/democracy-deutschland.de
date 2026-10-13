@@ -1,5 +1,6 @@
 ---
 wpId: 914
+guid: "https://democracy-deutschland.de/blog/?p=914"
 title: "AfD-Wahlprogramm im Reality-Check"
 slug: afd-wahlprogramm-im-reality-check
 date: "2021-08-09T21:26:00"

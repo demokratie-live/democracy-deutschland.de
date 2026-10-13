@@ -106,6 +106,7 @@ interface WpPost {
   status: string;
   type: string;
   link: string;
+  guid: { rendered: string };
   title: { rendered: string };
   content: { rendered: string };
   excerpt: { rendered: string };
@@ -275,6 +276,7 @@ function slugYaml(slug: string) {
 function frontmatterYaml(fm: BlogPostFrontmatter) {
   const lines = [
     `wpId: ${fm.wpId}`,
+    `guid: ${quote(fm.guid)}`,
     `title: ${quote(fm.title)}`,
     `slug: ${slugYaml(fm.slug)}`,
     `date: "${fm.date}"`,
@@ -456,6 +458,7 @@ async function main() {
 
     const frontmatter: BlogPostFrontmatter = {
       wpId: post.id,
+      guid: decoder(post.guid.rendered),
       title,
       slug: post.slug,
       date: post.date,

@@ -1,5 +1,6 @@
 ---
 wpId: 260
+guid: "https://www.democracy-deutschland.de/blog/?p=260"
 title: "News #14 – DEMOCRACY+ Release, Finanzierung und Fernsehen"
 slug: news-14-democracy-release-finanzierung-und-fernsehen
 date: "2019-02-06T12:01:39"

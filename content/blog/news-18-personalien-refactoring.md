@@ -1,5 +1,6 @@
 ---
 wpId: 312
+guid: "https://www.democracy-deutschland.de/blog/?p=312"
 title: "News #18 – Personalien & Refactoring"
 slug: news-18-personalien-refactoring
 date: "2019-09-04T23:34:00"

@@ -1,5 +1,6 @@
 ---
 wpId: 223
+guid: "https://www.democracy-deutschland.de/blog/?p=223"
 title: "News #6 – DSGVO, Patenschaft & More"
 slug: news-6-dsgvo-patenschaft-more
 date: "2018-05-31T14:44:36"

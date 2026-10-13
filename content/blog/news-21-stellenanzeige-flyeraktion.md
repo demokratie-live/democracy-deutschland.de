@@ -1,5 +1,6 @@
 ---
 wpId: 343
+guid: "https://www.democracy-deutschland.de/blog/?p=343"
 title: "News #21 – Stellenanzeige & Flyeraktion"
 slug: news-21-stellenanzeige-flyeraktion
 date: "2020-06-21T14:03:44"

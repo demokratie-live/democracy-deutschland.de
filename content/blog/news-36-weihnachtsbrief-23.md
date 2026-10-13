@@ -1,5 +1,6 @@
 ---
 wpId: 808
+guid: "https://democracy-deutschland.de/blog/?p=808"
 title: "News #36 – Weihnachtsbrief '23"
 slug: news-36-weihnachtsbrief-23
 date: "2023-12-22T19:40:00"

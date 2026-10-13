@@ -1,5 +1,6 @@
 ---
 wpId: 884
+guid: "https://democracy-deutschland.de/blog/?p=884"
 title: "Warum eine Minderheitsregierung gut für unsere Demokratie wäre…"
 slug: warum-eine-minderheitsregierung-gut-fuer-unsere-demokratie-waere
 date: "2021-10-19T21:06:00"

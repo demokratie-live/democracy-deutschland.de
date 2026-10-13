@@ -1,5 +1,6 @@
 ---
 wpId: 199
+guid: "https://www.democracy-deutschland.de/blog/?p=199"
 title: "News #2 – Der Fahrplan steht"
 slug: news-2-der-fahrplan-steht
 date: "2018-02-09T22:47:02"

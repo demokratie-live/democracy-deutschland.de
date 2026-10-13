@@ -1,5 +1,6 @@
 ---
 wpId: 359
+guid: "https://www.democracy-deutschland.de/blog/?p=359"
 title: "News #22 – Nebenjobs & Kubernetes"
 slug: news-22-nebenjobs-kubernetes
 date: "2020-07-18T18:01:09"

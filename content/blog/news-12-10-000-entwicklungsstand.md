@@ -1,5 +1,6 @@
 ---
 wpId: 243
+guid: "https://www.democracy-deutschland.de/blog/?p=243"
 title: "News #12 – 10.000 & Entwicklungsstand"
 slug: news-12-10-000-entwicklungsstand
 date: "2018-11-29T16:10:11"

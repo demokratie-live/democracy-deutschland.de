@@ -1,5 +1,6 @@
 ---
 wpId: 234
+guid: "https://www.democracy-deutschland.de/blog/?p=234"
 title: "News #9 – Fraktionsergebnisse & Erklärfilm"
 slug: news-9-fraktionsergebnisse-erklaerfilm
 date: "2018-08-29T09:36:35"

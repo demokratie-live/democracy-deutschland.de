@@ -1,5 +1,6 @@
 ---
 wpId: 238
+guid: "https://www.democracy-deutschland.de/blog/?p=238"
 title: "News #10 – MVP & Support"
 slug: news-10-mvp-support
 date: "2018-09-24T15:48:01"

@@ -1,5 +1,6 @@
 ---
 wpId: 836
+guid: "https://democracy-deutschland.de/blog/?p=836"
 title: "Richtlinienkompetenz: Darf es noch ein bisschen weniger Demokratie sein?"
 slug: richtlinienkompetenz-darf-es-noch-ein-bisschen-weniger-demokratie-sein
 date: "2022-11-01T20:28:00"

@@ -1,5 +1,6 @@
 ---
 wpId: 851
+guid: "https://democracy-deutschland.de/blog/?p=851"
 title: "Realitycheck – Bündnis90/Die Grünen: Aufgabe des Pazifismus"
 slug: realitycheck-buendnis90-die-gruenen-aufgabe-des-pazifismus
 date: "2022-05-20T20:41:00"

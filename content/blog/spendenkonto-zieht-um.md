@@ -1,5 +1,6 @@
 ---
 wpId: 952
+guid: "https://democracy-deutschland.de/blog/?p=952"
 title: "📌 In eigener Sache: Unser Spendenkonto zieht um"
 slug: spendenkonto-zieht-um
 date: "2026-06-14T10:20:02"

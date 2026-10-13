@@ -1,5 +1,6 @@
 ---
 wpId: 271
+guid: "https://www.democracy-deutschland.de/blog/?p=271"
 title: "DEMOCRACY+ // Release 24.03.2019"
 slug: democracy-release-23-04-2019
 date: "2019-03-14T13:38:09"

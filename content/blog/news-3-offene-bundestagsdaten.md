@@ -1,5 +1,6 @@
 ---
 wpId: 211
+guid: "https://www.democracy-deutschland.de/blog/?p=211"
 title: "News #3 – Offene Bundestagsdaten"
 slug: news-3-offene-bundestagsdaten
 date: "2018-03-03T18:16:43"

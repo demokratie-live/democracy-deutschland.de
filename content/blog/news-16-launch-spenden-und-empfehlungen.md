@@ -1,5 +1,6 @@
 ---
 wpId: 279
+guid: "https://www.democracy-deutschland.de/blog/?p=279"
 title: "News #16 – Launch, Spenden und Empfehlungen"
 slug: news-16-launch-spenden-und-empfehlungen
 date: "2019-03-31T16:14:43"

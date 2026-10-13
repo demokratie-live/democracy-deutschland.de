@@ -1,5 +1,6 @@
 ---
 wpId: 265
+guid: "https://www.democracy-deutschland.de/blog/?p=265"
 title: "News #15 – Aktueller Stand, Finanzierung und Zukunft"
 slug: news-15-aktueller-stand-finanzierung-und-zukunft
 date: "2019-03-01T21:17:24"

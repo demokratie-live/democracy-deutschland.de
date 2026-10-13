@@ -1,5 +1,6 @@
 ---
 wpId: 473
+guid: "https://www.democracy-deutschland.de/blog/?p=473"
 title: "News #24 - Verlosung und Social Media"
 slug: news-24-verlosung-und-social-media
 date: "2020-12-04T11:53:24"

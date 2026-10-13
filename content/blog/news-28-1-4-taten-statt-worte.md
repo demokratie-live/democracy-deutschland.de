@@ -1,5 +1,6 @@
 ---
 wpId: 918
+guid: "https://democracy-deutschland.de/blog/?p=918"
 title: "News #28 – 1.4 & Taten statt Worte"
 slug: news-28-1-4-taten-statt-worte
 date: "2021-08-08T21:30:00"

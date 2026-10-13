@@ -1,5 +1,6 @@
 ---
 wpId: 241
+guid: "https://www.democracy-deutschland.de/blog/?p=241"
 title: "News #11 –  Launch & DEMOCRACY+"
 slug: news-11-launch-democracy
 date: "2018-10-29T14:06:06"

@@ -1,5 +1,6 @@
 ---
 wpId: 226
+guid: "https://www.democracy-deutschland.de/blog/?p=226"
 title: "News #7 – Beta-Update, MVP & Tübingen"
 slug: news-7-beta-update-mvp-tuebingen
 date: "2018-06-29T12:46:47"

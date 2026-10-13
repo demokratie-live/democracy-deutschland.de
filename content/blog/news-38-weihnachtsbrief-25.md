@@ -1,5 +1,6 @@
 ---
 wpId: 935
+guid: "https://democracy-deutschland.de/blog/?p=935"
 title: "News #38 – Weihnachtsbrief '25"
 slug: news-38-weihnachtsbrief-25
 date: "2025-12-21T18:41:51"

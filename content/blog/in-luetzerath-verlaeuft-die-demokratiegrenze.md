@@ -1,5 +1,6 @@
 ---
 wpId: 823
+guid: "https://democracy-deutschland.de/blog/?p=823"
 title: "In Lützerath verläuft die Demokratiegrenze"
 slug: in-luetzerath-verlaeuft-die-demokratiegrenze
 date: "2023-02-01T20:15:00"

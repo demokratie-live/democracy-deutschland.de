@@ -1,5 +1,6 @@
 ---
 wpId: 230
+guid: "https://www.democracy-deutschland.de/blog/?p=230"
 title: "News #8 – Neue Beta & Release-Planung"
 slug: news-8-neue-beta-release-planung
 date: "2018-08-03T18:23:33"

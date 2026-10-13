@@ -1,5 +1,6 @@
 ---
 wpId: 800
+guid: "https://democracy-deutschland.de/blog/?p=800"
 title: "News #37 – Weihnachtsbrief '24"
 slug: news-37-weihnachtsbrief-24
 date: "2024-12-14T19:40:15"

@@ -1,5 +1,6 @@
 ---
 wpId: 371
+guid: "https://www.democracy-deutschland.de/blog/?p=371"
 title: "News #23 – Justem & Stimmübertragung"
 slug: news-23-nebenjobs-kubernetes
 date: "2020-10-02T14:47:53"

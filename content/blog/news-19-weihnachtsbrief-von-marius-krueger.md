@@ -1,5 +1,6 @@
 ---
 wpId: 323
+guid: "https://www.democracy-deutschland.de/blog/?p=323"
 title: "News #19 – Weihnachtsbrief von Marius Krüger"
 slug: news-19-weihnachtsbrief-von-marius-krueger
 date: "2019-12-19T13:08:19"

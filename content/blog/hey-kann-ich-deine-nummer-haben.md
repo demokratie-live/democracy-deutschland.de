@@ -1,5 +1,6 @@
 ---
 wpId: 895
+guid: "https://democracy-deutschland.de/blog/?p=895"
 title: "Hey, kann ich Deine Nummer haben?"
 slug: hey-kann-ich-deine-nummer-haben
 date: "2021-09-14T21:13:00"

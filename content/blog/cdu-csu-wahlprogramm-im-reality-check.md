@@ -1,5 +1,6 @@
 ---
 wpId: 906
+guid: "https://democracy-deutschland.de/blog/?p=906"
 title: "CDU/CSU-Wahlprogramm im Reality-Check"
 slug: cdu-csu-wahlprogramm-im-reality-check
 date: "2021-08-09T21:18:00"

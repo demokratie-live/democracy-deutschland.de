@@ -1,5 +1,6 @@
 ---
 wpId: 876
+guid: "https://democracy-deutschland.de/blog/?p=876"
 title: "News #30 – Resumee und Neuer Kurs"
 slug: news-30-resumee-und-neuer-kurs
 date: "2021-11-04T21:00:00"

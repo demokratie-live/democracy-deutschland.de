@@ -1,5 +1,6 @@
 ---
 wpId: 912
+guid: "https://democracy-deutschland.de/blog/?p=912"
 title: "Bündnis 90/Die Grünen-Wahlprogramm im Reality-Check"
 slug: buendnis-90-die-gruenen-wahlprogramm-im-reality-check
 date: "2021-08-09T21:24:00"

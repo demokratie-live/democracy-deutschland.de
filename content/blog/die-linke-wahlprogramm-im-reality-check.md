@@ -1,5 +1,6 @@
 ---
 wpId: 898
+guid: "https://democracy-deutschland.de/blog/?p=898"
 title: "Die Linke-Wahlprogramm im Reality-Check"
 slug: die-linke-wahlprogramm-im-reality-check
 date: "2021-08-09T21:15:00"
