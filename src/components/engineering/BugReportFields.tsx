@@ -1,32 +1,11 @@
 "use client";
 
-import { useRef, useState, type DragEvent, type ReactNode } from "react";
+import { useRef, type DragEvent, type ReactNode } from "react";
 import { mailSubject, runChecks, sendForm, validateEmail } from "@/lib/forms";
 import type { Forms } from "@/lib/schemas";
 
 /** Inlined at build time; unset = prefilled mailto (docs/server-funktionen.md). */
 const ENDPOINT = process.env.NEXT_PUBLIC_BUGREPORT_ENDPOINT;
-
-/** <style> block of the file list in default_engineering.tpl. */
-const FILE_LIST_CSS = `
-#bug-file-list {
-    display: none;
-    border-radius: 0;
-    border: rgb(151,151,151) 1px solid;
-    border-top: 0;
-}
-#bug-file-list a {
-    height: 15px;
-    line-height: 2px;
-    border-radius: 0;
-}
-#bug-file-list a span {
-    margin-top: -9px;
-}
-#bug-file-list a span.hidden {
-    display: none;
-}
-`;
 
 const BORDER = "rgb(151,151,151) 1px solid";
 
@@ -40,10 +19,13 @@ export interface BugReportTexts {
   platform: string;
   version: string;
   text: string;
-  /** Drop zone: text before the link, link text, text after it. */
-  dropText: string;
-  dropLink: string;
-  dropEnd: string;
+  /**
+   * Notice in place of the file picker, how screenshots arrive: without an
+   * endpoint in the mail that opens, with one by mail to `{recipient}`
+   * (rendered as a mailto link to `recipient` of forms.yaml).
+   */
+  attachMailto: string;
+  attachEndpoint: string;
   submit: string;
 }
 
@@ -52,47 +34,40 @@ export function label(placeholder: string): string {
   return placeholder.replace(/\*$/, "");
 }
 
+/** Notice text with `{recipient}` as a mailto link; other placeholders fail the build. */
+function attachNotice(template: string, recipient: string): ReactNode[] {
+  return template.split(/(\{\w+\})/).map((part, index) => {
+    if (!/^\{\w+\}$/.test(part)) return part;
+    if (part !== "{recipient}") {
+      throw new Error(`Unbekannter Platzhalter ${part} in „${template}“`);
+    }
+    return (
+      <a key={index} href={`mailto:${recipient}`}>
+        {recipient}
+      </a>
+    );
+  });
+}
+
 /**
  * `<form id="bug-form">` of default_engineering.tpl with the handlers of
  * init_engineering(): checks name, email, title and text (alert, then focus),
- * then sends like sendMail(). Files from the picker or drag & drop run the
- * synchronous part of upload(): progress bar at 0 %, a yellow entry in the
- * list. There is no upload server (docs/server-funktionen.md), so no request
- * follows and the entries stay in this state (decision Manuel 2026-10-13,
- * notice or upload service: TASK-88).
+ * then sends like sendMail(). There is no upload server
+ * (docs/server-funktionen.md): instead of the file picker, drop zone, progress
+ * bar and file list a notice in the drop zone's box says how screenshots
+ * arrive (decision Manuel 2026-10-13). The drag handlers stay without
+ * upload(), so a file dropped on the form does nothing instead of replacing
+ * the page.
  */
 export function BugReportFields({ texts, forms }: { texts: BugReportTexts; forms: Forms }) {
   const form = useRef<HTMLFormElement>(null);
-  const fileInput = useRef<HTMLInputElement>(null);
-  const [files, setFiles] = useState<File[]>([]);
-  // $('#bug-progress').show() / $('#bug-file-list').show() and .hide()
-  const [progressShown, setProgressShown] = useState(false);
-  const [listDisplay, setListDisplay] = useState<"block" | "none">();
-
-  const addFiles = (added: File[]) => {
-    if (added.length === 0) return;
-    setFiles((current) => [...current, ...added]);
-    setProgressShown(true);
-    setListDisplay("block");
-  };
+  // Both texts are parsed, so a wrong placeholder fails every build.
+  const mailtoNotice = attachNotice(texts.attachMailto, forms.recipient);
+  const endpointNotice = attachNotice(texts.attachEndpoint, forms.recipient);
 
   const stop = (event: DragEvent) => {
     event.preventDefault();
     event.stopPropagation();
-  };
-
-  const drop = (event: DragEvent) => {
-    stop(event);
-    const items = event.dataTransfer.items;
-    if (!items) return;
-    const dropped: File[] = [];
-    for (const item of Array.from(items)) {
-      // If dropped items aren't files, reject them
-      if (item.kind !== "file") continue;
-      const file = item.getAsFile();
-      if (file) dropped.push(file);
-    }
-    addFiles(dropped);
   };
 
   const send = async () => {
@@ -105,9 +80,6 @@ export function BugReportFields({ texts, forms }: { texts: BugReportTexts; forms
       platform: value("bug-platform"),
       version: value("bug-version"),
       text: value("bug-text"),
-      // upload_files of live before a server response: { <lastModified>: { file } },
-      // a File serialises as {}.
-      files: JSON.stringify(Object.fromEntries(files.map((file) => [file.lastModified, { file }]))),
     };
     const { messages } = forms;
     const valid = runChecks([
@@ -136,8 +108,6 @@ export function BugReportFields({ texts, forms }: { texts: BugReportTexts; forms
     });
     if (result === "sent") {
       form.current?.reset();
-      setFiles([]);
-      setListDisplay("none");
       window.alert(messages.sent);
     } else if (result === "failed") {
       window.alert(messages.failed);
@@ -145,7 +115,7 @@ export function BugReportFields({ texts, forms }: { texts: BugReportTexts; forms
   };
 
   return (
-    <form id="bug-form" ref={form} onDragOver={stop} onDragLeave={stop} onDrop={drop}>
+    <form id="bug-form" ref={form} onDragOver={stop} onDragLeave={stop} onDrop={stop}>
       <div className="col-12" style={{ paddingTop: "50px" }}>
         <h1>{texts.heading}</h1>
         <h5 style={{ paddingTop: "30px" }}>{texts.intro}</h5>
@@ -208,7 +178,7 @@ export function BugReportFields({ texts, forms }: { texts: BugReportTexts; forms
                   }}
                 ></textarea>
                 <div
-                  id="bug-file-drop-zone"
+                  id="bug-attachments"
                   style={{
                     padding: "3px",
                     marginTop: "-7px",
@@ -217,65 +187,7 @@ export function BugReportFields({ texts, forms }: { texts: BugReportTexts; forms
                     borderTop: 0,
                   }}
                 >
-                  {texts.dropText}
-                  <a
-                    id="bug-select-files"
-                    href=""
-                    onClick={(event) => {
-                      event.preventDefault();
-                      fileInput.current?.click();
-                    }}
-                  >
-                    {texts.dropLink}
-                  </a>
-                  {texts.dropEnd}
-                </div>
-                <input
-                  ref={fileInput}
-                  type="file"
-                  name="files[]"
-                  id="bug-files"
-                  multiple
-                  style={{ display: "none" }}
-                  onChange={(event) => addFiles(Array.from(event.currentTarget.files ?? []))}
-                />
-                <div className="js-upload-finished">
-                  <div
-                    id="bug-progress"
-                    className="progress"
-                    style={{
-                      ...(progressShown ? {} : { display: "none" }),
-                      borderRadius: 0,
-                      borderLeft: BORDER,
-                      borderRight: BORDER,
-                    }}
-                  >
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      aria-valuenow={progressShown ? 0 : 60}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                      style={{ width: progressShown ? "0%" : "60%" }}
-                    ></div>
-                  </div>
-                  <style>{FILE_LIST_CSS}</style>
-                  <div
-                    id="bug-file-list"
-                    className="list-group"
-                    style={listDisplay ? { display: listDisplay } : undefined}
-                  >
-                    {files.map((file, index) => (
-                      <a
-                        key={index}
-                        target="_blank"
-                        className={`${file.lastModified} list-group-item list-group-item-warning`}
-                      >
-                        <span className="badge alert-success pull-right hidden">Success</span>
-                        {file.name}
-                      </a>
-                    ))}
-                  </div>
+                  {ENDPOINT ? endpointNotice : mailtoNotice}
                 </div>
               </div>
             </div>

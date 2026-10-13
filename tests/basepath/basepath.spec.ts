@@ -224,8 +224,17 @@ test("bug report and volunteer forms POST the old data objects to their endpoint
   });
   await page.goto(`${BASE}/engineering/`);
 
-  // Bug report with one file: `files` is upload_files of live before a server
-  // response, { <lastModified>: { file: {} } }.
+  // No file picker; with an endpoint the notice asks for screenshots by mail
+  // to the recipient (content/pages/engineering.mdx, forms.yaml).
+  await expect(page.locator('#bug-form input[type="file"]')).toHaveCount(0);
+  const notice = page.locator("#bug-attachments");
+  await expect(notice).toHaveText(
+    `Screenshots? Einfach per E-Mail an ${forms.recipient} schicken.`,
+  );
+  await expect(notice.locator("a")).toHaveAttribute("href", `mailto:${forms.recipient}`);
+  await expect(notice.locator("a")).toHaveText(forms.recipient);
+
+  // Bug report: the old data object without `files`.
   const bug = {
     type: "bugreport",
     name: "Max",
@@ -238,30 +247,18 @@ test("bug report and volunteer forms POST the old data objects to their endpoint
   for (const key of ["name", "email", "title", "platform", "version", "text"] as const) {
     await page.fill(`#bug-${key}`, bug[key]);
   }
-  await page.setInputFiles("#bug-files", {
-    name: "screenshot.png",
-    mimeType: "image/png",
-    buffer: Buffer.from("test"),
-  });
   status = 500;
   await page.click("#bug-send");
   await expect.poll(() => alerts).toEqual([forms.messages.failed]);
-  await expect(page.locator("#bug-file-list a")).toHaveCount(1);
+  await expect(page.locator("#bug-text")).toHaveValue("Hallo");
   status = 200;
   await page.click("#bug-send");
   await expect.poll(() => alerts.length).toBe(2);
   expect(alerts[1]).toBe(forms.messages.sent);
-  // Success: reset, the file list is emptied and hidden.
+  // Success: reset, the notice stays.
   await expect(page.locator("#bug-name")).toHaveValue("");
-  await expect(page.locator("#bug-file-list a")).toHaveCount(0);
-  await expect(page.locator("#bug-file-list")).toBeHidden();
-  expect(bodies.bugreport).toHaveLength(2);
-  for (const body of bodies.bugreport as Array<Record<string, string>>) {
-    const { files, ...rest } = body;
-    expect(rest).toEqual(bug);
-    expect(Object.values(JSON.parse(files))).toEqual([{ file: {} }]);
-    expect(Object.keys(JSON.parse(files))[0]).toMatch(/^\d+$/);
-  }
+  await expect(notice).toBeVisible();
+  expect(bodies.bugreport).toEqual([bug, bug]);
 
   // Volunteer: checkboxes as true or null.
   await page.fill("#vol-name", "Erika");

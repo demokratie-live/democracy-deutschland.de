@@ -10,10 +10,9 @@ const roadmap = roadmapSchema.parse(contentYaml("engineering/roadmap.yaml"));
 const { alpha } = appLinksSchema.parse(contentYaml("site/app-links.yaml"));
 
 const NBSP = " ";
-const FILES = [
-  { name: "screenshot-1.png", mimeType: "image/png", buffer: Buffer.from("test") },
-  { name: "log.txt", mimeType: "text/plain", buffer: Buffer.from("test2") },
-];
+/** Notice in place of the file picker without an endpoint (content/pages/engineering.mdx). */
+const ATTACH_MAILTO =
+  "Screenshots? Nach „Bericht senden“ öffnet sich Dein Mailprogramm, dort einfach anhängen.";
 
 /** Clicks a send button and returns the alert text (dismissed like a user would). */
 async function sendExpectingAlert(page: Page, selector: string) {
@@ -34,7 +33,7 @@ function decodeMailto(url: string) {
   return [address, Object.fromEntries(new URLSearchParams(query))];
 }
 
-/** Non-GET requests of the page (there is no upload or mail server). */
+/** Non-GET requests of the page (there is no mail server). */
 function trackWrites(page: Page) {
   const writes: string[] = [];
   page.on("request", (request) => {
@@ -222,16 +221,38 @@ test.describe("bug report", () => {
         null,
         "Bitte beschreibe den Fehler möglichst genau in wenigen Sätzen; beziehe Dich dabei auf Screenshots und markiere die fehlerhaften Bereiche*",
       ],
-      ["bug-files", "input", "file", null],
     ]);
-    await expect(page.locator("#bug-files")).toBeHidden();
-    await expect(page.locator("#bug-files")).toHaveAttribute("multiple", "");
-    await expect(page.locator("#bug-file-drop-zone")).toHaveText(
-      "Dateien anhängen durch drag & drop oder auswählen.",
-    );
-    await expect(page.locator("#bug-progress")).toBeHidden();
-    await expect(page.locator("#bug-file-list")).toBeHidden();
     await expect(page.locator("#bug-send")).toHaveText("Bericht senden");
+  });
+
+  test("no file picker: a notice in the drop zone's box says how screenshots arrive", async ({
+    page,
+  }) => {
+    // Live: hidden <input type="file">, drop zone with the link "auswählen",
+    // progress bar and file list. Without an upload server they are gone.
+    for (const selector of [
+      'input[type="file"]',
+      "#bug-files",
+      "#bug-file-drop-zone",
+      "#bug-select-files",
+      "#bug-progress",
+      "#bug-file-list",
+      ".js-upload-finished",
+    ]) {
+      await expect(page.locator(selector)).toHaveCount(0);
+    }
+    const notice = page.locator("#bug-attachments");
+    await expect(notice).toHaveText(ATTACH_MAILTO);
+    await expect(notice).toBeVisible();
+    await expect(notice.locator("a")).toHaveCount(0);
+    // Same box as the drop zone: closes the textarea below its dashed border.
+    await expect(notice).toHaveCSS("border-top-width", "0px");
+    await expect(notice).toHaveCSS("border-bottom", "1px solid rgb(151, 151, 151)");
+    await expect(notice).toHaveCSS("text-align", "left");
+    const text = (await page.locator("#bug-text").boundingBox())!;
+    const box = (await notice.boundingBox())!;
+    expect(box.y).toBeLessThan(text.y + text.height);
+    expect(box.width).toBe(text.width);
   });
 
   test("checks name, email, title and text in order: alert, then focus", async ({ page }) => {
@@ -290,67 +311,32 @@ test.describe("bug report", () => {
     expect(errors).toEqual([]);
   });
 
-  test("“auswählen” opens the file picker; files show up like upload() lists them", async ({
+  test("drag & drop onto the form does nothing: no list, no request, the page stays", async ({
     page,
   }) => {
     const writes = trackWrites(page);
-    const chooser = page.waitForEvent("filechooser");
-    await page.click("#bug-select-files");
-    await (await chooser).setFiles(FILES);
-    await expect(page).toHaveURL(/\/engineering\/$/);
-
-    const progress = page.locator("#bug-progress");
-    await expect(progress).toBeVisible();
-    await expect(progress).toHaveCSS("display", "flex");
-    await expect(progress.locator(".progress-bar")).toHaveAttribute("style", "width: 0%;");
-    await expect(progress.locator(".progress-bar")).toHaveAttribute("aria-valuenow", "0");
-
-    const list = page.locator("#bug-file-list");
-    await expect(list).toHaveCSS("display", "block");
-    const entries = list.locator("a");
-    await expect(entries).toHaveText(["Successscreenshot-1.png", "Successlog.txt"]);
-    for (const entry of await entries.all()) {
-      await expect(entry).toHaveClass(/^\d+ list-group-item list-group-item-warning$/);
-      await expect(entry).toHaveAttribute("target", "_blank");
-      await expect(entry).not.toHaveAttribute("href");
-      await expect(entry.locator("span.badge.alert-success.pull-right.hidden")).toBeHidden();
-    }
-    await expect(entries.first()).toHaveCSS("background-color", "rgb(255, 238, 186)");
-
-    // Another selection adds to the list, like a second upload() call.
-    await page.setInputFiles("#bug-files", [FILES[0]]);
-    await expect(entries).toHaveCount(3);
-    expect(writes).toEqual([]);
-  });
-
-  test("drag & drop onto the form adds the files, other items are ignored", async ({ page }) => {
-    const writes = trackWrites(page);
-    const dragover = await page.evaluate(() => {
-      const event = new DragEvent("dragover", { bubbles: true, cancelable: true });
-      document.getElementById("bug-text")!.dispatchEvent(event);
-      return event.defaultPrevented;
-    });
-    expect(dragover).toBe(true);
-    const dropped = await page.evaluate(() => {
+    await page.fill("#bug-text", "Hallo");
+    // Like live the form cancels dragover and drop, so the browser does not
+    // open a dropped file in place of the page.
+    const cancelled = await page.evaluate(() => {
       const transfer = new DataTransfer();
       transfer.items.add(new File(["a"], "bild.png", { type: "image/png" }));
-      transfer.items.add("nur Text", "text/plain");
-      transfer.items.add(new File(["b"], "notiz.txt", { type: "text/plain" }));
-      const event = new DragEvent("drop", {
-        bubbles: true,
-        cancelable: true,
-        dataTransfer: transfer,
-      });
-      document.getElementById("bug-name")!.dispatchEvent(event);
-      return event.defaultPrevented;
+      const fire = (type: string, id: string) => {
+        const event = new DragEvent(type, {
+          bubbles: true,
+          cancelable: true,
+          dataTransfer: transfer,
+        });
+        document.getElementById(id)!.dispatchEvent(event);
+        return event.defaultPrevented;
+      };
+      return [fire("dragover", "bug-text"), fire("drop", "bug-text"), fire("drop", "bug-name")];
     });
-    expect(dropped).toBe(true);
-    await expect(page.locator("#bug-file-list a")).toHaveText([
-      "Successbild.png",
-      "Successnotiz.txt",
-    ]);
-    await expect(page.locator("#bug-progress")).toBeVisible();
+    expect(cancelled).toEqual([true, true, true]);
     await expect(page).toHaveURL(/\/engineering\/$/);
+    await expect(page.locator("#bug-text")).toHaveValue("Hallo");
+    await expect(page.locator("#bug-attachments")).toHaveText(ATTACH_MAILTO);
+    await expect(page.locator("#bug-form .list-group, #bug-form .progress")).toHaveCount(0);
     expect(writes).toEqual([]);
   });
 
