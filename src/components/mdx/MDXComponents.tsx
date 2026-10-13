@@ -4,6 +4,7 @@ import { Modal } from "@/components/donate/Modal";
 import { ModalToggle } from "@/components/donate/ModalToggle";
 import { FeatureVideos, InfoBadge } from "@/components/home/FeatureVideos";
 import { AppHeader } from "@/components/shared/AppHeader";
+import { ComparisonAccordion, ComparisonRow } from "@/components/shared/ComparisonAccordion";
 import { Img } from "@/components/shared/Img";
 import { Link } from "@/components/shared/Link";
 import { PressLogo, PressLogos } from "@/components/shared/PressLogos";
@@ -11,7 +12,6 @@ import { RectangleInfo } from "@/components/shared/RectangleInfo";
 import { ScrollIcon } from "@/components/shared/ScrollIcon";
 import { Section } from "@/components/shared/Section";
 import { VideoSection } from "@/components/shared/VideoSection";
-import { ComparisonAccordion, ComparisonRow } from "@/components/wahlometer/ComparisonAccordion";
 import { SymbolInfo, SymbolInfoPanel } from "@/components/wahlometer/SymbolInfo";
 import { Campaign, CampaignCorner, WhyUs } from "@/components/wahlometer/WomAbout";
 

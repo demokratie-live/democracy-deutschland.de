@@ -1,6 +1,13 @@
 "use client";
 
-import { Children, isValidElement, useState, type ReactElement, type ReactNode } from "react";
+import {
+  Children,
+  isValidElement,
+  useState,
+  type CSSProperties,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 
 interface ComparisonRowProps {
   left: string;
@@ -16,21 +23,25 @@ export function ComparisonRow(props: ComparisonRowProps) {
 }
 
 /**
- * "Was ist der Unterschied zum Wahl-O-Mat?" (inline script of
- * default_wahlometer.tpl): one row is open; clicking a grey box opens its row
- * and moves the two coloured titles there.
+ * Two-column accordion of the inline scripts in default_wahlometer.tpl ("Was
+ * ist der Unterschied zum Wahl-O-Mat?") and default_about.tpl ("Unser
+ * demokratisches Verständnis"): one row is open; clicking a grey box opens
+ * its row and moves the two coloured titles there. `firstLeftStyle` is the
+ * inline style of the first left box (wahlometer: `width: 95%`).
  */
 export function ComparisonAccordion({
   leftTitle,
   rightTitle,
   leftColor,
   rightColor,
+  firstLeftStyle,
   children,
 }: {
-  leftTitle: string;
-  rightTitle: string;
+  leftTitle: ReactNode;
+  rightTitle: ReactNode;
   leftColor: string;
   rightColor: string;
+  firstLeftStyle?: CSSProperties;
   children: ReactNode;
 }) {
   const rows = Children.toArray(children)
@@ -78,7 +89,7 @@ export function ComparisonAccordion({
           <div className="col-6">
             <div
               className="mr-0 bg-light ri-subtitle-heading-acc"
-              style={index === 0 ? { width: "95%" } : undefined}
+              style={index === 0 ? firstLeftStyle : undefined}
               onClick={() => select(index)}
             >
               <p className="ri-subtitle-left">{row.left}</p>
