@@ -20,6 +20,7 @@ import { teamSchema, type Team } from "../src/lib/schemas/team";
 import {
   appLinksSchema,
   footerSchema,
+  formsSchema,
   headSchema,
   navigationSchema,
   routesSchema,
@@ -98,6 +99,7 @@ async function main() {
   const routes = (await readYaml("site/routes.yaml", routesSchema)) as Routes | undefined;
   await readYaml("site/head.yaml", headSchema);
   await readYaml("site/app-links.yaml", appLinksSchema);
+  await readYaml("site/forms.yaml", formsSchema);
   const navigation = (await readYaml("site/navigation.yaml", navigationSchema)) as
     | z.infer<typeof navigationSchema>
     | undefined;

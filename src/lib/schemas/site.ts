@@ -94,3 +94,19 @@ export const appLinksSchema = z.object({
   aab: z.url(),
 });
 export type AppLinks = z.infer<typeof appLinksSchema>;
+
+// --- forms.yaml ---
+
+export const formsSchema = z.object({
+  recipient: z.email(),
+  subject: z.string().includes("{type}"),
+  messages: z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    email: z.string(),
+    text: z.string(),
+    sent: z.string(),
+    failed: z.string(),
+  }),
+});
+export type Forms = z.infer<typeof formsSchema>;

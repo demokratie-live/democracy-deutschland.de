@@ -1,4 +1,8 @@
+import fs from "node:fs";
+import path from "node:path";
 import { expect, test, type Page } from "@playwright/test";
+import yaml from "yaml";
+import { formsSchema } from "../../src/lib/schemas/site";
 
 const BASE = "/democracy-deutschland.de";
 
@@ -22,6 +26,7 @@ const pages = [
   { path: "/ueber-uns/", fonts: [...FONTS] },
   { path: "/presse/", fonts: [...FONTS] },
   { path: "/faq/", fonts: [...FONTS] },
+  { path: "/kontakt/", fonts: [...FONTS] },
 ];
 
 for (const { path, fonts } of pages) {
@@ -113,4 +118,61 @@ test("FAQ menu keeps the page below the basePath", async ({ page }) => {
   await expect(page.locator(".faq-menu.active")).toHaveText("FINANZEN");
   await expect(page).toHaveURL(new RegExp(`${BASE}/faq/$`));
   await expect(page.locator("#content .col-12 > h5 a")).toHaveAttribute("href", `${BASE}/kontakt/`);
+});
+
+// This build also sets NEXT_PUBLIC_CONTACT_ENDPOINT=/contact-endpoint (package.json,
+// test:basepath), so the endpoint path of the contact form is tested here; the
+// default build (tests/e2e/contact.spec.ts) covers the mailto path.
+test("contact form POSTs to NEXT_PUBLIC_CONTACT_ENDPOINT and shows the old alerts", async ({
+  page,
+}) => {
+  const forms = formsSchema.parse(
+    yaml.parse(fs.readFileSync(path.join(process.cwd(), "content/site/forms.yaml"), "utf-8")),
+  );
+  const bodies: unknown[] = [];
+  let status = 200;
+  await page.route("**/contact-endpoint", async (route) => {
+    bodies.push(route.request().postDataJSON());
+    expect(route.request().method()).toBe("POST");
+    expect(route.request().headers()["content-type"]).toBe("application/json");
+    await route.fulfill({ status, contentType: "application/json", body: '{"status":true}' });
+  });
+  const alerts: string[] = [];
+  page.on("dialog", async (dialog) => {
+    alerts.push(dialog.message());
+    await dialog.dismiss();
+  });
+  page.on("request", (request) => {
+    if (request.url().startsWith("mailto:")) throw new Error("mailto despite endpoint");
+  });
+
+  await page.goto(`${BASE}/kontakt/`);
+  const data = {
+    type: "contact",
+    vorname: "Max",
+    nachname: "Mustermann",
+    email: "max@example.org",
+    text: "Hallo",
+  };
+  const fill = async () => {
+    for (const id of ["vorname", "nachname", "email", "text"] as const) {
+      await page.fill(`#${id}`, data[id]);
+    }
+  };
+
+  // Server error: the old error alert, the form keeps its content.
+  status = 500;
+  await fill();
+  await page.click("#send_contact");
+  await expect.poll(() => alerts).toEqual([forms.messages.failed]);
+  await expect(page.locator("#text")).toHaveValue("Hallo");
+
+  // Success: reset, then the old success alert.
+  status = 200;
+  await page.click("#send_contact");
+  await expect.poll(() => alerts).toEqual([forms.messages.failed, forms.messages.sent]);
+  for (const id of ["vorname", "nachname", "email", "text"]) {
+    await expect(page.locator(`#${id}`)).toHaveValue("");
+  }
+  expect(bodies).toEqual([data, data]);
 });

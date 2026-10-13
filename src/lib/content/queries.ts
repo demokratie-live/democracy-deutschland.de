@@ -19,6 +19,8 @@ import {
   type PressMedia,
   faqSchema,
   type Faq,
+  formsSchema,
+  type Forms,
 } from "../schemas";
 import { loadMdx } from "./load-mdx";
 import { loadYaml } from "./load-yaml";
@@ -66,4 +68,9 @@ export async function getPressMedia(): Promise<PressMedia> {
 /** content/faq/faq.yaml: category menu and questions of /faq/. */
 export async function getFaq(): Promise<Faq> {
   return loadYaml("faq/faq.yaml", faqSchema);
+}
+
+/** content/site/forms.yaml: recipient, subject and alert texts of the forms. */
+export async function getForms(): Promise<Forms> {
+  return loadYaml("site/forms.yaml", formsSchema);
 }
