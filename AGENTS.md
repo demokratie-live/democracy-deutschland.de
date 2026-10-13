@@ -27,15 +27,22 @@ content/
   press/media.yaml      media tiles of /presse/ (see README)
   faq/faq.yaml          category menu and questions of /faq/ (see README)
   engineering/roadmap.yaml  roadmap table of /engineering/ with the status codes of icon_class() (see README)
-  blog/<slug>.md        blog posts (WordPress); until the blog import only frontmatter stubs (see "Blog posts")
+  blog/<slug>.md        blog posts (WordPress), written by `pnpm import-blog` (see "Blog")
+  blog/taxonomy.yaml, media.yaml, missing-uploads.yaml  written by the import; blog/site.yaml  blog settings
 public/
   css/                  original CSS (see "CSS"); files/  assets under the old /files/ paths
-  blog/wp-content/uploads/  blog media under their WordPress paths
+  blog/wp-content/uploads/  blog media under their WordPress paths (written by the import)
+  blog/wp-content/themes/lovecraft/  theme CSS, fonts and icon of the blog (GPL, never edit)
   videos/  favicon.ico  manifest.json
 src/
-  app/                  thin page shells: <MdxPage id="…" />; [...alias] forwarding pages; not-found;
-                        api.php/, api/donation_status.json/: static GET route handlers (app JSON)
-  components/frame/     Navbar, Footer, ToTop (UItoTop), LegacyRedirectScript
+  app/(site)/           website: root layout (SiteDocument) and thin page shells <MdxPage id="…" />;
+                        [...alias] forwarding pages; api.php/, api/donation_status.json/: static GET
+                        route handlers (app JSON)
+  app/(blog)/blog/[[...path]]/  blog: one catch-all route with its own root layout (see "Blog")
+  app/global-not-found.tsx  404 page (out/404.html) in the website frame, for every unknown path
+  components/frame/     SiteDocument (website root document), Navbar, Footer, ToTop (UItoTop),
+                        LegacyRedirectScript, NotFound
+  components/blog/      Lovecraft templates: BlogDocument, BlogHeader (toggles), Sidebar, PostEntry, …
   components/shared/    sections used by several modules (AppHeader, Section, Link, VideoSection, …)
   components/<module>/  sections of one module (home/, wahlometer/, donate/, about/, contact/, legal/, engineering/, …)
   components/mdx/       MdxPage (render + head), MDXComponents (registry)
@@ -45,8 +52,10 @@ src/
                         collapse), bootstrap-tooltip.ts (Bootstrap 4 tooltip, Popper.js 1.12.9),
                         roadmap.ts (icon_class()), donation.ts (PHP round/number_format/json_encode, donation
                         JSON), donation-route.ts, content/blog.ts (blog posts, permalinks),
-                        forms.ts (validateEmail, form checks, endpoint or mailto)
-scripts/                validate-content.ts, compare.ts, serve-basepath.mjs
+                        forms.ts (validateEmail, form checks, endpoint or mailto),
+                        blog/ (view, Markdown pipeline, srcset/loading, wptexturize, head styles)
+scripts/                validate-content.ts, compare.ts, serve-basepath.mjs, import-blog.ts,
+                        compare-blog-dom.ts, blog/ (HTML → Markdown, DOM normalization, live fixes)
 tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byte: app JSON, legal texts)
 ```
 
@@ -99,17 +108,47 @@ The old forms (contact; bug report and volunteer on `/engineering/`, `BugReportF
 
 `/api.php` and `/api/donation_status.json` are App Router route handlers (`export const dynamic = "force-static"`, `GET` re-exported from `src/lib/donation-route.ts`); `next build` writes them as files into `out/`. The body is byte-identical to the old `api.php?call=donation_status` (PHP 7.4 `round()`, `json_encode()` escaping; only `querytime` is 0). `src/lib/donation.test.ts` checks this against `tests/fixtures/donation_status.live.json` and PHP reference values. Static hosts ignore the query string and serve `.php` as `application/x-httpd-php`; the app parses it anyway (`docs/server-funktionen.md`). Keep these routes static: no request data, no other HTTP methods.
 
-## Blog posts and the press teasers
+## Blog
 
-`content/blog/<slug>.md` holds one WordPress post per file, frontmatter per `src/lib/schemas/blog.ts` (`wpId`, `title`, `slug`, `date`, `author`, `categories`, `tags`, `image`). Until the blog import (TASK-80) the directory only has frontmatter stubs of the nine newest posts; their featured images are the original uploads under `public/blog/wp-content/uploads/<year>/<month>/`, the path the import uses.
+The WordPress blog (theme Lovecraft) lives under `/blog/` with its WordPress permalinks (`/blog/`, `/blog/page/<n>/`, `/blog/<year>/<month>/<slug>/`). It has its own look and frame, not the website frame. Archives, search, feed and `?p=` short links follow with TASK-81; until then those links lead to the 404 page.
 
-- `getBlogPosts()` / `getLatestBlogPosts(limit)` in `src/lib/content/blog.ts` read all files, newest `date` first (`post_date DESC` like `wp_get_recent_posts()`); `blogPermalink()` builds `/blog/<year>/<month>/<slug>/` from `date` and `slug`. `BlogTeasers` on `/presse/` uses them; the import only has to write the files.
-- `title` is the raw `post_title` as the press page shows it (`'25`, not `’25`). The REST API only returns `title.rendered`: wptexturize writes its replacements as numeric entities (`&#8217;25`), characters typed that way stay literal (`’22`), so the raw title can be recovered (`&#8216;`/`&#8217;` → `'`, `&#8220;`/`&#8221;` → `"`; `&#8211;`/`&#8212;` stand for `-`/`--`, check the post). Blog pages apply wptexturize when rendering, like WordPress.
-- `date` is `post_date` (local time) as a quoted string; unquoted YAML dates become `Date` objects and fail validation.
+### Content (written by the import)
+
+- `content/blog/<slug>.md`: one post per file. Frontmatter per `src/lib/schemas/blog.ts`: `wpId`, `title` (raw `post_title`), `slug`, `date`/`modified` (local time, quoted), `author`, `categories`, `tags` (slugs; tags in display order by name), `featuredMedia` (`_thumbnail_id`, may point to a deleted attachment), `image` (original upload of the featured image), `excerpt` (plain text). The body is the post content as **CommonMark with inline HTML**: Markdown wherever it yields exactly the WordPress DOM (paragraphs, headings and lists of the block editor; the render pipeline adds their classes `wp-block-paragraph`, `wp-block-heading`, `wp-block-list`), HTML everywhere else (figures, classes, `<b>`, links with `target` …). `<!--more-->` marks the teaser end like in WordPress. Excluded from Prettier.
+- `content/blog/taxonomy.yaml` (authors, categories, tags: id, slug, name), `media.yaml` (featured images with all sizes in metadata order, for srcset), `missing-uploads.yaml` (uploads the posts reference although live already answers 404; `validate-content` accepts them as missing), all written by the import. `content/blog/site.yaml` (title, header image, posts per page, widget size) is maintained by hand.
+- `getBlogPosts()` / `getLatestBlogPosts(limit)` / `blogPermalink()` in `src/lib/content/blog.ts` (newest `date` first); `BlogTeasers` on `/presse/` shows the nine newest with the raw title and the original featured image.
+- Media under `public/blog/wp-content/uploads/<year>/<month>/` with their WordPress names, only files the rendered pages reference (srcset sizes included); `data:` images of old newsletters as `uploads/inline/<slug>-<n>.<ext>`.
+
+### Import (`pnpm import-blog`, `scripts/import-blog.ts`)
+
+Read-only, one request at a time, cached in `.cache/blog-import/` (`--refresh` reads again, `--only <slug>` converts one post). Metadata from the REST API (`wp-json/wp/v2`), content from the rendered post page; the script checks that it equals `content.rendered` except for the more span and the loading attributes. It prepares the HTML (more span → `<!--more-->`, loading attributes removed because the page adds them, uploads to local paths, `x-webdoc://…#news_NN` → `#news_NN`, `data:` images → files, attribute names HTML cannot serialize dropped, the runaway logo tag of News #2 closed: `scripts/blog/live-fixes.ts`), converts it block by block (`scripts/blog/html-to-markdown.ts`) and renders every block back through the pipeline: the DOM must equal the original in canonical form (`scripts/blog/normalize.ts`, CSS whitespace rules), else the block stays HTML; the whole post is checked once more. It stops when `wptexturize(title)` differs from the rendered title (extend `src/lib/blog/texturize.ts`), on unknown `<style>` blocks or formats. It also writes the inline `<style>` blocks of the WordPress head to `src/lib/blog/inline-css/` (never edit), downloads missing uploads and deletes unreferenced ones and posts that are gone.
+
+### Rendering
+
+- `src/app/(blog)/blog/[[...path]]/`: one catch-all route; its **layout is the root layout** of the blog (`BlogDocument`), so `<head>` styles, body class and header image depend on the page like in WordPress. `getBlogView(path)` (`src/lib/blog/view.ts`, React `cache`, shared by layout and page) resolves the path to an `IndexView` or `SingleView`; TASK-81 adds archive views there and reuses `PostEntry`, `BlogIndex`, `getSidebarData()`.
+- `src/lib/blog/markdown.ts`: `renderPostContent()` = remark-parse → remark-rehype → block classes → rehype-raw → more tag (single: `<span id="more-<id>">`, teaser: cut + "Weiterlesen") → loading attributes → basePath → HTML string for `dangerouslySetInnerHTML` (the exact WordPress markup, no React attribute mapping).
+- `src/lib/blog/images.ts`: `wp_calculate_image_srcset()` with `wp_image_matches_ratio()`/`wp_constrain_dimensions()` (PHP `round()` via `phpRound`), `attachmentImage()` (theme sizes `post-image` 900 and `post-image-cover` 1280, the original when it is narrower), `ImageLoading` (`wp_get_loading_optimization_attributes()`: per page, the first large image `fetchpriority="high"`, the first three eager, later ones `loading="lazy"` with `sizes="auto, …"`).
+- `src/lib/blog/styles.ts`: inline styles in live order; block styles only for blocks of the page (sidebar blocks always), global styles plus block lines, `core-block-supports` per gallery. Theme CSS via `<link>` with the original `?ver=`.
+- Titles: `wptexturize()` on the raw title (`'25` → `’25`, space-hyphen-space → space-en-dash-space); the press teasers show the raw title. Page titles: "DEMOCRACY Blog – Seite\u00a0<n>" (no-break space like WordPress).
+- Links are plain `<a>` with `asset()`: full page loads like WordPress, no Next router in the blog. `BlogHeader` ports global.js (slideToggle via `slide()` in `src/lib/animate.ts`, 400 ms swing, reset above 1000 px).
+
+### Gotchas
+
+- Whitespace between inline blocks renders: the template has it between the paragraphs of `.post-meta` and `.archive-navigation .fright`, between the toggle buttons and between search field and button; JSX needs `{" "}` there. The DOM comparison treats `<p>` as block and does not see it, `pnpm compare` does.
+- WordPress term classes use the term ID for numeric slugs (`tag-7` for "2021"); the search widget id counts `wp_unique_id()` over the page (a gallery before it makes it `wp-block-search__input-2`).
+- `.toggles` has no height (absolutely positioned buttons): test the buttons for visibility.
+- `getBlogView()` is cached per render with a string key; arrays as `cache` arguments compare by identity.
+
+### Verification
+
+- `pnpm compare /blog/…` compares with the same path on live; the WordPress emoji script is blocked on live (no emoji script statically, decision Manuel 2026-10-13), lazy images load eagerly, the full page is captured by enlarging the viewport first (live otherwise switches srcset candidates during the screenshot), `text-content.diff` uses `main#site-content` of the server HTML.
+- `pnpm compare-blog-dom [--local <url>] [path …]` compares title, body class, head links, header, navigation, header image, main (posts, sidebar) and credits of every blog page with live in canonical form; documented deviations are mapped (search form ids, `alt=""` of the header image, `data:` images, `x-webdoc` links, invalid attribute names, News #2).
+- Pages with the closed logo tag (`/blog/page/6/`, News #2) compare pixel by pixel when `--live-eval` refetches the live HTML, applies the regex of `scripts/blog/live-fixes.ts` and rewrites the document (`document.open()/write()`), then waits for images and fonts.
+- `content/blog/*.md` are generated: change posts in WordPress and import again while WordPress runs. After the switch the Markdown is the source; check edits with `pnpm compare`.
 
 ## Routing and legacy links
 
-`routes.yaml` is the single source for paths. `LegacyRedirectScript` inlines `resolveLegacyUrl()` into `<head>` and forwards `#!<state>`, `#!<state>#<anchor>`, `?page=<state>`, `?_escaped_fragment_=<state>` and `aliases` before rendering, and again on `hashchange`. Unknown states land on `/` like live. Aliases also get a static forwarding page from `src/app/[...alias]`. `resolveLegacyUrl()` is serialised with `toString()`: keep it free of inner functions and outside references (a unit test guards this).
+The app has two root layouts in route groups: `src/app/(site)/layout.tsx` (website frame, `SiteDocument`) and the blog (`src/app/(blog)`); a navigation between them loads the full page. Unknown paths get `src/app/global-not-found.tsx` (`experimental.globalNotFound`, the 404 page in the website frame). `routes.yaml` is the single source for paths. `LegacyRedirectScript` inlines `resolveLegacyUrl()` into `<head>` and forwards `#!<state>`, `#!<state>#<anchor>`, `?page=<state>`, `?_escaped_fragment_=<state>` and `aliases` before rendering, and again on `hashchange`. Unknown states land on `/` like live. Aliases also get a static forwarding page from `src/app/[...alias]`. `resolveLegacyUrl()` is serialised with `toString()`: keep it free of inner functions and outside references (a unit test guards this).
 
 ## MDX gotchas
 
@@ -162,6 +201,7 @@ Client components read declarative children (`InfoBadge`, `ComparisonRow`) via `
 
 ## Testing and tooling gotchas
 
+- Blog tests read expected values from `content/blog/` (`getBlogPosts()`, `missing-uploads.yaml`); images with `loading="lazy"` only load near the viewport, set them to eager before checking `naturalWidth`.
 - Playwright projects: `desktop` (1280 px) and `mobile` (375 px, files `*.mobile.spec.ts`), server `serve out` on port 3100; `tests/basepath` serves the basePath build via `scripts/serve-basepath.mjs` on 3101. Take expected values from the YAML (`contentYaml()`), never from live.
 - Scroll assertions: `waitForScrollEnd()`; scroll an element into view and wait for `.navbar.scrolled` before clicking when the handler reads the navbar height.
 - tsx (esbuild) wraps nested functions in a `__name` helper. Code that runs in the browser via `page.evaluate` in `scripts/` goes in as a string; avoid backslashes inside those template strings.

@@ -35,6 +35,8 @@ Open [http://localhost:3000](http://localhost:3000). Old links such as
 | `pnpm start`            | Serve `out/` on port 3000                                                |
 | `pnpm validate-content` | Validate MDX/YAML against the Zod schemas and internal links             |
 | `pnpm compare <path>`   | Screenshots, text and head data of a local page against the live site    |
+| `pnpm import-blog`      | Import the WordPress blog into `content/blog/` and `public/blog/`        |
+| `pnpm compare-blog-dom` | DOM of every blog page against the live blog                             |
 | `pnpm lint`             | ESLint                                                                   |
 | `pnpm format`           | Prettier (MDX pages and the original CSS are excluded)                   |
 | `pnpm test:unit`        | Unit tests                                                               |
@@ -100,7 +102,7 @@ Each entry has a `title`, a `link` (external URL or a file such as
 Put new images and downloads under `public/files/medien/` and `public/files/download/`.
 
 The "Blogs" tiles are not maintained here: they show the nine newest posts of
-`content/blog/` with title, featured image and permalink.
+`content/blog/` with title, featured image and permalink (see "Updating the blog").
 
 `pnpm validate-content` checks the schema and that every image and download exists.
 
@@ -159,6 +161,29 @@ The roadmap table of `/engineering/` lives in
   `icon_class()` (tens = icon, ones = colour) are listed at the top of the file.
 
 `pnpm validate-content` rejects unknown status codes and colours.
+
+## Updating the blog
+
+The blog under `/blog/` is a copy of the WordPress blog (theme Lovecraft). While
+WordPress still runs, posts are written there and imported:
+
+```bash
+pnpm import-blog            # cached: only new or changed pages are fetched
+pnpm import-blog --refresh  # fetch everything again (posts, pages, uploads)
+pnpm validate-content
+pnpm build && pnpm start    # then: pnpm compare-blog-dom and pnpm compare /blog/…
+```
+
+The script reads the public REST API and the rendered post pages (read-only, one
+request after another), writes every post to `content/blog/<slug>.md` (frontmatter +
+Markdown, HTML where Markdown cannot reproduce WordPress), `taxonomy.yaml`, `media.yaml`
+and the referenced uploads under `public/blog/wp-content/uploads/` (all srcset sizes),
+and removes posts and uploads that are gone. It checks itself: every block must render
+back to the WordPress DOM. It stops with a message when something new appears (a
+title typography rule, a new block style); fix the script, don't edit the output.
+Blog settings that are not in the REST API (header image, posts per page) are in
+`content/blog/site.yaml`. Uploads that are already missing on live are listed in
+`content/blog/missing-uploads.yaml`. Details: `AGENTS.md`, "Blog".
 
 ## Forms
 
