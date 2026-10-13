@@ -20,6 +20,7 @@ const pages = [
   { path: "/wahlometer/", fonts: [...FONTS, "icomoon"] },
   { path: "/spenden/", fonts: [...FONTS, "helvetica_bold"] },
   { path: "/ueber-uns/", fonts: [...FONTS] },
+  { path: "/presse/", fonts: [...FONTS] },
 ];
 
 for (const { path, fonts } of pages) {
@@ -90,4 +91,15 @@ test("donation downloads and the app JSON live below the basePath", async ({ pag
   const json = await page.request.get(`${BASE}/api.php?call=donation_status`);
   expect(json.status()).toBe(200);
   expect((await json.json()).status).toBe(true);
+});
+
+test("press downloads, media and blog images live below the basePath", async ({ page }) => {
+  await page.goto(`${BASE}/presse/`);
+  const logo = page.locator('a[href$="/files/download/DEMOCRACY-Logo.png"]');
+  await expect(logo).toHaveAttribute("href", `${BASE}/files/download/DEMOCRACY-Logo.png`);
+  expect((await page.request.get((await logo.getAttribute("href"))!)).status()).toBe(200);
+  const blogImage = page.locator('img[src*="/blog/wp-content/uploads/"]').first();
+  await expect(blogImage).toHaveAttribute("src", new RegExp(`^${BASE}/blog/wp-content/uploads/`));
+  const teaser = page.locator('a[href*="/blog/20"]').first();
+  await expect(teaser).toHaveAttribute("href", new RegExp(`^${BASE}/blog/\\d{4}/\\d{2}/`));
 });

@@ -4,6 +4,7 @@ import { DonateBox, DonateDetails } from "@/components/donate/DonationFigures";
 import { Modal } from "@/components/donate/Modal";
 import { ModalToggle } from "@/components/donate/ModalToggle";
 import { FeatureVideos, InfoBadge } from "@/components/home/FeatureVideos";
+import { BlogTeasers, PressMedia } from "@/components/press/PressTiles";
 import { AppHeader } from "@/components/shared/AppHeader";
 import { ComparisonAccordion, ComparisonRow } from "@/components/shared/ComparisonAccordion";
 import { Img } from "@/components/shared/Img";
@@ -44,4 +45,6 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   ModalToggle,
   Team,
   ServicesIcon,
+  PressMedia,
+  BlogTeasers,
 };

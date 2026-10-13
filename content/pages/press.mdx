@@ -1,0 +1,66 @@
+---
+# Presse (live: State press, default_press.tpl)
+# Kacheln: content/press/media.yaml (Presse-Kit, Pressespiegel, Publikationen)
+# und die neuesten Blog-Posts aus content/blog/ (BlogTeasers).
+state: press
+---
+
+<div className="background-white">
+<div className="container main-container">
+<div className="row">
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>Presse-Kit</h1>
+<h5 style={{ paddingTop: "20px", paddingBottom: "50px" }}>Unsere Story</h5>
+</div>
+<PressMedia list="kit" />
+</div>
+<div className="row">
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>Blogs</h1>
+<h5 style={{ paddingTop: "20px", paddingBottom: "50px" }}>DEMOCRACY bloggt</h5>
+</div>
+<BlogTeasers count={9} />
+</div>
+<div className="row">
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+</div>
+<div className="row">
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>Pressespiegel</h1>
+<h5 style={{ paddingTop: "20px", paddingBottom: "50px" }}>Über DEMOCRACY berichtet</h5>
+</div>
+<PressMedia list="articles" />
+</div>
+<div className="row">
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+</div>
+<div className="row">
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>Publikationen</h1>
+<h5 style={{ paddingTop: "20px", paddingBottom: "50px" }}>DEMOCRACY veröffentlicht</h5>
+</div>
+<PressMedia list="publications" />
+</div>
+<div className="row">
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+</div>
+<div className="row">
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h3>Sie wollen einen Artikel über uns schreiben? Kontaktieren Sie uns!</h3>
+</div>
+<div className="col-lg-4"></div>
+<div className="col-lg-4" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
+<Link className="btn-democracy" href="/kontakt/">
+<div>KONTAKTFORMULAR</div>
+</Link>
+</div>
+<div className="col-lg-4"></div>
+</div>
+</div>
+</div>

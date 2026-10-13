@@ -132,6 +132,7 @@ test.describe("legacy links", () => {
     ["/#!wahlometer", /\/wahlometer\/$/],
     ["/#!home", /localhost:\d+\/$/],
     ["/#!about", /\/ueber-uns\/$/],
+    ["/#!press", /\/presse\/$/],
     ["/#!engineering#help", /\/engineering\/#help$/],
     ["/#!wahlometer#wom-campaign-container", /\/wahlometer\/#wom-campaign-container$/],
     ["/?page=unsubscribe&token=abc", /\/unsubscribe\/\?token=abc$/],
