@@ -1,6 +1,10 @@
 import type { MDXRemoteProps } from "next-mdx-remote/rsc";
+import { DonateBox, DonateDetails } from "@/components/donate/DonationFigures";
+import { Modal } from "@/components/donate/Modal";
+import { ModalToggle } from "@/components/donate/ModalToggle";
 import { FeatureVideos, InfoBadge } from "@/components/home/FeatureVideos";
 import { AppHeader } from "@/components/shared/AppHeader";
+import { Img } from "@/components/shared/Img";
 import { Link } from "@/components/shared/Link";
 import { PressLogo, PressLogos } from "@/components/shared/PressLogos";
 import { RectangleInfo } from "@/components/shared/RectangleInfo";
@@ -16,6 +20,7 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   // Markdown links get basePath and client navigation.
   a: Link,
   Link,
+  Img,
   Section,
   AppHeader,
   ScrollIcon,
@@ -32,4 +37,8 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   WhyUs,
   Campaign,
   CampaignCorner,
+  DonateBox,
+  DonateDetails,
+  Modal,
+  ModalToggle,
 };

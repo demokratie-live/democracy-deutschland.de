@@ -1,0 +1,102 @@
+---
+# Spenden (live: State donate, default_donate.tpl)
+# Zahlen der Spendenbox und der Tabelle: content/donate/donation.yaml,
+# Platzhalter {percentage} {paten} {patenGoal} {value} {valueGoal} {date}.
+state: donate
+---
+
+<div className="background-white">
+<div className="container main-container">
+<div className="row">
+<div className="col-12">
+<h1 id="statement-heading">Spenden</h1>
+<h4 id="statement-content" style={{ paddingTop: "30px", lineHeight: "150%" }}>Unsere Arbeit ist unabhängig, überparteilich, allgemeinnützig und nichtkommerziell –<br />von Menschen für Menschen</h4>
+</div>
+</div>
+<div className="row" style={{ paddingTop: "50px" }}>
+<div className="col-lg-4">
+<DonateBox
+  progress="{percentage}% von {valueGoal}€ GESCHAFFT!"
+  paten="{paten} VON {patenGoal}"
+  patenNote="PATENSCHAFTEN ERREICHT!"
+  value="{value}€ von {valueGoal}€"
+  valueNote="(min. Finanzierungsziel/Monat)"
+  date="Stand: {date}"
+  logoAlt="DEMOCRACY Logo"
+/>
+</div>
+<div className="col-lg-8" id="donate_init_text">
+<span> DEMOCRACY Deutschland e.V. ist ein <b>gemeinnütziger Verein</b>, der sich mit seiner gleichnamigen App und Bildungsarbeit für Demokratie als politische Selbstbestimmung einsetzt. <br /><br /> Eine Gewinnerzielungabsicht haben wir bereits mit der Wahl unserer Rechtsform ausgeschlossen. Daten, die bei der Nutzung der App entstehen, sind für uns keine handelbaren Wirtschaftsgüter, sondern im Sinne der informationellen Selbstbestimmung und des Grundgesetzes zu schützen. <br /><br /> Unser Vorschlag für eine nachhaltige Veränderung ist die <b>gemeinschaftliche Finanzierung</b>. <br /><br /> Deine finanzielle Unterstützung hilft uns, seit der Prototypsfinanzierung durch das <a href="https://startnext.com/democracy" target="_blank">initiale Crowdfunding im Herbst 2017</a>, die laufenden Kosten zu decken und gibt uns Planungssicherheit für die Zukunft des Projekts. Pate kannst du schon ab 5 € monatlich werden. Deine Unterstützung lässt sich jederzeit beenden. <br /><br /> <div className="row"><div className="col-lg-4"><Link className="btn-democracy btn-democracy-dark" href="/spenden/#donate"><div>Jetzt Pate werden</div></Link></div><div className="col-lg-4"><Link className="btn-democracy btn-democracy-light" href="/spenden/#donate"><div>Einmalig Spenden</div></Link></div></div></span>
+</div>
+</div>
+<div className="row" id="donate">
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "75px" }} />
+</div>
+</div>
+<div className="row" style={{ paddingTop: "50px" }}>
+<div className="col-lg-6" style={{ textAlign: "left" }}>
+<h5><strong>SPENDENKONTO FÜR DAUERAUFTRAG ODER ÜBERWEISUNG</strong></h5>
+<span> Unsere Bankverbindung für direkte Spenden, Überweisungen oder Daueraufträge lautet: </span>
+<br /><br />
+<style>{`
+  .table th,
+  .table td {
+    border: 0;
+    padding: 3px;
+  }
+`}</style>
+<table className="table" style={{ textAlign: "left" }}>
+<tbody>
+<tr><th>Kontoinhaber</th><td>DEMOCRACY Deutschland e.V.</td></tr>
+<tr><th>IBAN</th><td>DE83 2605 0001 0056 1290 91</td></tr>
+<tr><th>BIC</th><td>NOLADE21GOE</td></tr>
+</tbody>
+</table>
+<span> Der Verein DEMOCRACY Deutschland e.V. ist mit Bescheid des Finanzamts Göttingen vom 12.09.2025 als gemeinnützig anerkannt (<Link href="/files/download/Freistellungsbescheid.pdf" target="_blank">Nachweis der Gemeinnützigkeit</Link>; <Link href="/files/download/Satzung_DEMOCRACY.pdf" target="_blank">Satzung</Link>). Deine Spenden sind daher steuerlich abzugsfähig. Für Spenden unter 200€ jährlich genügt der Zahlungsnachweis (z. B. Kontoauszug) zusammen mit unserem <Link href="/files/download/Vereinfachter_Zuwendungsnachweis_2025.pdf" target="_blank">Vereinfachten Zuwendungsnachweis</Link>. Wenn Du eine separate Zuwendungsbestätigung benötigst, schreib uns bitte eine E-Mail oder gib in Deiner Überweisung Deine Wohnadresse an.</span>
+<br /><br /><br />
+<h5><strong>SPENDEN ÜBER DONORBOX</strong></h5>
+<span>1.5% Deines Spendenbetrags verbleiben bei Donorbox und 2.9% Deines Spendenbetrags + 0,30 EUR beim Zahlungsdienstleister Stripe.<br /> <br /><br /><br /> <h5><strong>SPENDEN ÜBER PAYPAL</strong></h5> <span> 1,5% Deines Spendenbetrags + 0,35 EUR pro Transaktion verbleiben bei PayPal. <br /><br /><br /> <h5><strong>ANDERE FORMEN DER UNTERSTÜTZUNG</strong></h5> <span> Spenden und Daueraufträge sind nur eine Möglichkeit, um uns zu unterstützen. Wir suchen ständig motivierte Leute für die aktive Mitarbeit in unserem Projekt! Du hast Interesse Deine Fähigkeiten einzubringen – wir freuen uns über Anregungen, Fragen und Kritik. <Link href="/engineering/">Als Freiwilliger melden.</Link></span> <br /><br /><br /> <h5><strong>JAHRESABSCHLÜSSE</strong></h5> <span><Link href="/files/download/JA_2017_DEMOCRACY.PDF" target="_blank">Jahresabschluss 2017</Link></span><br /> <span><Link href="/files/download/JA_2018_DEMOCRACY.PDF" target="_blank">Jahresabschluss 2018</Link></span><br /> <span><Link href="/files/download/JA_2019_DEMOCRACY.pdf" target="_blank">Jahresabschluss 2019</Link></span><br /> <span><Link href="/files/download/JA_2020_DEMOCRACY.pdf" target="_blank">Jahresabschluss 2020</Link></span><br /> <span><Link href="/files/download/JA_2021_DEMOCRACY.pdf" target="_blank">Jahresabschluss 2021</Link></span><br /> <span><Link href="/files/download/JA_2022_DEMOCRACY.pdf" target="_blank">Jahresabschluss 2022</Link></span><br /> <span><Link href="/files/download/JA_2023_DEMOCRACY.pdf" target="_blank">Jahresabschluss 2023</Link></span><br /> <span><Link href="/files/download/JA_2024_DEMOCRACY.pdf" target="_blank">Jahresabschluss 2024</Link></span><br /> <span><Link href="/files/download/JA_2025_DEMOCRACY.pdf" target="_blank">Jahresabschluss 2025</Link></span><br /> </span></span>
+</div>
+<div className="col-lg-1"></div>
+<div className="col-lg-5" id="donate-box">
+<DonateDetails
+  progress="{percentage}% von {valueGoal}€ GESCHAFFT!"
+  value="{value}€ von {valueGoal}€"
+  valueNote="(min. Finanzierungsziel/Monat)"
+>
+<ModalToggle id="donate-button" value="Spenden" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal." target="#DEMOCRACYPatenschaft" />
+<Modal id="DEMOCRACYPatenschaft" label="DEMOCRACY Patenschaft">
+<div className="edosz" style={{ fontSize: "50px", float: "left" }}>DEMOCRACY</div>
+<div style={{ fontSize: "30px", float: "left", fontWeight: "bold", paddingTop: "20px" }}>&nbsp;Patenschaft</div>
+<div style={{ clear: "both" }}></div>
+<div className="row">
+<div className="col-12"> Deine regelmäßige Unterstützung hilft uns, die laufenden Kosten zu decken und gibt uns Planungssicherheit für die Zukunft des Projekts.<br /> <br /> </div>
+</div>
+<div className="row">
+<div className="col-md-6"> Damit deine <p style={{ color: "#6eacdc", fontWeight: "bold", display: "inline" }}>Spende zu 100 Prozent wirksam</p> wird und für dich jederzeit kontrollierbar ist, empfehlen wir Dir einen <p style={{ color: "#6eacdc", fontWeight: "bold", display: "inline" }}>Dauerauftrag á Konto</p> einzurichten.<br /> <br /> <h6><b>Dauerauftrag via Bankverbindung</b></h6> <div className="row"><div className="col-4"> <b>Kontoinhaber</b> </div><div className="col-8"> DEMOCRACY Deutschland e.V. </div><div className="col-4"> <b>IBAN</b> </div><div className="col-8"> DE83 2605 0001 0056 1290 91 </div><div className="col-4"> <b>BIC</b> </div><div className="col-8"> NOLADE21GOE </div><br /><br /></div></div>
+<div className="col-md-6"> <h6><b>Dauerauftrag via PayPal</b></h6> 1,5% Deines Spendenbetrags + 0,35 EUR pro Transaktion verbleiben bei PayPal.<br /> <br /> Bitte bedenke, dass von einer monatlichen 1€-Spende insofern nur 0,63 EUR bei uns ankommen.<br /> <br /> <a href="https://www.paypal.com/donate?hosted_button_id=PR4PJL4AY8RSL" target="_blank"><b>Weiter zu PayPal</b></a> <br /> <a href="https://donorbox.org/democracy-app" target="_blank"><b>Weiter zu DonorBox</b></a> </div>
+</div>
+</Modal>
+</DonateDetails>
+</div>
+</div>
+<div className="vspace-small"></div>
+<div className="row">
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "0px" }} />
+</div>
+</div>
+<div className="row" style={{ paddingBottom: "100px" }}>
+<div className="col-12" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
+<h2>DEMOCRACY X HIK</h2>
+</div>
+<div className="col-lg-5">
+<Img src="/files/images/HES_INNOKO_LOGO_RGB.jpg" style={{ width: "100%" }} />
+</div>
+<div className="col-lg-7" style={{ textAlign: "left" }}>
+<span> Das Hertie-Innovationskolleg (HIK) ist ein Projekt der Gemeinnützigen Hertie-Stiftung, dass das Zusammenleben in Europa durch Vorhaben mit großer gesellschaftlicher Wirkung und Vorbildcharakter mitgestaltet. Es fördert Ideen von freien Denkern sowie zukunftsweisende, praxisorientierte Projekte unterschiedlicher Formate innerhalb der drei Themenbereiche Zukunft der Demokratie, Zukunft der Bildung sowie Zukunft des gesellschaftlichen Zusammenhalts. Marius Krüger war Kollegiat des HIK-Jahrgangs 2018&nbsp;I. <Link href="/files/download/MariusKrueger_DEMOCRACY_HIKAbschlussbericht.pdf" target="_blank">Abschlussbericht von Marius Krüger</Link> </span>
+</div>
+</div>
+</div>
+</div>
