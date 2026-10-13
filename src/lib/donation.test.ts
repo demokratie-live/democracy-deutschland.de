@@ -17,10 +17,18 @@ const donation = donationSchema.parse(yaml.parse(read("content/donate/donation.y
 
 /**
  * Response of https://democracy-deutschland.de/api.php?call=donation_status
- * from 2026-10-13, byte for byte. When the YAML changes, the live API is gone
- * and this file is the reference only for the format; see README.
+ * from 2026-10-13, byte for byte (PHP 7.4.33). Reference for the format and
+ * the calculation; the current figures live in content/donate/donation.yaml.
  */
 const LIVE = read("tests/fixtures/donation_status.live.json");
+
+/** What the SAI held for that response: the live result without the computed percentages. */
+function liveInputs(): Donation {
+  const result = JSON.parse(LIVE).result;
+  delete result.donation_percentage;
+  for (const row of result.donation_data) delete row.percentage;
+  return donationSchema.parse(result);
+}
 
 // Reference values from PHP 7.4.33 (the version live runs): round($v / $m * 100, 0).
 // Math.round() gets all of these wrong, PHP pre-rounds to 15 significant digits.
@@ -120,12 +128,12 @@ test("phpJsonEncode escapes like json_encode() without flags", () => {
   );
 });
 
-test("donation.yaml produces the live JSON byte for byte (except querytime)", () => {
+test("the live inputs produce the live response byte for byte (except querytime)", () => {
   const live = LIVE.replace(/^\{"querytime":[0-9.]+,/, '{"querytime":0,');
-  assert.equal(donationStatusJson(donation), live);
+  assert.equal(donationStatusJson(liveInputs()), live);
 });
 
-test("JSON types match the live response", () => {
+test("donation.yaml produces JSON with the types of the live response", () => {
   const typesOf = (value: unknown): unknown =>
     Array.isArray(value)
       ? value.map(typesOf)

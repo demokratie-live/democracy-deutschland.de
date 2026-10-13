@@ -1,23 +1,23 @@
-# Spendenstand: Spendenbox und Posten-Tabelle auf /spenden/ sowie das JSON für die
-# App (/api.php?call=donation_status und /api/donation_status.json).
-# Früher im SAI gepflegt (Texte „donation“ und Tabelle `donate`), Schlüssel wie im JSON.
-# Ablauf zum Aktualisieren: README, Abschnitt „Spendenstand aktualisieren“.
+# Donation status: donation box and cost table on /spenden/ and the JSON for
+# the app (/api.php?call=donation_status, /api/donation_status.json).
+# Formerly maintained in the SAI (text "donation", table `donate`); the keys are
+# those of the JSON. How to update: README, "Updating the donation status".
 
-# Freier Text, wird unverändert angezeigt („Stand: …“) und ausgeliefert.
+# Free text, shown as "Stand: …" and passed to the app unchanged.
 donation_date: "14.06.2026 * 09:25 Uhr"
-# Patenschaften (Anzahl) und Ziel
+# Sponsorships (count) and goal
 donation_paten: 354
 donation_paten_goal: 2000
-# Monatliche Spenden in Euro und Ziel (min. Finanzierungsziel/Monat).
-# Der Prozentwert wird beim Build daraus berechnet.
+# Monthly donations in euros and goal ("min. Finanzierungsziel/Monat").
+# The percentage is computed at build time.
 donation_value: 1563
 donation_value_goal: 9300
 
-# Posten der Tabelle, sortiert nach `order`.
-#   type 0 = Überschrift (nur text_description wird angezeigt)
-#   type 1 = Posten: value von max Euro gedeckt, der Balken zeigt value/max.
-# Leere Felder dürfen bei Überschriften fehlen. Die id bleibt fest, auch wenn
-# sich die Reihenfolge ändert (die App nutzt sie als Schlüssel).
+# Rows of the cost table, sorted by `order`.
+#   type 0 = heading (only text_description is shown)
+#   type 1 = cost: `value` of `max` euros covered, the bar shows value/max.
+# Empty fields may be left out for headings. Keep `id` stable when the order
+# changes (the app uses it as key).
 donation_data:
   - id: 6
     order: 10

@@ -88,5 +88,5 @@ test("donation downloads and the app JSON live below the basePath", async ({ pag
   expect((await page.request.get((await satzung.getAttribute("href"))!)).status()).toBe(200);
   const json = await page.request.get(`${BASE}/api.php?call=donation_status`);
   expect(json.status()).toBe(200);
-  expect((await json.json()).result.donation_value_goal).toBe(9300);
+  expect((await json.json()).status).toBe(true);
 });

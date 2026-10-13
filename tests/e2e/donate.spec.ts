@@ -1,15 +1,18 @@
-import fs from "fs";
-import path from "path";
 import { expect, test, type Page } from "@playwright/test";
+import {
+  donationStatusJson,
+  itemPercentage,
+  percentage,
+  phpNumberFormat,
+  sortedItems,
+} from "../../src/lib/donation";
+import { donationSchema } from "../../src/lib/schemas/donation";
 import { contentYaml, trackErrors, waitForScrollEnd } from "./helpers";
 
-interface DonationYaml {
-  donation_date: string;
-  donation_paten: number;
-  donation_data: { type: number; text_description?: string; text_cost?: string }[];
-}
-
-const donation = contentYaml<DonationYaml>("donate/donation.yaml");
+// Expected values follow the YAML, so updating the figures keeps the tests green.
+const donation = donationSchema.parse(contentYaml("donate/donation.yaml"));
+const percent = String(percentage(donation.donation_value, donation.donation_value_goal));
+const valueGoal = phpNumberFormat(donation.donation_value_goal);
 
 /** Every bar must cover its row like updateProgress() in donate_details.tpl. */
 async function barsMatchRows(page: Page) {
@@ -43,29 +46,34 @@ test("donation figures come from donation.yaml", async ({ page }) => {
   const progress = page.locator("progress");
   await expect(progress).toHaveCount(2);
   for (const bar of await progress.all()) {
-    await expect(bar).toHaveAttribute("value", "17");
-    await expect(bar).toHaveAttribute("data-label", "17% von 9.300€ GESCHAFFT!");
+    await expect(bar).toHaveAttribute("value", percent);
+    await expect(bar).toHaveAttribute("data-label", `${percent}% von ${valueGoal}€ GESCHAFFT!`);
   }
   await expect(page.locator(".col-lg-4").first()).toContainText(
-    `${donation.donation_paten} VON 2.000`,
+    `${donation.donation_paten} VON ${phpNumberFormat(donation.donation_paten_goal)}`,
   );
   await expect(page.getByText(`Stand: ${donation.donation_date}`)).toBeVisible();
-  await expect(page.getByText("1.563€ von 9.300€")).toHaveCount(2);
+  await expect(
+    page.getByText(`${phpNumberFormat(donation.donation_value)}€ von ${valueGoal}€`),
+  ).toHaveCount(2);
 
-  const heads = donation.donation_data.filter((item) => item.type === 0);
-  const rows = donation.donation_data.filter((item) => item.type === 1);
+  const items = sortedItems(donation);
+  const heads = items.filter((item) => item.type === 0);
+  const rows = items.filter((item) => item.type === 1);
   await expect(page.locator(".donate-details-head")).toHaveCount(heads.length);
   await expect(page.locator(".donate-details-head th:nth-child(2)")).toHaveText(
-    heads.map((item) => item.text_description ?? ""),
+    heads.map((item) => item.text_description),
   );
   await expect(page.locator(".donate-details-cost-text")).toHaveText(
-    rows.map((item) => item.text_cost ?? ""),
+    rows.map((item) => item.text_cost),
   );
-  await expect(page.locator(".donate-details-cost").nth(2)).toHaveText("3.000€");
-  await expect(page.locator(".donate-detail-progress").nth(5)).toHaveAttribute(
-    "style",
-    /width: 23%/,
+  await expect(page.locator(".donate-details-cost")).toHaveText(
+    rows.map((item) => `${phpNumberFormat(item.max)}€`),
   );
+  const widths = await page
+    .locator(".donate-detail-progress")
+    .evaluateAll((bars) => bars.map((bar) => (bar as HTMLElement).style.width));
+  expect(widths).toEqual(rows.map((item) => `${itemPercentage(item)}%`));
 });
 
 test("progress bars cover their rows, also after a resize", async ({ page }) => {
@@ -140,7 +148,7 @@ test("Pate/Spenden buttons scroll to the bank details on the same page", async (
 test("downloads exist under the old /files/download/ paths", async ({ page }) => {
   const links = page.locator('a[href^="/files/download/"]');
   const hrefs = await links.evaluateAll((anchors) =>
-    anchors.map((a) => [a.getAttribute("href")!, a.getAttribute("target")]),
+    anchors.map((a) => [a.getAttribute("href")!, a.getAttribute("target")] as const),
   );
   expect(hrefs.map(([href]) => href)).toEqual(
     expect.arrayContaining([
@@ -172,18 +180,15 @@ test("volunteer link points to the engineering page", async ({ page }) => {
 });
 
 test("api.php and api/donation_status.json serve the donation status", async ({ request }) => {
-  const live = fs.readFileSync(
-    path.join(process.cwd(), "tests/fixtures/donation_status.live.json"),
-    "utf-8",
-  );
-  const expected = live.replace(/^\{"querytime":[0-9.]+,/, '{"querytime":0,');
+  // Byte-for-byte equality with the live API is a unit test (src/lib/donation.test.ts).
+  const expected = donationStatusJson(donation);
   // The app requests ?call=donation_status; a static host ignores the query.
   const php = await request.get("/api.php?call=donation_status");
   expect(php.status()).toBe(200);
   // serve uses mime-db like GitHub Pages: .php is not served as JSON.
   expect(php.headers()["content-type"]).toBe("application/x-httpd-php");
   expect(await php.text()).toBe(expected);
-  expect((await php.json()).result.donation_percentage).toBe(17);
+  expect((await php.json()).result.donation_percentage).toBe(Number(percent));
 
   const json = await request.get("/api/donation_status.json");
   expect(json.status()).toBe(200);
