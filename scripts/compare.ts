@@ -9,6 +9,8 @@
  *   --local <url>      lokale Basis-URL (Standard http://localhost:3000, Dev-Server oder `pnpm start`)
  *   --live <url>       Live-URL der Seite (Standard aus content/site/routes.yaml: /#!<state>)
  *   --click <selektor> vor dem Screenshot auf beiden Seiten klicken (mehrfach möglich)
+ *   --hover <selektor> nach den Klicks mit der Maus auf das Element zeigen; Screenshot nur
+ *                      vom sichtbaren Bereich um das Element (ganze Seite verliert den Hover)
  *   --no-mask          <video> und <iframe> nicht abdecken
  *   --viewport-only    nur den sichtbaren Bereich statt der ganzen Seite
  *   --only <name>      nur "desktop" oder "mobile" (z.B. für das Mobil-Menü)
@@ -41,6 +43,7 @@ interface Options {
   local: string;
   live?: string;
   clicks: string[];
+  hover?: string;
   mask: boolean;
   fullPage: boolean;
   only?: string;
@@ -59,12 +62,15 @@ function parseArgs(argv: string[]): Options {
     if (arg === "--local") options.local = argv[++i];
     else if (arg === "--live") options.live = argv[++i];
     else if (arg === "--click") options.clicks.push(argv[++i]);
+    else if (arg === "--hover") options.hover = argv[++i];
     else if (arg === "--no-mask") options.mask = false;
     else if (arg === "--viewport-only") options.fullPage = false;
     else if (arg === "--only") options.only = argv[++i];
     else if (!arg.startsWith("--")) options.route = arg;
     else throw new Error(`Unbekannte Option: ${arg}`);
   }
+  // A full-page screenshot resizes the viewport, the element leaves the mouse.
+  if (options.hover) options.fullPage = false;
   if (!options.route) {
     throw new Error("Pfad fehlt, z.B. `pnpm compare /wahlometer/`");
   }
@@ -125,6 +131,14 @@ async function capture(
     await page.waitForTimeout(1200);
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(300);
+  }
+  if (options.hover) {
+    const target = page.locator(options.hover).first();
+    // Same scroll position on both sides: element centred, then the mouse.
+    await target.evaluate((element) => element.scrollIntoView({ block: "center" }));
+    await page.waitForTimeout(800);
+    await target.hover();
+    await page.waitForTimeout(600);
   }
   await page.screenshot({
     path: file,
@@ -329,6 +343,7 @@ async function main() {
       `- lokal: ${localUrl}`,
       `- live: ${liveUrl}`,
       options.clicks.length ? `- Klicks: ${options.clicks.join(", ")}` : "",
+      options.hover ? `- Hover: ${options.hover} (nur sichtbarer Bereich)` : "",
       "",
       "| Viewport | Pixel abweichend | Größe live | Größe lokal |",
       "| --- | --- | --- | --- |",
