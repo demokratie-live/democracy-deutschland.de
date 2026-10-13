@@ -10,7 +10,7 @@ categories: [newsletter]
 tags: []
 featuredMedia: 716
 image: "/blog/wp-content/uploads/2024/12/News_01.png"
-excerpt: "Liebe/r UnterstützerIn, \u00a0 es gibt Neuigkeiten von Ihrem Lieblingsprojekt – der DEMOCRACY App! Wir wollen als erstes fröhliche Weihnachten wünschen und eine besinnliche Zeit. Sollten Sie die Zeit und die Muse haben, über das vergangene Jahr nachzusinnen, dann denken Sie an uns. Und wir denken an Sie, vielen Dank!"
+excerpt: "Liebe/r UnterstützerIn, \u00a0 es gibt Neuigkeiten von Ihrem Lieblingsprojekt – der DEMOCRACY App! Wir wollen als erstes fröhliche Weihnachten wünschen und eine besinnliche Zeit. Sollten Sie die Zeit und die Muse haben, über das vergangene Jahr nachzusinnen, dann denken Sie an uns. Und wir denken an Sie, vielen Dank! \u00a0"
 ---
 
 <span style="font-weight: 400;">Liebe/r UnterstützerIn,</span>

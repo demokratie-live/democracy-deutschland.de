@@ -10,7 +10,7 @@ categories: [newsletter]
 tags: []
 featuredMedia: 718
 image: "/blog/wp-content/uploads/2024/12/News_03.png"
-excerpt: "Liebe/r UnterstützerIn, es gibt ein paar Neuigkeiten von Ihrem Lieblingsprojekt – der DEMOCRACY App! ∨ Updates herunterladen… 1%….100%"
+excerpt: "Liebe/r UnterstützerIn, es gibt ein paar Neuigkeiten von Ihrem Lieblingsprojekt – der DEMOCRACY App! ∨ Updates herunterladen… 1%….100% \u00a0"
 ---
 
 <p class="anrede wp-block-paragraph">Liebe/r UnterstützerIn,</p>

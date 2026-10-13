@@ -10,7 +10,7 @@ categories: [newsletter]
 tags: []
 featuredMedia: 730
 image: "/blog/wp-content/uploads/2024/12/News_15.png"
-excerpt: "Liebe/r UnterstützerIn, ohja, der Februar war intensiv – wir haben es drauf ankommen lassen! Wie genau wir das meinen, möchten wir Ihnen gerne in den folgenden Zeilen erklären. Wir wünschen viel Spaß beim Lesen und hoffen auf Ihre Unterstützung, Herzliche Grüße Marius Krüger, Ulf Gebhardt & Manuel Ruck"
+excerpt: "Liebe/r UnterstützerIn, ohja, der Februar war intensiv – wir haben es drauf ankommen lassen! Wie genau wir das meinen, möchten wir Ihnen gerne in den folgenden Zeilen erklären. Wir wünschen viel Spaß beim Lesen und hoffen auf Ihre Unterstützung, Herzliche Grüße Marius Krüger, Ulf Gebhardt & Manuel Ruck \u00a0"
 ---
 
 <p class="anrede wp-block-paragraph">Liebe/r UnterstützerIn,</p>

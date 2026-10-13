@@ -10,7 +10,7 @@ categories: [newsletter]
 tags: []
 featuredMedia: 723
 image: "/blog/wp-content/uploads/2024/12/News_08.png"
-excerpt: "Liebe/r UnterstützerIn, es gibt ein paar Neuigkeiten von Ihrem Lieblingsprojekt – der DEMOCRACY App! Im Folgenden haben wir kurz zusammengefasst, was sich im wunderschönen Sommermonat Juli alles getan hat. Viel Spaß beim Lesen und Herzliche Grüße Marius Krüger, Ulf Gebhardt & Manuel Ruck"
+excerpt: "Liebe/r UnterstützerIn, es gibt ein paar Neuigkeiten von Ihrem Lieblingsprojekt – der DEMOCRACY App! Im Folgenden haben wir kurz zusammengefasst, was sich im wunderschönen Sommermonat Juli alles getan hat. Viel Spaß beim Lesen und Herzliche Grüße Marius Krüger, Ulf Gebhardt & Manuel Ruck \u00a0"
 ---
 
 <p class="anrede wp-block-paragraph">Liebe/r UnterstützerIn,</p>

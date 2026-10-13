@@ -10,7 +10,7 @@ categories: [newsletter]
 tags: []
 featuredMedia: 731
 image: "/blog/wp-content/uploads/2024/12/News_16.png"
-excerpt: "Liebe/r UnterstützerIn, der Releasemonat März liegt hinter uns. Was sich seit dem letzten Sonntag alles Feines getan hat, haben wir für Sie in den folgenden Zeilen zusammengefasst. Wir wünschen viel Spaß beim Lesen und hoffen auf Ihre Unterstützung, Herzliche Grüße Marius Krüger, Ulf Gebhardt & Manuel Ruck"
+excerpt: "Liebe/r UnterstützerIn, der Releasemonat März liegt hinter uns. Was sich seit dem letzten Sonntag alles Feines getan hat, haben wir für Sie in den folgenden Zeilen zusammengefasst. Wir wünschen viel Spaß beim Lesen und hoffen auf Ihre Unterstützung, Herzliche Grüße Marius Krüger, Ulf Gebhardt & Manuel Ruck \u00a0"
 ---
 
 <p class="anrede wp-block-paragraph">Liebe/r UnterstützerIn,</p>

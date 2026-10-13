@@ -10,7 +10,7 @@ categories: [newsletter]
 tags: []
 featuredMedia: 725
 image: "/blog/wp-content/uploads/2024/12/News_10.png"
-excerpt: "Liebe/r UnterstützerIn, endlich ist es so weit: Wir können Ihnen den MVP der DEMOCRACY App vorstellen. Das ist wirklich ein Wahnsinnsmoment, in einem Wahnsinnsmonat, in einem Wahnsinnsjahr – 2k18. Jetzt sind Sie dran. Viel Spaß beim Lesen und Herzliche Grüße Marius Krüger, Ulf Gebhardt & Manuel Ruck"
+excerpt: "Liebe/r UnterstützerIn, endlich ist es so weit: Wir können Ihnen den MVP der DEMOCRACY App vorstellen. Das ist wirklich ein Wahnsinnsmoment, in einem Wahnsinnsmonat, in einem Wahnsinnsjahr – 2k18. Jetzt sind Sie dran. Viel Spaß beim Lesen und Herzliche Grüße Marius Krüger, Ulf Gebhardt & Manuel Ruck \u00a0"
 ---
 
 <p class="anrede wp-block-paragraph">Liebe/r UnterstützerIn,</p>

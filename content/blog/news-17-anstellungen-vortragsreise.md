@@ -10,7 +10,7 @@ categories: [newsletter]
 tags: []
 featuredMedia: 732
 image: "/blog/wp-content/uploads/2024/12/News_17.png"
-excerpt: "Liebe/r UnterstützerIn, drei Monate sind vergangen seit dem letzten Newsletter. Umso mehr freut es mich, Ihnen wieder ein paar Neuigkeiten mitzuteilen. Also anschnallen und bereitmachen für die Juniausgabe. Ich wünsche viel Spaß beim Lesen und hoffe auf Ihre Unterstützung, Herzliche Grüße Ihr Marius Krüger"
+excerpt: "Liebe/r UnterstützerIn, drei Monate sind vergangen seit dem letzten Newsletter. Umso mehr freut es mich, Ihnen wieder ein paar Neuigkeiten mitzuteilen. Also anschnallen und bereitmachen für die Juniausgabe. Ich wünsche viel Spaß beim Lesen und hoffe auf Ihre Unterstützung, Herzliche Grüße Ihr Marius Krüger \u00a0"
 ---
 
 <p class="anrede wp-block-paragraph">Liebe/r UnterstützerIn,</p>

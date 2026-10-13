@@ -10,7 +10,7 @@ categories: [reality-check]
 tags: [bundestagswahl, fdp, reality-check, wahlprogramm]
 featuredMedia: 901
 image: "/blog/wp-content/uploads/2024/12/FDP_Programm_Blog-2048x1134-1.png"
-excerpt: "Dieser Artikel beschäftigt sich mit dem Wahlprogramm der FDP zur Bundestagswahl 2021. Er stellt eine Recherche dar, inwieweit die Versprechen des Wahlprogramms von dem tatsächlichen Abstimmungsverhalten der Partei im Bundestag während der endenden Legislaturperiode von 2017 bis 2021 gedeckt sind."
+excerpt: "Dieser Artikel beschäftigt sich mit dem Wahlprogramm der FDP zur Bundestagswahl 2021. Er stellt eine Recherche dar, inwieweit die Versprechen des Wahlprogramms von dem tatsächlichen Abstimmungsverhalten der Partei im Bundestag während der endenden Legislaturperiode von 2017 bis 2021 gedeckt sind.\u00a0"
 ---
 
 <h3 class="wp-block-heading">Dieser Artikel beschäftigt sich mit dem Wahlprogramm der FDP zur Bundestagswahl 2021. Er stellt eine Recherche dar, inwieweit die Versprechen des Wahlprogramms von dem tatsächlichen Abstimmungsverhalten der Partei im Bundestag während der endenden Legislaturperiode von 2017 bis 2021 gedeckt sind.&nbsp;</h3>

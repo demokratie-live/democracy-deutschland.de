@@ -45,7 +45,7 @@ export const blogPostFrontmatterSchema = z.object({
   featuredMedia: z.number().int().nonnegative(),
   /** Featured image, original upload; its sizes are in content/blog/media.yaml. */
   image: uploadPath.optional(),
-  /** Automatic excerpt (`the_excerpt`) as plain text, e.g. for the feed. */
+  /** Automatic excerpt (`the_excerpt`, up to <!--more-->) as plain text, shown in search results. */
   excerpt: z.string(),
 });
 export type BlogPostFrontmatter = z.infer<typeof blogPostFrontmatterSchema>;

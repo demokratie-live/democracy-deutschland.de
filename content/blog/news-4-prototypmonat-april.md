@@ -10,7 +10,7 @@ categories: [newsletter]
 tags: []
 featuredMedia: 719
 image: "/blog/wp-content/uploads/2024/12/News_04.png"
-excerpt: "Liebe/r UnterstützerIn, im Januar mit dem Programmieren begonnen, haben wir am vergangenen Oster-Wochenende nochmal so richtig durchgeschnauft, um jetzt mit großer Vorfreude Ihren Prototypmonat einzuleiten. Fangen wir an: News, News, News. Viel Spaß beim Lesen und Herzliche Grüße Marius Krüger & Team DEMOCRACY"
+excerpt: "Liebe/r UnterstützerIn, im Januar mit dem Programmieren begonnen, haben wir am vergangenen Oster-Wochenende nochmal so richtig durchgeschnauft, um jetzt mit großer Vorfreude Ihren Prototypmonat einzuleiten. Fangen wir an: News, News, News. Viel Spaß beim Lesen und Herzliche Grüße Marius Krüger & Team DEMOCRACY \u00a0"
 ---
 
 <p class="anrede wp-block-paragraph">Liebe/r UnterstützerIn,</p>

@@ -468,7 +468,8 @@ async function main() {
       tags: postTags.map((term) => term.slug),
       featuredMedia: post.featured_media,
       ...(image ? { image } : {}),
-      excerpt: decoder(post.excerpt.rendered).trim(),
+      // Only ASCII whitespace: the excerpt may end with a no-break space.
+      excerpt: decoder(post.excerpt.rendered).replace(/^[\t\n\r ]+|[\t\n\r ]+$/g, ""),
     };
     if (blogPermalink(frontmatter) !== post.link.replace(ORIGIN, "")) {
       throw new Error(`Post ${post.id}: Permalink ${post.link} passt nicht zu Datum und Slug`);

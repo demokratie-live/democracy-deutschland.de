@@ -10,7 +10,7 @@ categories: [kommentar]
 tags: [democracy, demokratie, kommentar, luetzrath, raeumung]
 featuredMedia: 824
 image: "/blog/wp-content/uploads/2024/12/Kommentar_04c_Blog-2048x1054-1.png"
-excerpt: "Lützerath ist geräumt. Und obwohl wir ein weiteres Mal demonstriert bekommen haben, wie unsouverän und ignorant der Staat mit Vorwürfen der Polizeigewalt umgeht – für die Klimabewegung ist das Kapitel noch nicht abgeschlossen."
+excerpt: "Lützerath ist geräumt. Und obwohl wir ein weiteres Mal demonstriert bekommen haben, wie unsouverän und ignorant der Staat mit Vorwürfen der Polizeigewalt umgeht – für die Klimabewegung ist das Kapitel noch nicht abgeschlossen.\u00a0"
 ---
 
 <p class="wp-block-paragraph">Lützerath ist geräumt. Und obwohl wir ein weiteres Mal demonstriert bekommen haben, wie unsouverän und ignorant der Staat mit Vorwürfen der Polizeigewalt umgeht – für die Klimabewegung ist das Kapitel noch nicht abgeschlossen.&nbsp;</p>

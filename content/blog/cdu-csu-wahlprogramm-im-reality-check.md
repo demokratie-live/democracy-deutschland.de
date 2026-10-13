@@ -10,7 +10,7 @@ categories: [reality-check]
 tags: [bundestagswahl, cdu-csu, reality-check, wahlprogramm]
 featuredMedia: 900
 image: "/blog/wp-content/uploads/2024/12/CDU_Programm_Blog-2048x1134-1.png"
-excerpt: "Dieser Artikel beschäftigt sich mit dem Wahlprogramm der CDU/CSU zur Bundestagswahl 2021. Er stellt eine Recherche dar, inwieweit die Versprechen des Wahlprogramms mit dem tatsächlichen Abstimmungsverhalten der Parteien im Bundestag während der endenden Legislaturperiode von 2017 bis 2021 übereinstimmen."
+excerpt: "Dieser Artikel beschäftigt sich mit dem Wahlprogramm der CDU/CSU zur Bundestagswahl 2021. Er stellt eine Recherche dar, inwieweit die Versprechen des Wahlprogramms mit dem tatsächlichen Abstimmungsverhalten der Parteien im Bundestag während der endenden Legislaturperiode von 2017 bis 2021 übereinstimmen.\u00a0"
 ---
 
 <h3 class="wp-block-heading">Dieser Artikel beschäftigt sich mit dem Wahlprogramm der CDU/CSU zur Bundestagswahl 2021. Er stellt eine Recherche dar, inwieweit die Versprechen des Wahlprogramms mit dem tatsächlichen Abstimmungsverhalten der Parteien im Bundestag während der endenden Legislaturperiode von 2017 bis 2021 übereinstimmen.&nbsp;</h3>
