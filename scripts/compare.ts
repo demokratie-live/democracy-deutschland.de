@@ -14,6 +14,8 @@
  *   --live-eval <js>   JavaScript, das auf live vor den Klicks läuft, um eine bewusste
  *                      Abweichung nachzustellen (z.B. ein entferntes Duplikat); der Text-
  *                      vergleich gegen ?_escaped_fragment_ zeigt sie weiterhin
+ *   --files <selektor> zwei Testdateien in das Datei-Feld setzen (vor den Klicks), z.B.
+ *                      "#bug-files"; auf live wird XMLHttpRequest vorher abgeklemmt
  *   --no-mask          <video> und <iframe> nicht abdecken
  *   --viewport-only    nur den sichtbaren Bereich statt der ganzen Seite
  *   --only <name>      nur "desktop" oder "mobile" (z.B. für das Mobil-Menü)
@@ -36,6 +38,15 @@ import yaml from "yaml";
 import { routesSchema } from "../src/lib/schemas/site";
 
 const LIVE_ORIGIN = "https://democracy-deutschland.de";
+
+/** Calls of the old API that send mail or store files: never reach them from here. */
+const LIVE_WRITE_CALLS = /api\.php\?call=(send_mail|send_subscribe|upload|beta)/;
+
+/** Test files for --files (names as in the e2e tests). */
+const TEST_FILES = [
+  { name: "screenshot-1.png", mimeType: "image/png", buffer: Buffer.from("test") },
+  { name: "log.txt", mimeType: "text/plain", buffer: Buffer.from("test2") },
+];
 const VIEWPORTS = [
   { name: "desktop-1280", width: 1280, height: 800, isMobile: false },
   { name: "mobile-375", width: 375, height: 812, isMobile: true },
@@ -48,6 +59,7 @@ interface Options {
   clicks: string[];
   hover?: string;
   liveEval?: string;
+  files?: string;
   mask: boolean;
   fullPage: boolean;
   only?: string;
@@ -68,6 +80,7 @@ function parseArgs(argv: string[]): Options {
     else if (arg === "--click") options.clicks.push(argv[++i]);
     else if (arg === "--hover") options.hover = argv[++i];
     else if (arg === "--live-eval") options.liveEval = argv[++i];
+    else if (arg === "--files") options.files = argv[++i];
     else if (arg === "--no-mask") options.mask = false;
     else if (arg === "--viewport-only") options.fullPage = false;
     else if (arg === "--only") options.only = argv[++i];
@@ -130,11 +143,22 @@ async function capture(
     deviceScaleFactor: 1,
   });
   const page = await context.newPage();
+  if (isLive) await page.route(LIVE_WRITE_CALLS, (route) => route.abort());
   await page.goto(url, { waitUntil: "load" });
   await settle(page);
   if (isLive && options.liveEval) {
     await page.evaluate(options.liveEval);
     await page.waitForTimeout(300);
+  }
+  if (options.files) {
+    // upload() of live posts every file at once: stop XMLHttpRequest first.
+    if (isLive) {
+      await page.evaluate(
+        "XMLHttpRequest.prototype.open = function () {}; XMLHttpRequest.prototype.send = function () {};",
+      );
+    }
+    await page.setInputFiles(options.files, TEST_FILES);
+    await page.waitForTimeout(500);
   }
   for (const selector of options.clicks) {
     await page.locator(selector).first().click();

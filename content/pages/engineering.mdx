@@ -1,0 +1,216 @@
+---
+# Engineering (live: State engineering, default_engineering.tpl)
+# Roadmap: content/engineering/roadmap.yaml, Alpha-Link: content/site/app-links.yaml,
+# alert-Texte der Formulare: content/site/forms.yaml.
+# Die Verschachtelung ab „Toolset“ folgt dem Browser-DOM: Im Template fehlt bei
+# „</h1“ das „>“, der Browser verschluckt deshalb das folgende „</div>“.
+state: engineering
+---
+
+<div className="background-white">
+<div className="container main-container">
+<div className="row">
+<div className="col-12">
+<h1>Roadmap</h1>
+<h4 style={{ paddingTop: "30px" }}>Unsere Entwicklung ist <a href="https://github.com/demokratie-live/" target="_blank">Open Source</a>, der Quellcode frei und offen.</h4>
+<h4>DEMOCRACY ist und bleibt kostenlos.</h4>
+</div>
+<div className="col-12">
+<style>{`
+.badges2 {
+    text-align: center;
+    padding-left: 15px;
+}
+.table i {
+    font-size: 25px;
+}
+.table tr td:first-child,
+.table tr th:first-child {
+    text-align: left;
+}
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: #D0E4F4;
+}
+#finalblock {
+    background-color: #fff;
+    padding-top: 35px;
+}
+#protodivider {
+    margin-top: 50px;
+}
+.rotate {
+    font-size: 14px;
+}
+@media (min-width: 992px) {
+    #protodivider {
+        margin-top: -30px;
+    }
+    .badges2 {
+        text-align: left;
+    }
+}
+@media (max-width: 767px) {
+    .rotate {
+        word-break: keep-all;
+        font-size: 12px;
+    }
+    .table th.rotate,
+    .table tr {
+        padding: 3px !important;
+    }
+    #finalblock {
+        padding-bottom: 50px;
+    }
+}
+.rmicon-red {
+    color: rgb(196, 48, 43);
+}
+.rmicon-green {
+    color: rgb(38, 183, 39);
+}
+.rmicon-blue {
+    color: rgb(68,148,211);
+}
+.rmicon-grey {
+    color: rgb(115,115,115);
+}
+.rmicon-black {
+    color: rgb(0,0,0);
+}
+`}</style>
+<Roadmap heading="Release" />
+</div>
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>Technologie Stack</h1>
+<h5 style={{ paddingTop: "30px", paddingBottom: "50px" }}>Unsere Programmiersprachen und Frameworks, die Du als Entwickler benötigst,<br />um an DEMOCRACY mitzuwirken.</h5>
+</div>
+<div className="col-12">
+<div className="row">
+<div className="col-lg-4 info-box">
+<div className="stack-box-img">
+<Img src="/files/images/ts-js.png" />
+</div>
+</div>
+<div className="col-lg-4 info-box">
+<div className="stack-box-img">
+<Img src="/files/images/react-native.png" />
+</div>
+</div>
+<div className="col-lg-4 info-box">
+<div className="stack-box-img">
+<Img src="/files/images/nodejs.png" />
+</div>
+</div>
+</div>
+</div>
+<div className="col-12" style={{ paddingTop: "100px" }}>
+<h1>Toolset</h1>
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<div className="row justify-content-md-center">
+<div className="col-lg-4 info-box">
+<a href="https://www.browserstack.com" target="_blank">
+<div className="stack-box-img">
+<Img src="/files/images/browserstack.png" />
+</div>
+</a>
+</div>
+</div>
+</div>
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>DEMOCRACY Entwicklerversion testen</h1>
+<div className="row" style={{ paddingTop: "50px" }}>
+<div className="col-lg-1"></div>
+<div className="col-lg-4">
+<Img src="/files/images/01FemaleMirror@3x.png" style={{ width: "100%", paddingTop: "50px" }} />
+</div>
+<div className="col-lg-2"></div>
+<div className="col-lg-4" style={{ paddingTop: "60px" }}>
+<Img src="/files/images/circle@3x.png" style={{ width: "75px" }} />
+<div className="cite">
+<div className="cite-icon">
+<Img src="/files/images/quotes@3x.png" style={{ width: "60px", paddingLeft: "12px" }} />
+</div>
+<div className="cite-content" style={{ textAlign: "left" }}>Prototyping ist der Prozess der Annäherung an ein Produkt</div>
+</div>
+<AlphaBadges label="Alpha" button="Hier gehts zur Bewerbungsformular" />
+</div>
+<div className="col-lg-1"></div>
+</div>
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" id="protodivider" />
+</div>
+<BugReportForm
+  heading="Bugreports"
+  intro={<>Du hast einen Fehler gefunden oder ein anderes Problem im MVP festgestellt? Hilf uns diese(n) zu beheben –<br />mit einem qualifizierten Feedback. Dazu füllst du am Besten das untenstehende Formular aus.</>}
+  name="Dein Name*"
+  email="E-Mail-Adresse für Rückfragen*"
+  title="Betreff/Titel"
+  platform="Plattform (iOS/Android)*"
+  version="Version*"
+  text="Bitte beschreibe den Fehler möglichst genau in wenigen Sätzen; beziehe Dich dabei auf Screenshots und markiere die fehlerhaften Bereiche*"
+  dropText="Dateien anhängen durch drag & drop oder "
+  dropLink="auswählen"
+  dropEnd="."
+  submit="Bericht senden"
+/>
+<div className="col-12" id="help">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>Mithelfen</h1>
+<h5 style={{ paddingTop: "30px" }}>Du möchtest Demokratie mitgestalten?<br />Werde Teil des Teams.</h5>
+<style>{`
+#laptop {
+    display: flex;
+    text-align: left;
+}
+#laptop div input {
+    margin-top: 5px;
+}
+@media (min-width:992px) {
+    #laptop {
+        margin-left: 120px;
+        margin-right: 120px;
+        margin-top: 40px;
+        padding-bottom: 1%;
+        margin-bottom: 12.5%;
+        background-color: #fff;
+    }
+}
+`}</style>
+<div className="row" style={{ paddingTop: "50px" }}>
+<Img src="/files/images/macbookSpaceGrey@3x.png" className="d-none d-lg-block" style={{ width: "100%", position: "absolute" }} />
+<div className="col-12">
+<VolunteerForm
+  name="Dein Name*"
+  email="Deine E-Mail-Adresse*"
+  rolesHeading="Ich möchte DEMOCRACY mitgestalten als"
+  roles={[
+    { id: "uiux", label: "UI/UX-Designer" },
+    { id: "frontend", label: "Front-End-Developer" },
+    { id: "backend", label: "Back-End-Developer" },
+    { id: "kryptologe", label: "Kryptograph" },
+    { id: "marketing", label: "Marketingstratege" },
+    { id: "redakteur", label: "Redakteur" },
+    { id: "botschafter", label: "Botschafter" },
+  ]}
+  featureHeading="Ich möchte ein App-Feature vorschlagen"
+  feature={{ id: "feature", label: "Feature-Vorschlag" }}
+  text="Erzähle uns über Deine Erfahrungen/Idee(n)*"
+  submit="Als Freiwillige/r melden "
+/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

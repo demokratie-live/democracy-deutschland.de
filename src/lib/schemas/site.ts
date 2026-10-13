@@ -92,6 +92,8 @@ export const appLinksSchema = z.object({
   browserVersion: z.url(),
   apk: z.url(),
   aab: z.url(),
+  /** Internal path of the invite page with the alpha code. */
+  alpha: z.string().regex(/^\/invite\//, "path under /invite/"),
 });
 export type AppLinks = z.infer<typeof appLinksSchema>;
 

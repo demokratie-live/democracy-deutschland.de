@@ -4,6 +4,9 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { DonateBox, DonateDetails } from "@/components/donate/DonationFigures";
 import { Modal } from "@/components/donate/Modal";
 import { ModalToggle } from "@/components/donate/ModalToggle";
+import { AlphaBadges } from "@/components/engineering/AlphaBadges";
+import { BugReportForm, VolunteerForm } from "@/components/engineering/EngineeringForms";
+import { Roadmap } from "@/components/engineering/Roadmap";
 import { Faq } from "@/components/faq/Faq";
 import { FeatureVideos, InfoBadge } from "@/components/home/FeatureVideos";
 import { LegalText } from "@/components/legal/LegalText";
@@ -53,4 +56,8 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   Faq,
   ContactForm,
   LegalText,
+  Roadmap,
+  AlphaBadges,
+  BugReportForm,
+  VolunteerForm,
 };
