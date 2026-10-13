@@ -1,4 +1,5 @@
 import type { MDXRemoteProps } from "next-mdx-remote/rsc";
+import { ServicesIcon, Team } from "@/components/about/Team";
 import { DonateBox, DonateDetails } from "@/components/donate/DonationFigures";
 import { Modal } from "@/components/donate/Modal";
 import { ModalToggle } from "@/components/donate/ModalToggle";
@@ -41,4 +42,6 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   DonateDetails,
   Modal,
   ModalToggle,
+  Team,
+  ServicesIcon,
 };

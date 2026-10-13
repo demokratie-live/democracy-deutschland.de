@@ -19,6 +19,7 @@ const pages = [
   { path: "/", fonts: [...FONTS, "icomoon"] },
   { path: "/wahlometer/", fonts: [...FONTS, "icomoon"] },
   { path: "/spenden/", fonts: [...FONTS, "helvetica_bold"] },
+  { path: "/ueber-uns/", fonts: [...FONTS] },
 ];
 
 for (const { path, fonts } of pages) {
