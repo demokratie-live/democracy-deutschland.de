@@ -199,8 +199,10 @@ check the fields like the old site (alert texts in
 
 The endpoint contract (JSON body, success = HTTP 2xx, CORS) is in
 [`docs/server-funktionen.md`](docs/server-funktionen.md#formulare-send_mail). The bug
-report lists attached files like the old site, but there is no upload server yet: the
-files are not sent (`docs/server-funktionen.md`, "Datei-Upload").
+report has no file picker (there is no upload server); a notice below the text field asks
+for screenshots by mail. Its two wordings (with and without endpoint) are the props
+`attachMailto` and `attachEndpoint` in
+[`content/pages/engineering.mdx`](content/pages/engineering.mdx).
 
 ## Documentation
 
