@@ -28,20 +28,22 @@ Open [http://localhost:3000](http://localhost:3000). Old links such as
 
 ## Common commands
 
-| Command                 | What it does                                                             |
-| ----------------------- | ------------------------------------------------------------------------ |
-| `pnpm dev`              | Dev server with Turbopack                                                |
-| `pnpm build`            | Static export to `out/`                                                  |
-| `pnpm start`            | Serve `out/` on port 3000                                                |
-| `pnpm validate-content` | Validate MDX/YAML against the Zod schemas and internal links             |
-| `pnpm compare <path>`   | Screenshots, text and head data of a local page against the live site    |
-| `pnpm import-blog`      | Import the WordPress blog into `content/blog/` and `public/blog/`        |
-| `pnpm compare-blog-dom` | DOM of every blog page against the live blog                             |
-| `pnpm lint`             | ESLint                                                                   |
-| `pnpm format`           | Prettier (MDX pages and the original CSS are excluded)                   |
-| `pnpm test:unit`        | Unit tests                                                               |
-| `pnpm test:e2e`         | Build and run the Playwright tests (desktop and mobile)                  |
-| `pnpm test:basepath`    | Build with the GitHub Pages basePath and test assets and redirects there |
+| Command                    | What it does                                                             |
+| -------------------------- | ------------------------------------------------------------------------ |
+| `pnpm dev`                 | Dev server with Turbopack                                                |
+| `pnpm build`               | Static export to `out/`                                                  |
+| `pnpm start`               | Serve `out/` on port 3000                                                |
+| `pnpm validate-content`    | Validate MDX/YAML against the Zod schemas and internal links             |
+| `pnpm compare <path>`      | Screenshots, text and head data of a local page against the live site    |
+| `pnpm import-blog`         | Import the WordPress blog into `content/blog/` and `public/blog/`        |
+| `pnpm compare-blog-dom`    | DOM of every blog page against the live blog                             |
+| `pnpm compare-blog-feed`   | Every blog feed against the live feed                                    |
+| `pnpm compare-blog-search` | Hits and order of the client search against the live search              |
+| `pnpm lint`                | ESLint                                                                   |
+| `pnpm format`              | Prettier (MDX pages and the original CSS are excluded)                   |
+| `pnpm test:unit`           | Unit tests                                                               |
+| `pnpm test:e2e`            | Build and run the Playwright tests (desktop and mobile)                  |
+| `pnpm test:basepath`       | Build with the GitHub Pages basePath and test assets and redirects there |
 
 `pnpm compare /wahlometer/ --local http://localhost:3000` writes its results to
 `compare-results/wahlometer/index.html`. `--click <selector>` compares the state after a
@@ -171,7 +173,7 @@ WordPress still runs, posts are written there and imported:
 pnpm import-blog            # cached: only new or changed pages are fetched
 pnpm import-blog --refresh  # fetch everything again (posts, pages, uploads)
 pnpm validate-content
-pnpm build && pnpm start    # then: pnpm compare-blog-dom and pnpm compare /blog/…
+pnpm build && pnpm start    # then: pnpm compare-blog-dom, compare-blog-feed, compare /blog/…
 ```
 
 The script reads the public REST API and the rendered post pages (read-only, one
@@ -183,7 +185,9 @@ back to the WordPress DOM. It stops with a message when something new appears (a
 title typography rule, a new block style); fix the script, don't edit the output.
 Blog settings that are not in the REST API (header image, posts per page) are in
 `content/blog/site.yaml`. Uploads that are already missing on live are listed in
-`content/blog/missing-uploads.yaml`. Details: `AGENTS.md`, "Blog".
+`content/blog/missing-uploads.yaml`. Archives, feeds and the search index
+(`/blog/search-index.json`) are built from `content/blog/` on every build; nothing to
+maintain. Details: `AGENTS.md`, "Blog".
 
 ## Forms
 

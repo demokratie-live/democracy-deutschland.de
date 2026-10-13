@@ -38,11 +38,16 @@ src/
   app/(site)/           website: root layout (SiteDocument) and thin page shells <MdxPage id="…" />;
                         [...alias] forwarding pages; api.php/, api/donation_status.json/: static GET
                         route handlers (app JSON)
-  app/(blog)/blog/[[...path]]/  blog: one catch-all route with its own root layout (see "Blog")
+  app/(blog)/blog/[[...path]]/  blog: one catch-all route with its own root layout (see "Blog");
+                        feed/index.html/, {category,author,tag}/[slug]/feed/index.html/: RSS route
+                        handlers; search-index.json/: data of the client search
+  app/(site)/blogseite/ the blog in the website frame (iframe, `BlogFrame`)
   app/global-not-found.tsx  404 page (out/404.html) in the website frame, for every unknown path
   components/frame/     SiteDocument (website root document), Navbar, Footer, ToTop (UItoTop),
                         LegacyRedirectScript, NotFound
-  components/blog/      Lovecraft templates: BlogDocument, BlogHeader (toggles), Sidebar, PostEntry, …
+  components/blog/      Lovecraft templates: BlogDocument, BlogHeader (toggles), Sidebar, PostEntry,
+                        BlogIndex (lists), BlogSearch (client search), BlogQueryScript (?s=, ?p=), …
+  components/blogpage/  BlogFrame (iframe of /blogseite/)
   components/shared/    sections used by several modules (AppHeader, Section, Link, VideoSection, …)
   components/<module>/  sections of one module (home/, wahlometer/, donate/, about/, contact/, legal/, engineering/, …)
   components/mdx/       MdxPage (render + head), MDXComponents (registry)
@@ -53,9 +58,11 @@ src/
                         roadmap.ts (icon_class()), donation.ts (PHP round/number_format/json_encode, donation
                         JSON), donation-route.ts, content/blog.ts (blog posts, permalinks),
                         forms.ts (validateEmail, form checks, endpoint or mailto),
-                        blog/ (view, Markdown pipeline, srcset/loading, wptexturize, head styles)
+                        blog/ (view, listing, Markdown pipeline, srcset/loading, wptexturize, head
+                        styles, feed, search, search-index, shortlink)
 scripts/                validate-content.ts, compare.ts, serve-basepath.mjs, import-blog.ts,
-                        compare-blog-dom.ts, blog/ (HTML → Markdown, DOM normalization, live fixes)
+                        compare-blog-dom.ts, compare-blog-feed.ts, compare-blog-search.ts,
+                        blog/ (HTML → Markdown, DOM normalization, live fixes)
 tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byte: app JSON, legal texts)
 ```
 
@@ -110,12 +117,12 @@ The old forms (contact; bug report and volunteer on `/engineering/`, `BugReportF
 
 ## Blog
 
-The WordPress blog (theme Lovecraft) lives under `/blog/` with its WordPress permalinks (`/blog/`, `/blog/page/<n>/`, `/blog/<year>/<month>/<slug>/`). It has its own look and frame, not the website frame. Archives, search, feed and `?p=` short links follow with TASK-81; until then those links lead to the 404 page.
+The WordPress blog (theme Lovecraft) lives under `/blog/` with its WordPress URLs: `/blog/`, `/blog/page/<n>/`, the permalinks `/blog/<year>/<month>/<slug>/`, the archives `/blog/category/<slug>/`, `/blog/author/<slug>/`, `/blog/tag/<slug>/`, `/blog/<year>/`, `/blog/<year>/<month>/` (each with `page/<n>/`; no day archives, decision Manuel), the feeds `/blog/feed/` and `…/<archive>/feed/`, the search `/blog/?s=` and the short links `/blog/?p=<id>`. It has its own look and frame, not the website frame; `/blogseite/` shows it in an iframe inside the website frame.
 
 ### Content (written by the import)
 
-- `content/blog/<slug>.md`: one post per file. Frontmatter per `src/lib/schemas/blog.ts`: `wpId`, `title` (raw `post_title`), `slug`, `date`/`modified` (local time, quoted), `author`, `categories`, `tags` (slugs; tags in display order by name), `featuredMedia` (`_thumbnail_id`, may point to a deleted attachment), `image` (original upload of the featured image), `excerpt` (plain text). The body is the post content as **CommonMark with inline HTML**: Markdown wherever it yields exactly the WordPress DOM (paragraphs, headings and lists of the block editor; the render pipeline adds their classes `wp-block-paragraph`, `wp-block-heading`, `wp-block-list`), HTML everywhere else (figures, classes, `<b>`, links with `target` …). `<!--more-->` marks the teaser end like in WordPress. Excluded from Prettier.
-- `content/blog/taxonomy.yaml` (authors, categories, tags: id, slug, name), `media.yaml` (featured images with all sizes in metadata order, for srcset), `missing-uploads.yaml` (uploads the posts reference although live already answers 404; `validate-content` accepts them as missing), all written by the import. `content/blog/site.yaml` (title, header image, posts per page, widget size) is maintained by hand.
+- `content/blog/<slug>.md`: one post per file. Frontmatter per `src/lib/schemas/blog.ts`: `wpId`, `guid` (identity in the feeds, older posts with `www.`), `title` (raw `post_title`), `slug`, `date`/`modified` (local time, quoted), `author`, `categories`, `tags` (slugs; tags in display order by name), `featuredMedia` (`_thumbnail_id`, may point to a deleted attachment), `image` (original upload of the featured image), `excerpt` (plain text of the automatic excerpt up to `<!--more-->`, shown in search results; may end with a no-break space). The body is the post content as **CommonMark with inline HTML**: Markdown wherever it yields exactly the WordPress DOM (paragraphs, headings and lists of the block editor; the render pipeline adds their classes `wp-block-paragraph`, `wp-block-heading`, `wp-block-list`), HTML everywhere else (figures, classes, `<b>`, links with `target` …). `<!--more-->` marks the teaser end like in WordPress. Excluded from Prettier.
+- `content/blog/taxonomy.yaml` (authors, categories, tags: id, slug, name), `media.yaml` (featured images with all sizes in metadata order, for srcset), `missing-uploads.yaml` (uploads the posts reference although live already answers 404; `validate-content` accepts them as missing), all written by the import. `content/blog/site.yaml` (title, header image, posts per page and per feed, widget size) is maintained by hand.
 - `getBlogPosts()` / `getLatestBlogPosts(limit)` / `blogPermalink()` in `src/lib/content/blog.ts` (newest `date` first); `BlogTeasers` on `/presse/` shows the nine newest with the raw title and the original featured image.
 - Media under `public/blog/wp-content/uploads/<year>/<month>/` with their WordPress names, only files the rendered pages reference (srcset sizes included); `data:` images of old newsletters as `uploads/inline/<slug>-<n>.<ext>`.
 
@@ -125,12 +132,21 @@ Read-only, one request at a time, cached in `.cache/blog-import/` (`--refresh` r
 
 ### Rendering
 
-- `src/app/(blog)/blog/[[...path]]/`: one catch-all route; its **layout is the root layout** of the blog (`BlogDocument`), so `<head>` styles, body class and header image depend on the page like in WordPress. `getBlogView(path)` (`src/lib/blog/view.ts`, React `cache`, shared by layout and page) resolves the path to an `IndexView` or `SingleView`; TASK-81 adds archive views there and reuses `PostEntry`, `BlogIndex`, `getSidebarData()`.
+- `src/app/(blog)/blog/[[...path]]/`: one catch-all route; its **layout is the root layout** of the blog (`BlogDocument`), so `<head>` styles, body class and header image depend on the page like in WordPress. `getBlogView(path)` (`src/lib/blog/view.ts`, React `cache`, shared by layout and page) resolves the path to an `IndexView` (blog home and archives, lists from `getListings()`) or a `SingleView`; `blogStaticParams()` lists every page.
+- Lists (`BlogIndex`, `src/lib/blog/listing.ts`, no server code, shared with the client search): archive header `Kategorie:`/`Autor:`/`Schlagwort:`/`Monat:`/`Jahr:` + `<span>name</span>`, then `<span>Seite x von y</span>` **only while a next page follows** (Lovecraft); `listingBodyClass()` (body_class() order, duplicates dropped: `tag-7 tag-7`), `listingTitle()`; the sidebar marks the current category (`current-cat`, `aria-current`) and month. The blog title is an `<h1>` only on the blog home (not on archives, search or posts).
 - `src/lib/blog/markdown.ts`: `renderPostContent()` = remark-parse → remark-rehype → block classes → rehype-raw → more tag (single: `<span id="more-<id>">`, teaser: cut + "Weiterlesen") → loading attributes → basePath → HTML string for `dangerouslySetInnerHTML` (the exact WordPress markup, no React attribute mapping).
 - `src/lib/blog/images.ts`: `wp_calculate_image_srcset()` with `wp_image_matches_ratio()`/`wp_constrain_dimensions()` (PHP `round()` via `phpRound`), `attachmentImage()` (theme sizes `post-image` 900 and `post-image-cover` 1280, the original when it is narrower), `ImageLoading` (`wp_get_loading_optimization_attributes()`: per page, the first large image `fetchpriority="high"`, the first three eager, later ones `loading="lazy"` with `sizes="auto, …"`).
 - `src/lib/blog/styles.ts`: inline styles in live order; block styles only for blocks of the page (sidebar blocks always), global styles plus block lines, `core-block-supports` per gallery. Theme CSS via `<link>` with the original `?ver=`.
 - Titles: `wptexturize()` on the raw title (`'25` → `’25`, space-hyphen-space → space-en-dash-space); the press teasers show the raw title. Page titles: "DEMOCRACY Blog – Seite\u00a0<n>" (no-break space like WordPress).
 - Links are plain `<a>` with `asset()`: full page loads like WordPress, no Next router in the blog. `BlogHeader` ports global.js (slideToggle via `slide()` in `src/lib/animate.ts`, 400 ms swing, reset above 1000 px).
+
+### Feeds, search, short links, `/blogseite/`
+
+- **Feeds** (`src/lib/blog/feed.ts`): feed-rss2.php of WordPress for the blog and every category, author and tag: the newest `postsPerFeed` posts, `lastBuildDate` = newest `modified` (GMT via `berlinToUtc()`), categories then tags by name, `guid` from the frontmatter (older posts keep `www.`), description = `feedExcerpt()` (wp_trim_excerpt of the **whole** content: 55 words, removed blocks such as images, a Markdown line break joins words like the bare `<br>` of WordPress, `<br><br>` separates them), content = single render with loading attributes counted over the feed and absolute URLs (`urlPrefix: ORIGIN`). Routes are folders named `index.html` (`…/feed/index.html/route.ts`): static hosts serve directory indexes only; the dev server answers `/blog/feed/index.html`, not `/blog/feed/`.
+- **Search** (`src/lib/blog/search.ts`): `parseSearch()` (terms, German stopwords), `foldForSearch()` (case and accents), `searchPosts()` (all terms, `-term`, ordering of parse_search_order() and date), `searchQuery()` (page links like urlencode(), `?s` for an empty term). `/blog/search-index.json` (`buildSearchIndex()`) holds the content as WordPress searches it (`searchContent()`) and the result entries: results show the **excerpt** (`<p>` of the frontmatter `excerpt`, as `the_excerpt()` in Lovecraft's search template), the block styles of the allowed blocks of the teaser (an excerpt renders them) and the featured image.
+- `BlogSearch` (client) wraps the content column of `/blog/` and `/blog/page/<n>/`. `useBlogSearchQuery()` returns null during hydration (the static HTML is the post list), then the term; the component loads the index, renders `BlogIndex` or the no-results article and sets title, body class, `noindex`, block styles in `<head>` and the widget value. `BlogQueryScript` in `<head>` hides the column with a **constructed style sheet** (`document.adoptedStyleSheets`): an extra node in `<head>` would break the hydration of the root layout. A search page beyond the last one goes to `/404/`. `?s=` on other blog pages is ignored.
+- **Short links**: `BlogQueryScript` on `/blog/` inlines `resolveBlogShortlink()` (`src/lib/blog/shortlink.ts`, serialised with `toString()` like `resolveLegacyUrl()`, no inner functions) with the map `wpId` → permalink: `?p=<id>` and `?post_type=post&p=<id>` go to the permalink (other parameters and the hash stay), unknown ids to `/404/`.
+- **`/blogseite/`** (`content/pages/blog.mdx`, `BlogFrame`): iframe on `/blog/` (basePath), height = body `scrollHeight` of the frame on every load, also when the frame was loaded before hydration.
 
 ### Gotchas
 
@@ -138,11 +154,15 @@ Read-only, one request at a time, cached in `.cache/blog-import/` (`--refresh` r
 - WordPress term classes use the term ID for numeric slugs (`tag-7` for "2021"); the search widget id counts `wp_unique_id()` over the page (a gallery before it makes it `wp-block-search__input-2`).
 - `.toggles` has no height (absolutely positioned buttons): test the buttons for visibility.
 - `getBlogView()` is cached per render with a string key; arrays as `cache` arguments compare by identity.
+- Render numbers and labels as **one string** (``{`Seite ${page} von ${pages}`}``, ``{`${text} `}``): React splits `Seite {page} von {pages}` into several text nodes, and Chrome shapes text across node boundaries slightly differently (centred archive titles moved by a fraction of a pixel).
 
 ### Verification
 
 - `pnpm compare /blog/…` compares with the same path on live; the WordPress emoji script is blocked on live (no emoji script statically, decision Manuel 2026-10-13), lazy images load eagerly, the full page is captured by enlarging the viewport first (live otherwise switches srcset candidates during the screenshot), `text-content.diff` uses `main#site-content` of the server HTML.
-- `pnpm compare-blog-dom [--local <url>] [path …]` compares title, body class, head links, header, navigation, header image, main (posts, sidebar) and credits of every blog page with live in canonical form; documented deviations are mapped (search form ids, `alt=""` of the header image, `data:` images, `x-webdoc` links, invalid attribute names, News #2).
+- `pnpm compare-blog-dom [--local <url>] [path …]` compares title, body class, head links (canonical, shortlink, feeds), header, navigation, header image, main (posts, sidebar) and credits of every blog page (archives included) and of the search pages in `SEARCH_PATHS` with live in canonical form; search pages render in Chromium. Documented deviations are mapped (search form ids, `alt=""` of the header image, `data:` images, `x-webdoc` links, invalid attribute names, News #2, comment and search feeds).
+- `pnpm compare-blog-feed [--local <url>]` compares every feed with live after XML decoding (channel, items, content in canonical form; live emoji images count as their character, `www.` uploads as without).
+- `pnpm compare-blog-search [term …]` compares hits (REST `?search=`) and order (first results page) of 25 terms with the live search; hits inside base64 image data of old newsletters are listed, not counted.
+- `pnpm compare "/blog/?s=…"` waits for the client results; `pnpm compare /blogseite/ --no-mask` compares the blog inside the frame.
 - Pages with the closed logo tag (`/blog/page/6/`, News #2) compare pixel by pixel when `--live-eval` refetches the live HTML, applies the regex of `scripts/blog/live-fixes.ts` and rewrites the document (`document.open()/write()`), then waits for images and fonts.
 - `content/blog/*.md` are generated: change posts in WordPress and import again while WordPress runs. After the switch the Markdown is the source; check edits with `pnpm compare`.
 
@@ -196,6 +216,7 @@ The app has two root layouts in route groups: `src/app/(site)/layout.tsx` (websi
 | `BugReportForm`                         | engineering: bug report form, checks, sending, screenshot notice (see "Forms")      |
 | `VolunteerForm`                         | engineering: volunteer form with checkboxes (`roles`, `feature`) (client)           |
 | `Hotspot`                               | citizen/politicians: numbered hotspot with Bootstrap tooltip (client)               |
+| `BlogFrame`                             | blog page: the blog in an iframe, height follows each load like resizeIframe()      |
 
 Client components read declarative children (`InfoBadge`, `ComparisonRow`) via `Children.toArray(...).props`.
 
