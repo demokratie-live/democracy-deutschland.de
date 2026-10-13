@@ -14,7 +14,7 @@
     "validate-content": "tsx scripts/validate-content.ts",
     "compare": "tsx scripts/compare.ts",
     "prepare": "git config --local core.hooksPath .husky",
-    "test:basepath": "NEXT_PUBLIC_BASE_PATH=/democracy-deutschland.de NEXT_PUBLIC_CONTACT_ENDPOINT=/contact-endpoint next build && playwright test --config playwright.basepath.config.ts"
+    "test:basepath": "NEXT_PUBLIC_BASE_PATH=/democracy-deutschland.de NEXT_PUBLIC_CONTACT_ENDPOINT=/contact-endpoint NEXT_PUBLIC_BUGREPORT_ENDPOINT=/bugreport-endpoint NEXT_PUBLIC_VOLUNTEER_ENDPOINT=/volunteer-endpoint next build && playwright test --config playwright.basepath.config.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

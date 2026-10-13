@@ -30,6 +30,9 @@ const pages = [
   { path: "/impressum/", fonts: [...FONTS] },
   { path: "/datenschutz/", fonts: [...FONTS] },
   { path: "/nutzungsbedingungen/", fonts: [...FONTS] },
+  { path: "/engineering/", fonts: [...FONTS, "icomoon"] },
+  { path: "/buerger/", fonts: [...FONTS] },
+  { path: "/politiker/", fonts: [...FONTS] },
 ];
 
 for (const { path, fonts } of pages) {
@@ -178,4 +181,110 @@ test("contact form POSTs to NEXT_PUBLIC_CONTACT_ENDPOINT and shows the old alert
     await expect(page.locator(`#${id}`)).toHaveValue("");
   }
   expect(bodies).toEqual([data, data]);
+});
+
+test("engineering: alpha links and anchor #help below the basePath", async ({ page }) => {
+  await page.goto(`${BASE}/engineering/`);
+  for (const link of await page.locator(".badges2 a").all()) {
+    await expect(link).toHaveAttribute("href", `${BASE}/invite/?code=C1B381E2`);
+  }
+  await page.locator(".footer a", { hasText: "Mithelfen" }).click();
+  await expect(page).toHaveURL(new RegExp(`${BASE}/engineering/#help$`));
+  await page.goto(`${BASE}/buerger/`);
+  await page.locator("a.btn-democracy", { hasText: "KONTAKTFORMULAR" }).click();
+  await expect(page).toHaveURL(new RegExp(`${BASE}/kontakt/$`));
+});
+
+// Same build: NEXT_PUBLIC_BUGREPORT_ENDPOINT=/bugreport-endpoint and
+// NEXT_PUBLIC_VOLUNTEER_ENDPOINT=/volunteer-endpoint (tests/e2e covers the mailto path).
+test("bug report and volunteer forms POST the old data objects to their endpoints", async ({
+  page,
+}) => {
+  const forms = formsSchema.parse(
+    yaml.parse(fs.readFileSync(path.join(process.cwd(), "content/site/forms.yaml"), "utf-8")),
+  );
+  const bodies: Record<string, unknown[]> = { bugreport: [], volunteer: [] };
+  let status = 200;
+  for (const type of ["bugreport", "volunteer"]) {
+    await page.route(`**/${type}-endpoint`, async (route) => {
+      bodies[type].push(route.request().postDataJSON());
+      expect(route.request().method()).toBe("POST");
+      await route.fulfill({ status, contentType: "application/json", body: '{"status":true}' });
+    });
+  }
+  const alerts: string[] = [];
+  page.on("dialog", async (dialog) => {
+    alerts.push(dialog.message());
+    await dialog.dismiss();
+  });
+  page.on("request", (request) => {
+    if (request.url().startsWith("mailto:")) throw new Error("mailto despite endpoint");
+  });
+  await page.goto(`${BASE}/engineering/`);
+
+  // Bug report with one file: `files` is upload_files of live before a server
+  // response, { <lastModified>: { file: {} } }.
+  const bug = {
+    type: "bugreport",
+    name: "Max",
+    email: "max@example.org",
+    title: "Absturz",
+    platform: "iOS",
+    version: "1.5.12",
+    text: "Hallo",
+  };
+  for (const key of ["name", "email", "title", "platform", "version", "text"] as const) {
+    await page.fill(`#bug-${key}`, bug[key]);
+  }
+  await page.setInputFiles("#bug-files", {
+    name: "screenshot.png",
+    mimeType: "image/png",
+    buffer: Buffer.from("test"),
+  });
+  status = 500;
+  await page.click("#bug-send");
+  await expect.poll(() => alerts).toEqual([forms.messages.failed]);
+  await expect(page.locator("#bug-file-list a")).toHaveCount(1);
+  status = 200;
+  await page.click("#bug-send");
+  await expect.poll(() => alerts.length).toBe(2);
+  expect(alerts[1]).toBe(forms.messages.sent);
+  // Success: reset, the file list is emptied and hidden.
+  await expect(page.locator("#bug-name")).toHaveValue("");
+  await expect(page.locator("#bug-file-list a")).toHaveCount(0);
+  await expect(page.locator("#bug-file-list")).toBeHidden();
+  expect(bodies.bugreport).toHaveLength(2);
+  for (const body of bodies.bugreport as Array<Record<string, string>>) {
+    const { files, ...rest } = body;
+    expect(rest).toEqual(bug);
+    expect(Object.values(JSON.parse(files))).toEqual([{ file: {} }]);
+    expect(Object.keys(JSON.parse(files))[0]).toMatch(/^\d+$/);
+  }
+
+  // Volunteer: checkboxes as true or null.
+  await page.fill("#vol-name", "Erika");
+  await page.fill("#vol-email", "erika@example.org");
+  await page.fill("#vol-text", "Ich helfe mit.");
+  await page.check("#vol-backend");
+  await page.check("#vol-feature");
+  await page.click("#vol-send");
+  await expect.poll(() => alerts.length).toBe(3);
+  expect(alerts[2]).toBe(forms.messages.sent);
+  await expect(page.locator("#vol-backend")).not.toBeChecked();
+  expect(bodies.volunteer).toEqual([
+    {
+      type: "volunteer",
+      name: "Erika",
+      email: "erika@example.org",
+      check_uiux: null,
+      check_frontend: null,
+      check_backend: true,
+      check_kryptologe: null,
+      check_marketing: null,
+      check_redakteur: null,
+      check_botschafter: null,
+      check_feature: true,
+      text: "Ich helfe mit.",
+    },
+  ]);
 });

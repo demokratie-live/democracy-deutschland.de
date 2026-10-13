@@ -3,7 +3,9 @@ import { defineConfig, devices } from "@playwright/test";
 /**
  * Checks the export built with NEXT_PUBLIC_BASE_PATH=/democracy-deutschland.de
  * (GitHub Pages project URL) and the optional form endpoints set
- * (NEXT_PUBLIC_CONTACT_ENDPOINT=/contact-endpoint, answered by the tests).
+ * (NEXT_PUBLIC_CONTACT_ENDPOINT=/contact-endpoint, NEXT_PUBLIC_BUGREPORT_ENDPOINT=
+ * /bugreport-endpoint, NEXT_PUBLIC_VOLUNTEER_ENDPOINT=/volunteer-endpoint, answered by
+ * the tests).
  * Run with `pnpm test:basepath`.
  */
 const PORT = 3101;
