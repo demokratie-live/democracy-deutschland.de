@@ -44,6 +44,35 @@ Open [http://localhost:3000](http://localhost:3000). Old links such as
 `pnpm compare /wahlometer/ --local http://localhost:3000` writes its results to
 `compare-results/wahlometer/index.html`.
 
+## Updating the donation status
+
+The figures of the donation page (`/spenden/`) and the JSON the app reads
+(`https://democracy-deutschland.de/api.php?call=donation_status`, also served as
+`/api/donation_status.json`) come from one file:
+[`content/donate/donation.yaml`](content/donate/donation.yaml). It replaces the text
+"donation" and the table `donate` of the old SAI; the keys are those of the JSON.
+
+1. Edit `content/donate/donation.yaml`:
+   - `donation_date`: free text, shown as "Stand: …" and passed to the app unchanged
+     (format so far: `"14.06.2026 * 09:25 Uhr"`)
+   - `donation_paten`, `donation_paten_goal`: sponsorships and their goal
+   - `donation_value`, `donation_value_goal`: monthly donations in euros and the goal;
+     the percentage is computed at build time, rounded like PHP
+   - `donation_data`: one entry per table row. `type: 0` is a heading (only
+     `text_description`), `type: 1` a cost with `value` of `max` euros covered. `order`
+     sets the position, `id` stays unique and unchanged (the app uses it as key).
+
+   Amounts are whole numbers without thousands separators (`3000`, not `3.000`). Quote
+   texts that YAML would read as numbers (`"01.01.2024"`, `"2024"`).
+
+2. Check: `pnpm validate-content` (schema: whole numbers, `max` > 0 for costs, unique
+   `id` and `order`) and `pnpm test:unit`.
+3. Commit and merge into `main`. The build writes the page and both JSON files; to look
+   at the result locally, run `pnpm build` and open `out/api.php`.
+
+The app only finds the JSON if the site is served at the domain root, see
+[`docs/server-funktionen.md`](docs/server-funktionen.md#spenden-json-für-die-app).
+
 ## Documentation
 
 - [`AGENTS.md`](./AGENTS.md) – architecture, rules for 1:1 markup, porting steps, gotchas

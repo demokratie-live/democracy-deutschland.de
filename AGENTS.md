@@ -20,19 +20,23 @@ content/
   site/head.yaml        title, meta, Open Graph, icons, manifest, external CSS
   site/routes.yaml      every old state → new path, navbar `menu`/`startpage`, aliases
   site/navigation.yaml  navbar   site/footer.yaml  footer   site/app-links.yaml  store/APK links
+  donate/donation.yaml  donation status: /spenden/ and the app JSON (see README)
 public/
   css/                  original CSS (see "CSS"); files/  assets under the old /files/ paths
   videos/  favicon.ico  manifest.json
 src/
-  app/                  thin page shells: <MdxPage id="…" />; [...alias] forwarding pages; not-found
+  app/                  thin page shells: <MdxPage id="…" />; [...alias] forwarding pages; not-found;
+                        api.php/, api/donation_status.json/: static GET route handlers (app JSON)
   components/frame/     Navbar, Footer, ToTop (UItoTop), LegacyRedirectScript
   components/shared/    sections used by several modules (AppHeader, Section, Link, VideoSection, …)
-  components/<module>/  sections of one module (home/, wahlometer/, …)
+  components/<module>/  sections of one module (home/, wahlometer/, donate/, …)
   components/mdx/       MdxPage (render + head), MDXComponents (registry)
   lib/                  animate.ts (jQuery animations), legacy-redirect.ts, metadata.ts,
-                        routes.ts, stylesheets.ts, base-path.ts, content/ (loaders), schemas/
+                        routes.ts, stylesheets.ts, base-path.ts, content/ (loaders), schemas/,
+                        bootstrap-modal.ts (Bootstrap 4 modal), donation.ts (PHP round/
+                        number_format/json_encode, donation JSON), donation-route.ts
 scripts/                validate-content.ts, compare.ts, serve-basepath.mjs
-tests/e2e/, tests/basepath/
+tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byte)
 ```
 
 ## Porting a module
@@ -41,7 +45,7 @@ tests/e2e/, tests/basepath/
 2. **Assets**: copy what the page uses from `democracy/files/<cat>/` to `public/files/<cat>/` under the same name. Reference them as `/files/<cat>/<name>` through `asset()` (raw tags) or `Link` (anchors).
 3. **Components**: one section component per template block in `src/components/<module>/` (or `shared/` when two modules use it), registered in `src/components/mdx/MDXComponents.tsx`. Original classes and ids stay, duplicates included. Text goes into `content/pages/<id>.mdx` as props or Markdown children.
 4. **Page**: `src/app/<path>/page.tsx` as a thin shell (copy `src/app/wahlometer/page.tsx`). The state and path already exist in `routes.yaml`; head overrides go into the frontmatter.
-5. **Interactions** in React, no jQuery. Use `src/lib/animate.ts` (`animateScrollTo`, `tween`, easings `swing`/`easeOutQuart`, `SLOW` = 600 ms) to match jQuery timing.
+5. **Interactions** in React, no jQuery. Use `src/lib/animate.ts` (`animateScrollTo`, `tween`, easings `swing`/`easeOutQuart`, `SLOW` = 600 ms) to match jQuery timing. Bootstrap 4.0.0 plugins are ported to plain DOM code with the original timings: Collapse in `Navbar`, Modal in `src/lib/bootstrap-modal.ts` (markup server-rendered with `Modal`, opened by `ModalToggle` like the data API). Inline `<script>`s of a template become a client component that renders `null` and runs the script in an effect (`UpdateProgress`).
 6. **Verify**, all until green or explained:
    - `pnpm compare <path>` against a running local server (`pnpm dev` or `pnpm build && pnpm start`, default `--local http://localhost:3000`); use `--click <selector>` for every interaction state and `--only mobile` for mobile-only states. Pixels, visible text, `#content` text against `?_escaped_fragment_` and head data must match; explain every remainder in `docs/abweichungen.md`.
    - Playwright tests for every interaction (`tests/e2e/<module>.spec.ts`, mobile-only ones in `*.mobile.spec.ts`).
@@ -57,6 +61,11 @@ tests/e2e/, tests/basepath/
 - **Images**: plain `<img>` like the original, `alt=""` where the original has none.
 - **Head**: defaults from `head.yaml` via `buildMetadata()`; `og:*` tags are rendered by `MdxPage`, because Next's `openGraph` metadata adds `twitter:*` tags that live does not have.
 - **Navbar state** comes from `routes.yaml` (`menu`, `startpage`), mirroring each `init_<state>()`.
+- **Data from the old SAI/database** goes into YAML with a Zod schema; values that PHP computed (rounding, `number_format`) are computed with the PHP-compatible helpers in `src/lib/donation.ts`, not with `Math.round`/`toLocaleString`.
+
+## Generated files (app JSON)
+
+`/api.php` and `/api/donation_status.json` are App Router route handlers (`export const dynamic = "force-static"`, `GET` re-exported from `src/lib/donation-route.ts`); `next build` writes them as files into `out/`. The body is byte-identical to the old `api.php?call=donation_status` (PHP 7.4 `round()`, `json_encode()` escaping; only `querytime` is 0). `src/lib/donation.test.ts` checks this against `tests/fixtures/donation_status.live.json` and PHP reference values. Static hosts ignore the query string and serve `.php` as `application/x-httpd-php`; the app parses it anyway (`docs/server-funktionen.md`). Keep these routes static: no request data, no other HTTP methods.
 
 ## Routing and legacy links
 
@@ -68,6 +77,10 @@ tests/e2e/, tests/basepath/
 - Children on the same line as the tag stay inline; children on their own lines become `<p>` paragraphs. Use props (e.g. `InfoBadge action/text`) when the original has no `<p>`.
 - Literal JSX tags (`<h1 style={{…}}>`) are not mapped through `mdxComponents`; Markdown links are (→ `Link`).
 - `content/pages/*.mdx` is excluded from Prettier: its MDX 1 parser re-indents nested JSX and changes whitespace.
+- Original markup that mixes text with block elements inside an inline element (e.g. `<span>` around `<h5>`, `<div class="row">`, unclosed spans the browser closes at `</div>`): write the whole element on **one line**. MDX then treats it as phrasing content and renders the DOM as written, without `<p>`. Rebuild the DOM the browser parsed, not the raw template.
+- Literal `<a>` and `<img>` in MDX get no basePath: use `Link` (also for `/files/download/…` with `target="_blank"`) and `Img`. External links may stay literal `<a>`.
+- Inline `<style>` blocks of a template: in MDX a template literal as child, ``<style>{`…`}</style>``, or a constant in the component.
+- Numbers from YAML inside MDX texts: pass the text with `{placeholder}`s as a prop (`DonateBox progress="{percentage}% von {valueGoal}€ GESCHAFFT!"`); the component fills them and fails the build on unknown names.
 - No optional chaining in MDX expressions. Inside JSX attribute values the German closing quote must be `“` (U+201C), never ASCII `"`.
 
 ## MDX components
@@ -85,6 +98,10 @@ tests/e2e/, tests/basepath/
 | `SymbolInfoPanel` / `SymbolInfo`        | wahlometer: three symbol tiles                                                    |
 | `ComparisonAccordion` / `ComparisonRow` | wahlometer: Wahl-O-Mat vs. Wahl-O-Meter accordion (client)                        |
 | `WhyUs`, `Campaign`, `CampaignCorner`   | wahlometer: "Warum gibt es uns?", campaign block with badges, corner image        |
+| `Img`                                   | plain `<img>` with basePath, `alt=""` by default                                  |
+| `DonateBox`                             | donate: progress and sponsorship box (donate_box.tpl), figures from YAML          |
+| `DonateDetails`                         | donate: progress, value box and cost table with bars (donate_details.tpl)         |
+| `Modal` / `ModalToggle`                 | Bootstrap 4 modal markup / its `data-toggle="modal"` button (client)              |
 
 Client components read declarative children (`InfoBadge`, `ComparisonRow`) via `Children.toArray(...).props`.
 
@@ -93,6 +110,9 @@ Client components read declarative children (`InfoBadge`, `ComparisonRow`) via `
 - Playwright projects: `desktop` (1280 px) and `mobile` (375 px, files `*.mobile.spec.ts`), server `serve out` on port 3100; `tests/basepath` serves the basePath build via `scripts/serve-basepath.mjs` on 3101. Take expected values from the YAML (`contentYaml()`), never from live.
 - Scroll assertions: `waitForScrollEnd()`; scroll an element into view and wait for `.navbar.scrolled` before clicking when the handler reads the navbar height.
 - tsx (esbuild) wraps nested functions in a `__name` helper. Code that runs in the browser via `page.evaluate` in `scripts/` goes in as a string; avoid backslashes inside those template strings.
+- tsx (esbuild) also cooks escape sequences in `String.raw` templates (`\u00e1` becomes `á`). Write expected escaped strings with doubled backslashes in normal strings.
+- Tests must not hard-code donation figures: compute expected values from `donation.yaml` with the helpers of `src/lib/donation.ts`, so updating the figures keeps the tests green. The comparison with the live API uses the inputs of the saved live response.
+- PHP reference values: a local `php:7.4-cli` Docker image (live runs 7.4.33) is the oracle; pipe the script in (`docker run --rm -i php:7.4-cli php < script.php`), the scratchpad is not mounted.
 
 ## Conventions
 
