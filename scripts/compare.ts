@@ -119,13 +119,25 @@ async function settle(page: Page, container = "#content") {
   );
   await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => {});
   await page.evaluate(async () => {
-    // Lazy images (blog) would stay unloaded outside the viewport.
-    for (const img of document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]')) {
-      img.loading = "eager";
+    // The page and same-origin frames (the blog in /blogseite/).
+    const documents = [document];
+    for (const frame of document.querySelectorAll("iframe")) {
+      try {
+        if (frame.contentDocument) documents.push(frame.contentDocument);
+      } catch {
+        // other origin
+      }
     }
-    await document.fonts.ready;
+    // Lazy images (blog) would stay unloaded outside the viewport.
+    for (const doc of documents) {
+      for (const img of doc.querySelectorAll<HTMLImageElement>('img[loading="lazy"]')) {
+        img.loading = "eager";
+      }
+    }
+    await Promise.all(documents.map((doc) => doc.fonts.ready));
     await Promise.all(
-      [...document.images]
+      documents
+        .flatMap((doc) => [...doc.images])
         .filter((img) => !img.complete)
         .map(
           (img) => new Promise((resolve) => img.addEventListener("load", resolve, { once: true })),
@@ -157,6 +169,12 @@ async function capture(
   if (isLive) await page.route(LIVE_WRITE_CALLS, (route) => route.abort());
   if (isLive) await page.route(LIVE_EMOJI_SCRIPT, (route) => route.abort());
   await page.goto(url, { waitUntil: "load" });
+  if (/[?&]s=/.test(options.route)) {
+    // The static search renders its results on the client (BlogSearch).
+    await page.waitForFunction(() => document.body.classList.contains("search"), undefined, {
+      timeout: 30_000,
+    });
+  }
   await settle(page, isBlog(options.route) ? "#site-content" : "#content");
   if (isLive && options.liveEval) {
     await page.evaluate(options.liveEval);
