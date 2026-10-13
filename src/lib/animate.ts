@@ -67,3 +67,36 @@ export function animateScrollTo(y: number, duration: number, easing: Easing = ea
 export function offsetTop(element: Element): number {
   return element.getBoundingClientRect().top + window.scrollY;
 }
+
+const SLIDE_PROPERTIES = [
+  "height",
+  "paddingTop",
+  "paddingBottom",
+  "marginTop",
+  "marginBottom",
+] as const;
+
+/**
+ * jQuery `slideDown()` / `slideUp()` (400 ms, swing): height, paddings and
+ * margins run between 0 and their natural values with overflow hidden;
+ * afterwards only `display: block` / `display: none` stays inline.
+ */
+export function slide(element: HTMLElement, show: boolean, duration = 400): Tween {
+  const style = element.style;
+  if (show) style.display = "block";
+  const computed = getComputedStyle(element);
+  const full = SLIDE_PROPERTIES.map((property) => parseFloat(computed[property]) || 0);
+  const apply = (factor: number) =>
+    SLIDE_PROPERTIES.forEach((property, index) => {
+      style[property] = `${full[index] * factor}px`;
+    });
+  style.overflow = "hidden";
+  apply(show ? 0 : 1);
+  return tween(show ? 0 : 1, show ? 1 : 0, duration, easings.swing, apply, () => {
+    SLIDE_PROPERTIES.forEach((property) => {
+      style[property] = "";
+    });
+    style.overflow = "";
+    if (!show) style.display = "none";
+  });
+}

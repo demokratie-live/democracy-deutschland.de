@@ -20,6 +20,11 @@
  *   --viewport-only    nur den sichtbaren Bereich statt der ganzen Seite
  *   --only <name>      nur "desktop" oder "mobile" (z.B. für das Mobil-Menü)
  *
+ * Blog (Pfade unter /blog/): live ist derselbe Pfad auf democracy-deutschland.de,
+ * das Emoji-Skript von WordPress wird dort blockiert (entfällt statisch), Bilder
+ * mit loading="lazy" laden auf beiden Seiten sofort, und text-content.diff
+ * vergleicht den Text von main#site-content mit dem Server-HTML der Live-Seite.
+ *
  * Ergebnis unter compare-results/<slug>/:
  *   <viewport>/live.png, local.png, diff.png  (1280 px Desktop, 375 px Mobil)
  *   text-visible.diff   sichtbarer Text (innerText) live gegen lokal, Desktop
@@ -38,6 +43,14 @@ import yaml from "yaml";
 import { routesSchema } from "../src/lib/schemas/site";
 
 const LIVE_ORIGIN = "https://democracy-deutschland.de";
+
+/** Blog paths compare against the same path of the WordPress blog. */
+function isBlog(route: string) {
+  return route === "/blog/" || route.startsWith("/blog/");
+}
+
+/** WordPress emoji script: the static blog has none (decision Manuel 2026-10-13). */
+const LIVE_EMOJI_SCRIPT = /wp-emoji-release\.min\.js/;
 
 /** Calls of the old API that send mail or store files: never reach them from here. */
 const LIVE_WRITE_CALLS = /api\.php\?call=(send_mail|send_subscribe|upload|beta)/;
@@ -98,6 +111,7 @@ function parseArgs(argv: string[]): Options {
 }
 
 async function loadState(route: string) {
+  if (isBlog(route)) return { state: "blog", isStart: false };
   const raw = await fs.readFile(path.join(process.cwd(), "content/site/routes.yaml"), "utf-8");
   const routes = routesSchema.parse(yaml.parse(raw));
   const entry = routes.routes.find((r) => r.path === route);
@@ -106,12 +120,18 @@ async function loadState(route: string) {
 }
 
 /** Wait until the page (live: after the hash router loaded #content) is settled. */
-async function settle(page: Page) {
-  await page.waitForFunction(() => (document.querySelector("#content")?.children.length ?? 0) > 0, {
-    timeout: 30_000,
-  });
+async function settle(page: Page, container = "#content") {
+  await page.waitForFunction(
+    (selector) => (document.querySelector(selector)?.children.length ?? 0) > 0,
+    container,
+    { timeout: 30_000 },
+  );
   await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => {});
   await page.evaluate(async () => {
+    // Lazy images (blog) would stay unloaded outside the viewport.
+    for (const img of document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]')) {
+      img.loading = "eager";
+    }
     await document.fonts.ready;
     await Promise.all(
       [...document.images]
@@ -144,8 +164,9 @@ async function capture(
   });
   const page = await context.newPage();
   if (isLive) await page.route(LIVE_WRITE_CALLS, (route) => route.abort());
+  if (isLive) await page.route(LIVE_EMOJI_SCRIPT, (route) => route.abort());
   await page.goto(url, { waitUntil: "load" });
-  await settle(page);
+  await settle(page, isBlog(options.route) ? "#site-content" : "#content");
   if (isLive && options.liveEval) {
     await page.evaluate(options.liveEval);
     await page.waitForTimeout(300);
@@ -174,9 +195,19 @@ async function capture(
     await target.hover();
     await page.waitForTimeout(600);
   }
+  let fullPage = options.fullPage;
+  if (fullPage && isBlog(options.route)) {
+    // A full-page screenshot enlarges the viewport; the blog images then pick
+    // another srcset candidate and are captured while loading. Enlarge first,
+    // let them load, then capture the viewport.
+    const height = await page.evaluate(() => document.documentElement.scrollHeight);
+    await page.setViewportSize({ width: viewport.width, height });
+    await settle(page, "#site-content");
+    fullPage = false;
+  }
   await page.screenshot({
     path: file,
-    fullPage: options.fullPage,
+    fullPage,
     animations: "disabled",
     mask: options.mask ? [page.locator("video"), page.locator("iframe")] : [],
   });
@@ -218,7 +249,12 @@ async function headEntries(page: Page) {
 }
 
 /** Text of #content without scripts; for live from the server-rendered HTML. */
-async function contentText(browser: Browser, url: string, javaScriptEnabled: boolean) {
+async function contentText(
+  browser: Browser,
+  url: string,
+  javaScriptEnabled: boolean,
+  container = "#content",
+) {
   const context = await browser.newContext({ javaScriptEnabled });
   const page = await context.newPage();
   await page.goto(url, { waitUntil: "load" });
@@ -226,7 +262,7 @@ async function contentText(browser: Browser, url: string, javaScriptEnabled: boo
   // block elements, JSX has not; that difference is not visible. Passed as a
   // string because tsx (esbuild) wraps nested functions in a __name helper.
   const text = await page.evaluate<string>(`(() => {
-    const content = document.querySelector("#content");
+    const content = document.querySelector(${JSON.stringify(container)});
     if (!content) return "";
     const parts = [];
     const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
@@ -288,7 +324,14 @@ async function diffImages(liveFile: string, localFile: string, diffFile: string)
 async function main() {
   const options = parseArgs(process.argv.slice(2));
   const { state, isStart } = await loadState(options.route);
-  const liveUrl = options.live ?? (isStart ? `${LIVE_ORIGIN}/` : `${LIVE_ORIGIN}/#!${state}`);
+  const blog = isBlog(options.route);
+  const liveUrl =
+    options.live ??
+    (blog
+      ? `${LIVE_ORIGIN}${options.route}`
+      : isStart
+        ? `${LIVE_ORIGIN}/`
+        : `${LIVE_ORIGIN}/#!${state}`);
   const localUrl = `${options.local}${options.route}`;
   const slug =
     options.route === "/" ? "home" : options.route.replace(/^\/|\/$/g, "").replace(/\//g, "_");
@@ -356,13 +399,16 @@ async function main() {
     await fs.writeFile(path.join(outDir, "head.diff"), headPatch);
     const headChanges = headPatch.split("\n").filter((line) => /^[+-][^+-]/.test(line));
 
-    // #content text word by word against the server-rendered live HTML.
+    // #content text word by word against the server-rendered live HTML
+    // (blog: main#site-content of the WordPress page).
+    const container = blog ? "#site-content" : "#content";
     const escaped = await contentText(
       browser,
-      `${LIVE_ORIGIN}/?_escaped_fragment_=${state}`,
+      blog ? liveUrl : `${LIVE_ORIGIN}/?_escaped_fragment_=${state}`,
       false,
+      container,
     );
-    const own = await contentText(browser, localUrl, false);
+    const own = await contentText(browser, localUrl, false, container);
     const words = diffWords(normalizeWords(escaped), normalizeWords(own));
     const wordChanges = words.filter((part) => part.added || part.removed);
     await fs.writeFile(
@@ -395,7 +441,9 @@ async function main() {
       ),
       "",
       `- Sichtbarer Text (text-visible.diff): ${desktopNote ?? `${visibleChanges} geänderte Zeilen`}`,
-      `- Text von #content gegen ?_escaped_fragment_=${state} (text-content.diff): ${wordChanges.length} Abweichungen`,
+      blog
+        ? `- Text von main#site-content gegen das Server-HTML von live (text-content.diff): ${wordChanges.length} Abweichungen`
+        : `- Text von #content gegen ?_escaped_fragment_=${state} (text-content.diff): ${wordChanges.length} Abweichungen`,
       `- Head-Daten (head.diff): ${desktopNote ?? `${headChanges.length} geänderte Zeilen`}`,
       "",
     ]
@@ -405,7 +453,9 @@ async function main() {
     await fs.writeFile(path.join(outDir, "index.html"), html(options.route, results));
 
     console.log(`  Text sichtbar: ${desktopNote ?? `${visibleChanges} geänderte Zeilen`}`);
-    console.log(`  Text #content gegen ?_escaped_fragment_: ${wordChanges.length} Abweichungen`);
+    console.log(
+      `  Text ${blog ? "main#site-content gegen Server-HTML" : "#content gegen ?_escaped_fragment_"}: ${wordChanges.length} Abweichungen`,
+    );
     console.log(`  Head-Daten: ${desktopNote ?? `${headChanges.length} geänderte Zeilen`}`);
     console.log(`\n📁 ${path.relative(process.cwd(), outDir)}/index.html\n`);
   } finally {

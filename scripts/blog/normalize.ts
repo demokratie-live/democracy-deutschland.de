@@ -18,7 +18,10 @@ const BLOCK = new Set(
   ),
 );
 const DROP = new Set(["script", "style", "noscript", "template"]);
-/** Atomic inline content: a space before or after it stays. */
+/**
+ * Atomic inline content (replaced elements, inline blocks): a space before or
+ * after it stays; inside, a button lays out its content like a block.
+ */
 const REPLACED = new Set(
   "img input button select textarea iframe video audio svg object embed canvas".split(" "),
 );
@@ -78,15 +81,54 @@ function collapseWhitespace(root: Node) {
       breakLine();
       return;
     }
-    if (block) breakLine();
     if (node.type === "element" && REPLACED.has(node.tagName) && !block) {
+      // Its own line box inside, plain content outside.
+      lastText = null;
+      atLineStart = true;
+      for (const child of node.children) walk(child);
+      breakLine();
       lastText = null;
       atLineStart = false;
+      return;
     }
+    if (block) breakLine();
     for (const child of node.children) walk(child);
     if (block) breakLine();
   };
   walk(root);
+}
+
+/** Adjacent text nodes (JSX splits "Seite {n} von {m}") become one. */
+function mergeText(node: Node) {
+  if (node.type !== "element" && node.type !== "root") return;
+  const merged: Array<RootContent | ElementContent> = [];
+  for (const child of node.children as Array<RootContent | ElementContent>) {
+    const last = merged[merged.length - 1];
+    if (child.type === "text" && last?.type === "text") last.value += child.value;
+    else merged.push(child);
+  }
+  node.children = merged as typeof node.children;
+  for (const child of node.children) mergeText(child);
+}
+
+/** "background-image: url( x );" and "background-image:url( x )" are the same. */
+function normalizeStyle(style: string) {
+  return style
+    .split(";")
+    .map((declaration) => declaration.trim())
+    .filter(Boolean)
+    .map((declaration) => {
+      const colon = declaration.indexOf(":");
+      const name = declaration.slice(0, colon).trim().toLowerCase();
+      const value = declaration
+        .slice(colon + 1)
+        .trim()
+        .replace(/\s+/g, " ")
+        .replace(/\(\s+/g, "(")
+        .replace(/\s+\)/g, ")");
+      return `${name}: ${value}`;
+    })
+    .join("; ");
 }
 
 function removeEmptyText(node: Node) {
@@ -152,6 +194,7 @@ function serialize(node: Node, options: NormalizeOptions, depth: number, out: st
           text = text.replace(/url\(\s*([^)]*?)\s*\)/g, (_, url) => `url(${options.mapUrl!(url)})`);
         }
       }
+      if (name === "style") text = normalizeStyle(text);
       if (options.mapAttribute) text = options.mapAttribute(name, text, node);
       return `${name}=${JSON.stringify(text)}`;
     })
@@ -172,6 +215,7 @@ export function normalizeNodes(
   options: NormalizeOptions = {},
 ): string {
   const root = cloneWithoutDropped({ type: "root", children: nodes as RootContent[] }) as Root;
+  mergeText(root);
   collapseWhitespace(root);
   removeEmptyText(root);
   const out: string[] = [];
