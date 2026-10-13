@@ -114,6 +114,8 @@ test("press downloads, media and blog images live below the basePath", async ({ 
   await expect(blogImage).toHaveAttribute("src", new RegExp(`^${BASE}/blog/wp-content/uploads/`));
   const teaser = page.locator('a[href*="/blog/20"]').first();
   await expect(teaser).toHaveAttribute("href", new RegExp(`^${BASE}/blog/\\d{4}/\\d{2}/`));
+  // Since the blog import the teasers lead to the post.
+  expect((await page.request.get((await teaser.getAttribute("href"))!)).status()).toBe(200);
 });
 
 test("FAQ menu keeps the page below the basePath", async ({ page }) => {
@@ -287,4 +289,57 @@ test("bug report and volunteer forms POST the old data objects to their endpoint
       text: "Ich helfe mit.",
     },
   ]);
+});
+
+test("blog: theme CSS, fonts, images and links live below the basePath", async ({ page }) => {
+  const missing = new Set(
+    yaml.parse(
+      fs.readFileSync(path.join(process.cwd(), "content/blog/missing-uploads.yaml"), "utf-8"),
+    ) as string[],
+  );
+  for (const route of [
+    "/blog/",
+    "/blog/page/2/",
+    "/blog/2023/02/berlin-waehlen-ist-nicht-abstimmen/",
+  ]) {
+    const failed = trackFailures(page);
+    await page.goto(`${BASE}${route}`);
+    await page.evaluate(() =>
+      document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]').forEach((img) => {
+        img.loading = "eager";
+      }),
+    );
+    await page.waitForLoadState("networkidle");
+    const state = await page.evaluate(async () => {
+      await document.fonts.ready;
+      return {
+        fonts: [...document.fonts].filter((f) => f.status === "loaded").map((f) => f.family),
+        images: [...document.images].map((img) => ({ url: img.src, ok: img.naturalWidth > 0 })),
+        stylesheets: [...document.querySelectorAll('link[rel="stylesheet"]')].map((link) =>
+          link.getAttribute("href"),
+        ),
+        links: [...document.querySelectorAll<HTMLAnchorElement>("a[href^='/']")].map((a) =>
+          a.getAttribute("href"),
+        ),
+        actions: [...document.querySelectorAll("form")].map((form) => form.getAttribute("action")),
+      };
+    });
+    expect(state.fonts).toEqual(expect.arrayContaining(["Playfair Display"]));
+    for (const href of state.stylesheets) {
+      expect(href).toMatch(new RegExp(`^${BASE}/blog/wp-content/themes/lovecraft/`));
+    }
+    for (const image of state.images) {
+      const file = decodeURI(new URL(image.url).pathname).slice(BASE.length);
+      expect(image.url.startsWith(`http://localhost:3101${BASE}/`), image.url).toBe(true);
+      if (!missing.has(file)) expect(image.ok, image.url).toBe(true);
+    }
+    for (const href of state.links) expect(href).toMatch(new RegExp(`^${BASE}/`));
+    for (const action of state.actions) expect(action).toBe(`${BASE}/blog/`);
+    expect(
+      failed.filter(
+        (entry) =>
+          !missing.has(decodeURI(new URL(entry.split(" ")[1]).pathname).slice(BASE.length)),
+      ),
+    ).toEqual([]);
+  }
 });

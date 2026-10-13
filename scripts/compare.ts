@@ -378,7 +378,7 @@ async function main() {
       );
       results.push({ viewport: viewport.name, ...result });
       console.log(
-        `  ${viewport.name}: ${result.percent.toFixed(2)} % Pixel abweichend (live ${result.live}, lokal ${result.local})`,
+        `  ${viewport.name}: ${result.percent.toFixed(2)} % Pixel abweichend (${result.changed} Px; live ${result.live}, lokal ${result.local})`,
       );
     }
 
@@ -437,7 +437,8 @@ async function main() {
       "| Viewport | Pixel abweichend | Größe live | Größe lokal |",
       "| --- | --- | --- | --- |",
       ...results.map(
-        (r) => `| ${r.viewport} | ${r.percent.toFixed(2)} % | ${r.live} | ${r.local} |`,
+        (r) =>
+          `| ${r.viewport} | ${r.percent.toFixed(2)} % (${r.changed} Px) | ${r.live} | ${r.local} |`,
       ),
       "",
       `- Sichtbarer Text (text-visible.diff): ${desktopNote ?? `${visibleChanges} geänderte Zeilen`}`,
