@@ -22,8 +22,12 @@ content/
   site/navigation.yaml  navbar   site/footer.yaml  footer   site/app-links.yaml  store/APK links
   donate/donation.yaml  donation status: /spenden/ and the app JSON (see README)
   team/team.yaml        team cards of /ueber-uns/ (see README)
+  press/media.yaml      media tiles of /presse/ (see README)
+  faq/faq.yaml          category menu and questions of /faq/ (see README)
+  blog/<slug>.md        blog posts (WordPress); until the blog import only frontmatter stubs (see "Blog posts")
 public/
   css/                  original CSS (see "CSS"); files/  assets under the old /files/ paths
+  blog/wp-content/uploads/  blog media under their WordPress paths
   videos/  favicon.ico  manifest.json
 src/
   app/                  thin page shells: <MdxPage id="…" />; [...alias] forwarding pages; not-found;
@@ -34,8 +38,9 @@ src/
   components/mdx/       MdxPage (render + head), MDXComponents (registry)
   lib/                  animate.ts (jQuery animations), legacy-redirect.ts, metadata.ts,
                         routes.ts, stylesheets.ts, base-path.ts, content/ (loaders), schemas/,
-                        bootstrap-modal.ts (Bootstrap 4 modal), donation.ts (PHP round/
-                        number_format/json_encode, donation JSON), donation-route.ts
+                        bootstrap-modal.ts (Bootstrap 4 modal), bootstrap-collapse.ts (Bootstrap 4
+                        collapse), donation.ts (PHP round/number_format/json_encode, donation
+                        JSON), donation-route.ts, content/blog.ts (blog posts, permalinks)
 scripts/                validate-content.ts, compare.ts, serve-basepath.mjs
 tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byte)
 ```
@@ -46,9 +51,9 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 2. **Assets**: copy what the page uses from `democracy/files/<cat>/` to `public/files/<cat>/` under the same name. Reference them as `/files/<cat>/<name>` through `asset()` (raw tags) or `Link` (anchors).
 3. **Components**: one section component per template block in `src/components/<module>/` (or `shared/` when two modules use it), registered in `src/components/mdx/MDXComponents.tsx`. Original classes and ids stay, duplicates included. Text goes into `content/pages/<id>.mdx` as props or Markdown children.
 4. **Page**: `src/app/<path>/page.tsx` as a thin shell (copy `src/app/wahlometer/page.tsx`). The state and path already exist in `routes.yaml`; head overrides go into the frontmatter.
-5. **Interactions** in React, no jQuery. Use `src/lib/animate.ts` (`animateScrollTo`, `tween`, easings `swing`/`easeOutQuart`, `SLOW` = 600 ms) to match jQuery timing. Bootstrap 4.0.0 plugins are ported to plain DOM code with the original timings: Collapse in `Navbar`, Modal in `src/lib/bootstrap-modal.ts` (markup server-rendered with `Modal`, opened by `ModalToggle` like the data API). Inline `<script>`s of a template become a client component that renders `null` and runs the script in an effect (`UpdateProgress`).
+5. **Interactions** in React, no jQuery. Use `src/lib/animate.ts` (`animateScrollTo`, `tween`, easings `swing`/`easeOutQuart`, `SLOW` = 600 ms) to match jQuery timing. Bootstrap 4.0.0 plugins are ported to plain DOM code with the original timings: Collapse in `Navbar` and as `useCollapseTransition()`/`prepareHide()` in `src/lib/bootstrap-collapse.ts` (state in React, see `FaqList`), Modal in `src/lib/bootstrap-modal.ts` (markup server-rendered with `Modal`, opened by `ModalToggle` like the data API). Inline `<script>`s of a template become a client component that renders `null` and runs the script in an effect (`UpdateProgress`).
 6. **Verify**, all until green or explained:
-   - `pnpm compare <path>` against a running local server (`pnpm dev` or `pnpm build && pnpm start`, default `--local http://localhost:3000`); use `--click <selector>` for every interaction state, `--hover <selector>` for hover states (viewport only, a full-page screenshot loses the hover) and `--only mobile` for mobile-only states. Pixels, visible text, `#content` text against `?_escaped_fragment_` and head data must match; explain every remainder in `docs/abweichungen.md`.
+   - `pnpm compare <path>` against a running local server (`pnpm dev` or `pnpm build && pnpm start`, default `--local http://localhost:3000`); use `--click <selector>` for every interaction state, `--hover <selector>` for hover states (viewport only, a full-page screenshot loses the hover), `--only mobile` for mobile-only states and `--live-eval <js>` to reproduce an intended deviation on live before comparing (e.g. remove the FAQ entry the port drops), so the rest still compares pixel by pixel. Pixels, visible text, `#content` text against `?_escaped_fragment_` and head data must match; explain every remainder in `docs/abweichungen.md`.
    - Playwright tests for every interaction (`tests/e2e/<module>.spec.ts`, mobile-only ones in `*.mobile.spec.ts`).
    - `pnpm lint`, `pnpm validate-content`, `pnpm test:unit`, `pnpm test:e2e`, `pnpm test:basepath`, `pnpm format:check`.
 7. **Document**: deviations and fixed bugs in `docs/abweichungen.md`, server needs in `docs/server-funktionen.md`, new components below.
@@ -63,11 +68,19 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 - **Head**: defaults from `head.yaml` via `buildMetadata()`; `og:*` tags are rendered by `MdxPage`, because Next's `openGraph` metadata adds `twitter:*` tags that live does not have.
 - **Navbar state** comes from `routes.yaml` (`menu`, `startpage`), mirroring each `init_<state>()`.
 - **Hover** handlers of jQuery (`.hover(in, out)`) become `onMouseEnter`/`onMouseLeave` with state; `show()`/`hide()` leave `display: block`/`display: none` inline, render the same. Taps on touch devices fire the same events.
-- **Data from the old SAI/database** goes into YAML with a Zod schema; values that PHP computed (rounding, `number_format`) are computed with the PHP-compatible helpers in `src/lib/donation.ts`, not with `Math.round`/`toLocaleString`.
+- **Data from the old SAI/database** (donation status, press media, FAQ) goes into YAML with a Zod schema; `validate-content` checks that referenced files exist (`checkFiles`); values that PHP computed (rounding, `number_format`) are computed with the PHP-compatible helpers in `src/lib/donation.ts`, not with `Math.round`/`toLocaleString`.
 
 ## Generated files (app JSON)
 
 `/api.php` and `/api/donation_status.json` are App Router route handlers (`export const dynamic = "force-static"`, `GET` re-exported from `src/lib/donation-route.ts`); `next build` writes them as files into `out/`. The body is byte-identical to the old `api.php?call=donation_status` (PHP 7.4 `round()`, `json_encode()` escaping; only `querytime` is 0). `src/lib/donation.test.ts` checks this against `tests/fixtures/donation_status.live.json` and PHP reference values. Static hosts ignore the query string and serve `.php` as `application/x-httpd-php`; the app parses it anyway (`docs/server-funktionen.md`). Keep these routes static: no request data, no other HTTP methods.
+
+## Blog posts and the press teasers
+
+`content/blog/<slug>.md` holds one WordPress post per file, frontmatter per `src/lib/schemas/blog.ts` (`wpId`, `title`, `slug`, `date`, `author`, `categories`, `tags`, `image`). Until the blog import (TASK-80) the directory only has frontmatter stubs of the nine newest posts; their featured images are the original uploads under `public/blog/wp-content/uploads/<year>/<month>/`, the path the import uses.
+
+- `getBlogPosts()` / `getLatestBlogPosts(limit)` in `src/lib/content/blog.ts` read all files, newest `date` first (`post_date DESC` like `wp_get_recent_posts()`); `blogPermalink()` builds `/blog/<year>/<month>/<slug>/` from `date` and `slug`. `BlogTeasers` on `/presse/` uses them; the import only has to write the files.
+- `title` is the raw `post_title` as the press page shows it (`'25`, not `’25`). The REST API only returns `title.rendered`: wptexturize writes its replacements as numeric entities (`&#8217;25`), characters typed that way stay literal (`’22`), so the raw title can be recovered (`&#8216;`/`&#8217;` → `'`, `&#8220;`/`&#8221;` → `"`; `&#8211;`/`&#8212;` stand for `-`/`--`, check the post). Blog pages apply wptexturize when rendering, like WordPress.
+- `date` is `post_date` (local time) as a quoted string; unquoted YAML dates become `Date` objects and fail validation.
 
 ## Routing and legacy links
 
@@ -83,30 +96,34 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 - Literal `<a>` and `<img>` in MDX get no basePath: use `Link` (also for `/files/download/…` with `target="_blank"`) and `Img`. External links may stay literal `<a>`.
 - Old HTML attributes React does not know keep their lowercase spelling in MDX (`allowtransparency="true"` on the Discord iframe); the camelCase form logs an error.
 - Inline `<style>` blocks of a template: in MDX a template literal as child, ``<style>{`…`}</style>``, or a constant in the component.
+- MDX inside YAML (FAQ answers): rendered with `MDXRemote` and `p` mapped to a fragment, so the answer stays one paragraph without `<p>` like the old HTML. Line breaks as `<br />`, lists as `<ul><li>…</li></ul>`, internal links as Markdown links; a blank line would silently join two paragraphs, so the schema rejects it.
 - Numbers from YAML inside MDX texts: pass the text with `{placeholder}`s as a prop (`DonateBox progress="{percentage}% von {valueGoal}€ GESCHAFFT!"`); the component fills them and fails the build on unknown names.
 - No optional chaining in MDX expressions. Inside JSX attribute values the German closing quote must be `“` (U+201C), never ASCII `"`.
 
 ## MDX components
 
-| Component                               | Purpose                                                                           |
-| --------------------------------------- | --------------------------------------------------------------------------------- |
-| `Link`                                  | internal/external link (also used for Markdown links)                             |
-| `Section`                               | `.background-white > .container.page` wrapper; `raised`, `style`, `after`         |
-| `AppHeader`                             | blue header of home/wahlometer (`variant`), store badges, APK/AAB links from YAML |
-| `ScrollIcon`                            | chevron below the header, scrolls to the first `#about`                           |
-| `VideoSection`                          | video title (three parts or `title`), link and YouTube HD thumbnail               |
-| `PressLogos` / `PressLogo`              | "bekannt aus" logo row                                                            |
-| `RectangleInfo`                         | grey rotated title box with text and link                                         |
-| `FeatureVideos` / `InfoBadge`           | home: info badges switching the phone video (client)                              |
-| `SymbolInfoPanel` / `SymbolInfo`        | wahlometer: three symbol tiles                                                    |
-| `ComparisonAccordion` / `ComparisonRow` | two-column accordion (wahlometer, about); titles may hold markup (client)         |
-| `WhyUs`, `Campaign`, `CampaignCorner`   | wahlometer: "Warum gibt es uns?", campaign block with badges, corner image        |
-| `Img`                                   | plain `<img>` with basePath, `alt=""` by default                                  |
-| `DonateBox`                             | donate: progress and sponsorship box (donate_box.tpl), figures from YAML          |
-| `DonateDetails`                         | donate: progress, value box and cost table with bars (donate_details.tpl)         |
-| `Modal` / `ModalToggle`                 | Bootstrap 4 modal markup / its `data-toggle="modal"` button (client)              |
-| `Team`                                  | about: team cards from `team.yaml`; hover swaps text and contact links (client)   |
-| `ServicesIcon`                          | about: icon, title and subtitle of "Unsere Philosophie" (icon.tpl)                |
+| Component                               | Purpose                                                                             |
+| --------------------------------------- | ----------------------------------------------------------------------------------- |
+| `Link`                                  | internal/external link (also used for Markdown links)                               |
+| `Section`                               | `.background-white > .container.page` wrapper; `raised`, `style`, `after`           |
+| `AppHeader`                             | blue header of home/wahlometer (`variant`), store badges, APK/AAB links from YAML   |
+| `ScrollIcon`                            | chevron below the header, scrolls to the first `#about`                             |
+| `VideoSection`                          | video title (three parts or `title`), link and YouTube HD thumbnail                 |
+| `PressLogos` / `PressLogo`              | "bekannt aus" logo row                                                              |
+| `RectangleInfo`                         | grey rotated title box with text and link                                           |
+| `FeatureVideos` / `InfoBadge`           | home: info badges switching the phone video (client)                                |
+| `SymbolInfoPanel` / `SymbolInfo`        | wahlometer: three symbol tiles                                                      |
+| `ComparisonAccordion` / `ComparisonRow` | two-column accordion (wahlometer, about); titles may hold markup (client)           |
+| `WhyUs`, `Campaign`, `CampaignCorner`   | wahlometer: "Warum gibt es uns?", campaign block with badges, corner image          |
+| `Img`                                   | plain `<img>` with basePath, `alt=""` by default                                    |
+| `DonateBox`                             | donate: progress and sponsorship box (donate_box.tpl), figures from YAML            |
+| `DonateDetails`                         | donate: progress, value box and cost table with bars (donate_details.tpl)           |
+| `Modal` / `ModalToggle`                 | Bootstrap 4 modal markup / its `data-toggle="modal"` button (client)                |
+| `Team`                                  | about: team cards from `team.yaml`; hover swaps text and contact links (client)     |
+| `ServicesIcon`                          | about: icon, title and subtitle of "Unsere Philosophie" (icon.tpl)                  |
+| `PressMedia`                            | press: tiles of one list of `media.yaml` (`list="kit"`, `articles`, `publications`) |
+| `BlogTeasers`                           | press: tiles of the newest blog posts (`count={9}`), linked to their permalink      |
+| `Faq`                                   | faq: category menu and questions from `faq.yaml`; filter and collapse (client)      |
 
 Client components read declarative children (`InfoBadge`, `ComparisonRow`) via `Children.toArray(...).props`.
 

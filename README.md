@@ -43,7 +43,9 @@ Open [http://localhost:3000](http://localhost:3000). Old links such as
 
 `pnpm compare /wahlometer/ --local http://localhost:3000` writes its results to
 `compare-results/wahlometer/index.html`. `--click <selector>` compares the state after a
-click, `--hover <selector>` the visible area while the mouse is on an element.
+click, `--hover <selector>` the visible area while the mouse is on an element,
+`--live-eval <js>` runs JavaScript on the live page first (to reproduce an intended
+deviation).
 
 ## Updating the donation status
 
@@ -87,6 +89,34 @@ the list was code in `default_about.php`). Per member:
   `fab fa-linkedin`, …) and a `mailto:`, `tel:` or `https://` URL
 
 `pnpm validate-content` checks the schema and that every photo exists.
+
+## Updating the press page
+
+The tiles of `/presse/` come from [`content/press/media.yaml`](content/press/media.yaml)
+(before: table `media` in the SAI), one list per section in the order of the file:
+`kit` ("Presse-Kit"), `articles` ("Pressespiegel"), `publications` ("Publikationen").
+Each entry has a `title`, a `link` (external URL or a file such as
+`/files/download/…`, opened in a new tab) and an `img` under `public/files/medien/`.
+Put new images and downloads under `public/files/medien/` and `public/files/download/`.
+
+The "Blogs" tiles are not maintained here: they show the nine newest posts of
+`content/blog/` with title, featured image and permalink.
+
+`pnpm validate-content` checks the schema and that every image and download exists.
+
+## Updating the FAQ
+
+Questions, answers and the category menu of `/faq/` live in
+[`content/faq/faq.yaml`](content/faq/faq.yaml) (before: table `faq` in the SAI). The
+first question is open when the page loads.
+
+- `menu`: the items on the left; an item without `category` shows all questions.
+- `questions`: in display order, each with `question`, `categories` (from `menu`) and
+  `answer`. The answer is MDX in one paragraph, like the HTML of the old table: line
+  breaks as `<br />` (no blank lines), lists as `<ul><li>…</li></ul>`, internal links as
+  `[text](/datenschutz/)`, external ones as `<a href="…" target="_blank">…</a>`.
+
+`pnpm validate-content` checks the categories, blank lines and internal links.
 
 ## Documentation
 

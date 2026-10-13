@@ -13,5 +13,5 @@ Details and reasons: `AGENTS.md`.
 - **Interactions** in React without jQuery; jQuery timings via `src/lib/animate.ts`.
 - **Schemas**: every content type has a Zod schema in `src/lib/schemas/`; run `pnpm validate-content`.
 - **Static export**: no middleware, server actions or dynamic API routes. Files the old site generated (the app JSON `/api.php`) are static `GET` route handlers with `dynamic = "force-static"`. Server needs go into `docs/server-funktionen.md`.
-- **SAI/database data** (donation status) lives in YAML under `content/`; values PHP computed use the PHP-compatible helpers in `src/lib/donation.ts`.
+- **SAI/database data** (donation status, team, press media, FAQ) lives in YAML under `content/`; blog posts are Markdown files in `content/blog/` (read via `src/lib/content/blog.ts`); values PHP computed use the PHP-compatible helpers in `src/lib/donation.ts`.
 - **Verification**: `pnpm compare <path>` against live plus Playwright tests for every interaction; deviations into `docs/abweichungen.md`.
