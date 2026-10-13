@@ -118,6 +118,45 @@ first question is open when the page loads.
 
 `pnpm validate-content` checks the categories, blank lines and internal links.
 
+## Updating the legal texts
+
+Impressum, Datenschutz and Nutzungsbedingungen live in
+[`content/legal/`](content/legal/) as `impressum.md`, `datenschutz.md` and
+`nutzungsbedingungen.md` (before: `system_text` in the SAI, edited with TinyMCE). They
+are plain Markdown (CommonMark, not MDX), rendered into the page frame of
+`content/pages/<name>.mdx`.
+
+- Headings, paragraphs, bullet lists and links are Markdown. Bold headings are written
+  `#### **Titel**` like the old editor output.
+- HTML only where Markdown cannot produce the live layout: `<br>` inside headings and at
+  the end of paragraphs (the blank lines of the old texts), the lettered lists
+  `<ol style="list-style-type: lower-alpha;"><li>…</li></ol>`, text outside a paragraph
+  in `<span>` on its own lines, links with `target="_blank"`. Inside such HTML blocks
+  Markdown does not work, write links as `<a href="…">`.
+- Non-breaking spaces stay visible as `&nbsp;`. Some umlauts are stored decomposed
+  (`u` + combining diaeresis), as on live; they look the same.
+- Internal links use the new paths (`/datenschutz/`).
+
+`pnpm validate-content` checks the internal links. `tests/e2e/legal.spec.ts` compares the
+words of each page with the live responses saved on 2026-10-13
+(`tests/fixtures/<name>.live.html`). Until the domain moves to the static site, live is
+the source: if a text changes there, save the new `?_escaped_fragment_=<name>` response
+as the fixture and update the Markdown until the test passes. After the move the
+Markdown is the source and the comparison with the old live state can go.
+
+## Contact form
+
+`/kontakt/` checks the fields like the old site (alert texts in
+[`content/site/forms.yaml`](content/site/forms.yaml)) and then
+
+- opens a prefilled mail to `contact@democracy-deutschland.de` in the visitor's mail
+  program (default), or
+- POSTs the fields as JSON to `NEXT_PUBLIC_CONTACT_ENDPOINT` when that variable is set at
+  build time (`NEXT_PUBLIC_CONTACT_ENDPOINT=https://… pnpm build`).
+
+The endpoint contract (JSON body, success = HTTP 2xx, CORS) is in
+[`docs/server-funktionen.md`](docs/server-funktionen.md#formulare-send_mail).
+
 ## Documentation
 
 - [`AGENTS.md`](./AGENTS.md) – architecture, rules for 1:1 markup, porting steps, gotchas

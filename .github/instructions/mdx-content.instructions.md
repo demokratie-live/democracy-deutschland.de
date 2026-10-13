@@ -32,5 +32,6 @@ state: wahlometer # state of the old hash router, must exist in content/site/rou
 - Inside JSX attribute values the German closing quote must be `“` (U+201C), never ASCII `"`.
 - HTML attributes React does not know stay lowercase (`allowtransparency="true"`).
 - Structured data (team, donation figures, press media, FAQ) lives in YAML, not in the MDX text. FAQ answers in `content/faq/faq.yaml` are MDX in one paragraph: `<br />` for line breaks, no blank lines.
+- Legal texts are not MDX: `content/legal/<name>.md` is plain Markdown with inline HTML (`<br>`, `<ol style="…">`), rendered by `<LegalText name="…" />`. Keep the wording word for word (README, "Updating the legal texts").
 - Page MDX is not formatted by Prettier; keep the indentation by hand.
 - After editing: `pnpm validate-content` and `pnpm build`.

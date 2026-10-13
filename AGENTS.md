@@ -20,6 +20,8 @@ content/
   site/head.yaml        title, meta, Open Graph, icons, manifest, external CSS
   site/routes.yaml      every old state → new path, navbar `menu`/`startpage`, aliases
   site/navigation.yaml  navbar   site/footer.yaml  footer   site/app-links.yaml  store/APK links
+  site/forms.yaml       recipient, mail subject and alert texts of the forms (contact, later bug report/volunteer)
+  legal/<name>.md       Impressum, Datenschutz, Nutzungsbedingungen: plain Markdown with inline HTML (see "Legal texts")
   donate/donation.yaml  donation status: /spenden/ and the app JSON (see README)
   team/team.yaml        team cards of /ueber-uns/ (see README)
   press/media.yaml      media tiles of /presse/ (see README)
@@ -34,15 +36,16 @@ src/
                         api.php/, api/donation_status.json/: static GET route handlers (app JSON)
   components/frame/     Navbar, Footer, ToTop (UItoTop), LegacyRedirectScript
   components/shared/    sections used by several modules (AppHeader, Section, Link, VideoSection, …)
-  components/<module>/  sections of one module (home/, wahlometer/, donate/, about/, …)
+  components/<module>/  sections of one module (home/, wahlometer/, donate/, about/, contact/, legal/, …)
   components/mdx/       MdxPage (render + head), MDXComponents (registry)
   lib/                  animate.ts (jQuery animations), legacy-redirect.ts, metadata.ts,
                         routes.ts, stylesheets.ts, base-path.ts, content/ (loaders), schemas/,
                         bootstrap-modal.ts (Bootstrap 4 modal), bootstrap-collapse.ts (Bootstrap 4
                         collapse), donation.ts (PHP round/number_format/json_encode, donation
-                        JSON), donation-route.ts, content/blog.ts (blog posts, permalinks)
+                        JSON), donation-route.ts, content/blog.ts (blog posts, permalinks),
+                        forms.ts (validateEmail, form checks, endpoint or mailto)
 scripts/                validate-content.ts, compare.ts, serve-basepath.mjs
-tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byte)
+tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byte: app JSON, legal texts)
 ```
 
 ## Porting a module
@@ -69,6 +72,24 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 - **Navbar state** comes from `routes.yaml` (`menu`, `startpage`), mirroring each `init_<state>()`.
 - **Hover** handlers of jQuery (`.hover(in, out)`) become `onMouseEnter`/`onMouseLeave` with state; `show()`/`hide()` leave `display: block`/`display: none` inline, render the same. Taps on touch devices fire the same events.
 - **Data from the old SAI/database** (donation status, press media, FAQ) goes into YAML with a Zod schema; `validate-content` checks that referenced files exist (`checkFiles`); values that PHP computed (rounding, `number_format`) are computed with the PHP-compatible helpers in `src/lib/donation.ts`, not with `Math.round`/`toLocaleString`.
+
+## Forms (`send_mail`)
+
+The old forms (contact; bug report and volunteer on `/engineering/`) validate in their click handler and send with `sendMail()` to `api.php?call=send_mail`. The port keeps the checks and alert texts 1:1 and replaces the sending (spec, decisions Manuel 2026-10-13):
+
+- **Checks**: `runChecks()` from `src/lib/forms.ts` with one `{ id, valid, message }` per `if` of the handler, in the same order: the first failing check shows `alert(message)`, then focuses the field. `validateEmail()` is the unchanged function of `default_invite.js` (live never loaded it on the main page, docs/abweichungen.md).
+- **Texts**: alert messages, recipient and the mail subject template come from `content/site/forms.yaml` (`getForms()` in a server component, passed to the client form like `ContactForm` → `ContactFormFields`); placeholders and the button label are MDX props.
+- **Sending**: `sendForm()` POSTs the old `data` object as JSON to the endpoint when it is set (`"sent"` for HTTP 2xx, else `"failed"`), otherwise it opens a prefilled `mailto:` (`"mailto"`). On `"sent"` reset the form and alert `messages.sent`, on `"failed"` alert `messages.failed`, on `"mailto"` do nothing (no alert, no reset).
+- **Endpoint variable**: one per form, `NEXT_PUBLIC_<FORM>_ENDPOINT`, referenced literally (`process.env.NEXT_PUBLIC_CONTACT_ENDPOINT`); Next inlines only literal references.
+- **Tests**: the mailto path in `tests/e2e` (`page.waitForRequest((r) => r.url().startsWith("mailto:"))`, compare decoded, Chromium escapes `'`), the endpoint path in `tests/basepath` (that build sets the endpoint variables, `page.route` answers). Register `page.on/once("dialog")` before the click that raises an alert; awaiting `waitForEvent("dialog")` after starting the click deadlocks.
+
+## Legal texts
+
+`content/legal/<name>.md` holds the old `system_text` (`impressum_text`, …) as plain Markdown (CommonMark, not MDX). `LegalText` renders it with `MDXRemote` and `mdxOptions: { format: "md", rehypePlugins: [rehypeRaw] }`, so raw HTML (`<br>`, `style="…"`) works without JSX syntax; `a` is mapped to `Link`. The page frame of the template is `content/pages/<name>.mdx`.
+
+- Markdown where the DOM stays the same, HTML only where Markdown cannot express the live layout (decision Manuel 2026-10-13): `<br>` in headings and at the end of blocks, `<ol style="list-style-type: lower-alpha;">`, text directly in the container as `<span>` on its own lines (an HTML block; Markdown would wrap it in `<p>` and add a margin). HTML blocks end at a blank line and contain no Markdown.
+- Editor leftovers without effect are dropped (`data-mce-*`, `style="font-weight: 400;"`, attribute-less `<span>`, the `div title="Page 1"` wrapper); words, `&nbsp;` and decomposed umlauts stay exactly as on live. `**x **` does not close in Markdown: move the space outside.
+- `tests/e2e/legal.spec.ts` compares the words of each page (text nodes, `<br>`/blocks as spaces) with `tests/fixtures/<name>.live.html`, loaded via `page.setContent` with all requests aborted. Fixtures are excluded from Prettier (`tests/fixtures/*.live.*`).
 
 ## Generated files (app JSON)
 
@@ -124,6 +145,8 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 | `PressMedia`                            | press: tiles of one list of `media.yaml` (`list="kit"`, `articles`, `publications`) |
 | `BlogTeasers`                           | press: tiles of the newest blog posts (`count={9}`), linked to their permalink      |
 | `Faq`                                   | faq: category menu and questions from `faq.yaml`; filter and collapse (client)      |
+| `ContactForm`                           | contact: form of default_contact.tpl, checks and sending (client, see "Forms")      |
+| `LegalText`                             | legal pages: `content/legal/<name>.md` as Markdown with HTML (`name="impressum"`)   |
 
 Client components read declarative children (`InfoBadge`, `ComparisonRow`) via `Children.toArray(...).props`.
 
