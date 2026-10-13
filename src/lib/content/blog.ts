@@ -58,7 +58,9 @@ export interface BlogTaxonomyIndex {
   author(slug: string): BlogTerm;
   category(slug: string): BlogTerm;
   tag(slug: string): BlogTerm;
+  authors: BlogTerm[];
   categories: BlogTerm[];
+  tags: BlogTerm[];
 }
 
 /** content/blog/taxonomy.yaml with lookups by slug (throws for unknown slugs). */
@@ -76,7 +78,9 @@ export async function getBlogTaxonomy(): Promise<BlogTaxonomyIndex> {
     author: lookup("Autor", taxonomy.authors),
     category: lookup("Kategorie", taxonomy.categories),
     tag: lookup("Schlagwort", taxonomy.tags),
+    authors: taxonomy.authors,
     categories: taxonomy.categories,
+    tags: taxonomy.tags,
   };
 }
 

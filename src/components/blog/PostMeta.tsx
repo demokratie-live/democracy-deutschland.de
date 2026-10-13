@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { asset } from "@/lib/base-path";
-import type { PostView } from "@/lib/blog/view";
+import type { PostView } from "@/lib/blog/listing";
 
 /**
  * lovecraft_meta(): author, date and categories of a post. The paragraphs are
@@ -17,7 +17,7 @@ export function PostMeta({ view }: { view: PostView }) {
       </p>{" "}
       <p className="post-date">
         <span>Am </span>
-        <a href={asset(view.post.permalink)}>{view.date}</a>
+        <a href={asset(view.permalink)}>{view.date}</a>
       </p>{" "}
       <p className="post-categories">
         <span>In </span>

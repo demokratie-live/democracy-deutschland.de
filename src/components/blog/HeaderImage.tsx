@@ -1,5 +1,5 @@
 import { asset } from "@/lib/base-path";
-import type { FeaturedImage } from "@/lib/blog/view";
+import type { FeaturedImage } from "@/lib/blog/listing";
 import { FeaturedImg } from "./FeaturedImg";
 
 /**

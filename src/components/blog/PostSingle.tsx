@@ -1,5 +1,6 @@
 import { asset } from "@/lib/base-path";
-import type { PostLink, SingleView } from "@/lib/blog/view";
+import type { PostLink } from "@/lib/blog/listing";
+import type { SingleView } from "@/lib/blog/view";
 import { PostMeta } from "./PostMeta";
 
 function NavLink({ className, label, link }: { className: string; label: string; link: PostLink }) {
@@ -17,14 +18,11 @@ function NavLink({ className, label, link }: { className: string; label: string;
 export function PostSingle({ view }: { view: SingleView }) {
   const post = view.post;
   return (
-    <article
-      id={`post-${post.post.frontmatter.wpId}`}
-      className={["post", "single", ...post.classes].join(" ")}
-    >
+    <article id={`post-${post.wpId}`} className={["post", "single", ...post.classes].join(" ")}>
       <div className="post-inner">
         <div className="post-header">
           <h1 className="post-title">
-            <a href={asset(post.post.permalink)}>{post.title}</a>
+            <a href={asset(post.permalink)}>{post.title}</a>
           </h1>
           <PostMeta view={post} />
         </div>

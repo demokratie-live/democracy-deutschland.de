@@ -6,7 +6,9 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 import { BASE_PATH } from "../base-path";
-import { ImageLoading, lazySizes } from "./images";
+import { ImageLoading, lazySizes, mapSrcSet } from "./image-attributes";
+
+export { mapSrcSet };
 
 /**
  * Post content: content/blog/<slug>.md is CommonMark with inline HTML, written
@@ -58,8 +60,13 @@ export interface RenderOptions {
    * on the blog index.
    */
   mode: "single" | "teaser";
-  /** Loading attributes are counted over the whole page. */
-  loading: ImageLoading;
+  /** Loading attributes are counted over the whole page; none without. */
+  loading?: ImageLoading;
+  /**
+   * Prefix of root-relative URLs (uploads, links): the basePath by default,
+   * the origin of the live site in the feeds.
+   */
+  urlPrefix?: string;
 }
 
 export interface RenderedContent {
@@ -97,21 +104,6 @@ function moreLink(permalink: string): Element {
   };
 }
 
-/** Applies `map` to every URL of a srcset (hast keeps it as a string or list). */
-export function mapSrcSet(value: unknown, map: (url: string) => string): string {
-  const entries = Array.isArray(value) ? value.map(String) : String(value).split(",");
-  return entries
-    .map((entry) => {
-      const [url, ...descriptor] = entry.trim().split(/\s+/);
-      return [map(url), ...descriptor].join(" ");
-    })
-    .join(", ");
-}
-
-function withBasePath(url: string) {
-  return url.startsWith("/") && !url.startsWith("//") ? `${BASE_PATH}${url}` : url;
-}
-
 /** Post content as HTML for `dangerouslySetInnerHTML`, as WordPress outputs it. */
 export function renderPostContent(markdown: string, options: RenderOptions): RenderedContent {
   const tree = markdownToHast(markdown);
@@ -123,19 +115,22 @@ export function renderPostContent(markdown: string, options: RenderOptions): Ren
     tree.children = [...tree.children.slice(0, moreIndex), moreLink(options.permalink)];
   }
 
+  const prefix = options.urlPrefix ?? BASE_PATH;
+  const withPrefix = (url: string) =>
+    url.startsWith("/") && !url.startsWith("//") ? `${prefix}${url}` : url;
   const classes = new Set<string>();
   visit(tree, "element", (node) => {
     const props = node.properties;
     for (const name of (props.className as string[] | undefined) ?? []) classes.add(name);
-    if (node.tagName === "img") {
+    if (node.tagName === "img" && options.loading) {
       const attrs = options.loading.next(Number(props.width) || 0, Number(props.height) || 0);
       Object.assign(props, attrs);
       if (typeof props.sizes === "string") props.sizes = lazySizes(props.sizes, attrs.loading);
     }
     for (const key of ["src", "href"] as const) {
-      if (typeof props[key] === "string") props[key] = withBasePath(props[key]);
+      if (typeof props[key] === "string") props[key] = withPrefix(props[key]);
     }
-    if (props.srcSet) props.srcSet = mapSrcSet(props.srcSet, withBasePath);
+    if (props.srcSet) props.srcSet = mapSrcSet(props.srcSet, withPrefix);
   });
   return { html: toHtml(tree), classes };
 }

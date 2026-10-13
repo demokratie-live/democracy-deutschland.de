@@ -1,6 +1,6 @@
 import { asset } from "@/lib/base-path";
-import { mapSrcSet } from "@/lib/blog/markdown";
-import type { FeaturedImage } from "@/lib/blog/view";
+import { mapSrcSet } from "@/lib/blog/image-attributes";
+import type { FeaturedImage } from "@/lib/blog/listing";
 
 /** `the_post_thumbnail( $size )`: <img> with srcset and the loading attributes of the page. */
 export function FeaturedImg({ image, size }: { image: FeaturedImage; size: string }) {

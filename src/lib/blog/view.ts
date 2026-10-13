@@ -8,53 +8,31 @@ import {
 } from "../content/blog";
 import type { BlogTerm } from "../schemas/blog";
 import { formatMonth, formatPostDate } from "./format";
-import { attachmentImage, ImageLoading, lazySizes } from "./images";
+import { ImageLoading, lazySizes } from "./image-attributes";
+import { attachmentImage } from "./images";
+import {
+  listingBodyClass,
+  listingTitle,
+  type ArchiveHeading,
+  type FeaturedImage,
+  type ListingView,
+  type PostLink,
+  type PostView,
+} from "./listing";
 import { renderPostContent } from "./markdown";
 import { wptexturize } from "./texturize";
 
 /**
  * What a blog page shows, computed once per page (layout and page share it
- * through React `cache`). Routes: /blog/, /blog/page/<n>/ and the permalinks
- * /blog/<year>/<month>/<slug>/; archives, search and feed follow (TASK-81).
+ * through React `cache`). Routes: /blog/ and /blog/page/<n>/, the archives
+ * /blog/category|author|tag/<slug>/, /blog/<year>/ and /blog/<year>/<month>/
+ * (each with /page/<n>/), and the permalinks /blog/<year>/<month>/<slug>/.
+ * The search (/blog/?s=) renders on the client (BlogSearch).
  */
 
 export const ORIGIN = "https://democracy-deutschland.de";
 
-export interface FeaturedImage {
-  src: string;
-  width: number;
-  height: number;
-  srcSet: string | null;
-  sizes: string;
-  fetchPriority?: "high";
-  loading?: "lazy";
-}
-
-export interface PostView {
-  post: BlogPost;
-  /** Title as the blog shows it (wptexturize). */
-  title: string;
-  /** post_class() */
-  classes: string[];
-  author: BlogTerm;
-  categories: BlogTerm[];
-  tags: BlogTerm[];
-  /** "14. Juni 2026" */
-  date: string;
-  /** Content (single) or teaser with "Weiterlesen" (index) as HTML. */
-  html: string;
-  /**
-   * Featured image in the size of the view; null when the post has a
-   * `_thumbnail_id` whose attachment is gone (WordPress renders an empty
-   * frame), undefined without featured image.
-   */
-  featured: FeaturedImage | null | undefined;
-}
-
-export interface PostLink {
-  title: string;
-  permalink: string;
-}
+export type { FeaturedImage, PostLink, PostView } from "./listing";
 
 interface ViewBase {
   /** <title> */
@@ -74,11 +52,25 @@ export function searchInputNumber(classes: Set<string>) {
   return 1 + [...classes].filter((name) => /^wp-block-gallery-\d+$/.test(name)).length;
 }
 
-export interface IndexView extends ViewBase {
+/** A feed link of <head> (feed_links(), feed_links_extra()). */
+export interface FeedLink {
+  title: string;
+  href: string;
+}
+
+/** The archive a page shows, marked in the sidebar widgets. */
+export interface SidebarCurrent {
+  /** Category slug: `current-cat` in the categories widget. */
+  category?: string;
+  /** "2026-06": `aria-current` in the archives widget. */
+  month?: string;
+}
+
+export interface IndexView extends ViewBase, ListingView {
   kind: "index";
-  page: number;
-  pages: number;
-  posts: PostView[];
+  /** Feed of the archive, after the blog feed. */
+  feed?: FeedLink;
+  current?: SidebarCurrent;
 }
 
 export interface SingleView extends ViewBase {
@@ -115,21 +107,27 @@ function postClasses(post: BlogPost, categories: BlogTerm[], tags: BlogTerm[]) {
 async function featuredImage(
   post: BlogPost,
   size: "post-image" | "post-image-cover",
-  loading: ImageLoading,
+  loading: ImageLoading | undefined,
 ): Promise<FeaturedImage | null | undefined> {
   const { featuredMedia } = post.frontmatter;
   if (!featuredMedia) return undefined;
   const item = (await getBlogMedia()).get(featuredMedia);
   if (!item) return null;
   const image = attachmentImage(item, size);
+  if (!loading) return image;
   const attrs = loading.next(image.width, image.height);
   return { ...image, ...attrs, sizes: lazySizes(image.sizes, attrs.loading) };
 }
 
-async function postView(
+/**
+ * The view of a post in a list ("teaser") or on its page ("single"). Without
+ * `loading`, images get no loading attributes (the client search adds them
+ * per result page).
+ */
+export async function postView(
   post: BlogPost,
   mode: "single" | "teaser",
-  loading: ImageLoading,
+  loading?: ImageLoading,
 ): Promise<{ view: PostView; classes: Set<string> }> {
   const taxonomy = await getBlogTaxonomy();
   const { frontmatter } = post;
@@ -149,7 +147,8 @@ async function postView(
   const tags = frontmatter.tags.map(taxonomy.tag);
   return {
     view: {
-      post,
+      wpId: frontmatter.wpId,
+      permalink: post.permalink,
       title: wptexturize(frontmatter.title),
       classes: postClasses(post, categories, tags),
       author: taxonomy.author(frontmatter.author),
@@ -163,31 +162,174 @@ async function postView(
   };
 }
 
-/** Static params of src/app/(blog)/blog/[[...path]]. */
-export async function blogStaticParams(): Promise<Array<{ path: string[] }>> {
-  const [posts, site] = await Promise.all([getBlogPosts(), getBlogSite()]);
-  const pages = Math.max(1, Math.ceil(posts.length / site.postsPerPage));
-  return [
-    { path: [] },
-    ...Array.from({ length: pages - 1 }, (_, index) => ({ path: ["page", String(index + 2)] })),
-    ...posts.map((post) => ({ path: post.permalink.split("/").filter(Boolean).slice(1) })),
-  ];
+/** A post list: the blog home or an archive, before splitting it into pages. */
+interface Listing {
+  posts: BlogPost[];
+  /** Path of page 1. */
+  base: string;
+  /** Name in the document title (archives). */
+  name?: string;
+  heading?: ArchiveHeading;
+  /** body_class() before "paged" and of the queried term, see listingBodyClass(). */
+  leading: string[];
+  term: string[];
+  pagedType?: string;
+  feed?: FeedLink;
+  current?: SidebarCurrent;
 }
 
-/** The view for a path below /blog/ ("" = index, "page/2", "2026/06/<slug>"), null if unknown. */
+/**
+ * The lists of the blog by their path below /blog/ (without page/<n>/): the
+ * home "", category/<slug>, author/<slug>, tag/<slug>, <year>, <year>/<month>.
+ * Only terms and dates with posts, like WordPress (else 404).
+ */
+const getListings = cache(async (): Promise<Map<string, Listing>> => {
+  const [posts, site, taxonomy] = await Promise.all([
+    getBlogPosts(),
+    getBlogSite(),
+    getBlogTaxonomy(),
+  ]);
+  const listings = new Map<string, Listing>();
+  listings.set("", { posts, base: "/blog/", leading: ["home", "blog"], term: [] });
+
+  const feedTitle = (label: string) => `${site.title} » ${label}`;
+  const archive = (
+    path: string,
+    filter: (post: BlogPost) => boolean,
+    fields: Omit<Listing, "posts" | "base" | "leading" | "term"> &
+      Partial<Pick<Listing, "leading" | "term">>,
+  ) => {
+    const matching = posts.filter(filter);
+    if (matching.length === 0) return;
+    listings.set(path, {
+      posts: matching,
+      base: `/blog/${path}/`,
+      leading: ["archive"],
+      term: [],
+      ...fields,
+    });
+  };
+
+  for (const term of taxonomy.categories) {
+    archive(`category/${term.slug}`, (post) => post.frontmatter.categories.includes(term.slug), {
+      name: term.name,
+      heading: { text: "Kategorie:", name: term.name },
+      term: ["category", termClass("category", term), `category-${term.id}`],
+      pagedType: "category",
+      current: { category: term.slug },
+      feed: {
+        title: feedTitle(`Kategorie-Feed für ${term.name}`),
+        href: `/blog/category/${term.slug}/feed/`,
+      },
+    });
+  }
+  for (const term of taxonomy.authors) {
+    archive(`author/${term.slug}`, (post) => post.frontmatter.author === term.slug, {
+      name: term.name,
+      heading: { text: "Autor:", name: term.name },
+      term: ["author", `author-${term.slug}`, `author-${term.id}`],
+      pagedType: "author",
+      feed: {
+        title: feedTitle(`Beitrags-Feed von ${term.name}`),
+        href: `/blog/author/${term.slug}/feed/`,
+      },
+    });
+  }
+  for (const term of taxonomy.tags) {
+    archive(`tag/${term.slug}`, (post) => post.frontmatter.tags.includes(term.slug), {
+      name: term.name,
+      heading: { text: "Schlagwort:", name: term.name },
+      term: ["tag", termClass("tag", term), `tag-${term.id}`],
+      pagedType: "tag",
+      feed: {
+        title: feedTitle(`Schlagwort-Feed zu ${term.name}`),
+        href: `/blog/tag/${term.slug}/feed/`,
+      },
+    });
+  }
+  const dates = new Set(
+    posts.flatMap(({ frontmatter }) => [
+      frontmatter.date.slice(0, 4),
+      frontmatter.date.slice(0, 7),
+    ]),
+  );
+  for (const date of [...dates].sort().reverse()) {
+    const name = date.length === 4 ? date : formatMonth(date);
+    archive(date.replace("-", "/"), (post) => post.frontmatter.date.startsWith(date), {
+      name,
+      heading: { text: date.length === 4 ? "Jahr:" : "Monat:", name },
+      leading: ["archive", "date"],
+      pagedType: "date",
+      current: date.length === 7 ? { month: date } : undefined,
+    });
+  }
+  return listings;
+});
+
+function pageCount(listing: Listing, postsPerPage: number) {
+  return Math.max(1, Math.ceil(listing.posts.length / postsPerPage));
+}
+
+/** Static params of src/app/(blog)/blog/[[...path]]. */
+export async function blogStaticParams(): Promise<Array<{ path: string[] }>> {
+  const [posts, site, listings] = await Promise.all([getBlogPosts(), getBlogSite(), getListings()]);
+  const params: Array<{ path: string[] }> = [];
+  for (const [path, listing] of listings) {
+    const segments = path.split("/").filter(Boolean);
+    params.push({ path: segments });
+    for (let page = 2; page <= pageCount(listing, site.postsPerPage); page++) {
+      params.push({ path: [...segments, "page", String(page)] });
+    }
+  }
+  for (const post of posts) {
+    params.push({ path: post.permalink.split("/").filter(Boolean).slice(1) });
+  }
+  return params;
+}
+
+/** The lists that have a feed: the blog ("") and every category, author and tag. */
+export async function getFeedListings(): Promise<
+  Array<{ path: string; posts: BlogPost[]; name?: string; href: string }>
+> {
+  const listings = await getListings();
+  return [...listings]
+    .filter(([path, listing]) => path === "" || listing.feed)
+    .map(([path, listing]) => ({
+      path,
+      posts: listing.posts,
+      name: listing.name,
+      href: listing.feed?.href ?? "/blog/feed/",
+    }));
+}
+
+/**
+ * The view for a path below /blog/ ("" = home, "page/2", "category/newsletter",
+ * "2021/page/2", "2026/06/<slug>"), null if unknown.
+ */
 export const getBlogView = cache(async (path: string): Promise<BlogView | null> => {
-  const [posts, site] = await Promise.all([getBlogPosts(), getBlogSite()]);
-  const pages = Math.max(1, Math.ceil(posts.length / site.postsPerPage));
+  const [posts, site, listings] = await Promise.all([getBlogPosts(), getBlogSite(), getListings()]);
   const segments = path.split("/").filter(Boolean);
 
-  const pageMatch = segments.length === 0 ? ["", "1"] : /^page\/(\d+)$/.exec(segments.join("/"));
-  if (pageMatch) {
-    const page = Number(pageMatch[1]);
-    if (page < 1 || page > pages || (page === 1 && segments.length > 0)) return null;
+  let page = 1;
+  let listPath = segments.join("/");
+  const paged = /^(?:(.+)\/)?page\/(\d+)$/.exec(listPath);
+  if (paged) {
+    // page/1/ redirects to the list itself in WordPress; it has no page here.
+    page = Number(paged[2]);
+    if (page < 2) return null;
+    listPath = paged[1] ?? "";
+  }
+  const listing = listings.get(listPath);
+  if (listing) {
+    const pages = pageCount(listing, site.postsPerPage);
+    if (page > pages) return null;
     const loading = new ImageLoading();
     const classes = new Set<string>();
     const views: PostView[] = [];
-    for (const post of posts.slice((page - 1) * site.postsPerPage, page * site.postsPerPage)) {
+    for (const post of listing.posts.slice(
+      (page - 1) * site.postsPerPage,
+      page * site.postsPerPage,
+    )) {
       const { view, classes: postClasses } = await postView(post, "teaser", loading);
       views.push(view);
       for (const name of postClasses) classes.add(name);
@@ -197,19 +339,21 @@ export const getBlogView = cache(async (path: string): Promise<BlogView | null> 
       page,
       pages,
       posts: views,
+      base: listing.base,
+      heading: listing.heading,
+      feed: listing.feed,
+      current: listing.current,
       classes,
-      // wp_get_document_title(): "Seite" and the number are joined by a no-break space.
-      title: page === 1 ? site.title : `${site.title} – Seite\u00a0${page}`,
-      bodyClass: [
-        "home",
-        "blog",
-        ...(page > 1 ? ["paged", `paged-${page}`] : []),
-        "wp-theme-lovecraft",
-      ].join(" "),
+      title: listing.name
+        ? listingTitle(listing.name, page, site.title)
+        : // The home: "DEMOCRACY Blog – Seite 2".
+          [site.title, ...(page > 1 ? [`Seite\u00a0${page}`] : [])].join(" – "),
+      bodyClass: listingBodyClass(listing.leading, listing.term, page, listing.pagedType),
     };
   }
+  if (paged) return null;
 
-  const index = posts.findIndex((post) => post.permalink === `/blog/${segments.join("/")}/`);
+  const index = posts.findIndex((post) => post.permalink === `/blog/${listPath}/`);
   if (index < 0) return null;
   const post = posts[index];
   const { view, classes } = await postView(post, "single", new ImageLoading());
@@ -237,7 +381,7 @@ export const getBlogView = cache(async (path: string): Promise<BlogView | null> 
 
 export interface SidebarData {
   latest: PostLink[];
-  months: Array<{ label: string; href: string }>;
+  months: Array<{ month: string; label: string; href: string }>;
   categories: BlogTerm[];
 }
 
@@ -256,6 +400,7 @@ export const getSidebarData = cache(async (): Promise<SidebarData> => {
       permalink: post.permalink,
     })),
     months: months.map((month) => ({
+      month,
       label: formatMonth(month),
       href: `/blog/${month.replace("-", "/")}/`,
     })),

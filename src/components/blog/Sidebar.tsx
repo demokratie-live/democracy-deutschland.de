@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { asset } from "@/lib/base-path";
-import type { SidebarData } from "@/lib/blog/view";
+import type { SidebarCurrent, SidebarData } from "@/lib/blog/view";
 
 function GroupWidget({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
@@ -19,9 +19,18 @@ function GroupWidget({ id, title, children }: { id: string; title: string; child
 
 /**
  * sidebar.php with the block widgets of the live blog: search, newest posts,
- * newest comments (there are none), monthly archives, categories.
+ * newest comments (there are none), monthly archives, categories. On an
+ * archive page the widgets mark its month or category.
  */
-export function Sidebar({ data, searchNumber }: { data: SidebarData; searchNumber: number }) {
+export function Sidebar({
+  data,
+  searchNumber,
+  current,
+}: {
+  data: SidebarData;
+  searchNumber: number;
+  current?: SidebarCurrent;
+}) {
   const searchId = `wp-block-search__input-${searchNumber}`;
   return (
     <aside className="sidebar">
@@ -77,7 +86,12 @@ export function Sidebar({ data, searchNumber }: { data: SidebarData; searchNumbe
         <ul className="wp-block-archives-list wp-block-archives">
           {data.months.map((month) => (
             <li key={month.href}>
-              <a href={asset(month.href)}>{month.label}</a>
+              <a
+                aria-current={current?.month === month.month ? "page" : undefined}
+                href={asset(month.href)}
+              >
+                {month.label}
+              </a>
             </li>
           ))}
         </ul>
@@ -85,8 +99,20 @@ export function Sidebar({ data, searchNumber }: { data: SidebarData; searchNumbe
       <GroupWidget id="block-6" title="Kategorien">
         <ul className="wp-block-categories-list wp-block-categories-taxonomy-category wp-block-categories">
           {data.categories.map((category) => (
-            <li key={category.slug} className={`cat-item cat-item-${category.id}`}>
-              <a href={asset(`/blog/category/${category.slug}/`)}>{category.name}</a>
+            <li
+              key={category.slug}
+              className={[
+                "cat-item",
+                `cat-item-${category.id}`,
+                ...(current?.category === category.slug ? ["current-cat"] : []),
+              ].join(" ")}
+            >
+              <a
+                aria-current={current?.category === category.slug ? "page" : undefined}
+                href={asset(`/blog/category/${category.slug}/`)}
+              >
+                {category.name}
+              </a>
             </li>
           ))}
         </ul>

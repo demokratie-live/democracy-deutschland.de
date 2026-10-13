@@ -1,13 +1,13 @@
 import { asset } from "@/lib/base-path";
-import type { PostView } from "@/lib/blog/view";
+import type { PostView } from "@/lib/blog/listing";
 import { FeaturedImg } from "./FeaturedImg";
 import { PostMeta } from "./PostMeta";
 
 /** content.php of Lovecraft in the post list: image, title, meta, teaser with "Weiterlesen". */
 export function PostEntry({ view }: { view: PostView }) {
-  const permalink = asset(view.post.permalink);
+  const permalink = asset(view.permalink);
   return (
-    <div id={`post-${view.post.frontmatter.wpId}`} className={["post", ...view.classes].join(" ")}>
+    <div id={`post-${view.wpId}`} className={["post", ...view.classes].join(" ")}>
       {view.featured !== undefined ? (
         <figure className="post-image">
           <a href={permalink}>

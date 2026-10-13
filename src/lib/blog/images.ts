@@ -1,6 +1,8 @@
 import { phpRound } from "../donation";
 import type { BlogMediaItem } from "../schemas/blog";
 
+export { ImageLoading, lazySizes } from "./image-attributes";
+
 /**
  * Image markup of WordPress 7.1 (PHP 7.4) for the blog: srcset of the featured
  * images and the loading attributes WordPress adds per page.
@@ -147,31 +149,4 @@ export function attachmentImage(media: BlogMediaItem, sizeName: string): Attachm
     srcSet: wpCalculateImageSrcset([size.width, size.height], src, media),
     sizes: `(max-width: ${size.width}px) 100vw, ${size.width}px`,
   };
-}
-
-/**
- * Loading attributes WordPress adds to the images of a page
- * (`wp_get_loading_optimization_attributes()`): counted are images with width
- * and height in page order (featured images and content images); the first
- * large one gets fetchpriority="high", the first three stay eager, every later
- * one gets loading="lazy" and "auto, " in front of its sizes.
- */
-export class ImageLoading {
-  private count = 0;
-  private priority = false;
-
-  next(width: number | undefined, height: number | undefined) {
-    if (!width || !height) return {};
-    const index = this.count++;
-    if (!this.priority && width * height >= 50_000) {
-      this.priority = true;
-      return { fetchPriority: "high" as const };
-    }
-    return index >= 3 ? { loading: "lazy" as const } : {};
-  }
-}
-
-/** sizes attribute of a lazy image: WordPress 6.7 prepends "auto, ". */
-export function lazySizes(sizes: string, loading: string | undefined) {
-  return loading === "lazy" ? `auto, ${sizes}` : sizes;
 }

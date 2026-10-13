@@ -52,6 +52,14 @@ export async function BlogDocument({ view, children }: { view: BlogView; childre
           title={`${site.title} » Feed`}
           href={asset("/blog/feed/")}
         />
+        {view.kind === "index" && view.feed ? (
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title={view.feed.title}
+            href={asset(view.feed.href)}
+          />
+        ) : null}
         <Styles styles={head} />
         <link
           rel="stylesheet"
@@ -73,8 +81,8 @@ export async function BlogDocument({ view, children }: { view: BlogView; childre
         />
         {single ? (
           <>
-            <link rel="canonical" href={`${ORIGIN}${single.post.permalink}`} />
-            <link rel="shortlink" href={`${ORIGIN}/blog/?p=${single.post.frontmatter.wpId}`} />
+            <link rel="canonical" href={`${ORIGIN}${single.permalink}`} />
+            <link rel="shortlink" href={`${ORIGIN}/blog/?p=${single.wpId}`} />
           </>
         ) : null}
         <Styles styles={tail} />
@@ -86,14 +94,18 @@ export async function BlogDocument({ view, children }: { view: BlogView; childre
         <BlogHeader
           title={site.title}
           home={asset("/blog/")}
-          titleTag={view.kind === "index" ? "h1" : "div"}
+          titleTag={view.kind === "index" && !view.heading ? "h1" : "div"}
         />
         <HeaderImage headerImage={site.headerImage} featured={single?.featured} />
         <main id="site-content">
           <div className="wrapper section">
             <div className="section-inner group">
               <div className="content">{children}</div>
-              <Sidebar data={sidebar} searchNumber={searchInputNumber(view.classes)} />
+              <Sidebar
+                data={sidebar}
+                searchNumber={searchInputNumber(view.classes)}
+                current={view.kind === "index" ? view.current : undefined}
+              />
             </div>
           </div>
         </main>
