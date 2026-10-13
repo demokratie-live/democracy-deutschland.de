@@ -13,6 +13,7 @@ import { LegalText } from "@/components/legal/LegalText";
 import { BlogTeasers, PressMedia } from "@/components/press/PressTiles";
 import { AppHeader } from "@/components/shared/AppHeader";
 import { ComparisonAccordion, ComparisonRow } from "@/components/shared/ComparisonAccordion";
+import { Hotspot } from "@/components/shared/Hotspot";
 import { Img } from "@/components/shared/Img";
 import { Link } from "@/components/shared/Link";
 import { PressLogo, PressLogos } from "@/components/shared/PressLogos";
@@ -60,4 +61,5 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   AlphaBadges,
   BugReportForm,
   VolunteerForm,
+  Hotspot,
 };

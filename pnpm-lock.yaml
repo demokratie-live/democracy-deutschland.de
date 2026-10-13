@@ -17,6 +17,9 @@ importers:
       next-mdx-remote:
         specifier: ^6.0.0
         version: 6.0.0(@types/react@19.2.14)(react@19.2.4)
+      popper.js:
+        specifier: 1.12.9
+        version: 1.12.9
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -2181,6 +2184,10 @@ packages:
   pngjs@7.0.0:
     resolution: {integrity: sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==}
     engines: {node: '>=14.19.0'}
+
+  popper.js@1.12.9:
+    resolution: {integrity: sha512-s0EEi9xiSCdqz9lV4IiVH5yIZnDX/U1t0tCjB+0jXx9jW8lrR7kOpVupiUg175ogqVoudpDXHF1p6dKATCHMeg==}
+    deprecated: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
 
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
@@ -5121,6 +5128,8 @@ snapshots:
       fsevents: 2.3.2
 
   pngjs@7.0.0: {}
+
+  popper.js@1.12.9: {}
 
   possible-typed-array-names@1.1.0: {}
 
