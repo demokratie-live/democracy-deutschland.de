@@ -87,7 +87,7 @@ function NoResults({ query }: { query: string }) {
   return (
     <>
       <div className="archive-header">
-        <h1 className="archive-title">Suchergebnisse: „{query}“</h1>
+        <h1 className="archive-title">{`Suchergebnisse: „${query}“`}</h1>
       </div>
       <article className="post single">
         <div className="post-inner">
@@ -179,6 +179,10 @@ export function BlogSearch({ page, children }: { page: number; children: ReactNo
     if (!result || query === null) return;
     document.title = result.title;
     document.body.className = result.bodyClass;
+    // wp_robots_noindex_search()
+    document
+      .querySelector('meta[name="robots"]')
+      ?.setAttribute("content", "noindex, follow, max-image-preview:large");
     syncBlockStyles(result.index, result.blocks);
     // The search widget shows the term (get_search_query()).
     const field = document.querySelector<HTMLInputElement>(".sidebar .wp-block-search__input");
