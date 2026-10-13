@@ -195,3 +195,18 @@ test("api.php and api/donation_status.json serve the donation status", async ({ 
   expect(json.headers()["content-type"]).toContain("application/json");
   expect(await json.text()).toBe(expected);
 });
+
+test("leaving the page with the modal open removes the backdrop (live bug fixed)", async ({
+  page,
+}) => {
+  await page.goto("/wahlometer/");
+  await page.locator("#menu_donate").click();
+  await expect(page).toHaveURL(/\/spenden\/$/);
+  await page.locator("#donate-button").click();
+  await expect(page.locator("#DEMOCRACYPatenschaft")).toBeFocused();
+  await page.goBack();
+  await expect(page).toHaveURL(/\/wahlometer\/$/);
+  await expect(page.locator(".header-wom")).toBeVisible();
+  await expect(page.locator(".modal-backdrop")).toHaveCount(0);
+  await expect(page.locator("body")).not.toHaveClass(/modal-open/);
+});
