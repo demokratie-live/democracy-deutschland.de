@@ -21,6 +21,7 @@ const pages = [
   { path: "/spenden/", fonts: [...FONTS, "helvetica_bold"] },
   { path: "/ueber-uns/", fonts: [...FONTS] },
   { path: "/presse/", fonts: [...FONTS] },
+  { path: "/faq/", fonts: [...FONTS] },
 ];
 
 for (const { path, fonts } of pages) {
@@ -102,4 +103,14 @@ test("press downloads, media and blog images live below the basePath", async ({ 
   await expect(blogImage).toHaveAttribute("src", new RegExp(`^${BASE}/blog/wp-content/uploads/`));
   const teaser = page.locator('a[href*="/blog/20"]').first();
   await expect(teaser).toHaveAttribute("href", new RegExp(`^${BASE}/blog/\\d{4}/\\d{2}/`));
+});
+
+test("FAQ menu keeps the page below the basePath", async ({ page }) => {
+  await page.goto(`${BASE}/faq/`);
+  const finanzen = page.locator(".faq-menu", { hasText: "FINANZEN" });
+  await expect(finanzen).toHaveAttribute("href", `${BASE}/faq/`);
+  await finanzen.click();
+  await expect(page.locator(".faq-menu.active")).toHaveText("FINANZEN");
+  await expect(page).toHaveURL(new RegExp(`${BASE}/faq/$`));
+  await expect(page.locator("#content .col-12 > h5 a")).toHaveAttribute("href", `${BASE}/kontakt/`);
 });

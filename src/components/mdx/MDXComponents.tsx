@@ -3,6 +3,7 @@ import { ServicesIcon, Team } from "@/components/about/Team";
 import { DonateBox, DonateDetails } from "@/components/donate/DonationFigures";
 import { Modal } from "@/components/donate/Modal";
 import { ModalToggle } from "@/components/donate/ModalToggle";
+import { Faq } from "@/components/faq/Faq";
 import { FeatureVideos, InfoBadge } from "@/components/home/FeatureVideos";
 import { BlogTeasers, PressMedia } from "@/components/press/PressTiles";
 import { AppHeader } from "@/components/shared/AppHeader";
@@ -47,4 +48,5 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   ServicesIcon,
   PressMedia,
   BlogTeasers,
+  Faq,
 };
