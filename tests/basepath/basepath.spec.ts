@@ -340,3 +340,76 @@ test("blog: theme CSS, fonts, images and links live below the basePath", async (
     ).toEqual([]);
   }
 });
+
+test("blog archives, search, feeds, short links and /blogseite/ below the basePath", async ({
+  page,
+  request,
+}) => {
+  const failed = trackFailures(page);
+  await page.goto(`${BASE}/blog/category/newsletter/`);
+  await expect(page.locator(".archive-navigation a", { hasText: "Nächster" })).toHaveAttribute(
+    "href",
+    `${BASE}/blog/category/newsletter/page/2/`,
+  );
+  await expect(page.locator('head link[title$="Kategorie-Feed für Newsletter"]')).toHaveAttribute(
+    "href",
+    `${BASE}/blog/category/newsletter/feed/`,
+  );
+
+  // The search loads its index below the basePath and links there.
+  await page.locator(".sidebar .wp-block-search__input").fill("bundestag abstimmung");
+  await page.locator(".sidebar .wp-block-search__button").click();
+  await expect(page).toHaveURL(`${BASE}/blog/?s=bundestag+abstimmung`);
+  await page.waitForFunction(() => document.body.classList.contains("search-results"));
+  await expect(page.locator(".archive-navigation a", { hasText: "Nächster" })).toHaveAttribute(
+    "href",
+    `${BASE}/blog/page/2/?s=bundestag+abstimmung`,
+  );
+  const links = await page
+    .locator("#posts a")
+    .evaluateAll((anchors) => anchors.map((a) => a.getAttribute("href")));
+  for (const href of links) expect(href).toMatch(new RegExp(`^${BASE}/blog/`));
+  // Lazy result images load when scrolled to: load them all, then check.
+  const broken = await page.evaluate(async () => {
+    const images = [...document.querySelectorAll<HTMLImageElement>("#posts img")];
+    for (const img of images) img.loading = "eager";
+    await Promise.all(
+      images
+        .filter((img) => !img.complete)
+        .map(
+          (img) =>
+            new Promise((resolve) => {
+              img.addEventListener("load", resolve, { once: true });
+              img.addEventListener("error", resolve, { once: true });
+            }),
+        ),
+    );
+    return images.filter((img) => !img.naturalWidth).map((img) => img.src);
+  });
+  expect(broken).toEqual([]);
+
+  await page.goto(`${BASE}/blog/?p=952`);
+  await expect(page).toHaveURL(`${BASE}/blog/2026/06/spendenkonto-zieht-um/`);
+
+  // Feeds keep absolute links on the live domain.
+  const feed = await request.get(`${BASE}/blog/feed/`);
+  expect(feed.status()).toBe(200);
+  const xml = await feed.text();
+  expect(xml).toContain(
+    "<link>https://democracy-deutschland.de/blog/2026/06/spendenkonto-zieht-um/</link>",
+  );
+  // No path below the basePath: those exist only on the test host.
+  expect(xml).not.toMatch(/(?:href|src)="\/democracy-deutschland\.de\//);
+
+  await page.goto(`${BASE}/blogseite/`);
+  await expect(page.locator("#blogiframe")).toHaveAttribute("src", `${BASE}/blog/`);
+  await expect
+    .poll(() =>
+      page.locator("#blogiframe").evaluate((iframe: HTMLIFrameElement) => {
+        const body = iframe.contentDocument?.body;
+        return body ? iframe.getAttribute("height") === `${body.scrollHeight}px` : false;
+      }),
+    )
+    .toBe(true);
+  expect(failed).toEqual([]);
+});

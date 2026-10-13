@@ -51,3 +51,18 @@ test("wider than 1000 px both toggles reset", async ({ page }) => {
   await expect(page.locator(".mobile-search")).toHaveAttribute("style", "display: none;");
   await expect(page.locator("aside.sidebar")).toBeVisible();
 });
+
+test("the header search submits to the client search", async ({ page }) => {
+  const errors = trackErrors(page);
+  await page.locator(".search-toggle").tap();
+  await page.locator(".mobile-search .search-field").fill("weihnachten");
+  await page.locator(".mobile-search .search-field").press("Enter");
+  await expect(page).toHaveURL("/blog/?s=weihnachten");
+  await page.waitForFunction(() => document.body.classList.contains("search-results"));
+  await expect(page.locator(".archive-title")).toHaveText("Suchergebnisse: „weihnachten“");
+  await expect(page.locator("#posts > .post").first()).toBeVisible();
+  // The toggles keep working on the results page.
+  await page.locator(".search-toggle").tap();
+  await expect(page.locator(".mobile-search")).toHaveAttribute("style", "display: block;");
+  expect(errors).toEqual([]);
+});

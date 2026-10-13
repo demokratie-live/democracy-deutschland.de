@@ -26,7 +26,20 @@ async function expectImagesLoaded(page: Page) {
       img.loading = "eager";
     }),
   );
-  await page.waitForLoadState("networkidle");
+  // Wait for every image itself: networkidle can fall between two requests under load.
+  await page.evaluate(() =>
+    Promise.all(
+      [...document.images]
+        .filter((img) => !img.complete)
+        .map(
+          (img) =>
+            new Promise((resolve) => {
+              img.addEventListener("load", resolve, { once: true });
+              img.addEventListener("error", resolve, { once: true });
+            }),
+        ),
+    ),
+  );
   const images = await page.evaluate(() =>
     [...document.images].map((img) => ({
       src: img.getAttribute("src") ?? "",
@@ -250,10 +263,4 @@ test("a post whose featured image was deleted shows the empty frame like live", 
   await expect(frame).toHaveCount(1);
   await expect(frame.locator("img")).toHaveCount(0);
   await expect(page.locator("body")).toHaveClass(/has-featured-image/);
-});
-
-test("archive, author and tag links lead to the 404 page until TASK-81", async ({ page }) => {
-  const response = await page.goto("/blog/category/newsletter/");
-  expect(response?.status()).toBe(404);
-  await expect(page.getByRole("heading", { name: "404" })).toBeVisible();
 });
