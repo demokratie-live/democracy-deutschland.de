@@ -13,7 +13,15 @@ function trackFailures(page: Page) {
   return failed;
 }
 
-for (const path of ["/", "/wahlometer/"]) {
+// Browsers only load the fonts a page uses; icomoon (icons) is not used on /spenden/.
+const FONTS = ["helvetica", "edosz", "Font Awesome 5 Free"];
+const pages = [
+  { path: "/", fonts: [...FONTS, "icomoon"] },
+  { path: "/wahlometer/", fonts: [...FONTS, "icomoon"] },
+  { path: "/spenden/", fonts: [...FONTS, "helvetica_bold"] },
+];
+
+for (const { path, fonts } of pages) {
   test(`${path}: CSS, fonts, images, icons and videos load below the basePath`, async ({
     page,
   }) => {
@@ -32,9 +40,7 @@ for (const path of ["/", "/wahlometer/"]) {
           .filter((href) => href?.startsWith("/")),
       };
     });
-    expect(state.fonts).toEqual(
-      expect.arrayContaining(["helvetica", "edosz", "icomoon", "Font Awesome 5 Free"]),
-    );
+    expect(state.fonts).toEqual(expect.arrayContaining(fonts));
     expect(state.brokenImages).toEqual([]);
     for (const href of state.stylesheets) expect(href).toMatch(new RegExp(`^${BASE}/css/`));
     await expect(page.locator("nav.navbar")).toHaveCSS("position", "fixed");
@@ -73,4 +79,14 @@ test("legacy links forward below the basePath", async ({ page }) => {
   await expect(page).toHaveURL(new RegExp(`${BASE}/$`));
   await page.goto(`${BASE}/#!engineering#help`);
   await expect(page).toHaveURL(new RegExp(`${BASE}/engineering/#help$`));
+});
+
+test("donation downloads and the app JSON live below the basePath", async ({ page }) => {
+  await page.goto(`${BASE}/spenden/`);
+  const satzung = page.getByRole("link", { name: "Satzung" });
+  await expect(satzung).toHaveAttribute("href", `${BASE}/files/download/Satzung_DEMOCRACY.pdf`);
+  expect((await page.request.get((await satzung.getAttribute("href"))!)).status()).toBe(200);
+  const json = await page.request.get(`${BASE}/api.php?call=donation_status`);
+  expect(json.status()).toBe(200);
+  expect((await json.json()).result.donation_value_goal).toBe(9300);
 });
