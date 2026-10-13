@@ -4,14 +4,16 @@
  *   pnpm compare-blog-dom [--local http://localhost:3000] [--refresh] [pfad …]
  *
  * Without paths it checks all pages of the static blog (/blog/, /blog/page/N/,
- * every permalink). Live pages are read once into .cache/blog-import/ (shared
- * with the import, --refresh reads them again). Compared, in canonical form
- * (scripts/blog/normalize.ts): <title>, body class, header, navigation, header
+ * the archives, every permalink). Live pages are read once into
+ * .cache/blog-import/ (shared with the import, --refresh reads them again).
+ * Compared, in canonical form (scripts/blog/normalize.ts): <title>, body
+ * class, head links (canonical, shortlink, feeds), header, navigation, header
  * image, main#site-content (posts, sidebar) and credits. URLs are reduced to
  * their path; known, documented deviations (docs/abweichungen.md) are mapped
  * before comparing: random ids of the search form, the alt="" of the header
- * image, data: images of the import, x-webdoc:// links, invalid attribute names
- * and the runaway logo tag of News #2.
+ * image, data: images of the import, x-webdoc:// links, invalid attribute
+ * names, the runaway logo tag of News #2, and the comment and search feeds
+ * the port does not have.
  *
  * Result: compare-results/blog-dom/<slug>.diff per differing page, summary on stdout.
  */
@@ -79,12 +81,16 @@ function regions(tree: Root) {
   const body = find(tree, (e) => e.tagName === "body");
   const title = find(tree, (e) => e.tagName === "title");
   const head = find(tree, (e) => e.tagName === "head");
+  // canonical, shortlink and the feeds; the port has no comment feeds and no
+  // search feed (docs/abweichungen.md).
   const links = head
     ? head.children.filter(
         (child): child is Element =>
           child.type === "element" &&
           child.tagName === "link" &&
-          ["canonical", "shortlink"].includes(String((child.properties.rel as string[])?.[0])),
+          (["canonical", "shortlink"].includes(String((child.properties.rel as string[])?.[0])) ||
+            (child.properties.type === "application/rss+xml" &&
+              !/Kommentar-Feed|Suchergebnis-Feed/.test(String(child.properties.title)))),
       )
     : [];
   return [
