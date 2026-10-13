@@ -14,6 +14,7 @@ Die statische Seite läuft ohne Server (z.B. GitHub Pages). Diese Liste hält fe
 | Newsletter-Anmeldung       | `api.php?call=send_subscribe`                                      | Link zu Listmonk (`https://listmonk.democracy-app.de/subscription/form`), wie live                      | erledigt                            |
 | Spendenstand für die App   | `api.php?call=donation_status`                                     | statische Dateien `/api.php` und `/api/donation_status.json`, beim Build aus YAML erzeugt (siehe unten) | erledigt, braucht die Domain-Wurzel |
 | Spendenstand pflegen       | SAI: Text „donation“ und Tabelle `donate`                          | `content/donate/donation.yaml`, Ablauf in der README                                                    | erledigt                            |
+| Team auf „Über uns“        | fest im PHP-Code `default_about::html()`                           | `content/team/team.yaml`, Ablauf in der README                                                          | erledigt                            |
 
 ## Offen
 

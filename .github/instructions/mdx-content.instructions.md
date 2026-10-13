@@ -30,5 +30,7 @@ state: wahlometer # state of the old hash router, must exist in content/site/rou
 - Internal links use the new paths (`/ueber-uns/`, `/wahlometer/#wom-campaign-container`), never `#!state`.
 - JS expressions in props are allowed (`style={{ minHeight: "unset" }}`, `subtitle={<>… <br />…</>}`), optional chaining is not.
 - Inside JSX attribute values the German closing quote must be `“` (U+201C), never ASCII `"`.
+- HTML attributes React does not know stay lowercase (`allowtransparency="true"`).
+- Structured data (team, donation figures) lives in YAML, not in the MDX text.
 - Page MDX is not formatted by Prettier; keep the indentation by hand.
 - After editing: `pnpm validate-content` and `pnpm build`.

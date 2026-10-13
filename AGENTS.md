@@ -21,6 +21,7 @@ content/
   site/routes.yaml      every old state → new path, navbar `menu`/`startpage`, aliases
   site/navigation.yaml  navbar   site/footer.yaml  footer   site/app-links.yaml  store/APK links
   donate/donation.yaml  donation status: /spenden/ and the app JSON (see README)
+  team/team.yaml        team cards of /ueber-uns/ (see README)
 public/
   css/                  original CSS (see "CSS"); files/  assets under the old /files/ paths
   videos/  favicon.ico  manifest.json
@@ -29,7 +30,7 @@ src/
                         api.php/, api/donation_status.json/: static GET route handlers (app JSON)
   components/frame/     Navbar, Footer, ToTop (UItoTop), LegacyRedirectScript
   components/shared/    sections used by several modules (AppHeader, Section, Link, VideoSection, …)
-  components/<module>/  sections of one module (home/, wahlometer/, donate/, …)
+  components/<module>/  sections of one module (home/, wahlometer/, donate/, about/, …)
   components/mdx/       MdxPage (render + head), MDXComponents (registry)
   lib/                  animate.ts (jQuery animations), legacy-redirect.ts, metadata.ts,
                         routes.ts, stylesheets.ts, base-path.ts, content/ (loaders), schemas/,
@@ -47,7 +48,7 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 4. **Page**: `src/app/<path>/page.tsx` as a thin shell (copy `src/app/wahlometer/page.tsx`). The state and path already exist in `routes.yaml`; head overrides go into the frontmatter.
 5. **Interactions** in React, no jQuery. Use `src/lib/animate.ts` (`animateScrollTo`, `tween`, easings `swing`/`easeOutQuart`, `SLOW` = 600 ms) to match jQuery timing. Bootstrap 4.0.0 plugins are ported to plain DOM code with the original timings: Collapse in `Navbar`, Modal in `src/lib/bootstrap-modal.ts` (markup server-rendered with `Modal`, opened by `ModalToggle` like the data API). Inline `<script>`s of a template become a client component that renders `null` and runs the script in an effect (`UpdateProgress`).
 6. **Verify**, all until green or explained:
-   - `pnpm compare <path>` against a running local server (`pnpm dev` or `pnpm build && pnpm start`, default `--local http://localhost:3000`); use `--click <selector>` for every interaction state and `--only mobile` for mobile-only states. Pixels, visible text, `#content` text against `?_escaped_fragment_` and head data must match; explain every remainder in `docs/abweichungen.md`.
+   - `pnpm compare <path>` against a running local server (`pnpm dev` or `pnpm build && pnpm start`, default `--local http://localhost:3000`); use `--click <selector>` for every interaction state, `--hover <selector>` for hover states (viewport only, a full-page screenshot loses the hover) and `--only mobile` for mobile-only states. Pixels, visible text, `#content` text against `?_escaped_fragment_` and head data must match; explain every remainder in `docs/abweichungen.md`.
    - Playwright tests for every interaction (`tests/e2e/<module>.spec.ts`, mobile-only ones in `*.mobile.spec.ts`).
    - `pnpm lint`, `pnpm validate-content`, `pnpm test:unit`, `pnpm test:e2e`, `pnpm test:basepath`, `pnpm format:check`.
 7. **Document**: deviations and fixed bugs in `docs/abweichungen.md`, server needs in `docs/server-funktionen.md`, new components below.
@@ -61,6 +62,7 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 - **Images**: plain `<img>` like the original, `alt=""` where the original has none.
 - **Head**: defaults from `head.yaml` via `buildMetadata()`; `og:*` tags are rendered by `MdxPage`, because Next's `openGraph` metadata adds `twitter:*` tags that live does not have.
 - **Navbar state** comes from `routes.yaml` (`menu`, `startpage`), mirroring each `init_<state>()`.
+- **Hover** handlers of jQuery (`.hover(in, out)`) become `onMouseEnter`/`onMouseLeave` with state; `show()`/`hide()` leave `display: block`/`display: none` inline, render the same. Taps on touch devices fire the same events.
 - **Data from the old SAI/database** goes into YAML with a Zod schema; values that PHP computed (rounding, `number_format`) are computed with the PHP-compatible helpers in `src/lib/donation.ts`, not with `Math.round`/`toLocaleString`.
 
 ## Generated files (app JSON)
@@ -79,6 +81,7 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 - `content/pages/*.mdx` is excluded from Prettier: its MDX 1 parser re-indents nested JSX and changes whitespace.
 - Original markup that mixes text with block elements inside an inline element (e.g. `<span>` around `<h5>`, `<div class="row">`, unclosed spans the browser closes at `</div>`): write the whole element on **one line**. MDX then treats it as phrasing content and renders the DOM as written, without `<p>`. Rebuild the DOM the browser parsed, not the raw template.
 - Literal `<a>` and `<img>` in MDX get no basePath: use `Link` (also for `/files/download/…` with `target="_blank"`) and `Img`. External links may stay literal `<a>`.
+- Old HTML attributes React does not know keep their lowercase spelling in MDX (`allowtransparency="true"` on the Discord iframe); the camelCase form logs an error.
 - Inline `<style>` blocks of a template: in MDX a template literal as child, ``<style>{`…`}</style>``, or a constant in the component.
 - Numbers from YAML inside MDX texts: pass the text with `{placeholder}`s as a prop (`DonateBox progress="{percentage}% von {valueGoal}€ GESCHAFFT!"`); the component fills them and fails the build on unknown names.
 - No optional chaining in MDX expressions. Inside JSX attribute values the German closing quote must be `“` (U+201C), never ASCII `"`.
@@ -91,17 +94,19 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 | `Section`                               | `.background-white > .container.page` wrapper; `raised`, `style`, `after`         |
 | `AppHeader`                             | blue header of home/wahlometer (`variant`), store badges, APK/AAB links from YAML |
 | `ScrollIcon`                            | chevron below the header, scrolls to the first `#about`                           |
-| `VideoSection`                          | "Worum geht es …" title, link and YouTube HD thumbnail                            |
+| `VideoSection`                          | video title (three parts or `title`), link and YouTube HD thumbnail               |
 | `PressLogos` / `PressLogo`              | "bekannt aus" logo row                                                            |
 | `RectangleInfo`                         | grey rotated title box with text and link                                         |
 | `FeatureVideos` / `InfoBadge`           | home: info badges switching the phone video (client)                              |
 | `SymbolInfoPanel` / `SymbolInfo`        | wahlometer: three symbol tiles                                                    |
-| `ComparisonAccordion` / `ComparisonRow` | wahlometer: Wahl-O-Mat vs. Wahl-O-Meter accordion (client)                        |
+| `ComparisonAccordion` / `ComparisonRow` | two-column accordion (wahlometer, about); titles may hold markup (client)         |
 | `WhyUs`, `Campaign`, `CampaignCorner`   | wahlometer: "Warum gibt es uns?", campaign block with badges, corner image        |
 | `Img`                                   | plain `<img>` with basePath, `alt=""` by default                                  |
 | `DonateBox`                             | donate: progress and sponsorship box (donate_box.tpl), figures from YAML          |
 | `DonateDetails`                         | donate: progress, value box and cost table with bars (donate_details.tpl)         |
 | `Modal` / `ModalToggle`                 | Bootstrap 4 modal markup / its `data-toggle="modal"` button (client)              |
+| `Team`                                  | about: team cards from `team.yaml`; hover swaps text and contact links (client)   |
+| `ServicesIcon`                          | about: icon, title and subtitle of "Unsere Philosophie" (icon.tpl)                |
 
 Client components read declarative children (`InfoBadge`, `ComparisonRow`) via `Children.toArray(...).props`.
 

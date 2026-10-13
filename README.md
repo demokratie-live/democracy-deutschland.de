@@ -42,7 +42,8 @@ Open [http://localhost:3000](http://localhost:3000). Old links such as
 | `pnpm test:basepath`    | Build with the GitHub Pages basePath and test assets and redirects there |
 
 `pnpm compare /wahlometer/ --local http://localhost:3000` writes its results to
-`compare-results/wahlometer/index.html`.
+`compare-results/wahlometer/index.html`. `--click <selector>` compares the state after a
+click, `--hover <selector>` the visible area while the mouse is on an element.
 
 ## Updating the donation status
 
@@ -72,6 +73,20 @@ The figures of the donation page (`/spenden/`) and the JSON the app reads
 
 The app only finds the JSON if the site is served at the domain root, see
 [`docs/server-funktionen.md`](docs/server-funktionen.md#spenden-json-für-die-app).
+
+## Updating the team
+
+The cards under "Mitarbeiter" on `/ueber-uns/` come from
+[`content/team/team.yaml`](content/team/team.yaml), in the order of the file (before,
+the list was code in `default_about.php`). Per member:
+
+- `name`, `text` (lines of the grey box, joined with a line break)
+- `img`: photo under `public/files/wir/`; `imgHover` (optional): second photo while the
+  mouse is over the card
+- `links`: contact icons shown on hover, each with Font Awesome classes (`fa fa-envelope`,
+  `fab fa-linkedin`, …) and a `mailto:`, `tel:` or `https://` URL
+
+`pnpm validate-content` checks the schema and that every photo exists.
 
 ## Documentation
 
