@@ -13,6 +13,8 @@ import {
   type Navigation,
   type PageFrontmatter,
   type Routes,
+  teamSchema,
+  type Team,
 } from "../schemas";
 import { loadMdx } from "./load-mdx";
 import { loadYaml } from "./load-yaml";
@@ -45,4 +47,9 @@ export async function getAppLinks(): Promise<AppLinks> {
 /** content/donate/donation.yaml: donation status for /spenden/ and the app JSON. */
 export async function getDonation(): Promise<Donation> {
   return loadYaml("donate/donation.yaml", donationSchema);
+}
+
+/** content/team/team.yaml: team cards of /ueber-uns/. */
+export async function getTeam(): Promise<Team> {
+  return loadYaml("team/team.yaml", teamSchema);
 }

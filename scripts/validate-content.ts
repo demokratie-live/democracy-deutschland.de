@@ -13,6 +13,7 @@ import { z } from "zod";
 
 import { donationSchema } from "../src/lib/schemas/donation";
 import { pageFrontmatterSchema } from "../src/lib/schemas/page";
+import { teamSchema, type Team } from "../src/lib/schemas/team";
 import {
   appLinksSchema,
   footerSchema,
@@ -70,6 +71,23 @@ function checkLinks(label: string, hrefs: string[], routes: Routes | undefined) 
     );
 }
 
+/** Paths under public/ ("/files/…") must exist. */
+async function checkFiles(label: string, paths: string[]) {
+  const missing: string[] = [];
+  for (const file of paths) {
+    try {
+      await fs.access(path.join(process.cwd(), "public", file));
+    } catch {
+      missing.push(file);
+    }
+  }
+  if (missing.length > 0)
+    fail(
+      label,
+      missing.map((file) => `Datei fehlt: public${file}`),
+    );
+}
+
 async function main() {
   console.log("\n🔍 Validiere Content-Dateien...\n");
 
@@ -101,6 +119,16 @@ async function main() {
 
   console.log("\n💶 Spendenstand (YAML):");
   await readYaml("donate/donation.yaml", donationSchema);
+
+  console.log("\n👥 Team (YAML):");
+  const team = (await readYaml("team/team.yaml", teamSchema)) as Team | undefined;
+  if (team) {
+    // Live showed a broken image because a hover photo was missing.
+    const images = team.members.flatMap((member) =>
+      member.imgHover ? [member.img, member.imgHover] : [member.img],
+    );
+    await checkFiles("team/team.yaml", images);
+  }
 
   console.log("\n📄 Seiten (MDX):");
   const pagesDir = path.join(CONTENT_DIR, "pages");

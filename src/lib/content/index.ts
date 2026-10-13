@@ -8,4 +8,5 @@ export {
   getFooter,
   getAppLinks,
   getDonation,
+  getTeam,
 } from "./queries";

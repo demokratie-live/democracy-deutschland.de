@@ -1,0 +1,37 @@
+# Team on /ueber-uns/ ("Mitarbeiter"), in live order (default_about::html()).
+# The section "Praktikanten & Volunteers" is commented out in the live
+# template and therefore not listed here.
+#
+# text:     lines of the grey box, joined with <br>
+# img:      photo under public/files/wir/
+# imgHover: optional second photo while hovering (live had Marius2.png and
+#           Manu2.png, deleted in 2021; see docs/abweichungen.md)
+# links:    contact icons shown on hover (Font Awesome classes)
+
+members:
+  - name: Marius Krüger
+    text: [Gründer, Organisation & Produkt]
+    img: /files/wir/Marius1.png
+    links:
+      - icon: fa fa-envelope
+        url: mailto:m.krueger@democracy-deutschland.de
+      - icon: fa fa-phone
+        url: tel:+4917647040213
+      - icon: fab fa-facebook
+        url: https://www.facebook.com/kruegermarius
+
+  - name: Manuel Ruck
+    text: [Softwareentwickler, Programmierer des Projektes]
+    img: /files/wir/Manu1.png
+    links:
+      - icon: fa fa-envelope
+        url: mailto:m.ruck@democracy-deutschland.de
+      - icon: fab fa-xing
+        url: https://www.xing.com/profile/Manuel_Ruck
+
+  - name: Elisa Menne
+    text: [Administration, Kommunikation & Buchhaltung]
+    img: /files/wir/Elisa.jpg
+    links:
+      - icon: fa fa-envelope
+        url: mailto:e.menne@democracy-deutschland.de
