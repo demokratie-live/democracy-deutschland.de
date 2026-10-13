@@ -4,7 +4,8 @@
  *   pnpm compare-blog-dom [--local http://localhost:3000] [--refresh] [pfad …]
  *
  * Without paths it checks all pages of the static blog (/blog/, /blog/page/N/,
- * the archives, every permalink). Live pages are read once into
+ * the archives, every permalink) and some search pages (SEARCH_PATHS). Search
+ * pages render on the client: their DOM comes from Chromium (Playwright). Live pages are read once into
  * .cache/blog-import/ (shared with the import, --refresh reads them again).
  * Compared, in canonical form (scripts/blog/normalize.ts): <title>, body
  * class, head links (canonical, shortlink, feeds), header, navigation, header
@@ -19,6 +20,7 @@
  */
 import fs from "fs/promises";
 import path from "path";
+import type { Browser } from "@playwright/test";
 import type { Element, Root } from "hast";
 import { createTwoFilesPatch } from "diff";
 import { fromHtml } from "hast-util-from-html";
@@ -58,11 +60,47 @@ async function live(url: string): Promise<string> {
   return text;
 }
 
-/** All static blog paths (the static params of the blog route). */
+/**
+ * Search pages without base64 matches on live (docs/abweichungen.md): several
+ * pages, the last page, one page, no results, the empty search, an umlaut.
+ */
+const SEARCH_PATHS = [
+  "/blog/?s=bundestag+abstimmung",
+  "/blog/page/2/?s=bundestag+abstimmung",
+  "/blog/page/3/?s=bundestag+abstimmung",
+  "/blog/?s=reality+check",
+  "/blog/?s=xyzxyzq",
+  "/blog/?s=",
+  "/blog/page/6/?s=",
+  "/blog/?s=gr%C3%BCnen",
+];
+
+/** All static blog paths (the static params of the blog route) and the search pages. */
 async function allPaths(): Promise<string[]> {
   const { blogStaticParams } = await import("../src/lib/blog/view");
   const params = await blogStaticParams();
-  return params.map(({ path: segments }) => `/blog/${segments.map((s) => `${s}/`).join("")}`);
+  return [
+    ...params.map(({ path: segments }) => `/blog/${segments.map((s) => `${s}/`).join("")}`),
+    ...SEARCH_PATHS,
+  ];
+}
+
+let browser: Browser | undefined;
+
+/** The DOM of a search page once BlogSearch has rendered the results. */
+async function renderedHtml(url: string): Promise<string> {
+  const { chromium } = await import("@playwright/test");
+  browser ??= await chromium.launch();
+  const page = await browser.newPage();
+  try {
+    await page.goto(url);
+    await page.waitForFunction(() => document.body.classList.contains("search"), undefined, {
+      timeout: 30_000,
+    });
+    return await page.content();
+  } finally {
+    await page.close();
+  }
 }
 
 const cls = (element: Element) => ((element.properties.className as string[]) ?? []).join(" ");
@@ -174,9 +212,15 @@ async function main() {
     // News #2: the runaway logo tag is closed like in the import (docs/abweichungen.md).
     const liveTree = fromHtml(closeRunawayImgTags(await live(`${ORIGIN}${route}`)));
     prepareLive(liveTree);
-    const response = await fetch(`${local}${BASE_PATH}${route}`);
-    if (!response.ok) throw new Error(`${response.status} ${local}${route}`);
-    const localTree = fromHtml(await response.text());
+    let html: string;
+    if (/[?&]s=/.test(route)) {
+      html = await renderedHtml(`${local}${BASE_PATH}${route}`);
+    } else {
+      const response = await fetch(`${local}${BASE_PATH}${route}`);
+      if (!response.ok) throw new Error(`${response.status} ${local}${route}`);
+      html = await response.text();
+    }
+    const localTree = fromHtml(html);
     const liveRegions = regions(liveTree);
     const localRegions = regions(localTree);
     const patches: string[] = [];
@@ -207,6 +251,7 @@ async function main() {
       console.log(`  ✅ ${route}`);
     }
   }
+  await browser?.close();
   console.log(`\n${list.length - differing} von ${list.length} Seiten gleich.\n`);
   if (differing) process.exitCode = 1;
 }

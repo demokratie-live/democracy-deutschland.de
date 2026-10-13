@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { slide, type Tween } from "@/lib/animate";
+import { useBlogSearchQuery } from "@/lib/blog/search-query";
 
 interface BlogHeaderProps {
   title: string;
   /** Blog home (basePath applied). */
   home: string;
-  /** Index pages show the blog title as <h1>, single posts as <div>. */
+  /** The blog home shows the blog title as <h1>, other pages (and a search) as <div>. */
   titleTag: "h1" | "div";
 }
 
@@ -20,7 +21,8 @@ function isHidden(element: HTMLElement) {
  * mobile search (global.js: slideToggle, closing the other one, both reset
  * above 1000 px) and the navigation bar with the empty menus of the blog.
  */
-export function BlogHeader({ title, home, titleTag: Title }: BlogHeaderProps) {
+export function BlogHeader({ title, home, titleTag }: BlogHeaderProps) {
+  const Title = useBlogSearchQuery() === null ? titleTag : "div";
   const menu = useRef<HTMLUListElement>(null);
   const search = useRef<HTMLDivElement>(null);
   const tweens = useRef(new Map<HTMLElement, Tween>());

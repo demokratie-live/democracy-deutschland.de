@@ -1,6 +1,7 @@
 import { getBlogSite, getBlogTaxonomy, type BlogPost } from "../content/blog";
 import { berlinToUtc, formatRfc2822 } from "./format";
 import { ImageLoading } from "./image-attributes";
+import { EXCERPT_REMOVED_BLOCKS } from "./listing";
 import type { Root, RootContent } from "hast";
 import type { Root as MdastRoot } from "mdast";
 import rehypeRaw from "rehype-raw";
@@ -27,25 +28,6 @@ function escapeXml(text: string) {
 function cdata(text: string) {
   return `<![CDATA[${text.replace(/]]>/g, "]]&gt;")}]]>`;
 }
-
-/**
- * Blocks excerpt_remove_blocks() drops before the automatic excerpt is cut:
- * every block outside its allow list (paragraph, heading, list, quote,
- * table, group …) that occurs in posts or could. Classic content stays.
- */
-const EXCERPT_REMOVED_BLOCKS = [
-  "image",
-  "gallery",
-  "embed",
-  "video",
-  "audio",
-  "file",
-  "cover",
-  "buttons",
-  "separator",
-  "spacer",
-  "code",
-];
 
 const isBr = (node: RootContent | undefined) => node?.type === "element" && node.tagName === "br";
 

@@ -2,8 +2,10 @@ import type { ReactNode } from "react";
 import { asset } from "@/lib/base-path";
 import { headStyles, tailStyles, type InlineStyle } from "@/lib/blog/styles";
 import { getSidebarData, ORIGIN, searchInputNumber, type BlogView } from "@/lib/blog/view";
-import { getBlogSite } from "@/lib/content";
+import { getBlogPosts, getBlogSite } from "@/lib/content";
 import { BlogHeader } from "./BlogHeader";
+import { BlogQueryScript } from "./BlogQueryScript";
+import { BlogSearch } from "./BlogSearch";
 import { Credits } from "./Credits";
 import { HeaderImage } from "./HeaderImage";
 import { Sidebar } from "./Sidebar";
@@ -30,13 +32,20 @@ function Styles({ styles }: { styles: InlineStyle[] }) {
  * column, sidebar and credits. Root layout of every blog page.
  */
 export async function BlogDocument({ view, children }: { view: BlogView; children: ReactNode }) {
-  const [site, sidebar, head, tail] = await Promise.all([
+  const [site, sidebar, head, tail, posts] = await Promise.all([
     getBlogSite(),
     getSidebarData(),
     headStyles(view.classes),
     tailStyles(view.classes),
+    getBlogPosts(),
   ]);
   const single = view.kind === "single" ? view.post : undefined;
+  // The blog home and its pages answer ?s= (search), /blog/ also ?p= (short links).
+  const home = view.kind === "index" && !view.heading ? view : undefined;
+  const permalinks =
+    home?.page === 1
+      ? Object.fromEntries(posts.map((post) => [post.frontmatter.wpId, post.permalink]))
+      : undefined;
 
   return (
     <html lang="de" className="no-js" suppressHydrationWarning>
@@ -46,6 +55,7 @@ export async function BlogDocument({ view, children }: { view: BlogView; childre
         <title>{view.title}</title>
         <meta name="robots" content="max-image-preview:large" />
         <script dangerouslySetInnerHTML={{ __html: NO_JS }} />
+        {home ? <BlogQueryScript permalinks={permalinks} /> : null}
         <link
           rel="alternate"
           type="application/rss+xml"
@@ -100,7 +110,9 @@ export async function BlogDocument({ view, children }: { view: BlogView; childre
         <main id="site-content">
           <div className="wrapper section">
             <div className="section-inner group">
-              <div className="content">{children}</div>
+              <div className="content">
+                {home ? <BlogSearch page={home.page}>{children}</BlogSearch> : children}
+              </div>
               <Sidebar
                 data={sidebar}
                 searchNumber={searchInputNumber(view.classes)}

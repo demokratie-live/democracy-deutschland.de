@@ -65,6 +65,25 @@ export interface ListingView {
   heading?: ArchiveHeading;
 }
 
+/**
+ * Blocks excerpt_remove_blocks() drops before an automatic excerpt is cut:
+ * every block outside its allow list (paragraph, heading, list, quote,
+ * table, group …) that occurs in posts or could. Classic content stays.
+ */
+export const EXCERPT_REMOVED_BLOCKS = [
+  "image",
+  "gallery",
+  "embed",
+  "video",
+  "audio",
+  "file",
+  "cover",
+  "buttons",
+  "separator",
+  "spacer",
+  "code",
+];
+
 /** Link of page `page` of a list: page 1 is the base, then <base>page/<n>/. */
 export function pageHref(base: string, page: number, query = "") {
   return `${page === 1 ? base : `${base}page/${page}/`}${query}`;

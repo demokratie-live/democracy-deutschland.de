@@ -11,7 +11,7 @@ import path from "path";
 const DIR = path.join(process.cwd(), "src/lib/blog/inline-css");
 
 /** Order of the block styles in the live head (consistent over all pages). */
-const BLOCK_STYLE_ORDER = [
+export const BLOCK_STYLE_ORDER = [
   "archives",
   "categories",
   "gallery",
@@ -27,7 +27,7 @@ const BLOCK_STYLE_ORDER = [
 ];
 
 /** Blocks of the sidebar (src/components/blog/Sidebar.tsx), present on every page. */
-const SIDEBAR_BLOCKS = new Set([
+export const SIDEBAR_BLOCKS = new Set([
   "archives",
   "categories",
   "heading",
@@ -48,6 +48,11 @@ export interface InlineStyle {
 
 async function read(name: string) {
   return fs.readFile(path.join(DIR, `${name}.css`), "utf-8");
+}
+
+/** Inline style of a block (`wp-block-<name>-inline-css`). */
+export function blockStyleCss(name: string) {
+  return read(`wp-block-${name}`);
 }
 
 function hasBlock(name: string, classes: Set<string>) {
