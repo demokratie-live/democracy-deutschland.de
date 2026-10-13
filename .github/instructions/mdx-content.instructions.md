@@ -31,7 +31,9 @@ state: wahlometer # state of the old hash router, must exist in content/site/rou
 - JS expressions in props are allowed (`style={{ minHeight: "unset" }}`, `subtitle={<>… <br />…</>}`), optional chaining is not.
 - Inside JSX attribute values the German closing quote must be `“` (U+201C), never ASCII `"`.
 - HTML attributes React does not know stay lowercase (`allowtransparency="true"`).
-- Structured data (team, donation figures, press media, FAQ) lives in YAML, not in the MDX text. FAQ answers in `content/faq/faq.yaml` are MDX in one paragraph: `<br />` for line breaks, no blank lines.
+- Bootstrap tooltips: `<Hotspot className="…" title="…">1</Hotspot>`; the title goes into `data-original-title` like after `.tooltip()`. HTML comments of a template become MDX comments `{/* … */}`.
+- Inline `<style>` blocks of a template: a template literal as child, ``<style>{`…`}</style>``.
+- Structured data (team, donation figures, press media, FAQ, roadmap) lives in YAML, not in the MDX text. FAQ answers in `content/faq/faq.yaml` are MDX in one paragraph: `<br />` for line breaks, no blank lines.
 - Legal texts are not MDX: `content/legal/<name>.md` is plain Markdown with inline HTML (`<br>`, `<ol style="…">`), rendered by `<LegalText name="…" />`. Keep the wording word for word (README, "Updating the legal texts").
 - Page MDX is not formatted by Prettier; keep the indentation by hand.
 - After editing: `pnpm validate-content` and `pnpm build`.

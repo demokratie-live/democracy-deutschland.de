@@ -144,18 +144,38 @@ the source: if a text changes there, save the new `?_escaped_fragment_=<name>` r
 as the fixture and update the Markdown until the test passes. After the move the
 Markdown is the source and the comparison with the old live state can go.
 
-## Contact form
+## Updating the roadmap
 
-`/kontakt/` checks the fields like the old site (alert texts in
+The roadmap table of `/engineering/` lives in
+[`content/engineering/roadmap.yaml`](content/engineering/roadmap.yaml) (before: table
+`roadmap` and the texts tagged "roadmap" in the SAI).
+
+- `columns`: head of the three status columns (`beta`, `mvp`, `dream`) with `text`, the
+  line below it (`date`) and its colour (`blue`, `grey`, `red`, `green`, `black`).
+- `goals`: one row per entry in display order with `goal`, optional `sub: true`
+  (indented sub item), `bold: true` and `issue` (GitHub issue number of democracy-client,
+  shown as `#123`), and the status codes `beta`, `mvp`, `dream` of the old SAI: `0` is an
+  empty cell, `1` a blue and `2` a grey check mark. The other codes of
+  `icon_class()` (tens = icon, ones = colour) are listed at the top of the file.
+
+`pnpm validate-content` rejects unknown status codes and colours.
+
+## Forms
+
+The contact form (`/kontakt/`) and the bug report and volunteer forms on `/engineering/`
+check the fields like the old site (alert texts in
 [`content/site/forms.yaml`](content/site/forms.yaml)) and then
 
-- opens a prefilled mail to `contact@democracy-deutschland.de` in the visitor's mail
+- open a prefilled mail to `contact@democracy-deutschland.de` in the visitor's mail
   program (default), or
-- POSTs the fields as JSON to `NEXT_PUBLIC_CONTACT_ENDPOINT` when that variable is set at
-  build time (`NEXT_PUBLIC_CONTACT_ENDPOINT=https://… pnpm build`).
+- POST the fields as JSON to an endpoint when its variable is set at build time:
+  `NEXT_PUBLIC_CONTACT_ENDPOINT`, `NEXT_PUBLIC_BUGREPORT_ENDPOINT`,
+  `NEXT_PUBLIC_VOLUNTEER_ENDPOINT` (e.g. `NEXT_PUBLIC_CONTACT_ENDPOINT=https://… pnpm build`).
 
 The endpoint contract (JSON body, success = HTTP 2xx, CORS) is in
-[`docs/server-funktionen.md`](docs/server-funktionen.md#formulare-send_mail).
+[`docs/server-funktionen.md`](docs/server-funktionen.md#formulare-send_mail). The bug
+report lists attached files like the old site, but there is no upload server yet: the
+files are not sent (`docs/server-funktionen.md`, "Datei-Upload").
 
 ## Documentation
 

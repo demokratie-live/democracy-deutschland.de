@@ -20,12 +20,13 @@ content/
   site/head.yaml        title, meta, Open Graph, icons, manifest, external CSS
   site/routes.yaml      every old state → new path, navbar `menu`/`startpage`, aliases
   site/navigation.yaml  navbar   site/footer.yaml  footer   site/app-links.yaml  store/APK links
-  site/forms.yaml       recipient, mail subject and alert texts of the forms (contact, later bug report/volunteer)
+  site/forms.yaml       recipient, mail subject and alert texts of the forms (contact, bug report, volunteer)
   legal/<name>.md       Impressum, Datenschutz, Nutzungsbedingungen: plain Markdown with inline HTML (see "Legal texts")
   donate/donation.yaml  donation status: /spenden/ and the app JSON (see README)
   team/team.yaml        team cards of /ueber-uns/ (see README)
   press/media.yaml      media tiles of /presse/ (see README)
   faq/faq.yaml          category menu and questions of /faq/ (see README)
+  engineering/roadmap.yaml  roadmap table of /engineering/ with the status codes of icon_class() (see README)
   blog/<slug>.md        blog posts (WordPress); until the blog import only frontmatter stubs (see "Blog posts")
 public/
   css/                  original CSS (see "CSS"); files/  assets under the old /files/ paths
@@ -36,12 +37,13 @@ src/
                         api.php/, api/donation_status.json/: static GET route handlers (app JSON)
   components/frame/     Navbar, Footer, ToTop (UItoTop), LegacyRedirectScript
   components/shared/    sections used by several modules (AppHeader, Section, Link, VideoSection, …)
-  components/<module>/  sections of one module (home/, wahlometer/, donate/, about/, contact/, legal/, …)
+  components/<module>/  sections of one module (home/, wahlometer/, donate/, about/, contact/, legal/, engineering/, …)
   components/mdx/       MdxPage (render + head), MDXComponents (registry)
   lib/                  animate.ts (jQuery animations), legacy-redirect.ts, metadata.ts,
                         routes.ts, stylesheets.ts, base-path.ts, content/ (loaders), schemas/,
                         bootstrap-modal.ts (Bootstrap 4 modal), bootstrap-collapse.ts (Bootstrap 4
-                        collapse), donation.ts (PHP round/number_format/json_encode, donation
+                        collapse), bootstrap-tooltip.ts (Bootstrap 4 tooltip, Popper.js 1.12.9),
+                        roadmap.ts (icon_class()), donation.ts (PHP round/number_format/json_encode, donation
                         JSON), donation-route.ts, content/blog.ts (blog posts, permalinks),
                         forms.ts (validateEmail, form checks, endpoint or mailto)
 scripts/                validate-content.ts, compare.ts, serve-basepath.mjs
@@ -54,9 +56,9 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 2. **Assets**: copy what the page uses from `democracy/files/<cat>/` to `public/files/<cat>/` under the same name. Reference them as `/files/<cat>/<name>` through `asset()` (raw tags) or `Link` (anchors).
 3. **Components**: one section component per template block in `src/components/<module>/` (or `shared/` when two modules use it), registered in `src/components/mdx/MDXComponents.tsx`. Original classes and ids stay, duplicates included. Text goes into `content/pages/<id>.mdx` as props or Markdown children.
 4. **Page**: `src/app/<path>/page.tsx` as a thin shell (copy `src/app/wahlometer/page.tsx`). The state and path already exist in `routes.yaml`; head overrides go into the frontmatter.
-5. **Interactions** in React, no jQuery. Use `src/lib/animate.ts` (`animateScrollTo`, `tween`, easings `swing`/`easeOutQuart`, `SLOW` = 600 ms) to match jQuery timing. Bootstrap 4.0.0 plugins are ported to plain DOM code with the original timings: Collapse in `Navbar` and as `useCollapseTransition()`/`prepareHide()` in `src/lib/bootstrap-collapse.ts` (state in React, see `FaqList`), Modal in `src/lib/bootstrap-modal.ts` (markup server-rendered with `Modal`, opened by `ModalToggle` like the data API). Inline `<script>`s of a template become a client component that renders `null` and runs the script in an effect (`UpdateProgress`).
+5. **Interactions** in React, no jQuery. Use `src/lib/animate.ts` (`animateScrollTo`, `tween`, easings `swing`/`easeOutQuart`, `SLOW` = 600 ms) to match jQuery timing. Bootstrap 4.0.0 plugins are ported to plain DOM code with the original timings: Collapse in `Navbar` and as `useCollapseTransition()`/`prepareHide()` in `src/lib/bootstrap-collapse.ts` (state in React, see `FaqList`), Modal in `src/lib/bootstrap-modal.ts` (markup server-rendered with `Modal`, opened by `ModalToggle` like the data API), Tooltip in `src/lib/bootstrap-tooltip.ts` (element server-rendered in the state after `_fixTitle()`, i.e. `title=""` and `data-original-title`; the tip is appended to `<body>` and placed by the same Popper.js 1.12.9 as live, see `Hotspot`; `dispose()` on unmount). Inline `<script>`s of a template become a client component that renders `null` and runs the script in an effect (`UpdateProgress`).
 6. **Verify**, all until green or explained:
-   - `pnpm compare <path>` against a running local server (`pnpm dev` or `pnpm build && pnpm start`, default `--local http://localhost:3000`); use `--click <selector>` for every interaction state, `--hover <selector>` for hover states (viewport only, a full-page screenshot loses the hover), `--only mobile` for mobile-only states and `--live-eval <js>` to reproduce an intended deviation on live before comparing (e.g. remove the FAQ entry the port drops), so the rest still compares pixel by pixel. Pixels, visible text, `#content` text against `?_escaped_fragment_` and head data must match; explain every remainder in `docs/abweichungen.md`.
+   - `pnpm compare <path>` against a running local server (`pnpm dev` or `pnpm build && pnpm start`, default `--local http://localhost:3000`); use `--click <selector>` for every interaction state, `--hover <selector>` for hover states (viewport only, a full-page screenshot loses the hover), `--only mobile` for mobile-only states, `--files <selector>` to put two test files into a file input (live: `XMLHttpRequest` is stubbed first) and `--live-eval <js>` to reproduce an intended deviation on live before comparing (e.g. remove the FAQ entry the port drops), so the rest still compares pixel by pixel. The tool aborts the old API's writing calls on live (`send_mail`, `upload`, `beta`, `send_subscribe`); stub `sendMail`/`$.ajax` with `--live-eval` before clicking a form button anyway. Pixels, visible text, `#content` text against `?_escaped_fragment_` and head data must match; explain every remainder in `docs/abweichungen.md`.
    - Playwright tests for every interaction (`tests/e2e/<module>.spec.ts`, mobile-only ones in `*.mobile.spec.ts`).
    - `pnpm lint`, `pnpm validate-content`, `pnpm test:unit`, `pnpm test:e2e`, `pnpm test:basepath`, `pnpm format:check`.
 7. **Document**: deviations and fixed bugs in `docs/abweichungen.md`, server needs in `docs/server-funktionen.md`, new components below.
@@ -71,17 +73,19 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 - **Head**: defaults from `head.yaml` via `buildMetadata()`; `og:*` tags are rendered by `MdxPage`, because Next's `openGraph` metadata adds `twitter:*` tags that live does not have.
 - **Navbar state** comes from `routes.yaml` (`menu`, `startpage`), mirroring each `init_<state>()`.
 - **Hover** handlers of jQuery (`.hover(in, out)`) become `onMouseEnter`/`onMouseLeave` with state; `show()`/`hide()` leave `display: block`/`display: none` inline, render the same. Taps on touch devices fire the same events.
-- **Data from the old SAI/database** (donation status, press media, FAQ) goes into YAML with a Zod schema; `validate-content` checks that referenced files exist (`checkFiles`); values that PHP computed (rounding, `number_format`) are computed with the PHP-compatible helpers in `src/lib/donation.ts`, not with `Math.round`/`toLocaleString`.
+- **Data from the old SAI/database** (donation status, press media, FAQ, roadmap) goes into YAML with a Zod schema; `validate-content` checks that referenced files exist (`checkFiles`); values that PHP computed (rounding, `number_format`) are computed with the PHP-compatible helpers in `src/lib/donation.ts`, not with `Math.round`/`toLocaleString`.
 
 ## Forms (`send_mail`)
 
-The old forms (contact; bug report and volunteer on `/engineering/`) validate in their click handler and send with `sendMail()` to `api.php?call=send_mail`. The port keeps the checks and alert texts 1:1 and replaces the sending (spec, decisions Manuel 2026-10-13):
+The old forms (contact; bug report and volunteer on `/engineering/`, `BugReportForm`/`VolunteerForm`) validate in their click handler and send with `sendMail()` to `api.php?call=send_mail`. The port keeps the checks and alert texts 1:1 and replaces the sending (spec, decisions Manuel 2026-10-13):
 
 - **Checks**: `runChecks()` from `src/lib/forms.ts` with one `{ id, valid, message }` per `if` of the handler, in the same order: the first failing check shows `alert(message)`, then focuses the field. `validateEmail()` is the unchanged function of `default_invite.js` (live never loaded it on the main page, docs/abweichungen.md).
 - **Texts**: alert messages, recipient and the mail subject template come from `content/site/forms.yaml` (`getForms()` in a server component, passed to the client form like `ContactForm` → `ContactFormFields`); placeholders and the button label are MDX props.
 - **Sending**: `sendForm()` POSTs the old `data` object as JSON to the endpoint when it is set (`"sent"` for HTTP 2xx, else `"failed"`), otherwise it opens a prefilled `mailto:` (`"mailto"`). On `"sent"` reset the form and alert `messages.sent`, on `"failed"` alert `messages.failed`, on `"mailto"` do nothing (no alert, no reset).
-- **Endpoint variable**: one per form, `NEXT_PUBLIC_<FORM>_ENDPOINT`, referenced literally (`process.env.NEXT_PUBLIC_CONTACT_ENDPOINT`); Next inlines only literal references.
-- **Tests**: the mailto path in `tests/e2e` (`page.waitForRequest((r) => r.url().startsWith("mailto:"))`, compare decoded, Chromium escapes `'`), the endpoint path in `tests/basepath` (that build sets the endpoint variables, `page.route` answers). Register `page.on/once("dialog")` before the click that raises an alert; awaiting `waitForEvent("dialog")` after starting the click deadlocks.
+- **Endpoint variable**: one per form, `NEXT_PUBLIC_<FORM>_ENDPOINT` (`CONTACT`, `BUGREPORT`, `VOLUNTEER`), referenced literally (`process.env.NEXT_PUBLIC_CONTACT_ENDPOINT`); Next inlines only literal references.
+- **Mail labels**: the placeholder without the trailing `*` (`label()`); a checkbox group is one line "<heading>: <checked labels>" or "–".
+- **Files (bug report)**: picker and drag & drop run only the visible part of the old `upload()` (progress bar at 0 %, yellow entries, no request); `files` in the data object is `{ <lastModified>: { file: {} } }` like live before a server response. No upload server (decision Manuel 2026-10-13, follow-up TASK-88).
+- **Tests**: the mailto path in `tests/e2e` (`page.waitForRequest((r) => r.url().startsWith("mailto:"))`, compare decoded, Chromium escapes `'`), the endpoint path in `tests/basepath` (that build sets the endpoint variables, `page.route` answers). File picker: `page.waitForEvent("filechooser")`; drag & drop: dispatch a `DragEvent("drop")` with a `DataTransfer` built in the page. Register `page.on/once("dialog")` before the click that raises an alert; awaiting `waitForEvent("dialog")` after starting the click deadlocks.
 
 ## Legal texts
 
@@ -109,6 +113,7 @@ The old forms (contact; bug report and volunteer on `/engineering/`) validate in
 
 ## MDX gotchas
 
+- `MdxPage` renders the `og:*` `<meta>` tags _after_ the content. React hoists them into `<head>`; as the first DOM node of a page they made Next.js skip its scroll to the top after a navigation (the page kept the old scroll position). Keep hoistable elements (`<meta>`, `<link>`, `<title>`) out of the first position of a page.
 - `MdxPage` passes `blockJS: false`; next-mdx-remote v6 otherwise drops every JS expression (`style={{…}}`, `subtitle={<>…</>}`) without an error.
 - Children on the same line as the tag stay inline; children on their own lines become `<p>` paragraphs. Use props (e.g. `InfoBadge action/text`) when the original has no `<p>`.
 - Literal JSX tags (`<h1 style={{…}}>`) are not mapped through `mdxComponents`; Markdown links are (→ `Link`).
@@ -147,6 +152,11 @@ The old forms (contact; bug report and volunteer on `/engineering/`) validate in
 | `Faq`                                   | faq: category menu and questions from `faq.yaml`; filter and collapse (client)      |
 | `ContactForm`                           | contact: form of default_contact.tpl, checks and sending (client, see "Forms")      |
 | `LegalText`                             | legal pages: `content/legal/<name>.md` as Markdown with HTML (`name="impressum"`)   |
+| `Roadmap`                               | engineering: roadmap table from `roadmap.yaml`, icons via `iconClass()`             |
+| `AlphaBadges`                           | engineering: store badges (`StoreBadge variant="2"`, hover) and button to `alpha`   |
+| `BugReportForm`                         | engineering: bug report form, checks, sending, file list (client, see "Forms")      |
+| `VolunteerForm`                         | engineering: volunteer form with checkboxes (`roles`, `feature`) (client)           |
+| `Hotspot`                               | citizen/politicians: numbered hotspot with Bootstrap tooltip (client)               |
 
 Client components read declarative children (`InfoBadge`, `ComparisonRow`) via `Children.toArray(...).props`.
 
