@@ -15,6 +15,8 @@ import {
   type Routes,
   teamSchema,
   type Team,
+  pressMediaSchema,
+  type PressMedia,
 } from "../schemas";
 import { loadMdx } from "./load-mdx";
 import { loadYaml } from "./load-yaml";
@@ -53,3 +55,9 @@ export async function getDonation(): Promise<Donation> {
 export async function getTeam(): Promise<Team> {
   return loadYaml("team/team.yaml", teamSchema);
 }
+
+/** content/press/media.yaml: media tiles of /presse/. */
+export async function getPressMedia(): Promise<PressMedia> {
+  return loadYaml("press/media.yaml", pressMediaSchema);
+}
+

@@ -11,8 +11,10 @@ import matter from "gray-matter";
 import yaml from "yaml";
 import { z } from "zod";
 
+import { blogPostFrontmatterSchema } from "../src/lib/schemas/blog";
 import { donationSchema } from "../src/lib/schemas/donation";
 import { pageFrontmatterSchema } from "../src/lib/schemas/page";
+import { pressMediaSchema, type PressMedia } from "../src/lib/schemas/press";
 import { teamSchema, type Team } from "../src/lib/schemas/team";
 import {
   appLinksSchema,
@@ -71,7 +73,7 @@ function checkLinks(label: string, hrefs: string[], routes: Routes | undefined) 
     );
 }
 
-/** Paths under public/ ("/files/…") must exist. */
+/** Paths under public/ ("/files/…", "/blog/wp-content/…") must exist. */
 async function checkFiles(label: string, paths: string[]) {
   const missing: string[] = [];
   for (const file of paths) {
@@ -128,6 +130,34 @@ async function main() {
       member.imgHover ? [member.img, member.imgHover] : [member.img],
     );
     await checkFiles("team/team.yaml", images);
+  }
+
+  console.log("\n📰 Presse (YAML):");
+  const press = (await readYaml("press/media.yaml", pressMediaSchema)) as PressMedia | undefined;
+  if (press) {
+    const items = [...press.kit, ...press.articles, ...press.publications];
+    await checkFiles("press/media.yaml", [
+      ...items.map((item) => item.img),
+      ...items.map((item) => item.link).filter((link) => link.startsWith("/files/")),
+    ]);
+  }
+
+  console.log("\n📝 Blog-Posts (Markdown):");
+  const blogDir = path.join(CONTENT_DIR, "blog");
+  const posts = (await fs.readdir(blogDir)).filter((f) => f.endsWith(".md"));
+  for (const file of posts) {
+    try {
+      const raw = await fs.readFile(path.join(blogDir, file), "utf-8");
+      const frontmatter = blogPostFrontmatterSchema.parse(matter(raw).data);
+      if (file !== `${frontmatter.slug}.md`) {
+        throw new Error(`Dateiname muss ${frontmatter.slug}.md sein`);
+      }
+      validated++;
+      console.log(`  ✅ blog/${file}`);
+      if (frontmatter.image) await checkFiles(`blog/${file}`, [frontmatter.image]);
+    } catch (err) {
+      fail(`blog/${file}`, describe(err));
+    }
   }
 
   console.log("\n📄 Seiten (MDX):");
