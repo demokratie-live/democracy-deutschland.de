@@ -1,9 +1,15 @@
 import { Link } from "./Link";
 import { YouTubeHDThumbnail } from "./YouTubeHDThumbnail";
 
-/** "Worum geht es bei DEMOCRACY (2:30)?" block with link and YouTube video. */
+/**
+ * "Worum geht es bei DEMOCRACY (2:30)?" block with link and YouTube video.
+ * The title is either three `<h1>`s (`titleBefore`, `titleEmphasis` in blue,
+ * `titleAfter`; home, wahlometer) or a single `title` (about).
+ */
 export function VideoSection({
   raised = false,
+  rowId,
+  title,
   titleBefore,
   titleEmphasis,
   titleAfter,
@@ -12,9 +18,12 @@ export function VideoSection({
   youtube,
 }: {
   raised?: boolean;
-  titleBefore: string;
-  titleEmphasis: string;
-  titleAfter: string;
+  /** id of the `.row.video-content` (about: "mission-statement"). */
+  rowId?: string;
+  title?: string;
+  titleBefore?: string;
+  titleEmphasis?: string;
+  titleAfter?: string;
   linkHref: string;
   linkLabel: string;
   /** Embed URL, e.g. https://www.youtube.com/embed/DFXcnRdXA7k */
@@ -30,11 +39,17 @@ export function VideoSection({
         className="container page"
         style={{ minHeight: "unset", paddingBottom: "10vh" }}
       >
-        <div className="row video-content">
+        <div className="row video-content" id={rowId}>
           <div id="video-title" className="col-lg-7">
-            <h1 id="video-title">{titleBefore}</h1>{" "}
-            <h1 id="video-title-emphasis">{titleEmphasis}</h1>{" "}
-            <h1 id="video-title">{titleAfter}</h1>
+            {title !== undefined ? (
+              <h1 id="video-title">{title}</h1>
+            ) : (
+              <>
+                <h1 id="video-title">{titleBefore}</h1>{" "}
+                <h1 id="video-title-emphasis">{titleEmphasis}</h1>{" "}
+                <h1 id="video-title">{titleAfter}</h1>
+              </>
+            )}
           </div>
           <div
             id="video-applink"
