@@ -13,20 +13,15 @@ export function BlogIndex({ view }: { view: ListingView }) {
       {view.heading ? (
         <div className="archive-header">
           <h1 className="archive-title">
-            {view.heading.text}
-            {view.heading.name ? (
-              <>
-                {" "}
-                <span>{view.heading.name}</span>
-              </>
-            ) : null}
+            {/* Whole strings, no split text nodes: Chrome shapes text across
+                node boundaries slightly differently than one node. */}
+            {view.heading.name ? `${view.heading.text} ` : view.heading.text}
+            {view.heading.name ? <span>{view.heading.name}</span> : null}
             {/* Lovecraft prints the page count only while a next page follows. */}
             {view.page < view.pages ? (
               <>
                 {" "}
-                <span>
-                  Seite {view.page} von {view.pages}
-                </span>
+                <span>{`Seite ${view.page} von ${view.pages}`}</span>
               </>
             ) : null}
           </h1>
@@ -40,9 +35,7 @@ export function BlogIndex({ view }: { view: ListingView }) {
       {view.pages > 1 ? (
         <div className="archive-navigation group">
           <div className="fleft">
-            <p>
-              Seite {view.page} von {view.pages}
-            </p>
+            <p>{`Seite ${view.page} von ${view.pages}`}</p>
           </div>
           <div className="fright">
             {view.page > 1 ? (
