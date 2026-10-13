@@ -12,11 +12,13 @@ export async function MdxPage({ id }: { id: string }) {
   // otherwise drops them silently; blockDangerousJS stays on.
   return (
     <>
-      {/* React hoists these into <head>. */}
+      <MDXRemote source={content} components={mdxComponents} options={{ blockJS: false }} />
+      {/* React hoists these into <head>. They come after the content: Next.js
+          scrolls to the top after a navigation only if the page's first DOM
+          node is in the page, not a <meta> hoisted into <head>. */}
       {ogTags.map(([property, value]) => (
         <meta key={property} property={property} content={value} />
       ))}
-      <MDXRemote source={content} components={mdxComponents} options={{ blockJS: false }} />
     </>
   );
 }
