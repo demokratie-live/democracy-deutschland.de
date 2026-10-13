@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    // Two root layouts (website and blog): the 404 page needs its own document.
+    globalNotFound: true,
+  },
   turbopack: {
     root: __dirname,
   },

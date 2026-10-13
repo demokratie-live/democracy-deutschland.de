@@ -1,10 +1,11 @@
 import Link from "next/link";
 
 /**
- * Static 404 page. The live site answers unknown paths with the Apache error
- * page; here the frame stays (see docs/abweichungen.md).
+ * Content of the static 404 page (src/app/global-not-found.tsx). The live site
+ * answers unknown paths with the Apache error page; here the website frame
+ * stays, also for unknown paths under /blog/ (see docs/abweichungen.md).
  */
-export default function NotFound() {
+export function NotFound() {
   return (
     <div className="container page">
       <div className="main-container">
