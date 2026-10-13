@@ -10,5 +10,6 @@ export {
   getDonation,
   getTeam,
   getPressMedia,
+  getFaq,
 } from "./queries";
 export { getBlogPosts, getLatestBlogPosts, blogPermalink, type BlogPost } from "./blog";

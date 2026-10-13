@@ -13,6 +13,7 @@ import { z } from "zod";
 
 import { blogPostFrontmatterSchema } from "../src/lib/schemas/blog";
 import { donationSchema } from "../src/lib/schemas/donation";
+import { faqSchema, type Faq } from "../src/lib/schemas/faq";
 import { pageFrontmatterSchema } from "../src/lib/schemas/page";
 import { pressMediaSchema, type PressMedia } from "../src/lib/schemas/press";
 import { teamSchema, type Team } from "../src/lib/schemas/team";
@@ -140,6 +141,16 @@ async function main() {
       ...items.map((item) => item.img),
       ...items.map((item) => item.link).filter((link) => link.startsWith("/files/")),
     ]);
+  }
+
+  console.log("\n❓ FAQ (YAML):");
+  const faq = (await readYaml("faq/faq.yaml", faqSchema)) as Faq | undefined;
+  if (faq) {
+    // Markdown links [text](/pfad/) in the answers.
+    const hrefs = faq.questions.flatMap((question) =>
+      [...question.answer.matchAll(/\]\((\/[^)\s]*)\)/g)].map((match) => match[1]),
+    );
+    checkLinks("faq/faq.yaml", hrefs, routes);
   }
 
   console.log("\n📝 Blog-Posts (Markdown):");

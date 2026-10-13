@@ -17,6 +17,8 @@ import {
   type Team,
   pressMediaSchema,
   type PressMedia,
+  faqSchema,
+  type Faq,
 } from "../schemas";
 import { loadMdx } from "./load-mdx";
 import { loadYaml } from "./load-yaml";
@@ -61,3 +63,7 @@ export async function getPressMedia(): Promise<PressMedia> {
   return loadYaml("press/media.yaml", pressMediaSchema);
 }
 
+/** content/faq/faq.yaml: category menu and questions of /faq/. */
+export async function getFaq(): Promise<Faq> {
+  return loadYaml("faq/faq.yaml", faqSchema);
+}
