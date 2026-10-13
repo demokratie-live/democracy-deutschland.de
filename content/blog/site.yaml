@@ -1,0 +1,8 @@
+# Settings of the WordPress blog (Customizer and Reading settings), by hand.
+title: DEMOCRACY Blog
+# Custom header image of the blog index (Lovecraft "header-image").
+headerImage: /blog/wp-content/uploads/2024/12/cropped-Blog_Header.png
+# Settings > Reading: blog pages show at most … posts.
+postsPerPage: 10
+# Widget "Neueste Beiträge" (block-3).
+latestPosts: 5

@@ -1,0 +1,14 @@
+:root {
+--font-base: Helvetica Neue, Helvetica, Arial, sans-serif;
+--font-headings: Helvetica Neue, Helvetica, Arial, sans-serif;
+--font-input: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+body, #content, .entry-content, .post-content, .page-content, .post-excerpt, .entry-summary, .entry-excerpt, .widget-area, .widget, .sidebar, #sidebar, footer, .footer, #footer, .site-footer {
+font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+ }
+#site-title, .site-title, #site-title a, .site-title a, .entry-title, .entry-title a, h1, h2, h3, h4, h5, h6, .widget-title, .elementor-heading-title {
+font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+ }
+button, .button, input, select, textarea, .wp-block-button, .wp-block-button__link {
+font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+ }

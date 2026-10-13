@@ -12,7 +12,17 @@ import yaml from "yaml";
 import { z } from "zod";
 
 import { LEGAL_TEXTS } from "../src/lib/content/queries";
-import { blogPostFrontmatterSchema } from "../src/lib/schemas/blog";
+import { attachmentImage } from "../src/lib/blog/images";
+import { blogPermalink } from "../src/lib/content/blog";
+import {
+  blogMediaSchema,
+  blogPostFrontmatterSchema,
+  blogSiteSchema,
+  blogTaxonomySchema,
+  type BlogMedia,
+  type BlogSite,
+  type BlogTaxonomy,
+} from "../src/lib/schemas/blog";
 import { donationSchema } from "../src/lib/schemas/donation";
 import { faqSchema, type Faq } from "../src/lib/schemas/faq";
 import { pageFrontmatterSchema } from "../src/lib/schemas/page";
@@ -61,14 +71,34 @@ async function readYaml(filePath: string, schema: z.ZodType): Promise<unknown> {
 }
 
 /** Internal links must point to a path of routes.yaml (anchor allowed). */
+/** Paths of the blog pages (index, pages, permalinks), filled before the links are checked. */
+const blogPaths = new Set<string>();
+
+async function collectBlogPaths() {
+  const dir = path.join(CONTENT_DIR, "blog");
+  const files = (await fs.readdir(dir)).filter((file) => file.endsWith(".md"));
+  const site = yaml.parse(await fs.readFile(path.join(dir, "site.yaml"), "utf-8")) as BlogSite;
+  blogPaths.add("/blog/");
+  for (let page = 2; page <= Math.ceil(files.length / site.postsPerPage); page++) {
+    blogPaths.add(`/blog/page/${page}/`);
+  }
+  for (const file of files) {
+    const { data } = matter(await fs.readFile(path.join(dir, file), "utf-8"));
+    if (typeof data.date === "string" && typeof data.slug === "string") {
+      blogPaths.add(blogPermalink({ date: data.date, slug: data.slug }));
+    }
+  }
+}
+
 function checkLinks(label: string, hrefs: string[], routes: Routes | undefined) {
   if (!routes) return;
   const known = new Set([
     ...routes.routes.map((route) => route.path),
     ...routes.aliases.map((alias) => alias.from),
+    ...blogPaths,
   ]);
   const unknown = hrefs
-    .filter((href) => href.startsWith("/") && !href.startsWith("/files/"))
+    .filter((href) => href.startsWith("/") && !/^\/(files|blog\/wp-content)\//.test(href))
     .filter((href) => !known.has(href.split("#")[0]));
   if (unknown.length > 0)
     fail(
@@ -96,6 +126,7 @@ async function checkFiles(label: string, paths: string[]) {
 
 async function main() {
   console.log("\n🔍 Validiere Content-Dateien...\n");
+  await collectBlogPaths();
 
   console.log("📊 Site-Daten (YAML):");
   const routes = (await readYaml("site/routes.yaml", routesSchema)) as Routes | undefined;
@@ -160,19 +191,67 @@ async function main() {
   console.log("\n🛠️  Roadmap (YAML):");
   await readYaml("engineering/roadmap.yaml", roadmapSchema);
 
-  console.log("\n📝 Blog-Posts (Markdown):");
+  console.log("\n📝 Blog (Markdown, YAML):");
+  const blogSite = (await readYaml("blog/site.yaml", blogSiteSchema)) as BlogSite | undefined;
+  if (blogSite) await checkFiles("blog/site.yaml", [blogSite.headerImage]);
+  const taxonomy = (await readYaml("blog/taxonomy.yaml", blogTaxonomySchema)) as
+    | BlogTaxonomy
+    | undefined;
+  const blogMedia = (await readYaml("blog/media.yaml", blogMediaSchema)) as BlogMedia | undefined;
+  // Uploads the posts reference although live already answers 404 (import log).
+  const missingUploads = new Set(
+    ((await readYaml("blog/missing-uploads.yaml", z.array(z.string()))) as string[] | undefined) ??
+      [],
+  );
+  if (blogMedia) {
+    // Featured images: every file of their srcset (index and single post).
+    const files = blogMedia.flatMap((item) =>
+      ["post-image", "post-image-cover"].flatMap((size) => {
+        const image = attachmentImage(item, size);
+        const srcset = image.srcSet?.split(", ").map((entry) => decodeURI(entry.split(" ")[0]));
+        return [item.file, image.src, ...(srcset ?? [])];
+      }),
+    );
+    await checkFiles("blog/media.yaml", [...new Set(files)]);
+  }
   const blogDir = path.join(CONTENT_DIR, "blog");
   const posts = (await fs.readdir(blogDir)).filter((f) => f.endsWith(".md"));
   for (const file of posts) {
     try {
       const raw = await fs.readFile(path.join(blogDir, file), "utf-8");
-      const frontmatter = blogPostFrontmatterSchema.parse(matter(raw).data);
+      const { data, content } = matter(raw);
+      const frontmatter = blogPostFrontmatterSchema.parse(data);
       if (file !== `${frontmatter.slug}.md`) {
         throw new Error(`Dateiname muss ${frontmatter.slug}.md sein`);
       }
+      const problems: string[] = [];
+      if (taxonomy) {
+        const has = (terms: BlogTaxonomy["tags"], slug: string) =>
+          terms.some((term) => term.slug === slug);
+        if (!has(taxonomy.authors, frontmatter.author))
+          problems.push(`Autor ${frontmatter.author} fehlt in blog/taxonomy.yaml`);
+        for (const slug of frontmatter.categories)
+          if (!has(taxonomy.categories, slug))
+            problems.push(`Kategorie ${slug} fehlt in blog/taxonomy.yaml`);
+        for (const slug of frontmatter.tags)
+          if (!has(taxonomy.tags, slug))
+            problems.push(`Schlagwort ${slug} fehlt in blog/taxonomy.yaml`);
+      }
+      if (frontmatter.image && blogMedia) {
+        const item = blogMedia.find((entry) => entry.id === frontmatter.featuredMedia);
+        if (item?.file !== frontmatter.image)
+          problems.push(`Beitragsbild ${frontmatter.featuredMedia} fehlt in blog/media.yaml`);
+      }
+      if (/democracy-deutschland\.de\/blog\/wp-content/.test(content))
+        problems.push("Verweis auf democracy-deutschland.de/blog/wp-content");
+      if (problems.length) throw new Error(problems.join("; "));
       validated++;
       console.log(`  ✅ blog/${file}`);
-      if (frontmatter.image) await checkFiles(`blog/${file}`, [frontmatter.image]);
+      const uploads = [...content.matchAll(/\/blog\/wp-content\/uploads\/[^"'\s),]+/g)]
+        .map((match) => decodeURI(match[0]))
+        .filter((upload) => !missingUploads.has(upload));
+      const images = frontmatter.image ? [frontmatter.image] : [];
+      await checkFiles(`blog/${file}`, [...new Set([...images, ...uploads])]);
     } catch (err) {
       fail(`blog/${file}`, describe(err));
     }

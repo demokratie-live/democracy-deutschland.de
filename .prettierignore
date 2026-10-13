@@ -12,3 +12,11 @@ public/css
 public/manifest.json
 # Live responses (API, legal texts), kept byte for byte
 tests/fixtures/*.live.*
+# Blog: written by `pnpm import-blog`; the Markdown must render to the exact
+# WordPress DOM, the CSS is the original of the Lovecraft theme and WordPress
+content/blog/*.md
+content/blog/taxonomy.yaml
+content/blog/media.yaml
+content/blog/missing-uploads.yaml
+public/blog
+src/lib/blog/inline-css

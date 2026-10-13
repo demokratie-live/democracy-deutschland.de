@@ -1,0 +1,153 @@
+---
+wpId: 241
+title: "News #11 –  Launch & DEMOCRACY+"
+slug: news-11-launch-democracy
+date: "2018-10-29T14:06:06"
+modified: "2025-02-21T14:45:45"
+author: marius
+categories: [newsletter]
+tags: []
+featuredMedia: 726
+image: "/blog/wp-content/uploads/2024/12/News_11.png"
+excerpt: "Liebe/r UnterstützerIn, ein turbulenter Oktober liegt hinter uns. Nachdem wir direkt zum Monatsstart endlich die erste offizielle Version von DEMOCRACY veröffentlicht haben und mit so viel positivem Feedback überschüttet wurden (1000 Dank dafür!!!), sind Ulf und ich postwendend auch noch unseren gemeinsamen Umzug nach Berlin angegangen. Endlich eingelebt und einen strategischen Teamworkshop später erreicht Sie […]"
+---
+
+<p class="anrede wp-block-paragraph">Liebe/r UnterstützerIn,</p>
+
+ein <b>turbulenter Oktober</b> liegt hinter uns. Nachdem wir direkt zum Monatsstart endlich die <b>erste offizielle Version von DEMOCRACY veröffentlicht</b> haben und mit so viel positivem Feedback überschüttet wurden (1000 Dank dafür!!!), sind Ulf und ich postwendend auch noch unseren gemeinsamen <b>Umzug nach Berlin</b> angegangen. Endlich eingelebt und einen strategischen <b>Teamworkshop</b> später erreicht Sie dieses Update aus unserer wunderbaren Co-Living und Working-Wohnung in Friedrichshain.
+
+Viel Spaß beim Lesen und
+
+Herzliche Grüße
+
+**Marius Krüger, Ulf Gebhardt & Manuel Ruck**
+
+<!--more-->
+
+<p class="wp-block-paragraph">&nbsp;</p>
+
+<div class="inhalt_ueber">WAS SICH GETAN HAT:</div>
+
+<ul class="wp-block-list inhalt">
+<li><a href="#news_01">01 ZDF zum Launch</a></li>
+<li><a href="#news_02">02 Teamworkshop #4</a></li>
+<li><a href="#news_03">03 Finanzierung &#x26; Ausrichtung</a></li>
+<li><a href="#news_04">04 DEMOCRACY+</a></li>
+<li><a href="#news_05">05 DEMOCRACY Alpha testen</a></li>
+<li><a href="#news_06">06 Veröffentlichungen</a></li>
+<li><a href="#news_07">07 DEMOCRACY Can Do‘s</a></li>
+</ul>
+
+<div id="news_01" class="nummer">01</div>
+
+Zahlen, Daten, Fakten zum Launch
+
+- Bei <a href="https://www.facebook.com/democracygermany/videos/1093759117440334/" target="_blank" rel="noopener noreferrer">Facebook</a> hat unser Erklärfilm 72.182 Personen erreicht und wurde bis jetzt 412 Mal geteilt
+- Auf <a href="https://twitter.com/democracy_de/status/1046332569694994437" target="_blank" rel="noopener noreferrer">Twitter</a> wurde dieser 758 Mal angesehen und 32 Mal retweetet
+- <a href="https://youtu.be/ouzgAqvJUA8" target="_blank" rel="noopener noreferrer">YouTube</a> zählt für den Film 1.156 Aufrufe und 89 Daumen nach oben (bei nur einem Dislike)
+
+In Downloads bedeutet das bis jetzt
+
+- <b>2.048</b> Installationen aus dem <a href="https://itunes.apple.com/de/app/democracy/id1341311162" target="_blank" rel="noopener noreferrer">AppStore</a> &
+- <b>3.451</b> aktive Installationen aus dem <a href="https://play.google.com/store/apps/details?id=de.democracydeutschland.app" target="_blank" rel="noopener noreferrer">Play Store</a>
+
+<p class="wp-block-paragraph">&nbsp;</p>
+
+Das macht <b>in Summe 5.499 aktive Installationen</b> nach knapp vier Wochen. Auch wenn diese Zahl unsere Erwartungen ein wenig untertroffen hat (Ziel: 10.000 Downloads im ersten Monat), kann sich dieses Ergebnis definitiv sehen lassen.\
+Besonders erfreulich ist für uns, dass rund <b>20% der NutzerInnen ‚aktiv‘</b> sind‘, d.h. pro Sitzungswoche >1.000 NutzerInnen abstimmen. Die gewöhnliche Interaktionsrate vergleichbarer Apps liegt bei 10%. Dafür und für den großen Support von Ihrer Seite, bleibt uns nichts, als den Hut zu ziehen – vielen, vielen Dank!
+
+<div id="news_02" class="nummer">02</div>
+
+Den höchst erfreulichen Moment des Releases im Rücken, hieß es vom 15.-21. Oktober dann endlich mal wieder: <b>Zeit für uns als Team</b>. Wir haben gemeinsam gefeiert, gelacht, gekocht,… aber auch mit einigen wirklich unschönen Dingen, die sich während der stressigen Phase vor dem Release angestaut haben, <b>in professioneller Begleitung</b> gegenseitigen Frieden geschlossen. Unendlich dankbar sind wir in diesem Zusammenhang unserer geliebten Freundin Julia Suciu von <a href="https://www.mindsetarchitect.org/" target="_blank" rel="noopener noreferrer">Mindset Architect</a>, die mit ihrer Präsenz und unbeirrbaren Herzenergie diesen versöhnenden Prozess möglich gemacht hat. Dieses <b>Rückbesinnen auf unseren Spirit</b> war extrem heilend und hat auch fachlich und in der Projektausrichtung einiges für uns aufgeklärt!
+
+<div id="news_03" class="nummer">03</div>
+
+So haben wir auch den entscheidenden Trade-Off betreffend (Organisations- vs. Produktentwicklung) unseren ursprünglichen Blick zurückgewinnen können. Initiativen wie unsere, die als Back-Bone auch eine Organisation (in unserem Fall den Verein DEMOCRACY Deutschland e.V.) haben, verfallen ab einem gewissen Punkt oft in das Verhalten, die Organisation und die damit verbundenen Stellen um jeden Preis entwickeln bzw. erhalten zu wollen. Nicht selten wird dafür auch das eigentliche Anliegen korrumpiert, nicht aus bösen Absichten, sondern einfach durch die in uns allen liegende Angst. Ja, auch wir haben diese Tendenzen bei uns im Team festgestellt (!) und offen darüber diskutiert: <b>Wie wollen wir unsere verbleibenden drei finanzierten Monate nutzen?</b> In Sorge um Anschlussfinanzierung die Spendentrommel rühren, oder damit, was wir wirklich gut können: ein geiles Produkt machen?\
+To cut a Long Story Short: Wir werden letzteres Tun – mit allen Konsequenzen! Das heißt: Unsere gesicherte Finanzierung endet mit dem 31.01.2019 – bis dahin werden wir <b>DEMOCRACY+</b> (inkl. des Wahl-O-Meter) auf jeden Fall <b>ausliefern</b>.
+
+Wenn Sie möchten, dass das Projekt darüber hinaus Bestand hat, freuen wir uns, wenn Sie für uns in ihrem Bekanntenkreis botschaften und uns ab spätestens Februar <a href="https://www.democracy-deutschland.de/#!donate" target="_blank" rel="noopener noreferrer">mit einem Dauerauftrag unterstützen</a>. Wir vertrauen auf Sie!
+
+<div id="news_04" class="nummer">04</div>
+
+<b>DEMOCRACY+</b> ist das fachliche Update unseres Teamworkshops #4. In einem sich aus der letzten Runde bewährten Prozess, haben wir nach umfassendem Brainstorming die nächsten Features von DEMOCRACY definiert. Neben dem <b><a href="https://github.com/demokratie-live/democracy-docu/wiki/Wahl-%E2%A6%BB-Meter" target="_blank" rel="noopener noreferrer">Wahl-O-Meter</a></b> wird DEMOCRACY+ auch <b>Direktkandidaten- sowie Wahlkreiscommunityergebnisse</b> umfassen. Damit steigt aus unserer Perspektive die Chance, dass PolitikerInnen und BürgerInnen auch während der Legislaturperiode wieder miteinander ins Gespräch kommen, rasant an. Den vollständigen Fahrplan für DEMOCRACY+ sowie weitere Feature-Ideen finden Sie unter <a href="https://www.democracy-deutschland.de/#!engineering" target="_blank" rel="noopener noreferrer">https://www.democracy-deutschland.de/#!engineering</a>
+
+PS: Selbstverständlich wird auch DEMOCRACY+ kostenfrei verfügbar sein!
+
+<div id="news_05" class="nummer">05</div>
+
+Durch das Stilllegen der Beta-Version, die zuletzt >3.000 TesterInnen umfasste, fehlt es in unserem aktuellen Softwareentwicklungsprozess massiv an qualifiziertem Tester-Feedback. Wir <b>laden Sie</b> deshalb <b>ganz herzlich ein</b>, sich <b>als</b> neue <b>TesterIn der DEMOCRACY Alpha App zu beteiligen</b>. Mit dieser bekommen Sie – wie aus der Beta-Phase gewohnt – neue Features noch vor allen anderen zu Gesicht und können an der Entwicklung von DEMOCRACY durch die Beantwortung von Fragebögen mitwirken. Sie müssen dafür nur Ihre jeweilige Store-ID im neuen <a href="https://www.democracy-deutschland.de/invite/A321643B" target="_blank" rel="noopener noreferrer">Alpha-(Tester)-Bewerbungs-Formular</a> hinterlegen und schwuppdiwupps sind Sie Teil des Testerteams.\
+Ihren Testerstatus können Sie selbstverständlich jederzeit per Abmeldelink widerrufen.
+
+<p class="wp-block-paragraph">&nbsp;</p>
+
+<div id="news_06" class="nummer">06</div>
+
+News, News, News gibt es auch in Sachen Veröffentlichungen.\
+Kurz nach dem Release ist im <b><a href="http://www.goettinger-tageblatt.de/Nachrichten/Wirtschaft/Goettinger-entwickelt-App-DEMOCRACY-fuer-Transparenz-in-der-Poliltik" target="_blank" rel="noopener noreferrer">Göttinger Tageblatt</a></b> ein ziemlich persönlicher Artikel über unser Projekt erschienen. Daneben hat auch das <b>Online-Magazin <a href="https://politik-digital.de/news/app-democracy-1810-155346/" target="_blank" rel="noopener noreferrer">politik-digital</a></b> einen kleinen Artikel veröffentlicht, der insbesondere bei Twitter für Aufsehen sorgte; <b>Radio Fritz</b> begleitete unseren Launch mit einem ziemlich guten <b><a href="https://www.democracy-deutschland.de/files/download/RADIO_FRITZ_TRACKBACK_SAMSTAG_06.10.2018.mp3" target="_blank" rel="noopener noreferrer">Audio-Beitrag</a></b>. In der Pipeline steht derzeit noch eine Veröffentlichung im Tagesspiegel, darüber hinaus haben Focus Online und die Frankfurter Rundschau angefragt, ein Interview mit uns zu führen. Next Step Fernsehen würden wir sagen;)
+
+<div id="news_07" class="nummer">07</div>
+
+Wenn wir in Unterpunkt 03 andeuten, dass wir Ihre Unterstützung brauchen, dann wollen wir sie natürlich nicht im Trüben fischen lassen, was genau Sie tun können. Anbei finden Sie eine Auflistung Ihres möglichen Engagements:\
+LEVEL 1 – Für Einsteiger ohne Geld
+
+- Benutze DEMOCRACY und stimme app
+- Teile unseren DEMOCRACY <a href="https://youtu.be/ouzgAqvJUA8" target="_blank" rel="noopener noreferrer">Erklärfilm</a> mit einem kleinen, persönlichen, für Deine Freunde motivierenden Text bei <a href="https://www.facebook.com/democracygermany/videos/1093759117440334/" target="_blank" rel="noopener noreferrer">Facebook</a>, <a href="https://twitter.com/democracy_de/status/1046332569694994437" target="_blank" rel="noopener noreferrer">Twitter</a> oder dem Sozialen Netzwerk Deiner Wahl
+- Kommentiere DEMOCRACY-Beiträge und stelle Fragen auf Social Media
+- Bewerte DEMOCRACY im <a href="https://itunes.apple.com/de/app/democracy/id1341311162" target="_blank" rel="noopener noreferrer">App</a>– bzw. <a href="https://play.google.com/store/apps/details?id=de.democracydeutschland.app" target="_blank" rel="noopener noreferrer">Play Store</a> mit bis zu 5 Sternen
+- Teile einen für Dich relevanten Bundestagsvorgang mit Deinen engsten Freuden via Messenger (WhatsApp, Telegram, …)
+- Like unsere <a href="https://www.facebook.com/democracygermany" target="_blank" rel="noopener noreferrer">Facebook-Seite</a>
+- Folge uns bei <a href="https://twitter.com/democracy_de/" target="_blank" rel="noopener noreferrer">Twitter</a>
+- Entwickler-Special: Gib uns einen <a href="https://github.com/demokratie-live/democracy-client" target="_blank" rel="noopener noreferrer">Stern auf Github</a>
+
+<p class="wp-block-paragraph">&nbsp;</p>
+
+LEVEL 1 – Für Einsteiger mit Geld
+
+- Spende uns per monatlichem Dauerauftrag à Konto (Empf.: DEMOCRACY Deutschland e.V., IBAN: DE33 5003 1000 1049 7560 00, BIC TRODDEF1)
+- Spende uns monatlich via <a href="https://www.paypal.com/donate/?token=QX_4blBMZzL5SgXtPtDzfq0IXV-xvKxJJaSMtk6p8uw9VRHIGg0M_iGtwg0jDyLuvIJV_m&#x26;country.x=DE&#x26;locale.x=DE" target="_blank" rel="noopener noreferrer">PayPal</a> (1,5% + 0,35 EUR der Spende verbleibt bei Paypal)
+
+<p class="wp-block-paragraph">&nbsp;</p>
+
+LEVEL 2 – Für Fortgeschrittene ohne Geld
+
+- Teile regelmäßig konkrete <a href="https://democracy-app.de/" target="_blank" rel="noopener noreferrer">Bundestagsvorgänge aus der Browserversion</a> von DEMOCRACY via Facebook, Twitter oder per Messenger
+- Sprich beim nächsten Abendessen mit Deinen Bekannten das Thema DEMOCRACY an und diskutiere mit ihnen über die Möglichkeit, per App am Bundestag teilzunehmen. Für jeden überzeugten neuen Nutzer gib Dir selbst einen Punkt.
+- Lass ein Foto von Dir machen wie Du DEMOCRACY benutzt und teile es auf Instagram & Co mit den Hashtags #democracymatters und #appstimmen
+
+<p class="wp-block-paragraph">&nbsp;</p>
+
+LEVEL 2 – Für Fortgeschrittene mit Geld
+
+- Überzeuge 10 Personen in Deinem Umfeld, DEMOCRACY per monatlichen Dauerauftrag zu unterstützen
+
+<p class="wp-block-paragraph">&nbsp;</p>
+
+LEVEL 3 – Für Profis ohne Geld
+
+- Schreibe über DEMOCRACY auf Deiner eigenen Seite/Blog/Timeline
+- Tritt in direkte Kommunikation mit uns via <a href="https://discord.gg/6PFRWm9" target="_blank" rel="noopener noreferrer">Discord</a> oder per Mail
+- Überlege Dir, zu welchen strategischen Partnern oder Multiplikatoren Du als ScharniernetzwerkerIn für DEMOCRACY botschaften kannst
+- Sprich diese Netzwerke auf eigene Initiative an – für fachliche Rückfragen stehen wir jederzeit zur Verfügung
+- <a href="https://www.democracy-deutschland.de/#!engineering#help%E2%80%9Ctarget=" rel="noopener noreferrer">Schlage selbst ein Feature vor</a>, dass Du in einer künftigen Version von DEMOCRACY umgesetzt sehen willst
+- Entwickler-Special: Prüfe <a href="https://github.com/demokratie-live" target="_blank" rel="noopener noreferrer">unseren Code</a> und/oder entwickle mit uns an DEMOCRACY
+
+<p class="wp-block-paragraph">&nbsp;</p>
+
+LEVEL 3 – Für Profis mit Geld
+
+- Lassen Sie sich zu Ihrem nächsten (runden) Geburtstag monatliche DEMOCRACY-Patenschaften schenken
+- Werben Sie in Ihrer Organisation, ihrem Stammtisch oder Verein für DEMOCRACY-Partnerschaften
+
+<p class="wp-block-paragraph">&nbsp;</p>
+
+Sie sind noch kein/e PatIn und unterstützen DEMOCRACY mit einem monatlichen Dauerauftrag? PatIn können Sie unter <a href="https://www.democracy-deutschland.de/#!donate" target="_blank" rel="noopener noreferrer">www.democracy-deutschland.de/#!donate</a> schon ab 1€ monatlich werden.
+
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/inline/news-11-launch-democracy-1.png" alt="DEMOCRACY Newsletter Image"></figure>
+
+<p class="wp-block-paragraph"></p>
+
+<div class="footer">
+<p>Wir sind gespannt, welche großartigen Möglichkeiten in der Zukunft noch für unser Projekt offen stehen und verbleiben mit einem Lächeln und ganz herzlichen Grüßen,</p>
+<p>Ihr TEAM DEMOCRACY</p>
+<p><img id="<democracy_logo.png>“ class=“logo Apple-web-attachment Singleton“ style=“display: block; border: 0px none; height: auto; line-height: 14px; outline: none; text-decoration: none; opacity: 1;“ src=“data:image/png;base64,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“ alt=“DEMOCRACY Logo“>DEMOCRACY Deutschland e.V.<br>mobil <a href=">+49 176 470 40 213<br><a href="mailto:contact@democracy-deutschland.de">contact@democracy-deutschland.de </a><br><a href="https://www.democracy-deutschland.de/">https://www.democracy-deutschland.de </a><br><a href="https://github.com/demokratie-live/">https://github.com/demokratie-live </a></p>
+</div>

@@ -17,4 +17,13 @@ export {
   LEGAL_TEXTS,
   type LegalTextName,
 } from "./queries";
-export { getBlogPosts, getLatestBlogPosts, blogPermalink, type BlogPost } from "./blog";
+export {
+  getBlogPosts,
+  getLatestBlogPosts,
+  getBlogSite,
+  getBlogTaxonomy,
+  getBlogMedia,
+  blogPermalink,
+  type BlogPost,
+  type BlogTaxonomyIndex,
+} from "./blog";
