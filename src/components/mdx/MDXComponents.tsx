@@ -1,5 +1,6 @@
 import type { MDXRemoteProps } from "next-mdx-remote/rsc";
 import { ServicesIcon, Team } from "@/components/about/Team";
+import { BlogFrame } from "@/components/blogpage/BlogFrame";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { DonateBox, DonateDetails } from "@/components/donate/DonationFigures";
 import { Modal } from "@/components/donate/Modal";
@@ -62,4 +63,5 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   BugReportForm,
   VolunteerForm,
   Hotspot,
+  BlogFrame,
 };
