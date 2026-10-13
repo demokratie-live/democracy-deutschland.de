@@ -17,6 +17,7 @@ import { donationSchema } from "../src/lib/schemas/donation";
 import { faqSchema, type Faq } from "../src/lib/schemas/faq";
 import { pageFrontmatterSchema } from "../src/lib/schemas/page";
 import { pressMediaSchema, type PressMedia } from "../src/lib/schemas/press";
+import { roadmapSchema } from "../src/lib/schemas/roadmap";
 import { teamSchema, type Team } from "../src/lib/schemas/team";
 import {
   appLinksSchema,
@@ -155,6 +156,9 @@ async function main() {
     );
     checkLinks("faq/faq.yaml", hrefs, routes);
   }
+
+  console.log("\n🛠️  Roadmap (YAML):");
+  await readYaml("engineering/roadmap.yaml", roadmapSchema);
 
   console.log("\n📝 Blog-Posts (Markdown):");
   const blogDir = path.join(CONTENT_DIR, "blog");

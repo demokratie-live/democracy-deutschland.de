@@ -12,6 +12,7 @@ export {
   getPressMedia,
   getFaq,
   getForms,
+  getRoadmap,
   getLegalText,
   LEGAL_TEXTS,
   type LegalTextName,

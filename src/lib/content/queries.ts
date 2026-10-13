@@ -21,6 +21,8 @@ import {
   type Faq,
   formsSchema,
   type Forms,
+  roadmapSchema,
+  type Roadmap,
 } from "../schemas";
 import fs from "fs/promises";
 import path from "path";
@@ -70,6 +72,11 @@ export async function getPressMedia(): Promise<PressMedia> {
 /** content/faq/faq.yaml: category menu and questions of /faq/. */
 export async function getFaq(): Promise<Faq> {
   return loadYaml("faq/faq.yaml", faqSchema);
+}
+
+/** content/engineering/roadmap.yaml: roadmap table of /engineering/. */
+export async function getRoadmap(): Promise<Roadmap> {
+  return loadYaml("engineering/roadmap.yaml", roadmapSchema);
 }
 
 /** content/site/forms.yaml: recipient, subject and alert texts of the forms. */
