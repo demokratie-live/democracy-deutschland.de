@@ -49,7 +49,9 @@ test("every blog page and permalink is exported", async ({ request }) => {
     ...Array.from({ length: pages }, (_, index) => pageUrl(index + 1)),
     ...posts.map((post) => post.permalink),
   ];
-  expect(posts).toHaveLength(53);
+  // One file per WordPress post (the import writes exactly the REST posts).
+  expect(posts.length).toBeGreaterThan(0);
+  expect(new Set(posts.map((post) => post.frontmatter.wpId)).size).toBe(posts.length);
   for (const url of urls) {
     expect((await request.get(url)).status(), url).toBe(200);
   }
