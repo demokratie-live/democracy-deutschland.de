@@ -11,6 +11,9 @@
  *   --click <selektor> vor dem Screenshot auf beiden Seiten klicken (mehrfach möglich)
  *   --hover <selektor> nach den Klicks mit der Maus auf das Element zeigen; Screenshot nur
  *                      vom sichtbaren Bereich um das Element (ganze Seite verliert den Hover)
+ *   --live-eval <js>   JavaScript, das auf live vor den Klicks läuft, um eine bewusste
+ *                      Abweichung nachzustellen (z.B. ein entferntes Duplikat); der Text-
+ *                      vergleich gegen ?_escaped_fragment_ zeigt sie weiterhin
  *   --no-mask          <video> und <iframe> nicht abdecken
  *   --viewport-only    nur den sichtbaren Bereich statt der ganzen Seite
  *   --only <name>      nur "desktop" oder "mobile" (z.B. für das Mobil-Menü)
@@ -44,6 +47,7 @@ interface Options {
   live?: string;
   clicks: string[];
   hover?: string;
+  liveEval?: string;
   mask: boolean;
   fullPage: boolean;
   only?: string;
@@ -63,6 +67,7 @@ function parseArgs(argv: string[]): Options {
     else if (arg === "--live") options.live = argv[++i];
     else if (arg === "--click") options.clicks.push(argv[++i]);
     else if (arg === "--hover") options.hover = argv[++i];
+    else if (arg === "--live-eval") options.liveEval = argv[++i];
     else if (arg === "--no-mask") options.mask = false;
     else if (arg === "--viewport-only") options.fullPage = false;
     else if (arg === "--only") options.only = argv[++i];
@@ -116,6 +121,7 @@ async function capture(
   viewport: (typeof VIEWPORTS)[number],
   options: Options,
   file: string,
+  isLive: boolean,
 ) {
   const context = await browser.newContext({
     viewport: { width: viewport.width, height: viewport.height },
@@ -126,6 +132,10 @@ async function capture(
   const page = await context.newPage();
   await page.goto(url, { waitUntil: "load" });
   await settle(page);
+  if (isLive && options.liveEval) {
+    await page.evaluate(options.liveEval);
+    await page.waitForTimeout(300);
+  }
   for (const selector of options.clicks) {
     await page.locator(selector).first().click();
     await page.waitForTimeout(1200);
@@ -274,13 +284,21 @@ async function main() {
     for (const viewport of viewports) {
       const dir = path.join(outDir, viewport.name);
       await fs.mkdir(dir, { recursive: true });
-      const live = await capture(browser, liveUrl, viewport, options, path.join(dir, "live.png"));
+      const live = await capture(
+        browser,
+        liveUrl,
+        viewport,
+        options,
+        path.join(dir, "live.png"),
+        true,
+      );
       const local = await capture(
         browser,
         localUrl,
         viewport,
         options,
         path.join(dir, "local.png"),
+        false,
       );
       if (!viewport.isMobile) {
         ({ text: liveText, head: liveHead } = live);
@@ -344,6 +362,7 @@ async function main() {
       `- live: ${liveUrl}`,
       options.clicks.length ? `- Klicks: ${options.clicks.join(", ")}` : "",
       options.hover ? `- Hover: ${options.hover} (nur sichtbarer Bereich)` : "",
+      options.liveEval ? `- Auf live ausgeführt: \`${options.liveEval}\`` : "",
       "",
       "| Viewport | Pixel abweichend | Größe live | Größe lokal |",
       "| --- | --- | --- | --- |",
