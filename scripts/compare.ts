@@ -96,7 +96,8 @@ function parseArgs(argv: string[]): Options {
   if (!options.route) {
     throw new Error("Pfad fehlt, z.B. `pnpm compare /wahlometer/`");
   }
-  if (!options.route.endsWith("/")) options.route += "/";
+  // Trailing slash on the path, not after a query (blog search: /blog/?s=…).
+  options.route = options.route.replace(/^([^?#]*?)\/?(?=[?#]|$)/, "$1/");
   options.local = options.local.replace(/\/$/, "");
   return options;
 }
@@ -195,13 +196,15 @@ async function capture(
     await page.waitForTimeout(600);
   }
   let fullPage = options.fullPage;
-  if (fullPage && isBlog(options.route)) {
-    // A full-page screenshot enlarges the viewport; the blog images then pick
-    // another srcset candidate and are captured while loading. Enlarge first,
-    // let them load, then capture the viewport.
+  const framed = !options.mask && (await page.locator("iframe").count()) > 0;
+  if (fullPage && (isBlog(options.route) || framed)) {
+    // A full-page screenshot enlarges the viewport; the blog images (also in
+    // the frame of /blogseite/) then pick another srcset candidate and are
+    // captured while loading. Enlarge first, let them load, then capture the
+    // viewport.
     const height = await page.evaluate(() => document.documentElement.scrollHeight);
     await page.setViewportSize({ width: viewport.width, height });
-    await settle(page, "#site-content");
+    await settle(page, isBlog(options.route) ? "#site-content" : "#content");
     fullPage = false;
   }
   await page.screenshot({
@@ -257,6 +260,11 @@ async function contentText(
   const context = await browser.newContext({ javaScriptEnabled });
   const page = await context.newPage();
   await page.goto(url, { waitUntil: "load" });
+  if (javaScriptEnabled && /[?&]s=/.test(url)) {
+    await page.waitForFunction(() => document.body.classList.contains("search"), undefined, {
+      timeout: 30_000,
+    });
+  }
   // Text nodes joined with spaces: the templates have whitespace between
   // block elements, JSX has not; that difference is not visible. Passed as a
   // string because tsx (esbuild) wraps nested functions in a __name helper.
@@ -407,7 +415,8 @@ async function main() {
       false,
       container,
     );
-    const own = await contentText(browser, localUrl, false, container);
+    // The static search renders on the client: its text needs JavaScript.
+    const own = await contentText(browser, localUrl, /[?&]s=/.test(options.route), container);
     const words = diffWords(normalizeWords(escaped), normalizeWords(own));
     const wordChanges = words.filter((part) => part.added || part.removed);
     await fs.writeFile(
