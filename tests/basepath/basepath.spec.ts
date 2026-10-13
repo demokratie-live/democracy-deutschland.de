@@ -27,6 +27,9 @@ const pages = [
   { path: "/presse/", fonts: [...FONTS] },
   { path: "/faq/", fonts: [...FONTS] },
   { path: "/kontakt/", fonts: [...FONTS] },
+  { path: "/impressum/", fonts: [...FONTS] },
+  { path: "/datenschutz/", fonts: [...FONTS] },
+  { path: "/nutzungsbedingungen/", fonts: [...FONTS] },
 ];
 
 for (const { path, fonts } of pages) {

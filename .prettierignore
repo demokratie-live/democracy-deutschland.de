@@ -10,5 +10,5 @@ content/pages/*.mdx
 public/css
 # Original manifest of the live site, kept verbatim
 public/manifest.json
-# Live API responses, kept byte for byte
-tests/fixtures/*.live.json
+# Live responses (API, legal texts), kept byte for byte
+tests/fixtures/*.live.*

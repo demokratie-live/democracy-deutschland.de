@@ -11,6 +11,7 @@ import matter from "gray-matter";
 import yaml from "yaml";
 import { z } from "zod";
 
+import { LEGAL_TEXTS } from "../src/lib/content/queries";
 import { blogPostFrontmatterSchema } from "../src/lib/schemas/blog";
 import { donationSchema } from "../src/lib/schemas/donation";
 import { faqSchema, type Faq } from "../src/lib/schemas/faq";
@@ -173,6 +174,24 @@ async function main() {
     }
   }
 
+  console.log("\n⚖️  Rechtstexte (Markdown):");
+  for (const name of LEGAL_TEXTS) {
+    const file = `legal/${name}.md`;
+    try {
+      const raw = await fs.readFile(path.join(CONTENT_DIR, file), "utf-8");
+      // Markdown links [text](/pfad/) and HTML links href="/pfad/"
+      const hrefs = [
+        ...[...raw.matchAll(/\]\((\/[^)\s]*)\)/g)].map((match) => match[1]),
+        ...[...raw.matchAll(/href="(\/[^"]*)"/g)].map((match) => match[1]),
+      ];
+      validated++;
+      console.log(`  ✅ ${file}`);
+      checkLinks(file, hrefs, routes);
+    } catch (err) {
+      fail(file, describe(err));
+    }
+  }
+
   console.log("\n📄 Seiten (MDX):");
   const pagesDir = path.join(CONTENT_DIR, "pages");
   const files = (await fs.readdir(pagesDir)).filter((f) => f.endsWith(".mdx"));
@@ -184,6 +203,11 @@ async function main() {
       const frontmatter = pageFrontmatterSchema.parse(data);
       if (routes && !states.has(frontmatter.state)) {
         throw new Error(`state "${frontmatter.state}" fehlt in site/routes.yaml`);
+      }
+      for (const [, name] of raw.matchAll(/<LegalText name="([^"]*)"/g)) {
+        if (!(LEGAL_TEXTS as readonly string[]).includes(name)) {
+          throw new Error(`<LegalText name="${name}">: content/legal/${name}.md gibt es nicht`);
+        }
       }
       validated++;
       console.log(`  ✅ pages/${file}`);

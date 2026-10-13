@@ -22,6 +22,8 @@ import {
   formsSchema,
   type Forms,
 } from "../schemas";
+import fs from "fs/promises";
+import path from "path";
 import { loadMdx } from "./load-mdx";
 import { loadYaml } from "./load-yaml";
 
@@ -73,4 +75,12 @@ export async function getFaq(): Promise<Faq> {
 /** content/site/forms.yaml: recipient, subject and alert texts of the forms. */
 export async function getForms(): Promise<Forms> {
   return loadYaml("site/forms.yaml", formsSchema);
+}
+
+export const LEGAL_TEXTS = ["impressum", "datenschutz", "nutzungsbedingungen"] as const;
+export type LegalTextName = (typeof LEGAL_TEXTS)[number];
+
+/** content/legal/<name>.md: legal text (live: system_text `<name>_text`), Markdown with HTML. */
+export async function getLegalText(name: LegalTextName): Promise<string> {
+  return fs.readFile(path.join(process.cwd(), "content", "legal", `${name}.md`), "utf-8");
 }

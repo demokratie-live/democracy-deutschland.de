@@ -12,5 +12,8 @@ export {
   getPressMedia,
   getFaq,
   getForms,
+  getLegalText,
+  LEGAL_TEXTS,
+  type LegalTextName,
 } from "./queries";
 export { getBlogPosts, getLatestBlogPosts, blogPermalink, type BlogPost } from "./blog";

@@ -6,6 +6,7 @@ import { Modal } from "@/components/donate/Modal";
 import { ModalToggle } from "@/components/donate/ModalToggle";
 import { Faq } from "@/components/faq/Faq";
 import { FeatureVideos, InfoBadge } from "@/components/home/FeatureVideos";
+import { LegalText } from "@/components/legal/LegalText";
 import { BlogTeasers, PressMedia } from "@/components/press/PressTiles";
 import { AppHeader } from "@/components/shared/AppHeader";
 import { ComparisonAccordion, ComparisonRow } from "@/components/shared/ComparisonAccordion";
@@ -51,4 +52,5 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   BlogTeasers,
   Faq,
   ContactForm,
+  LegalText,
 };
