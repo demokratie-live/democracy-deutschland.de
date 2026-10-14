@@ -51,6 +51,16 @@ jobs:
       - name: E2E smoke tests
         run: pnpm exec playwright test
 
+      # The export without basePath is what Plesk serves at the domain root.
+      - name: Upload export for Plesk
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: website-root-${{ github.run_id }}
+          path: out
+          include-hidden-files: true # out/.htaccess
+          retention-days: 7
+
       - name: Build (for deploy, with basePath)
         env:
           NEXT_PUBLIC_BASE_PATH: /democracy-deutschland.de
@@ -92,3 +102,28 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5.0.0
+
+  # Plesk-Git pulls the branch `deploy` and copies it into the document root
+  # (docs/hosting-plesk.md). One commit per build; reset the branch to roll back.
+  build-branch:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: build-branch
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: website-root-${{ github.run_id }}
+          path: site
+
+      - name: Commit the export to the branch deploy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          sh scripts/publish-build-branch.sh site deploy origin
