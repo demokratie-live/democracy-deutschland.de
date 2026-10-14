@@ -18,7 +18,9 @@
     "import-blog": "tsx scripts/import-blog.ts",
     "compare-blog-dom": "tsx scripts/compare-blog-dom.ts",
     "compare-blog-feed": "tsx scripts/compare-blog-feed.ts",
-    "compare-blog-search": "tsx scripts/compare-blog-search.ts"
+    "compare-blog-search": "tsx scripts/compare-blog-search.ts",
+    "serve-apache": "sh scripts/serve-apache.sh",
+    "check-htaccess": "tsx scripts/check-htaccess.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
