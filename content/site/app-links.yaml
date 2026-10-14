@@ -8,7 +8,3 @@ fdroid: "https://f-droid.org/de/packages/de.democracydeutschland.app/"
 browserVersion: "https://democracy-app.de"
 apk: "https://github.com/demokratie-live/democracy-client/releases/latest/download/democracy-app.apk"
 aab: "https://github.com/demokratie-live/democracy-client/releases/latest/download/democracy-app.aab"
-
-# Alpha test of /engineering/ (link_alpha, live "./invite/C1B381E2"): invite
-# page with the beta code, new path see docs/abweichungen.md.
-alpha: "/invite/?code=C1B381E2"

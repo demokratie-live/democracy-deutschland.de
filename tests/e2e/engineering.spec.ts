@@ -2,12 +2,11 @@ import { expect, test, type Page } from "@playwright/test";
 import { mailtoUrl } from "../../src/lib/forms";
 import { iconClass } from "../../src/lib/roadmap";
 import { roadmapSchema } from "../../src/lib/schemas/roadmap";
-import { appLinksSchema, formsSchema } from "../../src/lib/schemas/site";
+import { formsSchema } from "../../src/lib/schemas/site";
 import { contentYaml, trackErrors, waitForScrollEnd } from "./helpers";
 
 const { messages, recipient } = formsSchema.parse(contentYaml("site/forms.yaml"));
 const roadmap = roadmapSchema.parse(contentYaml("engineering/roadmap.yaml"));
-const { alpha } = appLinksSchema.parse(contentYaml("site/app-links.yaml"));
 
 const NBSP = " ";
 /** Notice in place of the file picker without an endpoint (content/pages/engineering.mdx). */
@@ -116,30 +115,12 @@ test.describe("roadmap", () => {
   });
 });
 
-test.describe("alpha test", () => {
-  test("badges and button link to the invite page in a new tab", async ({ page }) => {
-    const links = page.locator(".badges2 a");
-    await expect(links).toHaveCount(3);
-    for (const link of await links.all()) {
-      await expect(link).toHaveAttribute("href", alpha);
-      await expect(link).toHaveAttribute("target", "_blank");
-    }
-    await expect(page.locator(".badges2 .btn-democracy")).toHaveText(
-      "Hier gehts zur Bewerbungsformular",
-    );
-    await expect(page.locator(".badges2 span")).toHaveText(["Alpha", "Alpha"]);
-  });
-
-  for (const store of ["app-store", "google-play"]) {
-    test(`hover toggles the filled ${store} icon (store hover)`, async ({ page }) => {
-      const badge = page.locator(`.badge-link2.icon-${store}-outline2`);
-      await expect(badge).not.toHaveClass(new RegExp(`icon-${store}-filled2`));
-      await badge.hover();
-      await expect(badge).toHaveClass(`badge-link2 icon-${store}-outline2 icon-${store}-filled2`);
-      await page.mouse.move(5, 5);
-      await expect(badge).toHaveClass(`badge-link2 icon-${store}-outline2`);
-    });
-  }
+test("the Alpha block is gone, the quote stays (decision Manuel 2026-10-14)", async ({ page }) => {
+  await expect(page.locator(".badges2")).toHaveCount(0);
+  await expect(page.locator('a[href*="invite"]')).toHaveCount(0);
+  await expect(page.locator(".cite-content")).toHaveText(
+    "Prototyping ist der Prozess der Annäherung an ein Produkt",
+  );
 });
 
 test.describe("anchor #help", () => {

@@ -4,12 +4,10 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/engineering/");
 });
 
-test("mobile layout: smaller roadmap heads, one Alpha label, no laptop image", async ({ page }) => {
+test("mobile layout: smaller roadmap heads, no laptop image", async ({ page }) => {
   await expect(page.locator("th.rotate").first()).toHaveCSS("font-size", "12px");
   const table = (await page.locator("table.table").boundingBox())!;
   expect(table.x + table.width).toBeLessThanOrEqual(375);
-  await expect(page.locator(".badges2 span").first()).toBeVisible();
-  await expect(page.locator("#secondbadge span")).toBeHidden();
   await expect(page.locator('img[src="/files/images/macbookSpaceGrey@3x.png"]')).toBeHidden();
   const width = await page.evaluate(() => document.documentElement.scrollWidth);
   expect(width).toBe(375);

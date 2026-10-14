@@ -17,7 +17,7 @@ function trackFailures(page: Page) {
   return failed;
 }
 
-// Browsers only load the fonts a page uses; icomoon (icons) is not used on /spenden/.
+// Browsers only load the fonts a page uses; icomoon (store badges) only on / and /wahlometer/.
 const FONTS = ["helvetica", "edosz", "Font Awesome 5 Free"];
 const pages = [
   { path: "/", fonts: [...FONTS, "icomoon"] },
@@ -30,7 +30,7 @@ const pages = [
   { path: "/impressum/", fonts: [...FONTS] },
   { path: "/datenschutz/", fonts: [...FONTS] },
   { path: "/nutzungsbedingungen/", fonts: [...FONTS] },
-  { path: "/engineering/", fonts: [...FONTS, "icomoon"] },
+  { path: "/engineering/", fonts: [...FONTS] },
   { path: "/buerger/", fonts: [...FONTS] },
   { path: "/politiker/", fonts: [...FONTS] },
 ];
@@ -176,11 +176,8 @@ test("contact form POSTs to NEXT_PUBLIC_CONTACT_ENDPOINT and shows the old alert
   expect(bodies).toEqual([data, data]);
 });
 
-test("engineering: alpha links and anchor #help below the basePath", async ({ page }) => {
+test("engineering: anchor #help below the basePath", async ({ page }) => {
   await page.goto(`${BASE}/engineering/`);
-  for (const link of await page.locator(".badges2 a").all()) {
-    await expect(link).toHaveAttribute("href", `${BASE}/invite/?code=C1B381E2`);
-  }
   await page.locator(".footer a", { hasText: "Mithelfen" }).click();
   await expect(page).toHaveURL(new RegExp(`${BASE}/engineering/#help$`));
   await page.goto(`${BASE}/buerger/`);
