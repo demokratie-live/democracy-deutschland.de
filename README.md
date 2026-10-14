@@ -24,7 +24,10 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000). Old links such as
-`http://localhost:3000/#!wahlometer` forward to the new paths.
+`http://localhost:3000/#!wahlometer` forward to the new paths. Every kind of
+old URL and its target is listed in `tests/legacy-urls.ts`; the rules live in
+`content/site/routes.yaml` (states, aliases) and `src/lib/legacy-paths.ts`
+(old paths such as `/invite/<code>` or `/index.php`), see `AGENTS.md`.
 
 ## Common commands
 

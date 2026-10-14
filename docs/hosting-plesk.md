@@ -4,7 +4,7 @@ Die statische Seite läuft auf dem Plesk-Server, auf dem heute die PHP-Seite und
 
 ## `.htaccess`
 
-`next build` schreibt `out/.htaccess` (Route-Handler `src/app/(site)/.htaccess/route.ts`, Inhalt aus `src/lib/htaccess.ts`). Die Datei wird aus `content/site/routes.yaml`, `content/site/app-links.yaml` und den Blog-Posts erzeugt. Bitte nicht von Hand ändern.
+`next build` schreibt `out/.htaccess` (Route-Handler `src/app/(site)/.htaccess/route.ts`, Inhalt aus `src/lib/htaccess.ts`). Die Datei wird aus `content/site/routes.yaml`, den Pfadregeln in `src/lib/legacy-paths.ts`, `content/site/app-links.yaml` und den Blog-Posts erzeugt. Bitte nicht von Hand ändern. Dieselben Daten nutzt die clientseitige Weiterleitung (`resolveLegacyUrl()`), die auf Hosts ohne `.htaccess` auf jeder Seite und auf der 404-Seite läuft.
 
 | Regel                             | Alt                                                                                                                                     | Neu                                                                                                                               |
 | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -13,7 +13,7 @@ Die statische Seite läuft auf dem Plesk-Server, auf dem heute die PHP-Seite und
 | Aliase, 301                       | `/democracy/` (`aliases` in `routes.yaml`)                                                                                              | `/`                                                                                                                               |
 | Kodierter Hash, 301               | `/%23!<state>` (democracy-client#1142, wie die alte `.htaccess`)                                                                        | `/#!<state>`, den Rest erledigt der Browser                                                                                       |
 | Wahl-O-Meter-Schreibweisen, 301   | `/Wahlometer`, `/wahl-o-meter/`, …                                                                                                      | `/wahlometer/`                                                                                                                    |
-| Invite, 301                       | `/invite`, `/invite/<code>`, `/invite.php?code=<code>`                                                                                  | `/invite/`, `/invite/?code=<code>`                                                                                                |
+| Invite, 301                       | `/invite`, `/invite/<code>`, `/invite.php?code=<code>`                                                                                  | `/` (das Tester-Onboarding gibt es nicht mehr, Code und Parameter entfallen)                                                      |
 | App-Downloads, 302                | `/files/download/democracy-app.{apk,aab}`                                                                                               | GitHub-Release `latest` (302, weil „latest“ mit jedem Release wandert)                                                            |
 | WordPress-Abfragen, 301           | `/blog/?p=<id>` (auch `?post_type=post&p=`), `?cat=<id>`, `?author=<id>`, `?tag=<slug>`, `?m=<jjjjmm>`, `?feed=rss2`, `/blog/index.php` | Permalink, Archiv bzw. `/blog/feed/`; unbekannte Post-IDs → 404 wie WordPress                                                     |
 | Seite 1, 301                      | `/blog/page/1/`, `/blog/<archiv>/page/1/`                                                                                               | `/blog/`, `/blog/<archiv>/`                                                                                                       |
@@ -36,7 +36,7 @@ pnpm check-htaccess https://<host>    # dieselben Prüfungen gegen Test oder Pro
 pnpm serve-apache stop
 ```
 
-Neue Altlinks kommen in `buildHtaccess()` und in die Liste von `scripts/check-htaccess.ts`.
+`pnpm check-htaccess` fragt jede alte Adresse aus `tests/legacy-urls.ts` ab (Status und `Location`), dieselbe Tabelle, mit der Playwright die clientseitige Weiterleitung mit und ohne basePath prüft, dazu Content-Types von Seiten, 404, App-JSON und Feeds. Neue alte Adressen kommen als State oder Alias in `routes.yaml` bzw. als Regel in `src/lib/legacy-paths.ts`, und mit einem Beispiel in `tests/legacy-urls.ts`.
 
 ## `api.php` und PHP
 

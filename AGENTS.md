@@ -33,7 +33,8 @@ public/
   css/                  original CSS (see "CSS"); files/  assets under the old /files/ paths
   blog/wp-content/uploads/  blog media under their WordPress paths (written by the import)
   blog/wp-content/themes/lovecraft/  theme CSS, fonts and icon of the blog (GPL, never edit)
-  videos/  favicon.ico  manifest.json
+  videos/  favicon.ico  manifest.json  root files of the PHP site (apple-touch-icon.png, android-chrome-*,
+  favicon-16x16/32x32.png, browserconfig.xml, site.webmanifest, logo.png), byte for byte
 src/
   app/(site)/           website: root layout (SiteDocument) and thin page shells <MdxPage id="…" />;
                         [...alias] forwarding pages; api.php/, api/donation_status.json/: static GET
@@ -51,7 +52,7 @@ src/
   components/shared/    sections used by several modules (AppHeader, Section, Link, VideoSection, …)
   components/<module>/  sections of one module (home/, wahlometer/, donate/, about/, contact/, legal/, engineering/, …)
   components/mdx/       MdxPage (render + head), MDXComponents (registry)
-  lib/                  animate.ts (jQuery animations), legacy-redirect.ts, metadata.ts,
+  lib/                  animate.ts (jQuery animations), legacy-redirect.ts, legacy-paths.ts, metadata.ts,
                         routes.ts, stylesheets.ts, base-path.ts, content/ (loaders), schemas/,
                         bootstrap-modal.ts (Bootstrap 4 modal), bootstrap-collapse.ts (Bootstrap 4
                         collapse), bootstrap-tooltip.ts (Bootstrap 4 tooltip, Popper.js 1.12.9),
@@ -64,7 +65,8 @@ scripts/                validate-content.ts, compare.ts, serve-basepath.mjs, imp
                         compare-blog-dom.ts, compare-blog-feed.ts, compare-blog-search.ts,
                         blog/ (HTML → Markdown, DOM normalization, live fixes),
                         serve-apache.sh + check-htaccess.ts (out/.htaccess on Apache), publish-build-branch.sh
-tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byte: app JSON, legal texts)
+tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byte: app JSON, legal texts),
+tests/legacy-urls.ts (every kind of old URL and its target, for Playwright and check-htaccess)
 ```
 
 ## Porting a module
@@ -169,9 +171,16 @@ Read-only, one request at a time, cached in `.cache/blog-import/` (`--refresh` r
 
 ## Routing and legacy links
 
-The app has two root layouts in route groups: `src/app/(site)/layout.tsx` (website frame, `SiteDocument`) and the blog (`src/app/(blog)`); a navigation between them loads the full page. Unknown paths get `src/app/global-not-found.tsx` (`experimental.globalNotFound`, the 404 page in the website frame). `routes.yaml` is the single source for paths. `LegacyRedirectScript` inlines `resolveLegacyUrl()` into `<head>` and forwards `#!<state>`, `#!<state>#<anchor>`, `?page=<state>`, `?_escaped_fragment_=<state>` and `aliases` before rendering, and again on `hashchange`. Unknown states land on `/` like live. Aliases also get a static forwarding page from `src/app/[...alias]`. `resolveLegacyUrl()` is serialised with `toString()`: keep it free of inner functions and outside references (a unit test guards this).
+The app has two root layouts in route groups: `src/app/(site)/layout.tsx` (website frame, `SiteDocument`) and the blog (`src/app/(blog)`); a navigation between them loads the full page. Unknown paths get `src/app/global-not-found.tsx` (`experimental.globalNotFound`, the 404 page in the website frame). `routes.yaml` is the single source for paths and states.
 
-On Apache (Plesk, see [`docs/hosting-plesk.md`](docs/hosting-plesk.md)) `out/.htaccess` does the same server-side with 301s before any HTML loads: `?page=`/`?_escaped_fragment_=` states and aliases from `routes.yaml`, invite links, WordPress short links (`?p=`, `?cat=`, `?author=`) from `content/blog/`, the old APK/AAB downloads, `api.php` as `application/json`, `ErrorDocument 404` and `X-Robots-Tag: noindex` on every host except production. `src/lib/htaccess.ts` builds it from the same data at build time. A new legacy URL goes into `resolveLegacyUrl()` (or `aliases`), `buildHtaccess()` and the list in `scripts/check-htaccess.ts`; check with `pnpm serve-apache` and `pnpm check-htaccess` (local Apache 2.4) or `pnpm check-htaccess https://<host>`. Hosts without `.htaccess` (GitHub Pages, `serve out`) ignore the file.
+Old URLs are forwarded in two ways from the same data:
+
+- **Client** (every host): `LegacyRedirectScript` inlines `resolveLegacyUrl()` into `<head>` of every website page **and of the 404 page**, and forwards before rendering, again on `hashchange`: `#!<state>`, `#!<state>#<anchor>`, state variables `#!<state>;<key>.<value>` (→ query parameters, e.g. `#!unsubscribe;token.<x>` of old newsletter mails → `/unsubscribe/?token=<x>`), `?page=<state>`, `?_escaped_fragment_=<state>`, `/%23!<state>`, `aliases` and the old paths of `src/lib/legacy-paths.ts`. On hosts without `.htaccess` an old path that is no file (`/invite/<code>`, `/index.php`, `/files/download/democracy-app.apk`) gets the 404 page, whose script forwards it. Unknown states land on `/` like live. Aliases also get a static forwarding page from `src/app/[...alias]`. `resolveLegacyUrl()` is serialised with `toString()`: keep it free of inner functions, callbacks and outside references (a unit test guards this). `BlogQueryScript` forwards the WordPress short links `?p=` on `/blog/`.
+- **Server** (Apache on Plesk, see [`docs/hosting-plesk.md`](docs/hosting-plesk.md)): `out/.htaccess` (`src/lib/htaccess.ts`, built from the same data) answers with 301/302 before any HTML loads: states and aliases from `routes.yaml`, every rule of `legacy-paths.ts`, WordPress queries (`?p=`, `?cat=`, `?author=`, `?tag=`, `?m=`, `?feed=`) from `content/blog/`, plus `api.php` as `application/json`, `ErrorDocument 404` and `X-Robots-Tag: noindex` on every host except production. Hash links never reach the server.
+
+**`src/lib/legacy-paths.ts`** is the rule table for old paths outside the hash router (`index.php`, invite links → `/`, Wahl-O-Meter spellings, APK/AAB → GitHub release with 302, `/blog/index.php`, `…/page/1/`, Atom/RDF feeds): `from` is a regex on the path without leading slash that JavaScript and PCRE read the same way, `to` a path or absolute URL with `$1`… (only in the path), `status`, `ignoreCase`, `dropQuery`. `buildHtaccess()` adds a loop guard when a rule matches its own target.
+
+**`tests/legacy-urls.ts`** lists every kind of old URL with the place a visitor ends up (`to`, null = 404 page) and the first answer of Apache (`server`). `tests/e2e/legacy-urls.spec.ts` and `tests/basepath/legacy-urls.spec.ts` open each one on a static host (`client: "file"` only requests it, `client: false` marks the few WordPress query forms only Apache forwards); `pnpm check-htaccess [url]` requests each one from Apache (`pnpm serve-apache` locally, or the test host). A new old URL goes into `routes.yaml` (state, alias) or `legacy-paths.ts`, and with an example into `tests/legacy-urls.ts`. `serve` (e2e) does not add the trailing slash of directories like GitHub Pages and Apache do; the check accepts both spellings when that is the only difference.
 
 ## MDX gotchas
 
@@ -215,7 +224,6 @@ On Apache (Plesk, see [`docs/hosting-plesk.md`](docs/hosting-plesk.md)) `out/.ht
 | `ContactForm`                           | contact: form of default_contact.tpl, checks and sending (client, see "Forms")      |
 | `LegalText`                             | legal pages: `content/legal/<name>.md` as Markdown with HTML (`name="impressum"`)   |
 | `Roadmap`                               | engineering: roadmap table from `roadmap.yaml`, icons via `iconClass()`             |
-| `AlphaBadges`                           | engineering: store badges (`StoreBadge variant="2"`, hover) and button to `alpha`   |
 | `BugReportForm`                         | engineering: bug report form, checks, sending, screenshot notice (see "Forms")      |
 | `VolunteerForm`                         | engineering: volunteer form with checkboxes (`roles`, `feature`) (client)           |
 | `Hotspot`                               | citizen/politicians: numbered hotspot with Bootstrap tooltip (client)               |
