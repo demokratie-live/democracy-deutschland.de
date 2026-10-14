@@ -31,6 +31,7 @@ const pages = [
   { path: "/datenschutz/", fonts: [...FONTS] },
   { path: "/nutzungsbedingungen/", fonts: [...FONTS] },
   { path: "/engineering/", fonts: [...FONTS] },
+  { path: "/unsubscribe/", fonts: [...FONTS] },
   { path: "/buerger/", fonts: [...FONTS] },
   { path: "/politiker/", fonts: [...FONTS] },
 ];
