@@ -86,15 +86,6 @@ test("navigation keeps the basePath", async ({ page }) => {
   await expect(page.locator(".header-home")).toBeVisible();
 });
 
-test("legacy links forward below the basePath", async ({ page }) => {
-  await page.goto(`${BASE}/#!wahlometer`);
-  await expect(page).toHaveURL(new RegExp(`${BASE}/wahlometer/$`));
-  await page.goto(`${BASE}/democracy/`);
-  await expect(page).toHaveURL(new RegExp(`${BASE}/$`));
-  await page.goto(`${BASE}/#!engineering#help`);
-  await expect(page).toHaveURL(new RegExp(`${BASE}/engineering/#help$`));
-});
-
 test("donation downloads and the app JSON live below the basePath", async ({ page }) => {
   await page.goto(`${BASE}/spenden/`);
   const satzung = page.getByRole("link", { name: "Satzung" });

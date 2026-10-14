@@ -1,6 +1,8 @@
 /**
  * Checks the server-side rules of out/.htaccess (src/lib/htaccess.ts) against
- * a running Apache: status, Location and Content-Type of every old URL.
+ * a running Apache: status, Location and Content-Type of every old URL of
+ * tests/legacy-urls.ts (the same table the client-side Playwright tests use)
+ * plus the answers that are not redirects (pages, 404, app JSON, feeds).
  *
  *   pnpm check-htaccess [base-url]        default http://127.0.0.1:3098
  *
@@ -8,7 +10,7 @@
  * subdomain on Plesk or, after the switch, production. Redirects are not
  * followed. Exit code 1 when a check fails.
  */
-import { getAppLinks, getBlogPosts, getRoutes } from "../src/lib/content";
+import { legacyUrls } from "../tests/legacy-urls";
 
 const base = (process.argv[2] ?? "http://127.0.0.1:3098").replace(/\/$/, "");
 
@@ -20,71 +22,34 @@ interface Check {
   contentType?: string;
 }
 
-async function checks(): Promise<Check[]> {
-  const [routes, appLinks, posts] = await Promise.all([getRoutes(), getAppLinks(), getBlogPosts()]);
-  const post = posts.at(-1)!;
+function checks(): Check[] {
+  const html = "text/html; charset=utf-8";
+  const json = "application/json";
   const list: Check[] = [
-    { path: "/", status: 200, contentType: "text/html; charset=utf-8" },
-    { path: "/ueber-uns", status: 301, location: "/ueber-uns/" },
-    { path: "/gibtsnicht/", status: 404, contentType: "text/html; charset=utf-8" },
-    { path: "/api.php", status: 200, contentType: "application/json" },
-    { path: "/api.php?call=donation_status", status: 200, contentType: "application/json" },
-    { path: "/api/donation_status.json", status: 200, contentType: "application/json" },
-    { path: "/index.php", status: 301, location: "/" },
-    { path: "/?page=gibtsnicht", status: 301, location: "/" },
-    { path: "/?page=unsubscribe&token=a%2Bb", status: 301, location: "/unsubscribe/?token=a%2Bb" },
-    { path: "/?x=1&page=donate&y=2", status: 301, location: "/spenden/?x=1&y=2" },
-    { path: "/index.php?page=engineering", status: 301, location: "/engineering/" },
-    { path: "/?_escaped_fragment_=faq", status: 301, location: "/faq/" },
-    { path: "/%23!donate", status: 301, location: "/#!donate" },
-    { path: "/Wahlometer", status: 301, location: "/wahlometer/" },
-    { path: "/wahl-o-meter/", status: 301, location: "/wahlometer/" },
-    { path: "/wahlometer", status: 301, location: "/wahlometer/" },
-    { path: "/wahlometer/", status: 200 },
-    { path: "/invite", status: 301, location: "/invite/" },
-    { path: "/invite/ABC123", status: 301, location: "/invite/?code=ABC123" },
-    { path: "/invite.php?code=ABC123", status: 301, location: "/invite/?code=ABC123" },
-    { path: "/files/download/democracy-app.apk", status: 302, location: appLinks.apk },
-    { path: "/files/download/democracy-app.aab", status: 302, location: appLinks.aab },
+    { path: "/", status: 200, contentType: html },
+    { path: "/gibtsnicht/", status: 404, contentType: html },
+    { path: "/wahlometer/", status: 200, contentType: html },
+    { path: "/api.php", status: 200, contentType: json },
+    { path: "/api.php?call=donation_status", status: 200, contentType: json },
+    { path: "/api/donation_status.json", status: 200, contentType: json },
     { path: "/files/download/Satzung_DEMOCRACY.pdf", status: 200, contentType: "application/pdf" },
-    { path: `/blog/?p=${post.frontmatter.wpId}`, status: 301, location: post.permalink },
-    { path: `/blog/index.php?p=${post.frontmatter.wpId}`, status: 301, location: post.permalink },
-    { path: "/blog/?p=999999", status: 404 },
-    { path: "/blog/index.php", status: 301, location: "/blog/" },
-    { path: post.permalink.replace(/\/$/, ""), status: 301, location: post.permalink },
-    {
-      path: `/blog/?post_type=post&p=${post.frontmatter.wpId}`,
-      status: 301,
-      location: post.permalink,
-    },
-    { path: "/blog/?feed=rss2", status: 301, location: "/blog/feed/" },
-    { path: "/blog/feed/atom/", status: 301, location: "/blog/feed/" },
-    { path: "/blog/page/1/", status: 301, location: "/blog/" },
-    {
-      path: "/blog/feed/",
-      status: 200,
-      contentType: "application/rss+xml;charset=utf-8",
-    },
+    { path: "/blog/feed/", status: 200, contentType: "application/rss+xml;charset=utf-8" },
   ];
-  for (const route of routes.routes) {
-    list.push({ path: `/?page=${route.state}`, status: 301, location: route.path });
-  }
-  const [year, month] = post.frontmatter.date.split("-");
-  list.push(
-    { path: `/blog/?m=${year}${month}`, status: 301, location: `/blog/${year}/${month}/` },
-    { path: `/blog/?m=${year}`, status: 301, location: `/blog/${year}/` },
-  );
-  const tag = posts.find((entry) => entry.frontmatter.tags.length)?.frontmatter.tags[0];
-  if (tag) list.push({ path: `/blog/?tag=${tag}`, status: 301, location: `/blog/tag/${tag}/` });
-  for (const alias of routes.aliases) {
-    list.push({ path: alias.from, status: 301, location: alias.to });
+  for (const entry of legacyUrls()) {
+    if (!entry.server) continue;
+    const { status, location } = entry.server;
+    list.push({
+      path: entry.from,
+      status,
+      location: status === 301 || status === 302 ? (location ?? entry.to ?? undefined) : undefined,
+    });
   }
   return list;
 }
 
 async function main() {
   let failed = 0;
-  for (const check of await checks()) {
+  for (const check of checks()) {
     const response = await fetch(base + check.path, { redirect: "manual" });
     const location = response.headers.get("location") ?? undefined;
     const contentType = response.headers.get("content-type") ?? undefined;

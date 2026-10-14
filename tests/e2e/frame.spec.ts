@@ -128,26 +128,7 @@ test.describe("head", () => {
 });
 
 test.describe("legacy links", () => {
-  const cases: Array<[string, RegExp]> = [
-    ["/#!wahlometer", /\/wahlometer\/$/],
-    ["/#!home", /localhost:\d+\/$/],
-    ["/#!about", /\/ueber-uns\/$/],
-    ["/#!press", /\/presse\/$/],
-    ["/#!faq", /\/faq\/$/],
-    ["/#!engineering#help", /\/engineering\/#help$/],
-    ["/#!wahlometer#wom-campaign-container", /\/wahlometer\/#wom-campaign-container$/],
-    ["/?page=unsubscribe&token=abc", /\/unsubscribe\/\?token=abc$/],
-    ["/?_escaped_fragment_=donate", /\/spenden\/$/],
-    ["/#!gibt-es-nicht", /localhost:\d+\/$/],
-    ["/democracy/", /localhost:\d+\/$/],
-  ];
-  for (const [from, to] of cases) {
-    test(`${from} → ${to}`, async ({ page }) => {
-      await page.goto(from);
-      await expect(page).toHaveURL(to);
-    });
-  }
-
+  // Every old URL: tests/legacy-urls.ts (tests/e2e/legacy-urls.spec.ts).
   test("a later hash change to #!state forwards as well", async ({ page }) => {
     await page.goto("/");
     await page.evaluate(() => (window.location.hash = "#!wahlometer"));
