@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { buildHtaccess, type HtaccessInput } from "./htaccess";
+import { legacyPathRules } from "./legacy-paths";
 
 const input: HtaccessInput = {
   routes: {
@@ -53,11 +54,33 @@ test("one redirect per state, unknown states land on the start page", () => {
 test("aliases, invite links and app downloads", () => {
   const out = lines();
   assert.ok(out.includes("RewriteRule ^democracy/?$ / [R=301,L]"));
-  assert.ok(out.includes("RewriteRule ^invite/([^/]+)/?$ /invite/?code=$1 [B,QSA,R=301,L]"));
+  assert.ok(out.includes("RewriteRule ^invite(?:\\.php|/[^/]*/?)?$ /? [R=301,L]"));
   assert.ok(
     out.includes(
       `RewriteRule ^files/download/democracy-app\\.apk$ ${input.appLinks.apk} [R=302,L]`,
     ),
+  );
+});
+
+test("every rule of legacy-paths.ts, with a guard where it matches its own target", () => {
+  const out = lines();
+  for (const rule of legacyPathRules(input.appLinks)) {
+    assert.ok(
+      out.some((line) => line.startsWith(`RewriteRule ^${rule.from}$ `)),
+      `missing ${rule.from}`,
+    );
+  }
+  const wahlometer = out.indexOf("RewriteRule ^wahl-?o-?meter/?$ /wahlometer/ [R=301,L,NC]");
+  assert.equal(out[wahlometer - 1], "RewriteCond %{REQUEST_URI} !=/wahlometer/");
+  assert.ok(out.includes("RewriteRule ^index\\.php$ / [R=301,L]"));
+  assert.ok(!out.some((line) => line.startsWith("RewriteCond %{REQUEST_URI} !=/ ")));
+});
+
+test("path rules come after the WordPress queries", () => {
+  const out = lines();
+  const shortLinks = out.indexOf("RewriteCond %{QUERY_STRING} (?:^|&)p=196(?:&|$)");
+  assert.ok(
+    shortLinks > 0 && shortLinks < out.indexOf("RewriteRule ^blog/index\\.php$ /blog/ [R=301,L]"),
   );
 });
 
@@ -82,7 +105,9 @@ test("targets carry the basePath, patterns stay relative", () => {
   assert.ok(out.includes("ErrorDocument 404 /sub/404.html"));
   assert.ok(out.includes("RewriteRule ^ /sub/ueber-uns/?%{ENV:LEGACY_QUERY} [R=301,L,NE]"));
   assert.ok(out.includes("RewriteRule ^democracy/?$ /sub/ [R=301,L]"));
-  assert.ok(out.includes("RewriteCond %{REQUEST_URI} !^/sub/wahlometer/"));
+  assert.ok(out.includes("RewriteCond %{REQUEST_URI} !=/sub/wahlometer/"));
+  assert.ok(out.includes("RewriteRule ^invite(?:\\.php|/[^/]*/?)?$ /sub/? [R=301,L]"));
+  assert.ok(out.includes("RewriteRule ^blog/(.+/)?page/1/?$ /sub/blog/$1 [R=301,L]"));
 });
 
 test("WordPress queries, page 1 and feeds", () => {
@@ -90,7 +115,10 @@ test("WordPress queries, page 1 and feeds", () => {
   assert.ok(out.includes("RewriteRule ^blog/(?:index\\.php)?$ /blog/tag/%1/? [R=301,L]"));
   assert.ok(out.includes("RewriteRule ^blog/(?:index\\.php)?$ /blog/%1/%2/? [R=301,L]"));
   assert.ok(out.includes("RewriteRule ^blog/(?:index\\.php)?$ /blog/feed/? [R=301,L]"));
-  assert.ok(out.includes("RewriteRule ^(blog/(?:.+/)?)page/1/?$ /$1 [R=301,L]"));
+  assert.ok(out.includes("RewriteRule ^blog/(.+/)?page/1/?$ /blog/$1 [R=301,L]"));
+  assert.ok(
+    out.includes("RewriteRule ^blog/((?:.+/)?)feed/(?:atom|rdf|rss2?)/?$ /blog/$1feed/ [R=301,L]"),
+  );
   assert.ok(
     out.includes(
       "RewriteRule ^blog/(?:.+/)?feed/index\\.html$ - [T=application/rss+xml;charset=UTF-8]",

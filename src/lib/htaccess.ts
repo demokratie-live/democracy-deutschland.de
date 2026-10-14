@@ -1,3 +1,4 @@
+import { legacyPathRules, type LegacyPathRule } from "./legacy-paths";
 import type { Routes } from "./schemas";
 
 /** Data the generated .htaccess is built from (see src/app/(site)/.htaccess/route.ts). */
@@ -20,6 +21,25 @@ function escapeRegex(text: string): string {
 /** Path of a route as RewriteRule pattern: relative to the .htaccess directory. */
 function pattern(path: string): string {
   return escapeRegex(path.replace(/^\/+/, ""));
+}
+
+/** One rule of legacy-paths.ts as RewriteRule (the client does the same in resolveLegacyUrl()). */
+function pathRule(rule: LegacyPathRule, basePath: string): string[] {
+  const external = /^https?:/.test(rule.to);
+  const target = external ? rule.to : `${basePath}${rule.to}`;
+  const flags = [`R=${rule.status ?? 301}`, "L"];
+  if (rule.ignoreCase) flags.push("NC");
+  if (!rule.dropQuery && target.includes("?")) flags.push("QSA");
+  const lines = rule.comment.split("\n").map((line) => `# ${line}`);
+  // A rule that matches its own target would loop (/wahlometer/ with NC).
+  const matchesTarget =
+    !external &&
+    new RegExp(`^(?:${rule.from})$`, rule.ignoreCase ? "i" : "").test(rule.to.slice(1));
+  if (matchesTarget) lines.push(`RewriteCond %{REQUEST_URI} !=${target}`);
+  lines.push(
+    `RewriteRule ^${rule.from}$ ${target}${rule.dropQuery ? "?" : ""} [${flags.join(",")}]`,
+  );
+  return lines;
 }
 
 /**
@@ -95,7 +115,6 @@ export function buildHtaccess(input: HtaccessInput): string {
     "# Unknown states land on the start page like live.",
     "RewriteCond %{ENV:LEGACY} =1",
     `RewriteRule ^ ${to(start)}?%{ENV:LEGACY_QUERY} [R=301,L,NE]`,
-    `RewriteRule ^index\\.php$ ${to("/")} [R=301,L]`,
   );
 
   if (routes.aliases.length > 0) {
@@ -107,25 +126,6 @@ export function buildHtaccess(input: HtaccessInput): string {
       ),
     );
   }
-
-  add(
-    "# Spellings of the Wahl-O-Meter (/Wahlometer, /wahl-o-meter, …)",
-    `RewriteCond %{REQUEST_URI} !^${escapeRegex(to("/wahlometer/"))}`,
-    `RewriteRule ^wahl-?o-?meter/?$ ${to("/wahlometer/")} [NC,R=301,L]`,
-  );
-
-  add(
-    "# Invite links from old e-mails (old .htaccess: invite/<code>, invite → invite.php)",
-    `RewriteRule ^invite\\.php$ ${to("/invite/")} [R=301,L]`,
-    `RewriteRule ^invite$ ${to("/invite/")} [R=301,L]`,
-    `RewriteRule ^invite/([^/]+)/?$ ${to("/invite/")}?code=$1 [B,QSA,R=301,L]`,
-  );
-
-  add(
-    "# Old APK/AAB downloads → GitHub releases (302: “latest” moves with every release)",
-    `RewriteRule ^files/download/democracy-app\\.apk$ ${appLinks.apk} [R=302,L]`,
-    `RewriteRule ^files/download/democracy-app\\.aab$ ${appLinks.aab} [R=302,L]`,
-  );
 
   const blogIndex = "^blog/(?:index\\.php)?$";
   const shortLink = (key: string, id: number, path: string) => [
@@ -151,15 +151,13 @@ export function buildHtaccess(input: HtaccessInput): string {
     `RewriteRule ${blogIndex} ${to("/blog/%1/")}? [R=301,L]`,
     "RewriteCond %{QUERY_STRING} (?:^|&)feed=(?:rss2?|atom|rdf)(?:&|$)",
     `RewriteRule ${blogIndex} ${to("/blog/feed/")}? [R=301,L]`,
-    `RewriteRule ^blog/index\\.php$ ${to("/blog/")} [R=301,L]`,
   );
 
+  // After the WordPress queries: /blog/index.php?p=<id> goes to the permalink in one step.
+  for (const rule of legacyPathRules(appLinks)) add(...pathRule(rule, basePath));
+
   add(
-    "# Page 1 of a list is the list itself: /blog/page/1/, /blog/category/<slug>/page/1/",
-    `RewriteRule ^(blog/(?:.+/)?)page/1/?$ ${to("/$1")} [R=301,L]`,
-    "# Feeds: the export writes …/feed/index.html; serve it as RSS like WordPress. Only RSS 2.0",
-    "# exists, Atom and RDF forward to it.",
-    `RewriteRule ^(blog/(?:.+/)?feed)/(?:atom|rdf|rss2?)/?$ ${to("/$1/")} [R=301,L]`,
+    "# Feeds: the export writes …/feed/index.html; serve it as RSS like WordPress.",
     "RewriteRule ^blog/(?:.+/)?feed/index\\.html$ - [T=application/rss+xml;charset=UTF-8]",
   );
 
