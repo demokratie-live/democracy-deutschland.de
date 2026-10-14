@@ -84,3 +84,16 @@ test("targets carry the basePath, patterns stay relative", () => {
   assert.ok(out.includes("RewriteRule ^democracy/?$ /sub/ [R=301,L]"));
   assert.ok(out.includes("RewriteCond %{REQUEST_URI} !^/sub/wahlometer/"));
 });
+
+test("WordPress queries, page 1 and feeds", () => {
+  const out = lines();
+  assert.ok(out.includes("RewriteRule ^blog/(?:index\\.php)?$ /blog/tag/%1/? [R=301,L]"));
+  assert.ok(out.includes("RewriteRule ^blog/(?:index\\.php)?$ /blog/%1/%2/? [R=301,L]"));
+  assert.ok(out.includes("RewriteRule ^blog/(?:index\\.php)?$ /blog/feed/? [R=301,L]"));
+  assert.ok(out.includes("RewriteRule ^(blog/(?:.+/)?)page/1/?$ /$1 [R=301,L]"));
+  assert.ok(
+    out.includes(
+      "RewriteRule ^blog/(?:.+/)?feed/index\\.html$ - [T=application/rss+xml;charset=UTF-8]",
+    ),
+  );
+});

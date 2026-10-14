@@ -52,10 +52,30 @@ async function checks(): Promise<Check[]> {
     { path: "/blog/?p=999999", status: 404 },
     { path: "/blog/index.php", status: 301, location: "/blog/" },
     { path: post.permalink.replace(/\/$/, ""), status: 301, location: post.permalink },
+    {
+      path: `/blog/?post_type=post&p=${post.frontmatter.wpId}`,
+      status: 301,
+      location: post.permalink,
+    },
+    { path: "/blog/?feed=rss2", status: 301, location: "/blog/feed/" },
+    { path: "/blog/feed/atom/", status: 301, location: "/blog/feed/" },
+    { path: "/blog/page/1/", status: 301, location: "/blog/" },
+    {
+      path: "/blog/feed/",
+      status: 200,
+      contentType: "application/rss+xml;charset=utf-8",
+    },
   ];
   for (const route of routes.routes) {
     list.push({ path: `/?page=${route.state}`, status: 301, location: route.path });
   }
+  const [year, month] = post.frontmatter.date.split("-");
+  list.push(
+    { path: `/blog/?m=${year}${month}`, status: 301, location: `/blog/${year}/${month}/` },
+    { path: `/blog/?m=${year}`, status: 301, location: `/blog/${year}/` },
+  );
+  const tag = posts.find((entry) => entry.frontmatter.tags.length)?.frontmatter.tags[0];
+  if (tag) list.push({ path: `/blog/?tag=${tag}`, status: 301, location: `/blog/tag/${tag}/` });
   for (const alias of routes.aliases) {
     list.push({ path: alias.from, status: 301, location: alias.to });
   }

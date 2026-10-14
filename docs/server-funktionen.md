@@ -54,7 +54,7 @@ Die statische Seite läuft ohne Server (z.B. GitHub Pages). Diese Liste hält fe
 
 **Kurzlinks:** `/blog/?p=<ID>` und `/blog/?post_type=post&p=<ID>` landen auf `/blog/index.html`; ein Inline-Skript im Head (`BlogQueryScript`, `resolveBlogShortlink()` in `src/lib/blog/shortlink.ts`) leitet vor dem Rendern auf den Permalink um. Ohne JavaScript zeigt die Seite die Blog-Übersicht.
 
-**Möglich auf Plesk (Vorschlag für TASK-82):** per `.htaccess` den Feeds `Content-Type: application/rss+xml; charset=UTF-8` geben (z. B. `RewriteRule ^blog/(?:(?:category|author|tag)/[^/]+/)?feed/(?:index\.html)?$ - [T=application/rss+xml]`) und die Kurzlinks serverseitig mit 301 umleiten (je Post eine Regel mit `RewriteCond %{QUERY_STRING}`, beim Build aus `wpId` erzeugt). Die clientseitigen Wege bleiben für Hosts ohne `.htaccess`.
+**Auf Plesk (Apache):** Die generierte `out/.htaccess` gibt den Feeds `Content-Type: application/rss+xml; charset=UTF-8` und leitet die Kurzlinks (`?p=`, `?post_type=post&p=`, `?cat=`, `?author=`, `?tag=`, `?m=`, `?feed=`) serverseitig mit 301 um wie WordPress, unbekannte Post-IDs mit 404 (`docs/hosting-plesk.md`). Die clientseitigen Wege bleiben für Hosts ohne `.htaccess`.
 
 ## Spenden-JSON für die App
 

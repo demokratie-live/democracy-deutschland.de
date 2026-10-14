@@ -142,7 +142,25 @@ export function buildHtaccess(input: HtaccessInput): string {
     `RewriteRule ${blogIndex} - [R=404]`,
     ...categories.flatMap((term) => shortLink("cat", term.id, `/blog/category/${term.slug}/`)),
     ...authors.flatMap((term) => shortLink("author", term.id, `/blog/author/${term.slug}/`)),
+    "# ?tag=<slug>, ?m=<yyyymm>, ?m=<yyyy> and ?feed=… like WordPress",
+    "RewriteCond %{QUERY_STRING} (?:^|&)tag=([a-z0-9-]+)(?:&|$)",
+    `RewriteRule ${blogIndex} ${to("/blog/tag/%1/")}? [R=301,L]`,
+    "RewriteCond %{QUERY_STRING} (?:^|&)m=([0-9]{4})([0-9]{2})(?:&|$)",
+    `RewriteRule ${blogIndex} ${to("/blog/%1/%2/")}? [R=301,L]`,
+    "RewriteCond %{QUERY_STRING} (?:^|&)m=([0-9]{4})(?:&|$)",
+    `RewriteRule ${blogIndex} ${to("/blog/%1/")}? [R=301,L]`,
+    "RewriteCond %{QUERY_STRING} (?:^|&)feed=(?:rss2?|atom|rdf)(?:&|$)",
+    `RewriteRule ${blogIndex} ${to("/blog/feed/")}? [R=301,L]`,
     `RewriteRule ^blog/index\\.php$ ${to("/blog/")} [R=301,L]`,
+  );
+
+  add(
+    "# Page 1 of a list is the list itself: /blog/page/1/, /blog/category/<slug>/page/1/",
+    `RewriteRule ^(blog/(?:.+/)?)page/1/?$ ${to("/$1")} [R=301,L]`,
+    "# Feeds: the export writes …/feed/index.html; serve it as RSS like WordPress. Only RSS 2.0",
+    "# exists, Atom and RDF forward to it.",
+    `RewriteRule ^(blog/(?:.+/)?feed)/(?:atom|rdf|rss2?)/?$ ${to("/$1/")} [R=301,L]`,
+    "RewriteRule ^blog/(?:.+/)?feed/index\\.html$ - [T=application/rss+xml;charset=UTF-8]",
   );
 
   return lines.join("\n");

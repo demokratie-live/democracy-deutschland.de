@@ -215,3 +215,15 @@ Die Restpixel sind Kantenglättung einzelner Glyphen (Subpixel-Position), kein L
 ```bash
 pnpm compare /engineering/ --live-eval 'const z = document.getElementById("bug-file-drop-zone"); z.textContent = "Screenshots? Nach „Bericht senden“ öffnet sich Dein Mailprogramm, dort einfach anhängen."; z.id = "bug-attachments"; document.getElementById("bug-files").remove(); document.querySelector(".js-upload-finished").remove();'
 ```
+
+## Serverseitig auf Apache (Plesk)
+
+Gilt nur, wo `out/.htaccess` greift (`docs/hosting-plesk.md`). Auf Hosts ohne `.htaccess` bleibt es bei den clientseitigen Weiterleitungen oben.
+
+| Thema                                                                                     | Live                                                      | Statische Seite auf Plesk                                           | Grund                                                                       |
+| ----------------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Alte Links (`?page=`, `?_escaped_fragment_=`, `/democracy/`, Invite, WordPress-Kurzlinks) | PHP bzw. WordPress beantworten sie, `/democracy/` mit 403 | 301 auf den neuen Pfad, bevor HTML lädt; `/democracy/` → `/`        | Suchmaschinen und Links ohne JavaScript landen direkt richtig               |
+| Schreibweisen des Wahl-O-Meters (`/Wahlometer`, `/wahl-o-meter/`, `/wahlometer`)          | 404                                                       | 301 auf `/wahlometer/`                                              | naheliegende Tippformen aus Druck und sozialen Medien                       |
+| Feeds `…/feed/atom/`, `…/feed/rdf/`                                                       | Atom bzw. RDF                                             | 301 auf den RSS-Feed `…/feed/`                                      | statisch gibt es nur RSS 2.0, Feed-Reader folgen der Weiterleitung          |
+| `/files/download/democracy-app.{apk,aab}`                                                 | Datei vom Server                                          | 302 auf das GitHub-Release `latest`                                 | „latest“ wandert mit jedem Release, eine 301 bliebe im Browser-Cache hängen |
+| `/api.php`, `/api.php?call=donation_status`                                               | PHP, `application/json`, `Cache-Control: no-store`        | statische JSON-Datei, `application/json`, `Cache-Control: no-cache` | gleicher Inhalt ohne PHP; `no-cache` erlaubt die Prüfung per ETag           |
