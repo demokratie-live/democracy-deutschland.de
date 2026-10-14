@@ -37,7 +37,7 @@ public/
 src/
   app/(site)/           website: root layout (SiteDocument) and thin page shells <MdxPage id="…" />;
                         [...alias] forwarding pages; api.php/, api/donation_status.json/: static GET
-                        route handlers (app JSON)
+                        route handlers (app JSON); .htaccess/: out/.htaccess for Apache (Plesk)
   app/(blog)/blog/[[...path]]/  blog: one catch-all route with its own root layout (see "Blog");
                         feed/index.html/, {category,author,tag}/[slug]/feed/index.html/: RSS route
                         handlers; search-index.json/: data of the client search
@@ -56,13 +56,14 @@ src/
                         bootstrap-modal.ts (Bootstrap 4 modal), bootstrap-collapse.ts (Bootstrap 4
                         collapse), bootstrap-tooltip.ts (Bootstrap 4 tooltip, Popper.js 1.12.9),
                         roadmap.ts (icon_class()), donation.ts (PHP round/number_format/json_encode, donation
-                        JSON), donation-route.ts, content/blog.ts (blog posts, permalinks),
+                        JSON), donation-route.ts, htaccess.ts (+ htaccess-route.ts), content/blog.ts (blog posts, permalinks),
                         forms.ts (validateEmail, form checks, endpoint or mailto),
                         blog/ (view, listing, Markdown pipeline, srcset/loading, wptexturize, head
                         styles, feed, search, search-index, shortlink)
 scripts/                validate-content.ts, compare.ts, serve-basepath.mjs, import-blog.ts,
                         compare-blog-dom.ts, compare-blog-feed.ts, compare-blog-search.ts,
-                        blog/ (HTML → Markdown, DOM normalization, live fixes)
+                        blog/ (HTML → Markdown, DOM normalization, live fixes),
+                        serve-apache.sh + check-htaccess.ts (out/.htaccess on Apache), publish-build-branch.sh
 tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byte: app JSON, legal texts)
 ```
 
@@ -169,6 +170,8 @@ Read-only, one request at a time, cached in `.cache/blog-import/` (`--refresh` r
 ## Routing and legacy links
 
 The app has two root layouts in route groups: `src/app/(site)/layout.tsx` (website frame, `SiteDocument`) and the blog (`src/app/(blog)`); a navigation between them loads the full page. Unknown paths get `src/app/global-not-found.tsx` (`experimental.globalNotFound`, the 404 page in the website frame). `routes.yaml` is the single source for paths. `LegacyRedirectScript` inlines `resolveLegacyUrl()` into `<head>` and forwards `#!<state>`, `#!<state>#<anchor>`, `?page=<state>`, `?_escaped_fragment_=<state>` and `aliases` before rendering, and again on `hashchange`. Unknown states land on `/` like live. Aliases also get a static forwarding page from `src/app/[...alias]`. `resolveLegacyUrl()` is serialised with `toString()`: keep it free of inner functions and outside references (a unit test guards this).
+
+On Apache (Plesk, see [`docs/hosting-plesk.md`](docs/hosting-plesk.md)) `out/.htaccess` does the same server-side with 301s before any HTML loads: `?page=`/`?_escaped_fragment_=` states and aliases from `routes.yaml`, invite links, WordPress short links (`?p=`, `?cat=`, `?author=`) from `content/blog/`, the old APK/AAB downloads, `api.php` as `application/json`, `ErrorDocument 404` and `X-Robots-Tag: noindex` on every host except production. `src/lib/htaccess.ts` builds it from the same data at build time. A new legacy URL goes into `resolveLegacyUrl()` (or `aliases`), `buildHtaccess()` and the list in `scripts/check-htaccess.ts`; check with `pnpm serve-apache` and `pnpm check-htaccess` (local Apache 2.4) or `pnpm check-htaccess https://<host>`. Hosts without `.htaccess` (GitHub Pages, `serve out`) ignore the file.
 
 ## MDX gotchas
 

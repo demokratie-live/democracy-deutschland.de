@@ -74,6 +74,7 @@ Kein Server-Ersatz nötig. **Voraussetzungen beim Umzug (m-7):**
 - Die Seite muss unter der Domain-Wurzel laufen (eigene Domain ohne basePath). Unter der Projekt-URL `…github.io/democracy-deutschland.de/api.php` findet die App die Datei nicht.
 - Die App ruft `api.php` ohne `www.` auf, die Downloads (`Gemeinnutzigkeit_DEMOCRACY.pdf`, `Satzung_DEMOCRACY.pdf`, `Vereinfachter_Zuwendungsnachweis.pdf` unter `/files/download/`) dagegen mit `www.`. Beide Hostnamen müssen die Seite ausliefern oder umleiten. Die drei PDFs liegen unter den alten Pfaden.
 - GitHub Pages cacht mit `Cache-Control: max-age=600`; ein neuer Spendenstand erreicht die App also bis zu 10 Minuten nach dem Deploy.
+- Plesk (geprüft am 2026-10-14 auf einer Test-Subdomain): Mit PHP an führt Apache `api.php` als PHP aus (`text/html`), mit PHP aus liefert es die Datei roh (`application/x-httpd-php`). Die generierte `.htaccess` leitet `api.php` deshalb intern auf `api/donation_status.json` um: `application/json`, `Cache-Control: no-cache`, unabhängig von PHP. Für die Produktion PHP aus, siehe `docs/hosting-plesk.md`.
 - Andere Aufrufe der alten API (`api.php?call=pages`, `send_mail` …) liefern statt einer Fehlermeldung ebenfalls den Spendenstand. Die App nutzt nur `donation_status`.
 
 ## Formulare (`send_mail`)

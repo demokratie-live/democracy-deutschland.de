@@ -28,22 +28,24 @@ Open [http://localhost:3000](http://localhost:3000). Old links such as
 
 ## Common commands
 
-| Command                    | What it does                                                             |
-| -------------------------- | ------------------------------------------------------------------------ |
-| `pnpm dev`                 | Dev server with Turbopack                                                |
-| `pnpm build`               | Static export to `out/`                                                  |
-| `pnpm start`               | Serve `out/` on port 3000                                                |
-| `pnpm validate-content`    | Validate MDX/YAML against the Zod schemas and internal links             |
-| `pnpm compare <path>`      | Screenshots, text and head data of a local page against the live site    |
-| `pnpm import-blog`         | Import the WordPress blog into `content/blog/` and `public/blog/`        |
-| `pnpm compare-blog-dom`    | DOM of every blog page against the live blog                             |
-| `pnpm compare-blog-feed`   | Every blog feed against the live feed                                    |
-| `pnpm compare-blog-search` | Hits and order of the client search against the live search              |
-| `pnpm lint`                | ESLint                                                                   |
-| `pnpm format`              | Prettier (MDX pages and the original CSS are excluded)                   |
-| `pnpm test:unit`           | Unit tests                                                               |
-| `pnpm test:e2e`            | Build and run the Playwright tests (desktop and mobile)                  |
-| `pnpm test:basepath`       | Build with the GitHub Pages basePath and test assets and redirects there |
+| Command                     | What it does                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------- |
+| `pnpm dev`                  | Dev server with Turbopack                                                       |
+| `pnpm build`                | Static export to `out/`                                                         |
+| `pnpm start`                | Serve `out/` on port 3000                                                       |
+| `pnpm validate-content`     | Validate MDX/YAML against the Zod schemas and internal links                    |
+| `pnpm compare <path>`       | Screenshots, text and head data of a local page against the live site           |
+| `pnpm import-blog`          | Import the WordPress blog into `content/blog/` and `public/blog/`               |
+| `pnpm compare-blog-dom`     | DOM of every blog page against the live blog                                    |
+| `pnpm compare-blog-feed`    | Every blog feed against the live feed                                           |
+| `pnpm compare-blog-search`  | Hits and order of the client search against the live search                     |
+| `pnpm serve-apache`         | Serve `out/` with a local Apache 2.4 so `out/.htaccess` applies (`stop` to end) |
+| `pnpm check-htaccess [url]` | Check the server-side redirects of `out/.htaccess` (local Apache or a host)     |
+| `pnpm lint`                 | ESLint                                                                          |
+| `pnpm format`               | Prettier (MDX pages and the original CSS are excluded)                          |
+| `pnpm test:unit`            | Unit tests                                                                      |
+| `pnpm test:e2e`             | Build and run the Playwright tests (desktop and mobile)                         |
+| `pnpm test:basepath`        | Build with the GitHub Pages basePath and test assets and redirects there        |
 
 `pnpm compare /wahlometer/ --local http://localhost:3000` writes its results to
 `compare-results/wahlometer/index.html`. `--click <selector>` compares the state after a
@@ -213,3 +215,4 @@ for screenshots by mail. Its two wordings (with and without endpoint) are the pr
 - [`AGENTS.md`](./AGENTS.md) – architecture, rules for 1:1 markup, porting steps, gotchas
 - [`docs/abweichungen.md`](./docs/abweichungen.md) – deviations from the live site and fixed bugs
 - [`docs/server-funktionen.md`](./docs/server-funktionen.md) – server functions of the old site and their replacement
+- [`docs/hosting-plesk.md`](./docs/hosting-plesk.md) – hosting on Plesk: `.htaccess`, `api.php`, deploy via Plesk-Git and the branch `deploy`, switching production
