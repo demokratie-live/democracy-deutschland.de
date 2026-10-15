@@ -1,0 +1,52 @@
+1:"$Sreact.fragment"
+5:I[79802,["/_next/static/chunks/139frg5e5a2zz.js","/_next/static/chunks/004bqgatb.25p.js"],"OutletBoundary"]
+6:"$Sreact.suspense"
+2:T1d79,<p class="wp-block-paragraph">Hallo liebe:r Unterstützer:in,</p>
+<p class="wp-block-paragraph">ich mache es kurz: DEMOCRACY hatte einen schweren Stand in den letzten Monaten. Es ist Zeit für eine Auferstehung.<br>Ich wünsche Ihnen ein Frohes Osterfest und danke von ganzem Herzen für die beständige Unterstützung, </p>
+<p class="wp-block-paragraph">Herzliche Grüße,<br>
+Ihr Marius Krüger</p>
+<span id="more-594"></span>
+<h2 class="wp-block-heading"><strong>01 </strong>Personalkarussell Ende!</h2>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2021/04/27_01_PersonalkarussellEnde-1024x527.jpg" alt="" class="wp-image-595"></figure>
+<p class="wp-block-paragraph">Wie in der Einleitung schon angedeutet, hat dieser Newsletter Ihnen in den vergangenen Monaten einiges zugemutet. Es wurden viele neue Gesichter präsentiert, während konkrete Fortschritte oder tatsächliche Arbeitsergebnisse der Initiative zu kurz kamen. Mir hat dieser Paradigmenwechsel nicht gefallen. <strong>Ab sofort ist DEMOCRACY wieder</strong> die Initiative, wofür ich sie gegründet habe: um die <strong>Spielregeln</strong> zu <strong>verändern</strong>. Wer dazu beiträgt, können Sie jederzeit auf unserer Website einsehen.</p>
+<p class="has-text-align-center wp-block-paragraph"><a rel="noreferrer noopener" href="mailto:contact@democracy-deutschland.de" target="_blank">DAS TEAM</a></p>
+<p class="wp-block-paragraph"></p>
+<h2 class="wp-block-heading"><strong>02</strong> <strong>Mein Wort</strong></h2>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2021/04/27_02_Mein-Wort-1024x527.jpg" alt="" class="wp-image-596"></figure>
+<p class="wp-block-paragraph">Neuigkeiten? <strong>In 6 Monaten ist Bundestagswahl</strong>. Vier lange Jahre haben wir auf dieses Momentum gewartet. Ohne Riesenetat Marketing für eine Idee zu betreiben, von der Niemand weiß, dass es sie gibt, ist undankbar. Aber grinsen Sie sieben Wochen vor der Wahl erst die Politiker von ihren Wahlplakaten an, ist die omnipräsente Frage eines jeden: „Wen wähle ich eigentlich?“ – und damit eine <strong>millionenfache Nutzung unseres Wahl-O-Meters</strong> und der DEMOCRACY App <strong>möglich</strong>. Gemeinsam stehen wir vor einer historischen Chance. Wir machen es wie 2017. Einfach deshalb, weil es das Stück von Wahrheit ist, was ich fühlen kann. <strong>Dafür bin ich zurück</strong> und freue mich über Ihre Unterstützung!</p>
+<p class="has-text-align-center wp-block-paragraph"><a rel="noreferrer noopener" href="https://www.instagram.com/democracy_app/" target="_blank">JETZT SPENDEN</a></p>
+<p class="wp-block-paragraph"></p>
+<h2 class="wp-block-heading"><strong>03 </strong>DEMOCRACY‘21</h2>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2021/04/27_03_DEMOCRACY21-1024x527.jpg" alt="" class="wp-image-597"></figure>
+<p class="wp-block-paragraph">Die beste Möglichkeit die Zukunft vorauszusagen ist, sie zu erfinden. <strong>DEMOCRACY‘21 kommt</strong> mit Kandidaten-Wahl-O-Meter und Abgeordnetensuche.</p>
+<p class="has-text-align-center wp-block-paragraph"><a rel="noreferrer noopener" href="https://www.democracy-deutschland.de/#!donate" target="_blank">FEATURES VON ’21</a></p>
+<p class="wp-block-paragraph"></p>
+<h2 class="wp-block-heading"><strong>04 </strong>Veranstaltungen</h2>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2021/04/27_04_Veranstaltungen-1024x527.jpg" alt="" class="wp-image-598"></figure>
+<p class="wp-block-paragraph">News gibt es auch in Sachen öffentlicher Vertretung. Um für die Wahlkampfzeit Erfahrungen zu sammeln, war unsere<strong> PR-Referentin Katrin Engler</strong> im letzten Monat <strong>bei</strong> zwei Veranstaltungen: dem <strong>UpdateDeutschland-Hackathon</strong> und einem Diskussionspanel zum Thema Demokratie und Corona. Wir freuen uns über die positive Resonanz und blicken erwartungsvoll auf die nächsten Auftritte.</p>
+<p class="has-text-align-center wp-block-paragraph"><a rel="noreferrer noopener" aria-label=" (öffnet in neuem Tab)" href="https://devpost.com/software/democracy-app-i9oyx6" target="_blank">PITCH ANSEHEN</a></p>
+<p class="wp-block-paragraph"></p>
+<h2 class="wp-block-heading"><strong>5</strong> Wikipedia-Artikel</h2>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2021/04/27_05_WikipediaArtikel-1024x527.jpg" alt="" class="wp-image-599"></figure>
+<p class="wp-block-paragraph">Und zum Abschluss dieses Newsletter noch Nachrichten aus der Kategorie Erfreuliches. Nach fast vier Jahren existiert seit kurzem tatsächlich ein <strong>Wikipedia-Artikel über unsere Arbeit</strong>. Nachzulesen ist dort Genaueres zur Geschichte unserer Initiative und zum Konzept der App. Für uns ist das ein <strong>riesen Schritt</strong> in Sachen Kredibilität, <strong>in der größten</strong> Online-<strong>Enzyklopädie</strong> der Welt, mit einem eigenen Artikel <strong>zu finden zu sein</strong>.</p>
+<p class="has-text-align-center wp-block-paragraph"><a rel="noreferrer noopener" href="https://devpost.com/software/democracy-app-i9oyx6" target="_blank">WIKIPEDIA-ARTIKEL LESEN</a></p>
+<h3 class="wp-block-heading">Spendenfortschritt</h3>
+<p class="wp-block-paragraph">4.463€ von <strong>10.945€</strong> (min. Finanzierungsziel/Monat)<br>
+<a href="https://www.democracy-deutschland.de/#!donate">Mehr Informationen zum Spendenstand</a></p>
+<h3 class="wp-block-heading">Spendenkonto</h3>
+<p class="wp-block-paragraph">Unsere Bankverbindung für direkte Spenden, Überweisungen oder Daueraufträge lautet:</p>
+<p class="wp-block-paragraph">Kontoinhaber: DEMOCRACY Deutschland e.V.<br>
+IBAN: DE33 5003 1000 1049 7560 00<br>
+BIC: TRODDEF1</p>
+<p class="wp-block-paragraph">Der Verein DEMOCRACY Deutschland e.V. ist mit Bescheid des Finanzamts Göttingen vom 01.10.2019 als gemeinnütziger Verein zur Förderung des demokratischen Staatswesens sowie der Volks- und Berufsbildung offiziell anerkannt (<a href="https://www.democracy-deutschland.de/files/download/Freistellungsbescheid.pdf">Nachweis der Gemeinnützigkeit</a>; <a href="https://www.democracy-deutschland.de/files/download/Satzung_DEMOCRACY.pdf">Satzung</a>). Ihre Spenden sind daher steuerlich abzugsfähig. Für Spenden unter 200€ jährlich genügt der Zahlungsnachweis (z. B. Kontoauszug) zusammen mit unserem <a href="https://www.democracy-deutschland.de/files/download/Vereinfachter_Zuwendungsnachweis_2019.pdf">Vereinfachten Zuwendungsnachweis</a>. Wenn Sie eine separate Zuwendungsbestätigung benötigen, schreiben Sie uns bitte eine E-Mail oder geben Sie in Ihrer Überweisung Ihre Wohnadresse an.</p>
+<h3 class="wp-block-heading">Der Verein</h3>
+<p class="wp-block-paragraph">DEMOCRACY Deutschland e.V. (gemeinnützig)<br>
+Industriestraße 10<br>
+37079 Göttingen<br>
+Telefon: +49 176 470 40 213<br>
+E-Mail: <a href="mailto:contact@democracy-deutschland.de">contact@democracy-deutschland.de</a></p>
+<p class="wp-block-paragraph"><a href="https://www.facebook.com/democracygermany/">Facebook</a>, <a href="https://twitter.com/democracy_de">Twitter</a>, <a href="https://www.youtube.com/channel/UC2R4cGTq1LjFZ2DvDaVhDyg">YouTube</a>, <a href="https://github.com/demokratie-live/">GitHub</a>, <a href="https://discord.gg/Pdu3ZEV">Discord</a><br>
+<a href="https://www.democracy-deutschland.de/#!nutzungsbedingungen">Nutzungsbedingungen</a>, <a href="https://www.democracy-deutschland.de/#!datenschutz">Datenschutz</a></p>0:{"rsc":["$","$1","c",{"children":[["$","article",null,{"id":"post-594","className":"post single post-594 type-post status-publish format-standard has-post-thumbnail hentry category-newsletter","children":[["$","div",null,{"className":"post-inner","children":[["$","div",null,{"className":"post-header","children":[["$","h1",null,{"className":"post-title","children":["$","a",null,{"href":"/blog/2021/04/news-27-democracy21/","children":"News #27 – DEMOCRACY’21"}]}],["$","div",null,{"className":"post-meta","children":[["$","p",null,{"className":"post-author","children":[["$","span",null,{"children":"Von "}],["$","a",null,{"href":"/blog/author/marius/","rel":"author","children":"Marius Krüger"}]]}]," ",["$","p",null,{"className":"post-date","children":[["$","span",null,{"children":"Am "}],["$","a",null,{"href":"/blog/2021/04/news-27-democracy21/","children":"2. April 2021"}]]}]," ",["$","p",null,{"className":"post-categories","children":[["$","span",null,{"children":"In "}],[["$","$1","newsletter",{"children":[null,["$","a",null,{"href":"/blog/category/newsletter/","rel":"category tag","children":"Newsletter"}]]}]]]}]]}]]}],["$","div",null,{"className":"post-content entry-content","dangerouslySetInnerHTML":{"__html":"$2"}}],null]}],"$L3"]}],null,"$L4"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"rqdaV4bOO736MA26NZx0V"}
+3:["$","div",null,{"className":"post-navigation","children":["$","div",null,{"className":"post-navigation-inner group","children":[["$","div",null,{"className":"post-nav-prev","children":[["$","p",null,{"children":"Vorheriger"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2021/02/news-26-verlosung-und-team/","children":"News 26 – Verlosung und Team"}]}]]}],["$","div",null,{"className":"post-nav-next","children":[["$","p",null,{"children":"Nächster"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2021/08/news-28-1-4-taten-statt-worte/","children":"News #28 – 1.4 & Taten statt Worte"}]}]]}]]}]}]
+4:["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]
+7:null

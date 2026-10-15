@@ -1,0 +1,36 @@
+1:"$Sreact.fragment"
+5:I[79802,["/_next/static/chunks/139frg5e5a2zz.js","/_next/static/chunks/004bqgatb.25p.js"],"OutletBoundary"]
+6:"$Sreact.suspense"
+2:T1069,<p class="wp-block-paragraph"><span style="font-weight: 400;">Liebe/r UnterstützerIn,</span></p>
+<p class="wp-block-paragraph"> </p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">es gibt Neuigkeiten von Ihrem Lieblingsprojekt – der DEMOCRACY App!</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">Wir wollen als erstes fröhliche Weihnachten wünschen und eine besinnliche Zeit.</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">Sollten Sie die Zeit und die Muse haben, über das vergangene Jahr nachzusinnen, dann denken Sie an uns. Und wir denken an Sie, vielen Dank!</span></p>
+<p class="wp-block-paragraph"> </p>
+<span id="more-196"></span>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">Was sich getan hat:</span></p>
+<p class="wp-block-paragraph"> </p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">01 Ihr erfolgreiches Crowdfunding</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">02 demokratie.io hat uns prämiert</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">03 prototype fund hat uns ausgewählt</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">04 Fertig: erste Test-App</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">05 In Persona: Entwickler-Treffen</span></p>
+<p class="wp-block-paragraph"> </p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">01</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">Am Samstag nach unserer nervenaufreibenden Woche in Berlin haben wir die wundervolle Nachricht bekommen: das Crowdfunding hat sein Minimalziel erreicht! Damit können wir das Projekt also tatsächlich durchführen… Wir sind immer noch überglücklich, dass unsere Idee so viele Menschen überzeugt hat und Sie uns das Vertrauen schenken, das Projekt umzusetzen. Nochmals vielen Dank!</span></p>
+<p class="wp-block-paragraph"> </p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">02</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">Parallel zum Crowdfunding haben wir unsere Projekt-Idee natürlich auch noch bei Stiftungen und Innovationswettbewerben eingereicht. Nach der Hertie-Stiftung, die 7.500€ zum Crowdfunding beigetragen hat, konnten wir in der darauffolgenden Woche eine Förderzusage von demokratie.io gewinnen. Das gibt uns einen weiteren Schub und ermöglicht, das Projekt nun 6-9 Monate nachhaltig zu finanzieren.</span></p>
+<p class="wp-block-paragraph"> </p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">03</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">Der Prototype Fund hat eine Förderung für ein Schwesterprojekt ausgesprochen: dabei wird Magnus Rembold als Entwickler 6 Monate gefördert und setzt einen Webservice um, der uns die Daten des Bundestags und eine Speicherung der App-Daten zur Verfügung stellt. Auch das ist eine riesiger Schritt voran und freut uns ungemein.</span></p>
+<p class="wp-block-paragraph"> </p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">04</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">Ulf Gebhardt und unsere neue Verstärkung Manuel Ruck haben im Dezember nun einen technischen Prototyp aufgesetzt, um eine Umsetzungsmöglichkeit vorzubereiten und zu prüfen. Im Demo-Video zeigen wir, was dieses technische Demo schon kann. Wir können nun also Apps für iOS und Andoid erzeugen und gleichzeitig eine Web-Version ausspielen aus einer einzigen Code-Basis. Check!</span></p>
+<p class="wp-block-paragraph"> </p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">05</span></p>
+<p class="wp-block-paragraph"><span style="font-weight: 400;">Am 19. und 20. Dezember haben wir uns zum ersten Mal seit Berlin wieder persönlich getroffen. Im Schwabenländle haben wir einen intensiven 2-tägigen Workshop durchgeführt und die ersten Festlegungen für Version 1.0 festgelegt. Gleichzeitig eine prima Gelegenheit, über die Grundausrichtung und die Heransgehensweise für das Projekt zu diskutieren. (Bild Magnus)</span></p>
+<p class="wp-block-paragraph"> </p>0:{"rsc":["$","$1","c",{"children":[["$","article",null,{"id":"post-196","className":"post single post-196 type-post status-publish format-standard has-post-thumbnail hentry category-newsletter","children":[["$","div",null,{"className":"post-inner","children":[["$","div",null,{"className":"post-header","children":[["$","h1",null,{"className":"post-title","children":["$","a",null,{"href":"/blog/2017/12/news-1-newsletter-vor-weihnachten/","children":"News #1 – Newsletter vor Weihnachten"}]}],["$","div",null,{"className":"post-meta","children":[["$","p",null,{"className":"post-author","children":[["$","span",null,{"children":"Von "}],["$","a",null,{"href":"/blog/author/marius/","rel":"author","children":"Marius Krüger"}]]}]," ",["$","p",null,{"className":"post-date","children":[["$","span",null,{"children":"Am "}],["$","a",null,{"href":"/blog/2017/12/news-1-newsletter-vor-weihnachten/","children":"23. Dezember 2017"}]]}]," ",["$","p",null,{"className":"post-categories","children":[["$","span",null,{"children":"In "}],[["$","$1","newsletter",{"children":[null,["$","a",null,{"href":"/blog/category/newsletter/","rel":"category tag","children":"Newsletter"}]]}]]]}]]}]]}],["$","div",null,{"className":"post-content entry-content","dangerouslySetInnerHTML":{"__html":"$2"}}],null]}],"$L3"]}],null,"$L4"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"rqdaV4bOO736MA26NZx0V"}
+3:["$","div",null,{"className":"post-navigation","children":["$","div",null,{"className":"post-navigation-inner group","children":[null,["$","div",null,{"className":"post-nav-next","children":[["$","p",null,{"children":"Nächster"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2018/02/news-2-der-fahrplan-steht/","children":"News #2 – Der Fahrplan steht"}]}]]}]]}]}]
+4:["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]
+7:null
