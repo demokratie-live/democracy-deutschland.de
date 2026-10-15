@@ -1,0 +1,33 @@
+YouTube HD Thumbnail
+https://github.com/simonlidesign/YouTubeHDThumbnail
+Fork: https://github.com/demokratie-live/YouTubeHDThumbnail
+Files: css/YouTube.HD.Thumbnail.css, css/youtube-play.svg
+(fork commit 44e809df3afd466f2f6ff2a9b851b03fa070bdb7, byte-identical to
+https://cdn.jsdelivr.net/gh/demokratie-live/YouTubeHDThumbnail@master/)
+
+The project states "MIT License, Created by Simon Li in Sep 2016" in its
+README and in the header of its JavaScript file; the repository has no
+license file. The JavaScript is not used here, it is ported to React in
+src/components/shared/YouTubeHDThumbnail.tsx.
+
+MIT License
+
+Copyright (c) 2016 Simon Li
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

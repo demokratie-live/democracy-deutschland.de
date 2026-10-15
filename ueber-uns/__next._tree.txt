@@ -12,10 +12,10 @@
 :HL["/css/default_faq.css","style"]
 :HL["/css/default_politicians.css","style"]
 :HL["/css/default_press.css","style"]
-:HL["https://cdn.jsdelivr.net/gh/demokratie-live/YouTubeHDThumbnail@master/css/YouTube.HD.Thumbnail.css","style"]
+:HL["/vendor/YouTubeHDThumbnail/css/YouTube.HD.Thumbnail.css","style"]
 :HL["/files/images/democracy-bar.png","image"]
 :HL["/files/images/magnify@3x.png","image"]
 :HL["/files/images/shield@3x.png","image"]
 :HL["/files/images/heart2@3x.png","image"]
 :HL["/files/images/quotes@3x.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"ueber-uns","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"rqdaV4bOO736MA26NZx0V"}
+0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"ueber-uns","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"o9tiwQ3OfjNtoyhCL5vwE"}
