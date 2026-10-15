@@ -52,21 +52,41 @@ Die App parst in allen Fällen (siehe `docs/server-funktionen.md`). **Für die P
 
 ## Deploy: Plesk-Git mit Build-Zweig
 
-Entscheidung 2026-10-14. Der Workflow `.github/workflows/deploy.yml` baut bei jedem Push auf `main` wie bisher und prüft lint, Inhalte, Unit- und E2E-Tests. Den Export ohne basePath (samt `.htaccess`) legt der Job `build-branch` mit `scripts/publish-build-branch.sh` als nächsten Commit auf den Zweig `deploy`. Der Zweig enthält nur den Export, ein Commit pro Build. Die Nachricht nennt den Quell-Commit. Dafür reicht das `GITHUB_TOKEN` des Workflows, ein Server-Zugang liegt nicht bei GitHub.
+Entscheidung 2026-10-14. Der Workflow `.github/workflows/deploy.yml` baut bei jedem Push auf `main` und prüft lint, Inhalte, Unit- und E2E-Tests. Den Export ohne basePath (samt `.htaccess`) legt der Job `build-branch` mit `scripts/publish-build-branch.sh` als nächsten Commit auf den Zweig `deploy`. Der Zweig enthält nur den Export, ein Commit pro Build. Die Nachricht nennt den Quell-Commit. Dafür reicht das `GITHUB_TOKEN` des Workflows, ein Server-Zugang liegt nicht bei GitHub.
 
-**Einrichtung in Plesk** (Websites & Domains → Domain → Git → Repository hinzufügen):
+**Stand seit 2026-10-15** (Websites & Domains → democracy-deutschland.de → Git):
 
-1. Remote-Repository `https://github.com/demokratie-live/democracy-deutschland.de.git` (öffentlich, ohne Schlüssel), Zweig `deploy`.
-2. Serverpfad: ein eigener, leerer Ordner neben `httpdocs` (z.B. `/httpdocs-static`). Nicht `httpdocs`, dort liegen die alte PHP-Seite und WordPress.
-3. Bereitstellungsmodus „Automatisch“ (jeder Build geht sofort live) oder „Manuell“ (Plesk holt den Zweig, bereitgestellt wird per Klick). Für „Automatisch“ die Webhook-URL, die Plesk anzeigt, in GitHub unter Settings → Webhooks eintragen (Push-Events). Die URL gehört nicht ins Repo.
+| Repository                                           | Zweig         | Serverpfad                       | Modus       | Webhook in GitHub |
+| ---------------------------------------------------- | ------------- | -------------------------------- | ----------- | ----------------- |
+| `website-deploy-prod.git` (Produktion)               | `deploy`      | `/httpdocs-static`               | Automatisch | ja, Push-Events   |
+| `website-deploy.git` (test.democracy-deutschland.de) | `deploy-test` | `/test.democracy-deutschland.de` | Automatisch | ja, Push-Events   |
 
-**Rollback:** Den Zweig `deploy` auf einen älteren Build-Commit zurücksetzen (`git push --force origin <commit>:deploy`) und in Plesk abrufen und bereitstellen. Alternativ den Workflow für einen älteren `main`-Commit erneut laufen lassen.
+Remote ist jeweils `https://github.com/demokratie-live/democracy-deutschland.de.git` (öffentlich, ohne Schlüssel).
 
-**Noch zu prüfen beim Einrichten:** ob Plesk Dateien löscht, die aus dem Zweig verschwunden sind, und wo „Zusätzliche Bereitstellungsaktionen“ laufen (chroot, Arbeitsverzeichnis).
+**Automatisch (Entscheidung 2026-10-15):** Ein Merge auf `main` ist live, sobald die CI grün ist und `build-branch` den Zweig `deploy` geschrieben hat. Ein roter Build erreicht `deploy` nie. GitHub ruft bei jedem Push die Webhook-URL von Plesk auf, Plesk holt dann das Repository und stellt den eingestellten Zweig bereit. Pushes auf andere Zweige lösen den Webhook ebenfalls aus, ändern aber nichts. Die Webhook-URLs (Plesk → Git → Repository-Einstellungen) stehen nur in den GitHub-Einstellungen (Settings → Webhooks), nicht im Repo.
+
+**Einrichtung eines weiteren Repositorys** (Git → Repository hinzufügen):
+
+- Das Formular hat kein Feld für den Zweig, Plesk nimmt zuerst `main`. Deshalb mit Modus „Manuell“ anlegen, dann im Dropdown „Verzweigung“ den Build-Zweig wählen (wird sofort gespeichert) und erst danach bereitstellen oder auf „Automatisch“ stellen. Mit „Manuell“ stellt das Anlegen nichts bereit, auch wenn Plesk „Dateien werden … bereitgestellt“ meldet.
+- Der Name muss im ganzen Abonnement eindeutig sein: Plesk legt die Klone aller Domains in `~/git/<name>` ab.
+- Nie nach `httpdocs` bereitstellen.
+
+**Verhalten beim Bereitstellen** (geprüft 2026-10-15 auf test.):
+
+- Dateien, die im bereitgestellten Zweig fehlen, löscht Plesk. Dateien, die nie im Git waren, bleiben liegen.
+- „Zusätzliche Bereitstellungsaktionen“ laufen nach dem Checkout im Bereitstellungsordner. Ohne SSH-Zugang (Abonnement: SSH verboten) laufen sie im chroot, das Abo-Home ist `/`, `..` ist also das Abo-Home. Plesk legt dafür im Abo-Home `bin`, `dev`, `etc`, `lib`, `lib64`, `tmp`, `usr` und `var` an.
+
+**Rollback eines Builds:** Den Zweig `deploy` auf einen älteren Build-Commit zurücksetzen (`git push --force origin <commit>:deploy`). Der Push löst den Webhook aus, Plesk stellt den älteren Stand bereit. Alternativ den Workflow für einen älteren `main`-Commit erneut laufen lassen.
 
 ## Test- und Vorschau-Hosts
 
-Ein Test-Host braucht vor den generierten Regeln einen Zugriffsschutz. Den fügt das Deployment für diesen Host hinzu, nicht das Repo:
+`test.democracy-deutschland.de` zeigt den Zweig `deploy-test`. Den schreibt nur ein manueller Lauf des Workflows: GitHub → Actions → „Build & Deploy“ → „Run workflow“, Branch wählen. Der Lauf prüft den Branch wie jeder andere (lint, Tests, E2E, basePath). Danach schreibt der Job `build-branch-test` den Export auf `deploy-test`, und Plesk stellt ihn über den Webhook bereit. Mehrere Branches nacheinander testen heißt: nacheinander laufen lassen, test. zeigt immer den letzten. Ein manueller Lauf auf `main` bricht den Push-Lauf der Produktion nicht ab (eigene `concurrency`-Gruppe je Event).
+
+Ein Test-Host braucht vor den generierten Regeln gegebenenfalls einen Zugriffsschutz. Den fügt das Deployment für diesen Host hinzu, nicht das Repo. Auf test. liegt er in `~/test-zugriff.conf` (Abo-Home, außerhalb jedes Dokumentstamms), und die Zusatzaktion des Repositorys setzt ihn nach jedem Bereitstellen vor die `.htaccess`:
+
+```sh
+cat ../test-zugriff.conf .htaccess > .htaccess.neu && mv .htaccess.neu .htaccess
+```
 
 ```apache
 <RequireAny>
@@ -75,11 +95,14 @@ Ein Test-Host braucht vor den generierten Regeln einen Zugriffsschutz. Den fügt
 </RequireAny>
 ```
 
-Die Ausnahme für `/.well-known/acme-challenge/` hält die Verlängerung des Let's-Encrypt-Zertifikats offen. `noindex` setzt die generierte `.htaccess` auf jedem Host außer der Produktion von selbst. Plesk bietet ohne nginx keine IP-Sperre als Einstellung, ein Passwortschutz („Passwortgeschützte Verzeichnisse“) ginge auch, sperrt aber automatische Prüfungen aus.
+Zurzeit ist der Block in `test-zugriff.conf` auskommentiert (test. ist für Tester offen, nur `noindex`). Zum Sperren die `#` entfernen. Die Sperre gilt ab dem nächsten Bereitstellen, sofort gilt sie nach einem „Jetzt bereitstellen“ in Plesk. Die Ausnahme für `/.well-known/acme-challenge/` hält die Verlängerung des Let's-Encrypt-Zertifikats offen. `noindex` setzt die generierte `.htaccess` auf jedem Host außer der Produktion von selbst. Plesk bietet ohne nginx keine IP-Sperre als Einstellung. Ein Passwortschutz („Passwortgeschützte Verzeichnisse“) ginge auch, sperrt aber automatische Prüfungen aus.
 
 ## Umstellung der Produktion
 
-1. Plesk-Git für die Domain mit Serverpfad `/httpdocs-static` einrichten und einmal bereitstellen. Live ändert sich dadurch noch nichts.
+Erledigt am 2026-10-15 um 11:30 UTC, nach einem Backup von `httpdocs` und der Datenbank außerhalb des Servers:
+
+1. Plesk-Git für die Domain mit Serverpfad `/httpdocs-static` eingerichtet und einmal bereitgestellt.
 2. Hosting-Einstellungen: Dokumentstamm `httpdocs` → `httpdocs-static`. PHP-Einstellungen: PHP-Unterstützung aus.
-3. Prüfen: `pnpm check-htaccess https://democracy-deutschland.de` (ohne `X-Robots-Tag`), Spendenstand in der App, Stichproben mit `pnpm compare`.
-4. Zurück: Dokumentstamm wieder `httpdocs`, PHP-Unterstützung an (7.4, FPM). Die PHP-Seite und WordPress laufen dann wie vorher, Dateien und Datenbank bleiben dafür unangetastet.
+3. Geprüft: `pnpm check-htaccess https://democracy-deutschland.de` (99/99, ohne `X-Robots-Tag`), Spendenstand in der App, `www.` und HTTP → 301, Webmail und Mail.
+
+Die alte PHP-Seite und WordPress liegen unverändert in `httpdocs`, die Datenbank bleibt bestehen. Beides ist nicht mehr erreichbar. **Zurück zum PHP-Stand:** Dokumentstamm wieder `httpdocs`, PHP-Unterstützung an (7.4, FPM-Anwendung). PHP-Seite und WordPress laufen dann wie vorher, ohne die Änderungen, die es seitdem nur im Repo gab.
