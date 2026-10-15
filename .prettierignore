@@ -8,6 +8,8 @@ pnpm-lock.yaml
 content/pages/*.mdx
 # Original CSS, copied verbatim from the PHP site
 public/css
+# Third-party CSS (YouTube HD Thumbnail), copied verbatim
+public/vendor
 # Original manifests of the live site (root of the PHP site), kept verbatim
 public/manifest.json
 public/site.webmanifest

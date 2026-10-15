@@ -1,4 +1,5 @@
 import type { MDXRemoteProps } from "next-mdx-remote/rsc";
+import { DiscordWidget } from "@/components/about/DiscordWidget";
 import { ServicesIcon, Team } from "@/components/about/Team";
 import { BlogFrame } from "@/components/blogpage/BlogFrame";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -51,6 +52,7 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   Modal,
   ModalToggle,
   Team,
+  DiscordWidget,
   ServicesIcon,
   PressMedia,
   BlogTeasers,

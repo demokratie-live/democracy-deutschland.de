@@ -57,7 +57,7 @@ Da uns von DEMOCRACY Deutschland e.V. keine Wählerkartei vorliegt, haben wir un
 
 <p class="wp-block-paragraph">Unsere Alternative zum klassischen Wählerverzeichnis ist ein Handynummern-Wählerverzeichnis. Sicher, eindeutiger wäre es, deinen Personalausweis (z.B. im Post-Identverfahren) zu verifizieren, aber mal ehrlich, wer von Euch wäre bereit, sich mit seinem Personalausweis bei uns zu registrieren? Auf der anderen Seite der Medaille sind die Identifikation per Mail oder Pseudonym deutlich anfälliger für Fälschungen.&nbsp;</p>
 
-<figure class="wp-block-image"><img decoding="async" src="https://web.archive.org/web/20240724002826im_/https://lh5.googleusercontent.com/Ax3_IRIbjE_3D0W3sU4GtSWuomd4Q2ReV6Si6slF3-nSMX2T9Ojs9CNIcFBaiHo0VeTjghBct8ZC2DXNBFEDCL99YvZWjeB4wtFiX0BKt4ASvt1jU7_W9Gx8FIoB77NG7L7KITkY=s0" alt=""></figure>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/inline/hey-kann-ich-deine-nummer-haben-1.png" alt=""></figure>
 
 **Was passiert nun technisch?**
 
@@ -71,7 +71,7 @@ Soweit zur Identifikation, aber wie hält die Software DEMOCRACY nun mein Stimmg
 
 Dieser macht einen Strich in der jeweiligen Spalte der Votes-Tabelle für das Community-Ergebnis. Damit Du nur einmal abstimmst, merkt der Server sich, dass Dein Token abgestimmt hat, indem er Deine ID in die Voters-Tabelle schreibt. Wie Du abgestimmt hast, ist ab diesem Moment für den Server unklar, diese Information ist lediglich&nbsp;**lokal auf Deinem Gerät**&nbsp;gespeichert, damit Du selbst sehen kannst, wie Du abgestimmt hast und der Wahl-O-Meter lokal seine Übereinstimmungsrechnungen vornehmen kann.
 
-<figure class="wp-block-image"><img decoding="async" src="https://web.archive.org/web/20240724002826im_/https://lh3.googleusercontent.com/7Up823KQ0H6LLSmLwat6xR82gQxWEHzgQA_ddjxYivqVrmBN3iSizvLeN5S0wrLLO8u4dzCRS4wIeCPJsD9vXjqC1jPNh3EMX-c8oj7dRsxllhTwkPBu-sqnIFgYHzGrrYdFyXzQ=s0" alt=""></figure>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/inline/hey-kann-ich-deine-nummer-haben-2.png" alt=""></figure>
 
 Das vollständige Paper zu unserem Wahlverfahren findest Du&nbsp;[hier](https://web.archive.org/web/20240724002826/https://github.com/demokratie-live/democracy-docu/wiki/Stimmanonymit%C3%A4t).
 
@@ -83,7 +83,7 @@ Soweit wir wissen gibt es – nach Abwägung aller Zielkonflikte – keine prakt
 
 Wir haben uns dazu entschieden, die Verifikation per Handynummer in der DEMOCRACY App verpflichtend für die Abstimmungsfunktion zu machen. Warum? Es gibt Nutzen von DEMOCRACY, die individuell und unabhängig von der Anzahl an Nutzer:innen sind (hellblau), bei anderen steigt der kollektive Nutzen mit der Userzahl (dunkelblau).
 
-<figure class="wp-block-image"><img decoding="async" src="https://web.archive.org/web/20240724002826im_/https://lh4.googleusercontent.com/x_O-1pIfmWUlJ3huP-nTlWQQn8beq9vHS8YyfbGD6eK2X4BOWQPtQ42W-ZL-wBkQll9hRGJl4PBLB87hGnyT-lbQtDFgSfTuEgGjb7r8jzA1mpWfIKZYXNaB5nheCjsMolfo4z1v=s0" alt=""></figure>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/inline/hey-kann-ich-deine-nummer-haben-3.png" alt=""></figure>
 
 <p class="wp-block-paragraph">Für Nutzen #1 ist und wird auch in Zukunft keine Verifikation erforderlich sein. Du kannst das Informationsangebot der App (mitsamt aller Abstimmungsergebnisse) vollständig nutzen, auch ohne verifiziert zu sein.&nbsp;</p>
 

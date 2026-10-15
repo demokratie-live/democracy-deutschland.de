@@ -5,7 +5,7 @@ import { Navbar } from "@/components/frame/Navbar";
 import { ToTop } from "@/components/frame/ToTop";
 import { asset } from "@/lib/base-path";
 import { getAppLinks, getFooter, getHead, getNavigation, getRoutes } from "@/lib/content";
-import { ORIGINAL_STYLESHEETS } from "@/lib/stylesheets";
+import { ORIGINAL_STYLESHEETS, VENDOR_STYLESHEETS } from "@/lib/stylesheets";
 
 /**
  * Frame of default_page.tpl: navbar, <section id="content">, footer, UItoTop.
@@ -13,8 +13,7 @@ import { ORIGINAL_STYLESHEETS } from "@/lib/stylesheets";
  * 404 page (src/app/global-not-found.tsx); the blog has its own frame.
  */
 export async function SiteDocument({ children }: { children: ReactNode }) {
-  const [head, routes, navigation, footer, appLinks] = await Promise.all([
-    getHead(),
+  const [routes, navigation, footer, appLinks] = await Promise.all([
     getRoutes(),
     getNavigation(),
     getFooter(),
@@ -27,11 +26,8 @@ export async function SiteDocument({ children }: { children: ReactNode }) {
       {/* eslint-disable-next-line @next/next/no-head-element */}
       <head>
         <LegacyRedirectScript routes={routes} appLinks={appLinks} />
-        {ORIGINAL_STYLESHEETS.map((href) => (
+        {[...ORIGINAL_STYLESHEETS, ...VENDOR_STYLESHEETS].map((href) => (
           <link key={href} rel="stylesheet" href={asset(href)} />
-        ))}
-        {head.externalStylesheets.map((href) => (
-          <link key={href} rel="stylesheet" href={href} />
         ))}
       </head>
       <body>

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { contentYaml, waitForScrollEnd } from "./helpers";
+import { contentYaml, expectVideoStartsOnClick, waitForScrollEnd } from "./helpers";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -94,15 +94,9 @@ test("scroll icon scrolls to the first #about", async ({ page }) => {
 });
 
 test("YouTube thumbnail starts the video on click", async ({ page }) => {
-  const container = page.locator(".yt-hd-thumbnail-inner-container");
-  await expect(container.locator("img")).toHaveAttribute(
-    "src",
-    "https://i.ytimg.com/vi/DFXcnRdXA7k/maxresdefault.jpg",
-  );
-  await container.locator("a.yt-hd-thumbnail").click();
-  await expect(container).toHaveClass(/yt-hd-thumbnail-clicked/);
-  await expect(container.locator("iframe")).toHaveAttribute(
-    "src",
-    "https://www.youtube.com/embed/DFXcnRdXA7k?autoplay=1",
+  await expectVideoStartsOnClick(
+    page,
+    page.locator(".yt-hd-thumbnail-inner-container"),
+    "DFXcnRdXA7k",
   );
 });

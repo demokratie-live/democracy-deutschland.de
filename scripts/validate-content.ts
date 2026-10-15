@@ -292,6 +292,17 @@ async function main() {
           throw new Error(`<LegalText name="${name}">: content/legal/${name}.md gibt es nicht`);
         }
       }
+      // <VideoSection youtube="<id>">: video id with a local thumbnail
+      const videos = [...raw.matchAll(/\byoutube="([^"]*)"/g)].map((match) => match[1]);
+      for (const id of videos) {
+        if (!/^[A-Za-z0-9_-]{11}$/.test(id)) {
+          throw new Error(`youtube="${id}": erwartet wird die Video-ID (11 Zeichen), keine URL`);
+        }
+      }
+      await checkFiles(
+        `pages/${file}`,
+        videos.map((id) => `/files/youtube/${id}.jpg`),
+      );
       validated++;
       console.log(`  ✅ pages/${file}`);
     } catch (err) {

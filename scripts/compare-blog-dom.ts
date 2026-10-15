@@ -12,7 +12,8 @@
  * image, main#site-content (posts, sidebar) and credits. URLs are reduced to
  * their path; known, documented deviations (docs/abweichungen.md) are mapped
  * before comparing: random ids of the search form, the alt="" of the header
- * image, data: images of the import, x-webdoc:// links, invalid attribute
+ * image, data: images of the import and images hotlinked from the Wayback
+ * Machine (both local files in uploads/inline/), x-webdoc:// links, invalid attribute
  * names, the runaway logo tag of News #2, and the comment and search feeds
  * the port does not have.
  *
@@ -157,7 +158,9 @@ function mapUrl(side: "live" | "local") {
       value = value
         .replace(/^https:\/\/democracy-deutschland\.de\/blog$/, "/blog/")
         // Apple Mail leftovers point to the anchor (decision Manuel 2026-10-13).
-        .replace(/^x-webdoc:\/\/[^#]*(#.*)$/, "$1");
+        .replace(/^x-webdoc:\/\/[^#]*(#.*)$/, "$1")
+        // Images hotlinked from the Wayback Machine are local copies.
+        .replace(/^https:\/\/web\.archive\.org\/web\/\d+im_\/.*$/, "data:…");
     } else if (BASE_PATH && value.startsWith(`${BASE_PATH}/`)) {
       value = value.slice(BASE_PATH.length);
     }

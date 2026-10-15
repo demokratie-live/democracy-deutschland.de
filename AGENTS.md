@@ -31,6 +31,7 @@ content/
   blog/taxonomy.yaml, media.yaml, missing-uploads.yaml  written by the import; blog/site.yaml  blog settings
 public/
   css/                  original CSS (see "CSS"); files/  assets under the old /files/ paths
+  files/youtube/<id>.jpg  local video thumbnails; vendor/YouTubeHDThumbnail/  plugin CSS (MIT, LICENSE)
   blog/wp-content/uploads/  blog media under their WordPress paths (written by the import)
   blog/wp-content/themes/lovecraft/  theme CSS, fonts and icon of the blog (GPL, never edit)
   videos/  favicon.ico  manifest.json  root files of the PHP site (apple-touch-icon.png, android-chrome-*,
@@ -93,6 +94,7 @@ The step-by-step guides for editors are in the README; keep both in sync.
 ## Rules for 1:1 markup
 
 - **CSS**: `public/css/` holds the files `default_page::css()` loads, byte-identical except `url()` paths made relative to `public/css/` (basePath). All module CSS is loaded on every page in the original order (`src/lib/stylesheets.ts`), because live does the same and rules leak between modules. Never edit these files; no Tailwind, CSS modules or new global CSS. Inline `<style>` blocks of a template are rendered inline (see `SECOND_BADGE_CSS`).
+- **No third parties on page load** (decision Manuel 2026-10-14): no page requests another host while it loads; `tests/e2e/third-party.spec.ts` / `third-party.mobile.spec.ts` load every HTML page of `out/` (plus blog search and 404) and fail on any foreign request (`SITE_URL=<host>` runs them against a deployed host). Copy assets into `public/` instead of linking a CDN (third-party code under `public/vendor/` with its license). Embeds render a local placeholder and load the third party only after a click: `YouTubeHDThumbnail` (local thumbnail, then `www.youtube-nocookie.com/embed/<id>?autoplay=1`), `DiscordWidget`. Links to other sites stay links.
 - **Inline styles**: copy them as React style objects. React cannot express `!important`; drop it when no `!important` rule in `public/css` competes (check with grep).
 - **Whitespace** between inline or inline-block elements renders on live (template newlines); JSX drops it. Add `{" "}` where the original has whitespace between such elements (e.g. `VersionDigits`, `SymbolInfoPanel`). `pnpm compare` shows the result.
 - **Links**: internal `href`s are the new paths with trailing slash (`/ueber-uns/`, `/engineering/#help`), never `#!state`. Use `Link` from `components/shared/Link` (basePath, same-page anchors animated like the old router, no prefetching). Raw `src`/`href` to files under `public/` go through `asset()`.
@@ -213,7 +215,7 @@ Old URLs are forwarded in two ways from the same data:
 | `Section`                               | `.background-white > .container.page` wrapper; `raised`, `style`, `after`           |
 | `AppHeader`                             | blue header of home/wahlometer (`variant`), store badges, APK/AAB links from YAML   |
 | `ScrollIcon`                            | chevron below the header, scrolls to the first `#about`                             |
-| `VideoSection`                          | video title (three parts or `title`), link and YouTube HD thumbnail                 |
+| `VideoSection`                          | video title (three parts or `title`), link, YouTube thumbnail (`youtube="<id>"`)    |
 | `PressLogos` / `PressLogo`              | "bekannt aus" logo row                                                              |
 | `RectangleInfo`                         | grey rotated title box with text and link                                           |
 | `FeatureVideos` / `InfoBadge`           | home: info badges switching the phone video (client)                                |
@@ -225,6 +227,7 @@ Old URLs are forwarded in two ways from the same data:
 | `DonateDetails`                         | donate: progress, value box and cost table with bars (donate_details.tpl)           |
 | `Modal` / `ModalToggle`                 | Bootstrap 4 modal markup / its `data-toggle="modal"` button (client)                |
 | `Team`                                  | about: team cards from `team.yaml`; hover swaps text and contact links (client)     |
+| `DiscordWidget`                         | about: placeholder, the Discord widget iframe after a click (client)                |
 | `ServicesIcon`                          | about: icon, title and subtitle of "Unsere Philosophie" (icon.tpl)                  |
 | `PressMedia`                            | press: tiles of one list of `media.yaml` (`list="kit"`, `articles`, `publications`) |
 | `BlogTeasers`                           | press: tiles of the newest blog posts (`count={9}`), linked to their permalink      |
@@ -241,6 +244,8 @@ Client components read declarative children (`InfoBadge`, `ComparisonRow`) via `
 
 ## Testing and tooling gotchas
 
+- Tests that click a video or the Discord widget answer the third-party request locally (`page.route`, `expectVideoStartsOnClick()` in `tests/e2e/helpers.ts`), so e2e needs no network.
+- `pnpm compare` masks iframes: compare `/`, `/wahlometer/`, `/ueber-uns/` with `--live-eval` removing `.yt-hd-thumbnail-inner-container iframe` on live (docs/abweichungen.md).
 - Blog tests read expected values from `content/blog/` (`getBlogPosts()`, `missing-uploads.yaml`); images with `loading="lazy"` only load near the viewport, set them to eager before checking `naturalWidth`.
 - Playwright projects: `desktop` (1280 px) and `mobile` (375 px, files `*.mobile.spec.ts`), server `serve out` on port 3100; `tests/basepath` serves the basePath build via `scripts/serve-basepath.mjs` on 3101. Take expected values from the YAML (`contentYaml()`), never from live.
 - Scroll assertions: `waitForScrollEnd()`; scroll an element into view and wait for `.navbar.scrolled` before clicking when the handler reads the navbar height.

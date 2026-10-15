@@ -19,3 +19,9 @@ export const ORIGINAL_STYLESHEETS = [
   "/css/default_politicians.css",
   "/css/default_press.css",
 ];
+
+/**
+ * CSS of the YouTube HD Thumbnail plugin, loaded after the original CSS like
+ * live (there from cdn.jsdelivr.net; public/vendor/, MIT, see its LICENSE).
+ */
+export const VENDOR_STYLESHEETS = ["/vendor/YouTubeHDThumbnail/css/YouTube.HD.Thumbnail.css"];

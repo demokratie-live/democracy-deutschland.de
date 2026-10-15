@@ -57,7 +57,8 @@ for (const { path, fonts } of pages) {
     });
     expect(state.fonts).toEqual(expect.arrayContaining(fonts));
     expect(state.brokenImages).toEqual([]);
-    for (const href of state.stylesheets) expect(href).toMatch(new RegExp(`^${BASE}/css/`));
+    for (const href of state.stylesheets)
+      expect(href).toMatch(new RegExp(`^${BASE}/(css|vendor)/`));
     await expect(page.locator("nav.navbar")).toHaveCSS("position", "fixed");
     await expect(page.locator('head link[rel="manifest"]')).toHaveAttribute(
       "href",
@@ -392,11 +393,14 @@ test("blog archives, search, feeds, short links and /blogseite/ below the basePa
 
   await page.goto(`${BASE}/blogseite/`);
   await expect(page.locator("#blogiframe")).toHaveAttribute("src", `${BASE}/blog/`);
+  // The height is measured on load like live; under load the body can round to
+  // 1 px less after the blog hydrates, so allow 1 px.
   await expect
     .poll(() =>
       page.locator("#blogiframe").evaluate((iframe: HTMLIFrameElement) => {
         const body = iframe.contentDocument?.body;
-        return body ? iframe.getAttribute("height") === `${body.scrollHeight}px` : false;
+        const height = parseInt(iframe.getAttribute("height") ?? "", 10);
+        return body ? Math.abs(height - body.scrollHeight) <= 1 : false;
       }),
     )
     .toBe(true);

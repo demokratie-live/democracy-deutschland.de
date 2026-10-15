@@ -1,16 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { asset } from "@/lib/base-path";
 
 /**
  * Port of the jQuery plugin jQuery.YouTube.HD.Thumbnail_democracy.js
- * (demokratie-live/YouTubeHDThumbnail): shows maxresdefault.jpg over the
- * hidden iframe and starts the video on click. The CSS still comes from
- * jsdelivr (content/site/head.yaml).
+ * (demokratie-live/YouTubeHDThumbnail): shows maxresdefault.jpg with the play
+ * button of the plugin CSS (public/vendor/YouTubeHDThumbnail/) and starts the
+ * video on click. Unlike live, nothing is loaded from YouTube before the
+ * click: the thumbnail is a local copy (public/files/youtube/<id>.jpg) and the
+ * iframe (youtube-nocookie.com) is only rendered after the click
+ * (docs/abweichungen.md).
  */
-export function YouTubeHDThumbnail({ src }: { src: string }) {
+export function YouTubeHDThumbnail({ videoId }: { videoId: string }) {
   const [clicked, setClicked] = useState(false);
-  const videoId = src.split("?")[0].split("/").pop();
 
   return (
     <div className="yt-hd-thumbnail-outer-container" style={{ width: "100%" }}>
@@ -29,17 +32,19 @@ export function YouTubeHDThumbnail({ src }: { src: string }) {
             setClicked(true);
           }}
         >
-          <img alt="" src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`} />
+          <img alt="" src={asset(`/files/youtube/${videoId}.jpg`)} />
         </a>
-        <iframe
-          width="100%"
-          height="100%"
-          className="yt-hd-thumbnail"
-          src={clicked ? `${src}?autoplay=1` : src}
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+        {clicked && (
+          <iframe
+            width="100%"
+            height="100%"
+            className="yt-hd-thumbnail"
+            src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        )}
       </div>
     </div>
   );
