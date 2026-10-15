@@ -48,13 +48,30 @@ old URL and its target is listed in `tests/legacy-urls.ts`; the rules live in
 | `pnpm format`               | Prettier (MDX pages and the original CSS are excluded)                          |
 | `pnpm test:unit`            | Unit tests                                                                      |
 | `pnpm test:e2e`             | Build and run the Playwright tests (desktop and mobile)                         |
-| `pnpm test:basepath`        | Build with the GitHub Pages basePath and test assets and redirects there        |
+| `pnpm test:basepath`        | Build under a basePath (`/democracy-deutschland.de`) and test it there          |
 
 `pnpm compare /wahlometer/ --local http://localhost:3000` writes its results to
 `compare-results/wahlometer/index.html`. `--click <selector>` compares the state after a
 click, `--hover <selector>` the visible area while the mouse is on an element,
 `--live-eval <js>` runs JavaScript on the live page first (to reproduce an intended
 deviation).
+
+## Updating page texts
+
+Every page has a thin shell in `src/app/(site)/<path>/page.tsx` and its text and section
+order in [`content/pages/<id>.mdx`](content/pages/) (frontmatter `state` = the old
+`#!<state>`; title and meta come from `content/site/head.yaml` unless the frontmatter
+overrides them). Navbar, footer, store links and form texts are YAML under
+[`content/site/`](content/site/); `routes.yaml` maps every old state to its path.
+
+- The MDX reproduces the live markup: keep classes, wrappers and line breaks as they
+  are, change only the text. Components available in MDX are listed in `AGENTS.md`.
+- German quotes inside JSX attributes close with `“` (U+201C), never with `"`.
+- Run `pnpm validate-content` (frontmatter, internal links, images) and look at the page
+  with `pnpm dev`. MDX pages are excluded from Prettier on purpose.
+
+Lists that change more often have their own file, see the sections below: donation
+status, team, press, FAQ, legal texts, roadmap and the blog.
 
 ## Updating the donation status
 
@@ -144,10 +161,12 @@ are plain Markdown (CommonMark, not MDX), rendered into the page frame of
   Markdown does not work, write links as `<a href="…">`.
 - Non-breaking spaces stay visible as `&nbsp;`. Some umlauts are stored decomposed
   (`u` + combining diaeresis), as on live; they look the same.
-- Internal links use the new paths (`/datenschutz/`).
+- Links stay exactly as on live, even the two that lead nowhere (`#!datenschutz`,
+  `#!nutzungsbedinungen`). The texts change only with the approval of the board
+  (Marius Krüger).
 
 `pnpm validate-content` checks the internal links. `tests/e2e/legal.spec.ts` compares the
-words of each page with the live responses saved on 2026-10-13
+words and the link targets of each page with the live responses saved on 2026-10-13
 (`tests/fixtures/<name>.live.html`). Until the domain moves to the static site, live is
 the source: if a text changes there, save the new `?_escaped_fragment_=<name>` response
 as the fixture and update the Markdown until the test passes. After the move the
@@ -212,6 +231,33 @@ report has no file picker (there is no upload server); a notice below the text f
 for screenshots by mail. Its two wordings (with and without endpoint) are the props
 `attachMailto` and `attachEndpoint` in
 [`content/pages/engineering.mdx`](content/pages/engineering.mdx).
+
+## Preview
+
+- **While editing:** `pnpm dev`, then open [http://localhost:3000](http://localhost:3000).
+- **The export as it goes live:** `pnpm build && pnpm start` serves `out/` on port 3000.
+  To include the server-side redirects and headers of `out/.htaccess`, serve it with a
+  local Apache instead: `pnpm serve-apache` (http://127.0.0.1:3098, `pnpm serve-apache stop`
+  to end) and `pnpm check-htaccess`.
+- **Against live:** `pnpm compare <path>` (see above) for pixels, text and head data.
+- **From a pull request:** every CI run uploads the export without basePath
+  (`website-root-<run>`, on `main` only) and the export under a basePath
+  (`website-preview-<run>`) as workflow artifacts.
+
+## Deploy
+
+The site is served from the Plesk server of the association (Apache, no GitHub Pages:
+hosting stays outside the US). `.github/workflows/deploy.yml` runs on every pull request
+and push to `main`: lint, `validate-content`, unit tests, build, Playwright tests, then a
+second build under a basePath with its own Playwright tests (the export must work on any
+static host).
+
+On a push to `main` the job `build-branch` commits the export without basePath (with
+`.htaccess`) to the branch `deploy` (`scripts/publish-build-branch.sh`, one commit per
+build). Plesk-Git pulls that branch into the document root of the domain. Merging into
+`main` is therefore the deploy; whether Plesk deploys automatically or on a click is set
+in Plesk. Setup, rollback (reset `deploy` to an older build) and the switch from the PHP
+site are described in [`docs/hosting-plesk.md`](docs/hosting-plesk.md).
 
 ## Documentation
 

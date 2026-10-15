@@ -69,6 +69,14 @@ tests/e2e/, tests/basepath/, tests/fixtures/ (saved live responses, byte for byt
 tests/legacy-urls.ts (every kind of old URL and its target, for Playwright and check-htaccess)
 ```
 
+## Content maintenance, preview and deploy
+
+The step-by-step guides for editors are in the README; keep both in sync.
+
+- **Content:** page text in `content/pages/<id>.mdx`, frame data in `content/site/*.yaml`; lists with their own file and README section: donation status (`donate/donation.yaml`, also the app JSON), team, press, FAQ, legal texts, roadmap, blog (`pnpm import-blog` while WordPress runs, Markdown afterwards). Always `pnpm validate-content`.
+- **Preview:** `pnpm dev`; the export with `pnpm build && pnpm start`, with `.htaccess` via `pnpm serve-apache` + `pnpm check-htaccess`; against live with `pnpm compare`. CI uploads `website-root-<run>` (main) and `website-preview-<run>` (basePath).
+- **Deploy:** Plesk, not GitHub Pages (decision Manuel 2026-10-13, hosting outside the US). `.github/workflows/deploy.yml` checks every PR and push (lint, content, unit, build, e2e, basePath build + e2e); on push to `main` the job `build-branch` commits the export without basePath to the branch `deploy`, which Plesk-Git deploys. Details, rollback and the switch from the PHP site: `docs/hosting-plesk.md`. Never add a Pages deployment back.
+
 ## Porting a module
 
 1. **Read the original**: tpl, the module's `init_<state>()` JS and CSS, then the live DOM _after_ init (DevTools on `#!<state>`). jQuery init leaves inline styles and moved markup behind; the port renders that final state, not the raw template.
@@ -111,8 +119,8 @@ The old forms (contact; bug report and volunteer on `/engineering/`, `BugReportF
 `content/legal/<name>.md` holds the old `system_text` (`impressum_text`, …) as plain Markdown (CommonMark, not MDX). `LegalText` renders it with `MDXRemote` and `mdxOptions: { format: "md", rehypePlugins: [rehypeRaw] }`, so raw HTML (`<br>`, `style="…"`) works without JSX syntax; `a` is mapped to `Link`. The page frame of the template is `content/pages/<name>.mdx`.
 
 - Markdown where the DOM stays the same, HTML only where Markdown cannot express the live layout (decision Manuel 2026-10-13): `<br>` in headings and at the end of blocks, `<ol style="list-style-type: lower-alpha;">`, text directly in the container as `<span>` on its own lines (an HTML block; Markdown would wrap it in `<p>` and add a margin). HTML blocks end at a blank line and contain no Markdown.
-- Editor leftovers without effect are dropped (`data-mce-*`, `style="font-weight: 400;"`, attribute-less `<span>`, the `div title="Page 1"` wrapper); words, `&nbsp;` and decomposed umlauts stay exactly as on live. `**x **` does not close in Markdown: move the space outside.
-- `tests/e2e/legal.spec.ts` compares the words of each page (text nodes, `<br>`/blocks as spaces) with `tests/fixtures/<name>.live.html`, loaded via `page.setContent` with all requests aborted. Fixtures are excluded from Prettier (`tests/fixtures/*.live.*`).
+- Editor leftovers without effect are dropped (`data-mce-*`, `style="font-weight: 400;"`, attribute-less `<span>`, the `div title="Page 1"` wrapper); words, `&nbsp;`, decomposed umlauts and link targets stay exactly as on live, even the broken ones (`#!datenschutz`, `#!nutzungsbedinungen`). Wording and links change only with the approval of Marius Krüger (follow-up TASK-87 after the go-live). `**x **` does not close in Markdown: move the space outside.
+- `tests/e2e/legal.spec.ts` compares the words and link targets of each page (text nodes, `<br>`/blocks as spaces) with `tests/fixtures/<name>.live.html`, loaded via `page.setContent` with all requests aborted. Fixtures are excluded from Prettier (`tests/fixtures/*.live.*`).
 
 ## Generated files (app JSON)
 
