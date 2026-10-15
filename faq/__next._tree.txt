@@ -13,4 +13,4 @@
 :HL["/css/default_politicians.css","style"]
 :HL["/css/default_press.css","style"]
 :HL["https://cdn.jsdelivr.net/gh/demokratie-live/YouTubeHDThumbnail@master/css/YouTube.HD.Thumbnail.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"faq","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"HWiEXnVpRJ-z40H-HxqBK"}
+0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"faq","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"HNrjqilB2S2vT9BCiHXz4"}

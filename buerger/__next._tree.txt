@@ -22,4 +22,4 @@
 :HL["/files/images/pieChart@3x.png","image"]
 :HL["/files/images/pieChart2@3x.png","image"]
 :HL["/files/images/juli.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"buerger","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"HWiEXnVpRJ-z40H-HxqBK"}
+0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"buerger","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"HNrjqilB2S2vT9BCiHXz4"}

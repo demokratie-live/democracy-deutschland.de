@@ -56,4 +56,4 @@
 :HL["/blog/wp-content/uploads/2024/12/News_35.png","image"]
 :HL["/blog/wp-content/uploads/2024/12/Kommentar_Richtlinienkompetenz-2048x1054-1.png","image"]
 :HL["/blog/wp-content/uploads/2024/12/News_34.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"presse","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"HWiEXnVpRJ-z40H-HxqBK"}
+0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"presse","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"HNrjqilB2S2vT9BCiHXz4"}
