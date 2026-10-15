@@ -18,7 +18,7 @@ This repository contains the website of **DEMOCRACY Deutschland e.V.**: a static
 ```bash
 pnpm lint && pnpm validate-content && pnpm test:unit
 pnpm test:e2e          # build + Playwright (desktop and mobile)
-pnpm test:basepath     # build with GitHub Pages basePath + Playwright
+pnpm test:basepath     # build under a basePath + Playwright (export must work on any static host)
 pnpm compare <path>    # local page against live: screenshots, text, head
 pnpm serve-apache && pnpm check-htaccess   # out/.htaccess on a local Apache 2.4
 ```
