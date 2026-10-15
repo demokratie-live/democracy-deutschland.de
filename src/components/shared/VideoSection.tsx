@@ -26,7 +26,7 @@ export function VideoSection({
   titleAfter?: string;
   linkHref: string;
   linkLabel: string;
-  /** Embed URL, e.g. https://www.youtube.com/embed/DFXcnRdXA7k */
+  /** YouTube video id, e.g. DFXcnRdXA7k; thumbnail in public/files/youtube/<id>.jpg */
   youtube: string;
 }) {
   return (
@@ -61,7 +61,7 @@ export function VideoSection({
             </Link>
           </div>
           <div className="col-lg-12" id="video" style={{ paddingTop: "35px" }}>
-            <YouTubeHDThumbnail src={youtube} />
+            <YouTubeHDThumbnail videoId={youtube} />
           </div>
         </div>
       </div>

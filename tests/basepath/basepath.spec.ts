@@ -57,7 +57,8 @@ for (const { path, fonts } of pages) {
     });
     expect(state.fonts).toEqual(expect.arrayContaining(fonts));
     expect(state.brokenImages).toEqual([]);
-    for (const href of state.stylesheets) expect(href).toMatch(new RegExp(`^${BASE}/css/`));
+    for (const href of state.stylesheets)
+      expect(href).toMatch(new RegExp(`^${BASE}/(css|vendor)/`));
     await expect(page.locator("nav.navbar")).toHaveCSS("position", "fixed");
     await expect(page.locator('head link[rel="manifest"]')).toHaveAttribute(
       "href",

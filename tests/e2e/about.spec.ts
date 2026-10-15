@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import type { Team } from "../../src/lib/schemas/team";
-import { contentYaml, trackErrors } from "./helpers";
+import { contentYaml, expectVideoStartsOnClick, trackErrors } from "./helpers";
 
 const { members } = contentYaml<Team>("team/team.yaml");
 
@@ -111,24 +111,38 @@ test("accordion opens the clicked row", async ({ page }) => {
 });
 
 test("YouTube thumbnail starts the mission statement video", async ({ page }) => {
-  const container = page.locator("#mission-statement .yt-hd-thumbnail-inner-container");
-  await expect(container.locator("img")).toHaveAttribute(
-    "src",
-    "https://i.ytimg.com/vi/E3KvgGrGQO4/maxresdefault.jpg",
-  );
-  await container.locator("a.yt-hd-thumbnail").click();
-  await expect(container).toHaveClass(/yt-hd-thumbnail-clicked/);
-  await expect(container.locator("iframe")).toHaveAttribute(
-    "src",
-    "https://www.youtube.com/embed/E3KvgGrGQO4?autoplay=1",
+  await expectVideoStartsOnClick(
+    page,
+    page.locator("#mission-statement .yt-hd-thumbnail-inner-container"),
+    "E3KvgGrGQO4",
   );
 });
 
-test("Discord widget and donate link", async ({ page }) => {
+test("Discord widget loads only after a click", async ({ page }) => {
+  await page.route("https://discordapp.com/**", (route) =>
+    route.fulfill({ contentType: "text/html", body: "<!doctype html><title>widget</title>" }),
+  );
+  const placeholder = page.locator(".discord-placeholder");
+  await expect(page.locator("iframe")).toHaveCount(0);
+  await expect(placeholder.locator("h4")).toHaveText("DEMOCRACY auf Discord");
+  await expect(placeholder.locator(".fa-discord")).toBeVisible();
+  // Same height as the team cards next to it (the widget filled the column).
+  const card = await page.locator(".team_div").first().boundingBox();
+  const box = await placeholder.boundingBox();
+  expect(Math.abs(box!.height - card!.height)).toBeLessThanOrEqual(1);
+
+  const request = page.waitForRequest((r) => r.url().startsWith("https://discordapp.com/"));
+  await placeholder.getByRole("button", { name: "Discord-Widget laden" }).click();
+  await expect(placeholder).toHaveCount(0);
   await expect(page.locator('iframe[src^="https://discordapp.com/widget"]')).toHaveAttribute(
     "src",
     "https://discordapp.com/widget?id=372403545086885888&theme=light",
   );
+  await request;
+  await expect(page).toHaveURL(/\/ueber-uns\/$/);
+});
+
+test("donate link", async ({ page }) => {
   await page.getByRole("link", { name: "DEMOCRACY Spenden" }).click();
   await expect(page).toHaveURL(/\/spenden\/$/);
   await expect(page.locator(".nav-item.active")).toHaveText(["Spenden"]);

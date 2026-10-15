@@ -66,6 +66,10 @@ overrides them). Navbar, footer, store links and form texts are YAML under
 
 - The MDX reproduces the live markup: keep classes, wrappers and line breaks as they
   are, change only the text. Components available in MDX are listed in `AGENTS.md`.
+- A YouTube video is `<VideoSection youtube="<video id>" …>`: save its thumbnail
+  (`https://i.ytimg.com/vi/<id>/maxresdefault.jpg`) as `public/files/youtube/<id>.jpg`.
+  Pages load nothing from other hosts; the player and the Discord widget load only after
+  a click (`pnpm validate-content` checks the thumbnail, `pnpm test:e2e` every page).
 - German quotes inside JSX attributes close with `“` (U+201C), never with `"`.
 - Run `pnpm validate-content` (frontmatter, internal links, images) and look at the page
   with `pnpm dev`. MDX pages are excluded from Prettier on purpose.

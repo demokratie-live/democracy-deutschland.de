@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { waitForScrollEnd } from "./helpers";
+import { expectVideoStartsOnClick, waitForScrollEnd } from "./helpers";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/wahlometer/");
@@ -20,6 +20,14 @@ test("texts from MDX", async ({ page }) => {
     "Finde die Partei, die Dich wirklich vertritt",
   );
   await expect(page.locator("#wom-campaign-badges .badge-link")).toHaveCount(2);
+});
+
+test("YouTube thumbnail starts the video on click", async ({ page }) => {
+  await expectVideoStartsOnClick(
+    page,
+    page.locator(".yt-hd-thumbnail-inner-container"),
+    "uWwQquy_MD0",
+  );
 });
 
 test("comparison accordion opens the clicked row", async ({ page }) => {

@@ -14,7 +14,6 @@ export const headSchema = z.object({
     description: z.string(),
     image: z.string(),
   }),
-  externalStylesheets: z.array(z.url()),
   manifest: z.string(),
   icons: z.array(
     z.object({
