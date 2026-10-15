@@ -1,21 +1,26 @@
 import { z } from "zod";
 
-export const pressEntrySchema = z.object({
+/** One tile of default_press (article.tpl): image, title, link in a new tab. */
+export const pressItemSchema = z.object({
   title: z.string().min(1),
-  type: z.enum(["article", "logo", "screenshot", "document", "video", "publication"]),
-  url: z.string().min(1),
-  date: z.coerce.date().optional(),
-  source: z.string().optional(),
-  description: z.string().optional(),
-  image: z.string().optional(),
+  /** External URL or a file under public/ ("/files/download/…"). */
+  link: z.string().regex(/^(https?:\/\/|\/files\/)/, "http(s)-URL oder /files/…"),
+  /** Image under public/files/medien/. */
+  img: z.string().regex(/^\/files\/medien\//, "Pfad unter /files/medien/"),
 });
-
-export const pressListSchema = z.array(pressEntrySchema);
-
-export type PressEntry = z.infer<typeof pressEntrySchema>;
+export type PressItem = z.infer<typeof pressItemSchema>;
 
 /**
- * Client-safe, fully serializable press entry (ISO-string date).
- * Use this across Server → Client Component boundaries where plain JSON is required.
+ * content/press/media.yaml: the three lists of the old table `media`, one per
+ * type of saimod_media, in live order.
  */
-export type SerializedPressEntry = Omit<PressEntry, "date"> & { date?: string };
+export const pressMediaSchema = z.object({
+  /** MEDIA_DOWNLOAD, section "Presse-Kit". */
+  kit: z.array(pressItemSchema),
+  /** MEDIA_PRESS, section "Pressespiegel". */
+  articles: z.array(pressItemSchema),
+  /** MEDIA_PUBLICATION, section "Publikationen". */
+  publications: z.array(pressItemSchema),
+});
+export type PressMedia = z.infer<typeof pressMediaSchema>;
+export type PressList = keyof PressMedia;

@@ -43,3 +43,9 @@ next-env.d.ts
 # playwright
 test-results/
 playwright-report/
+
+# comparison tool (pnpm compare)
+/compare-results/
+
+# blog import cache (scripts/import-blog.ts)
+/.cache/

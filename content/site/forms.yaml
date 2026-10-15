@@ -1,0 +1,19 @@
+# Texts of the old website forms: alerts of their click handlers
+# (default_contact.js, default_engineering.js) and of sendMail()
+# (default_page.js), recipient and subject of the mail template
+# "Website Contact". Kept 1:1, typos included.
+
+# Without an endpoint (NEXT_PUBLIC_<FORM>_ENDPOINT) the form opens a mail to
+# this address.
+recipient: "contact@democracy-deutschland.de"
+
+# Subject of the prefilled mail; {type} = form type (contact, bugreport, volunteer).
+subject: "DEMOCRACY Website: {type}"
+
+messages:
+  firstName: "Bitte einen Vornamen eingeben"
+  lastName: "Bitte einen Nachname eingeben"
+  email: "Bitte einen gültige E-Mail eingeben"
+  text: "Bitte einen Text eingeben"
+  sent: "Danke! Deine Nachricht wurde versendet."
+  failed: "Deine Nachricht konnte nicht versendet weden. Bitte versuche es später noch einmal. Danke."

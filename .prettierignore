@@ -3,3 +3,22 @@ out
 build
 node_modules
 pnpm-lock.yaml
+# Page MDX: Prettier's MDX parser (MDX 1) does not understand nested JSX with
+# Markdown and changes whitespace that the 1:1 markup depends on.
+content/pages/*.mdx
+# Original CSS, copied verbatim from the PHP site
+public/css
+# Original manifests of the live site (root of the PHP site), kept verbatim
+public/manifest.json
+public/site.webmanifest
+public/browserconfig.xml
+# Live responses (API, legal texts), kept byte for byte
+tests/fixtures/*.live.*
+# Blog: written by `pnpm import-blog`; the Markdown must render to the exact
+# WordPress DOM, the CSS is the original of the Lovecraft theme and WordPress
+content/blog/*.md
+content/blog/taxonomy.yaml
+content/blog/media.yaml
+content/blog/missing-uploads.yaml
+public/blog
+src/lib/blog/inline-css

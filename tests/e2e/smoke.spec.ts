@@ -1,55 +1,55 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
+import { trackErrors } from "./helpers";
 
 const routes = [
-  { path: "/", name: "Home" },
-  { path: "/buerger", name: "Bürger" },
-  { path: "/politiker", name: "Politiker" },
-  { path: "/wahlometer", name: "Wahlometer" },
-  { path: "/ueber-uns", name: "Über uns" },
-  { path: "/impressum", name: "Impressum" },
-  { path: "/datenschutz", name: "Datenschutz" },
-  { path: "/nutzungsbedingungen", name: "Nutzungsbedingungen" },
-  { path: "/faq", name: "FAQ" },
-  { path: "/spenden", name: "Spenden" },
-  { path: "/engineering", name: "Engineering" },
-  { path: "/kontakt", name: "Kontakt" },
-  { path: "/blog", name: "Blog" },
-  { path: "/blog/news-38-weihnachtsbrief-25", name: "Blog-Artikel" },
-  { path: "/presse", name: "Presse" },
+  { path: "/", heading: "Weil deine Stimme zählt!" },
+  { path: "/wahlometer/", heading: "Dein faktenbasierter Wahlhelfer" },
 ];
 
 for (const route of routes) {
-  test(`${route.name} (${route.path}) loads without errors`, async ({ page }) => {
-    const jsErrors: string[] = [];
-    page.on("console", (msg) => {
-      if (msg.type() === "error") {
-        jsErrors.push(msg.text());
-      }
-    });
-    page.on("pageerror", (err) => {
-      jsErrors.push(`pageerror: ${err.message}`);
-    });
-
+  test(`${route.path} loads without errors`, async ({ page }) => {
+    const errors = trackErrors(page);
     const response = await page.goto(route.path);
     expect(response?.status()).toBe(200);
-
-    // Page should have content (not blank)
-    await expect(page.locator("body")).not.toBeEmpty();
-
-    // No JavaScript console errors or uncaught exceptions
-    expect(jsErrors).toEqual([]);
+    await expect(page.locator("#index-headline")).toHaveText(route.heading);
+    await page.waitForLoadState("networkidle");
+    expect(errors).toEqual([]);
   });
 }
 
-test("404 page renders for unknown routes", async ({ page }) => {
-  const jsErrors: string[] = [];
-  page.on("pageerror", (err) => {
-    jsErrors.push(`pageerror: ${err.message}`);
+test("original stylesheets and fonts load", async ({ page }) => {
+  const failed: string[] = [];
+  page.on("response", (response) => {
+    if (response.url().startsWith("http://localhost") && response.status() >= 400) {
+      failed.push(`${response.status()} ${response.url()}`);
+    }
   });
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  const fonts = await page.evaluate(async () => {
+    await document.fonts.ready;
+    return [...document.fonts].filter((f) => f.status === "loaded").map((f) => f.family);
+  });
+  expect(fonts).toEqual(
+    expect.arrayContaining([
+      "helvetica",
+      "helvetica_bold",
+      "edosz",
+      "isabelle_layne",
+      "SFProDisplay",
+      "icomoon",
+      "Font Awesome 5 Brands",
+      "Font Awesome 5 Free",
+    ]),
+  );
+  // Bootstrap is active: the navbar is fixed.
+  await expect(page.locator("nav.navbar")).toHaveCSS("position", "fixed");
+  expect(failed).toEqual([]);
+});
 
-  const response = await page.goto("/nonexistent-page-xyz");
-  // Next.js static export serves the exported 404 page with HTTP 404
+test("unknown paths render the 404 page inside the frame", async ({ page }) => {
+  const response = await page.goto("/nonexistent-page-xyz/");
   expect(response?.status()).toBe(404);
   await expect(page.getByRole("heading", { name: "404" })).toBeVisible();
-  expect(jsErrors).toEqual([]);
+  await expect(page.locator("nav.navbar")).not.toHaveClass(/startpage/);
 });

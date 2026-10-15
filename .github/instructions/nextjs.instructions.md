@@ -9,6 +9,8 @@ _Last updated: January 2026 (aligned to Next.js 16.1.1)_
 
 This document summarizes the latest, authoritative best practices for building, structuring, and maintaining Next.js applications. It is intended for use by LLMs and developers to ensure code quality, maintainability, and scalability.
 
+> **This repo:** the project rules in `AGENTS.md` take precedence. It is a static 1:1 port: styling comes only from the original CSS in `public/css/` (no `styles/` folder, CSS modules or `next/image`), and there are no route handlers or server features.
+
 ---
 
 ## 1. Project Structure & Organization

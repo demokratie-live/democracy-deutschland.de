@@ -1,65 +1,86 @@
 ---
-title: DEMOCRACY – Weil deine Stimme zählt!
-slug: /
-seo:
-  title: "DEMOCRACY – Weil deine Stimme zählt!"
-  description: "DEMOCRACY ist die App für mehr Transparenz und Bürgerbeteiligung. Informiere dich über Gesetze, stimme selbst ab und vergleiche dein Abstimmungsverhalten mit dem Bundestag."
-  subline: "Weil deine Stimme zählt!"
+# Startseite „DEMOCRACY“ (live: State home, default_home.tpl)
+state: home
 ---
 
-<HeroWithPhone
-  headline="DEMOCRACY"
+<AppHeader
+  variant="home"
+  title="DEMOCRACY"
   version="1.5"
-  subline="Weil deine Stimme zählt!"
-  phoneImage="/files/images/List.png"
-  phoneAlt="DEMOCRACY App – Liste der Bundestagsvorgänge"
+  headline="Weil deine Stimme zählt!"
+  apkLabel="APK (v1.5.10) "
 />
 
-<Section bg="white">
-<div className="flex flex-col items-baseline justify-between gap-2 sm:flex-row">
-  <h2 className="text-2xl font-bold">Worum geht es bei DEMOCRACY? (2:30)</h2>
-  <a
-    href="https://www.youtube.com/watch?v=DFXcnRdXA7k"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-sm font-medium text-primary-500 hover:text-primary-600"
+<ScrollIcon />
+
+<VideoSection
+  raised
+  titleBefore="Worum geht es bei "
+  titleEmphasis="DEMOCRACY "
+  titleAfter="(2:30)?"
+  linkHref="/faq/"
+  linkLabel="Mehr Informationen zu diesem Film"
+  youtube="https://www.youtube.com/embed/DFXcnRdXA7k"
+/>
+
+<Section id="about" style={{ marginTop: "-8vh" }}>
+  <FeatureVideos heading="Alle Funktionen von DEMOCRACY" webm="./democracy/files/images/DDW-List_croped.webm">
+    <InfoBadge icon="group6" video="/videos/DDW-List_croped.mp4" action="Wähle" text="einen aktuellen, vergangenen oder populären Vorgang des Deutschen Bundestages" />
+    <InfoBadge icon="group3" video="/videos/DDW-info_croped.mp4" action="Informiere" text="Dich über den Vorgang mithilfe der offiziellen Parlamentsdokumente" />
+    <InfoBadge icon="group5" video="/videos/DDW-vote_croped.mp4" action="Stimme" text="selbst über den Vorgang ab, als wärst Du Bundestagsabgeordneter" />
+    <InfoBadge icon="group2" video="/videos/DDW-compare_croped.mp4" action="Vergleiche" text="Dein Abstimmungsverhalten mit der Community und dem Bundestag" />
+    <InfoBadge icon="group9" video="/videos/DDW-analyse_croped.mp4" action="Analysiere" text="Deine Übereinstimmung mit dem Bundestag, den Parteien und Kandidaten" />
+  </FeatureVideos>
+</Section>
+
+<Section id="about">
+  <h1 style={{ paddingBottom: "5vh", paddingTop: "3vh" }}>Für wen ist DEMOCRACY?</h1>
+
+  <RectangleInfo
+    id="ri-container-1"
+    title="Für Bürger,"
+    subtitle={<>die sich mehr Transparenz <br />& Teilhabe wünschen </>}
+    linkHref="/buerger/"
+    linkLabel=" Mehr erfahren"
   >
-    Mehr Informationen zu diesem Film
-  </a>
-</div>
-
-<div className="mt-6">
-  <VideoPlayer url="https://www.youtube.com/embed/DFXcnRdXA7k" title="Worum geht es bei DEMOCRACY? (2:30)" />
-</div>
-</Section>
-
-<Section>
-## Alle Funktionen von DEMOCRACY
-
-<FeaturesShowcase />
-</Section>
-
-<Section bg="white">
-## Für wen ist DEMOCRACY?
-
-<Grid cols={2}>
-  <InfoCard title="Für Bürger," subtitle="die sich mehr Transparenz & Teilhabe wünschen" link="/buerger">
     Ob jung oder alt, ob bereits Experte oder bislang uninformiert. DEMOCRACY ist ein politisches Werkzeug für alle, die sich mehr Transparenz und Teilhabe wünschen.
-  </InfoCard>
+  </RectangleInfo>
 
-  <InfoCard title="Für Politiker," subtitle="die erklären wollen, warum sie wie entscheiden" link="/politiker">
+  <RectangleInfo
+    id="ri-container-2"
+    title="Für Politiker,"
+    subtitle={<>die erklären wollen, warum <br />sie wie entscheiden </>}
+    linkHref="/politiker/"
+    linkLabel=" Mehr erfahren"
+  >
     Ob parlamentarischer Neuling oder abgeklärter Abgeordneter. DEMOCRACY bietet Dir die Möglichkeit, Deinen wichtigsten Stakeholdern Gehör zu schenken: den Bürgern.
-  </InfoCard>
-</Grid>
-</Section>
+  </RectangleInfo>
 
-<Section centered>
-## bekannt aus
-
-<PressBar>
-  <PressLink name="hr-iNFO" url="https://www.hr-inforadio.de/podcast/jung-macht-politik/jung-macht-politik-marius-krueger--per-app-zum-virtuellen-bundestagsabgeordneten,podcast-episode-76718.html" logo="/images/press/hrinfo_logo.png" />
-  <PressLink name="MDR" url="https://www.mdr.de/nachrichten/deutschland/wahlen/bundestagswahl/app-democracy-100.html" logo="/images/press/mdr_logo.png" />
-  <PressLink name="Deutsche Welle" url="https://www.dw.com/de/democracy-die-app-die-politik-transparenter-machen-will/a-45513178" logo="/images/press/dw_logo.png" />
-  <PressLink name="WIRED" url="https://www.wired.de/article/democracy-app-bundestag" logo="/images/press/wired_logo.png" />
-</PressBar>
+  <PressLogos heading=" bekannt aus">
+    <PressLogo
+      id="hrinfo-logo"
+      href="https://www.hr-inforadio.de/podcast/jung-macht-politik/jung-macht-politik-marius-krueger--per-app-zum-virtuellen-bundestagsabgeordneten,podcast-episode-76718.html"
+      src="/files/images/hrinfo_logo.png"
+      alt="Logo des hessischen Radiosenders hr-iNFO"
+      style={{ paddingTop: "10px" }}
+    />
+    <PressLogo
+      id="mdr-logo"
+      href="https://www.youtube.com/watch?v=5sbPOUL-5Fs"
+      src="/files/images/mdr_logo.png"
+      alt="Logo des Mitteldeutschen Rundfunks"
+    />
+    <PressLogo
+      id="dw-logo"
+      href="https://www.youtube.com/watch?v=RkSq_rBpVlA"
+      src="/files/images/dw_logo.png"
+      alt="Logo der Nachrichtenorganisation Deutsche Welle"
+    />
+    <PressLogo
+      id="wired-logo"
+      href="https://www.gq-magazin.de/auto-technik/article/die-bundesregierung-sollte-wort-halten-und-unserer-demokratie-ein-update-fuer-mehr-beteiligung-verpassen"
+      src="/files/images/wired_logo.png"
+      alt="Logo des Magazins WIRED"
+    />
+  </PressLogos>
 </Section>

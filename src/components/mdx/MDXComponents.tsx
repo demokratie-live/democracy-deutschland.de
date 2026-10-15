@@ -1,126 +1,65 @@
-import type { ComponentPropsWithoutRef } from "react";
-import Link from "next/link";
+import type { MDXRemoteProps } from "next-mdx-remote/rsc";
+import { ServicesIcon, Team } from "@/components/about/Team";
+import { BlogFrame } from "@/components/blogpage/BlogFrame";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { DonateBox, DonateDetails } from "@/components/donate/DonationFigures";
+import { Modal } from "@/components/donate/Modal";
+import { ModalToggle } from "@/components/donate/ModalToggle";
+import { BugReportForm, VolunteerForm } from "@/components/engineering/EngineeringForms";
+import { Roadmap } from "@/components/engineering/Roadmap";
+import { Faq } from "@/components/faq/Faq";
+import { FeatureVideos, InfoBadge } from "@/components/home/FeatureVideos";
+import { LegalText } from "@/components/legal/LegalText";
+import { BlogTeasers, PressMedia } from "@/components/press/PressTiles";
+import { AppHeader } from "@/components/shared/AppHeader";
+import { ComparisonAccordion, ComparisonRow } from "@/components/shared/ComparisonAccordion";
+import { Hotspot } from "@/components/shared/Hotspot";
+import { Img } from "@/components/shared/Img";
+import { Link } from "@/components/shared/Link";
+import { PressLogo, PressLogos } from "@/components/shared/PressLogos";
+import { RectangleInfo } from "@/components/shared/RectangleInfo";
+import { ScrollIcon } from "@/components/shared/ScrollIcon";
+import { Section } from "@/components/shared/Section";
+import { VideoSection } from "@/components/shared/VideoSection";
+import { SymbolInfo, SymbolInfoPanel } from "@/components/wahlometer/SymbolInfo";
+import { Campaign, CampaignCorner, WhyUs } from "@/components/wahlometer/WomAbout";
 
-import { Hero } from "@/components/blocks/Hero";
-import { HeroWithPhone } from "@/components/blocks/HeroWithPhone";
-import { VideoPlayer } from "@/components/blocks/VideoPlayer";
-import { AppBadges } from "@/components/blocks/AppBadges";
-import { asset } from "@/lib/base-path";
-
-import { Section } from "./Section";
-import { Grid } from "./Grid";
-import { CTA } from "./CTA";
-import { FeatureCard } from "./FeatureCard";
-import { FeaturesShowcase } from "./FeaturesShowcase";
-import { InfoCard } from "./InfoCard";
-import { PressBar, PressLink } from "./PressBar";
-import { Quote } from "./Quote";
-import { PhilosophyCard } from "./PhilosophyCard";
-import { TeamSection } from "./TeamSection";
-import { ComparisonTable, ComparisonRow } from "./ComparisonTable";
-import { ValueTable, ValueRow } from "./ValueTable";
-import { FAQSection } from "./FAQSection";
-import { DonateSection } from "./DonateSection";
-import { RoadmapSection } from "./RoadmapSection";
-import { ContactForm } from "./ContactForm";
-import { MediaGrid } from "./MediaGrid";
-import { BlogTeaser } from "./BlogTeaser";
-import { BugReportForm } from "./BugReportForm";
-import { HelpOutForm } from "./HelpOutForm";
-import { DiscordJoin } from "./DiscordJoin";
-
-function isInternalLink(href: string) {
-  return href.startsWith("/") || href.startsWith("#");
-}
-
-// Non-http(s) protocols that should open in the current tab (mail clients,
-// phone dialers, etc.) — `target="_blank"` on these is usually unwanted.
-function isSameTabProtocol(href: string) {
-  return /^(mailto:|tel:|sms:)/i.test(href);
-}
-
-type AnchorProps = ComponentPropsWithoutRef<"a">;
-type ImgProps = ComponentPropsWithoutRef<"img">;
-
-function MdxImg({ src, alt, ...props }: ImgProps) {
-  const resolved = typeof src === "string" ? asset(src) : src;
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={resolved} alt={alt ?? ""} {...props} />;
-}
-
-function MdxLink({ href, children, ...props }: AnchorProps) {
-  if (!href) {
-    return <a {...props}>{children}</a>;
-  }
-  if (isInternalLink(href)) {
-    return (
-      <Link href={href} {...props}>
-        {children}
-      </Link>
-    );
-  }
-  if (isSameTabProtocol(href)) {
-    return (
-      <a href={href} {...props}>
-        {children}
-      </a>
-    );
-  }
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-      {children}
-    </a>
-  );
-}
-
-function MdxH2({ children, ...props }: ComponentPropsWithoutRef<"h2">) {
-  return (
-    <h2 className="mb-6 text-3xl font-bold md:text-4xl" {...props}>
-      {children}
-    </h2>
-  );
-}
-
-function MdxH3({ children, ...props }: ComponentPropsWithoutRef<"h3">) {
-  return (
-    <h3 className="mb-4 text-2xl font-bold md:text-3xl" {...props}>
-      {children}
-    </h3>
-  );
-}
-
-export const mdxComponents = {
-  a: MdxLink,
-  img: MdxImg,
-  Img: MdxImg,
-  h2: MdxH2,
-  h3: MdxH3,
-  Hero,
-  HeroWithPhone,
-  VideoPlayer,
-  AppBadges,
+/** Everything usable in content/pages/*.mdx without import (see AGENTS.md). */
+export const mdxComponents: MDXRemoteProps["components"] = {
+  // Markdown links get basePath and client navigation.
+  a: Link,
+  Link,
+  Img,
   Section,
-  Grid,
-  CTA,
-  FeatureCard,
-  FeaturesShowcase,
-  InfoCard,
-  PressBar,
-  PressLink,
-  Quote,
-  PhilosophyCard,
-  TeamSection,
-  ComparisonTable,
+  AppHeader,
+  ScrollIcon,
+  VideoSection,
+  PressLogos,
+  PressLogo,
+  RectangleInfo,
+  FeatureVideos,
+  InfoBadge,
+  SymbolInfoPanel,
+  SymbolInfo,
+  ComparisonAccordion,
   ComparisonRow,
-  ValueTable,
-  ValueRow,
-  FAQSection,
-  DonateSection,
-  RoadmapSection,
+  WhyUs,
+  Campaign,
+  CampaignCorner,
+  DonateBox,
+  DonateDetails,
+  Modal,
+  ModalToggle,
+  Team,
+  ServicesIcon,
+  PressMedia,
+  BlogTeasers,
+  Faq,
   ContactForm,
-  MediaGrid,
-  BlogTeaser,
+  LegalText,
+  Roadmap,
   BugReportForm,
-  HelpOutForm,
-  DiscordJoin,
+  VolunteerForm,
+  Hotspot,
+  BlogFrame,
 };

@@ -1,0 +1,10 @@
+# Download links of the DEMOCRACY app (text tags link_* of the live site).
+# APK and AAB come from the GitHub releases of democracy-client instead of
+# /files/download/ (see docs/abweichungen.md).
+
+appStore: "https://itunes.apple.com/de/app/democracy/id1341311162"
+playStore: "https://play.google.com/store/apps/details?id=de.democracydeutschland.app"
+fdroid: "https://f-droid.org/de/packages/de.democracydeutschland.app/"
+browserVersion: "https://democracy-app.de"
+apk: "https://github.com/demokratie-live/democracy-client/releases/latest/download/democracy-app.apk"
+aab: "https://github.com/demokratie-live/democracy-client/releases/latest/download/democracy-app.aab"

@@ -1,97 +1,215 @@
 ---
-title: Engineering
-slug: /engineering
-seo:
-  title: "Engineering & Roadmap – DEMOCRACY Deutschland e.V."
-  description: "Unsere Entwicklung ist Open Source, der Quellcode frei und offen. Hier findest Du unsere Roadmap und den aktuellen Stand."
-  subline: "Unsere Entwicklung ist Open Source, der Quellcode frei und offen."
+# Engineering (live: State engineering, default_engineering.tpl)
+# Roadmap: content/engineering/roadmap.yaml, alert-Texte der Formulare: content/site/forms.yaml.
+# Der Block „Alpha“ (Store-Badges und „Hier gehts zur Bewerbungsformular“) entfällt:
+# das Tester-Onboarding gibt es nicht mehr (Entscheidung Manuel 2026-10-14).
+# Die Verschachtelung ab „Toolset“ folgt dem Browser-DOM: Im Template fehlt bei
+# „</h1“ das „>“, der Browser verschluckt deshalb das folgende „</div>“.
+state: engineering
 ---
 
-<Section centered>
-## Roadmap
-
-Unsere Entwicklung ist [Open Source](https://github.com/demokratie-live/), der Quellcode frei und offen.
-DEMOCRACY ist und bleibt kostenlos.
-
-</Section>
-
-<Section>
-  <RoadmapSection />
-</Section>
-
-<Section centered>
-## Technologie Stack
-
-Unsere Programmiersprachen und Frameworks, die Du als Entwickler benötigst,
-um an DEMOCRACY mitzuwirken.
-
-<Grid cols={3}>
-  <FeatureCard icon="tech-typescript" title="TypeScript / JavaScript">
-    Unsere Basis für Client und Server.
-  </FeatureCard>
-  <FeatureCard icon="tech-react" title="React Native">
-    Plattformübergreifende App-Entwicklung für iOS und Android.
-  </FeatureCard>
-  <FeatureCard icon="tech-node" title="Node.js">
-    Serverseitige Logik und API.
-  </FeatureCard>
-</Grid>
-
-</Section>
-
-<Section bg="white" centered>
-## Toolset
-
-Vielen Dank an [BrowserStack](https://www.browserstack.com/), die uns als gemeinnützigem Open-Source-Projekt ihre Plattform für automatisierte Cross-Browser-Tests kostenfrei zur Verfügung stellen. Damit stellen wir sicher, dass DEMOCRACY auf allen relevanten Geräten und Browsern einwandfrei funktioniert.
-
-</Section>
-
-<Section bg="muted" centered>
-## DEMOCRACY Entwicklerversion testen
-
-Prototyping ist der Prozess der Annäherung an ein Produkt – teste frühe Builds und gib uns Feedback.
-
-<AppBadges />
-
-</Section>
-
-<Section centered>
-## Bugreports
-
-Du hast einen Fehler gefunden oder ein anderes Problem festgestellt? Hilf uns diesen zu beheben – mit einem qualifizierten Feedback über das Formular oder per E-Mail an [prototyping@democracy-deutschland.de](mailto:prototyping@democracy-deutschland.de).
-
-<BugReportForm />
-
-</Section>
-
-<Section bg="muted" centered>
-## Mithelfen
-
-Du möchtest Demokratie mitgestalten? Werde Teil des Teams.
-
-Wir suchen:
-
-- UI/UX-Designer
-- Front-End-Developer
-- Back-End-Developer
-- Kryptographen
-- Marketingstrategen
-- Redakteure
-- Botschafter
-
-Du möchtest ein App-Feature vorschlagen? Auch dafür sind wir offen!
-
-<HelpOutForm />
-
-Schau Dir auch unsere [GitHub-Repositories](https://github.com/demokratie-live/) an.
-
-</Section>
-
-<Section centered>
-## Alpha-Zugang anfragen
-
-Du möchtest vor allen anderen neue Features testen? Frag bei uns einen Platz im Alpha-Programm an – wir schicken Dir die Installationsanleitung für iOS TestFlight bzw. Google Play Open Testing.
-
-[Alpha-Einladung anfragen](mailto:prototyping@democracy-deutschland.de?subject=Alpha-Einladung%20DEMOCRACY)
-
-</Section>
+<div className="background-white">
+<div className="container main-container">
+<div className="row">
+<div className="col-12">
+<h1>Roadmap</h1>
+<h4 style={{ paddingTop: "30px" }}>Unsere Entwicklung ist <a href="https://github.com/demokratie-live/" target="_blank">Open Source</a>, der Quellcode frei und offen.</h4>
+<h4>DEMOCRACY ist und bleibt kostenlos.</h4>
+</div>
+<div className="col-12">
+<style>{`
+.badges2 {
+    text-align: center;
+    padding-left: 15px;
+}
+.table i {
+    font-size: 25px;
+}
+.table tr td:first-child,
+.table tr th:first-child {
+    text-align: left;
+}
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: #D0E4F4;
+}
+#finalblock {
+    background-color: #fff;
+    padding-top: 35px;
+}
+#protodivider {
+    margin-top: 50px;
+}
+.rotate {
+    font-size: 14px;
+}
+@media (min-width: 992px) {
+    #protodivider {
+        margin-top: -30px;
+    }
+    .badges2 {
+        text-align: left;
+    }
+}
+@media (max-width: 767px) {
+    .rotate {
+        word-break: keep-all;
+        font-size: 12px;
+    }
+    .table th.rotate,
+    .table tr {
+        padding: 3px !important;
+    }
+    #finalblock {
+        padding-bottom: 50px;
+    }
+}
+.rmicon-red {
+    color: rgb(196, 48, 43);
+}
+.rmicon-green {
+    color: rgb(38, 183, 39);
+}
+.rmicon-blue {
+    color: rgb(68,148,211);
+}
+.rmicon-grey {
+    color: rgb(115,115,115);
+}
+.rmicon-black {
+    color: rgb(0,0,0);
+}
+`}</style>
+<Roadmap heading="Release" />
+</div>
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>Technologie Stack</h1>
+<h5 style={{ paddingTop: "30px", paddingBottom: "50px" }}>Unsere Programmiersprachen und Frameworks, die Du als Entwickler benötigst,<br />um an DEMOCRACY mitzuwirken.</h5>
+</div>
+<div className="col-12">
+<div className="row">
+<div className="col-lg-4 info-box">
+<div className="stack-box-img">
+<Img src="/files/images/ts-js.png" />
+</div>
+</div>
+<div className="col-lg-4 info-box">
+<div className="stack-box-img">
+<Img src="/files/images/react-native.png" />
+</div>
+</div>
+<div className="col-lg-4 info-box">
+<div className="stack-box-img">
+<Img src="/files/images/nodejs.png" />
+</div>
+</div>
+</div>
+</div>
+<div className="col-12" style={{ paddingTop: "100px" }}>
+<h1>Toolset</h1>
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<div className="row justify-content-md-center">
+<div className="col-lg-4 info-box">
+<a href="https://www.browserstack.com" target="_blank">
+<div className="stack-box-img">
+<Img src="/files/images/browserstack.png" />
+</div>
+</a>
+</div>
+</div>
+</div>
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>DEMOCRACY Entwicklerversion testen</h1>
+<div className="row" style={{ paddingTop: "50px" }}>
+<div className="col-lg-1"></div>
+<div className="col-lg-4">
+<Img src="/files/images/01FemaleMirror@3x.png" style={{ width: "100%", paddingTop: "50px" }} />
+</div>
+<div className="col-lg-2"></div>
+<div className="col-lg-4" style={{ paddingTop: "60px" }}>
+<Img src="/files/images/circle@3x.png" style={{ width: "75px" }} />
+<div className="cite">
+<div className="cite-icon">
+<Img src="/files/images/quotes@3x.png" style={{ width: "60px", paddingLeft: "12px" }} />
+</div>
+<div className="cite-content" style={{ textAlign: "left" }}>Prototyping ist der Prozess der Annäherung an ein Produkt</div>
+</div>
+</div>
+<div className="col-lg-1"></div>
+</div>
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" id="protodivider" />
+</div>
+<BugReportForm
+  heading="Bugreports"
+  intro={<>Du hast einen Fehler gefunden oder ein anderes Problem im MVP festgestellt? Hilf uns diese(n) zu beheben –<br />mit einem qualifizierten Feedback. Dazu füllst du am Besten das untenstehende Formular aus.</>}
+  name="Dein Name*"
+  email="E-Mail-Adresse für Rückfragen*"
+  title="Betreff/Titel"
+  platform="Plattform (iOS/Android)*"
+  version="Version*"
+  text="Bitte beschreibe den Fehler möglichst genau in wenigen Sätzen; beziehe Dich dabei auf Screenshots und markiere die fehlerhaften Bereiche*"
+  attachMailto="Screenshots? Nach „Bericht senden“ öffnet sich Dein Mailprogramm, dort einfach anhängen."
+  attachEndpoint="Screenshots? Einfach per E-Mail an {recipient} schicken."
+  submit="Bericht senden"
+/>
+<div className="col-12" id="help">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+<div className="col-12" style={{ paddingTop: "50px" }}>
+<h1>Mithelfen</h1>
+<h5 style={{ paddingTop: "30px" }}>Du möchtest Demokratie mitgestalten?<br />Werde Teil des Teams.</h5>
+<style>{`
+#laptop {
+    display: flex;
+    text-align: left;
+}
+#laptop div input {
+    margin-top: 5px;
+}
+@media (min-width:992px) {
+    #laptop {
+        margin-left: 120px;
+        margin-right: 120px;
+        margin-top: 40px;
+        padding-bottom: 1%;
+        margin-bottom: 12.5%;
+        background-color: #fff;
+    }
+}
+`}</style>
+<div className="row" style={{ paddingTop: "50px" }}>
+<Img src="/files/images/macbookSpaceGrey@3x.png" className="d-none d-lg-block" style={{ width: "100%", position: "absolute" }} />
+<div className="col-12">
+<VolunteerForm
+  name="Dein Name*"
+  email="Deine E-Mail-Adresse*"
+  rolesHeading="Ich möchte DEMOCRACY mitgestalten als"
+  roles={[
+    { id: "uiux", label: "UI/UX-Designer" },
+    { id: "frontend", label: "Front-End-Developer" },
+    { id: "backend", label: "Back-End-Developer" },
+    { id: "kryptologe", label: "Kryptograph" },
+    { id: "marketing", label: "Marketingstratege" },
+    { id: "redakteur", label: "Redakteur" },
+    { id: "botschafter", label: "Botschafter" },
+  ]}
+  featureHeading="Ich möchte ein App-Feature vorschlagen"
+  feature={{ id: "feature", label: "Feature-Vorschlag" }}
+  text="Erzähle uns über Deine Erfahrungen/Idee(n)*"
+  submit="Als Freiwillige/r melden "
+/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

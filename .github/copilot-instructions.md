@@ -1,63 +1,24 @@
 # DEMOCRACY Deutschland – Repository Overview
 
-This repository contains the website for **DEMOCRACY Deutschland e.V.**, a German civic-tech nonprofit that builds transparency tools for parliamentary democracy.
+This repository contains the website of **DEMOCRACY Deutschland e.V.**: a static 1:1 port of the PHP site [democracy-deutschland.de](https://democracy-deutschland.de) (repo `demokratie-live/democracy-website`) to Next.js. Every page must look and behave exactly like the live site; only clear bugs are fixed and documented.
 
-## Repository Structure
-
-The repository has two parts:
-
-- **the repo root** — The active Next.js website (this is where all development happens)
-- Root directory — Legacy PHP website (deprecated, do not modify)
-
-## Getting Started
-
-All work should be done inside the repo root. See `AGENTS.md` for comprehensive project documentation including:
-
-- Architecture and file structure
-- Content system (MDX + YAML + Zod validation)
-- MDX component system and gotchas
-- Build commands and conventions
+`AGENTS.md` is the single source of truth for architecture, the rules for 1:1 markup, the steps to port a module and all gotchas. Read it before changing code or content.
 
 ## Key Facts
 
-- **Tech Stack**: Next.js 16, React 19, TypeScript strict, Tailwind CSS v4, Zod v4
-- **Package Manager**: pnpm (v10+)
-- **Build**: Static export (`output: "export"`)
-- **Content Language**: German
-- **Code Language**: English (variable names, comments, code)
-- **User Language**: German — the user communicates in German. Always respond in German unless explicitly asked otherwise. Code, variable names, and commit messages remain in English.
-- **Reference Site**: [democracy-deutschland.de](https://www.democracy-deutschland.de) — the original live site is the visual reference for design decisions
-- **Content**: All content in `content/` as MDX and YAML files
-- **Validation**: `pnpm validate-content` checks all content against Zod schemas
-- **Commits**: Commit sensible, self-contained changes promptly instead of leaving them uncommitted for long. After finishing a coherent fix or feature, create a commit right away with a concise English subject and do not bundle unrelated files.
+- **Tech stack**: Next.js 16 (App Router, static export), React 19, TypeScript strict, original Bootstrap 4.0.0 / Font Awesome CSS from the PHP site, Zod v4, pnpm. No Tailwind, no jQuery.
+- **Reference**: the live site is the truth for content and behaviour (`/#!<state>`, `/?_escaped_fragment_=<state>`); access it read-only.
+- **Content**: page texts in `content/pages/*.mdx`, site data in `content/site/*.yaml`, donation status (page and app JSON `/api.php`) in `content/donate/donation.yaml`, team of `/ueber-uns/` in `content/team/team.yaml`, press tiles in `content/press/media.yaml`, FAQ in `content/faq/faq.yaml`, roadmap of `/engineering/` in `content/engineering/roadmap.yaml`, legal texts (Markdown) in `content/legal/`, form texts in `content/site/forms.yaml`, blog posts in `content/blog/` (written by `pnpm import-blog`, rendered in the Lovecraft look under `/blog/` with its own root layout).
+- **Docs**: deviations in `docs/abweichungen.md`, server needs in `docs/server-funktionen.md`, hosting on Plesk (`.htaccess`, deploy via the branch `deploy`) in `docs/hosting-plesk.md`.
+- **Languages**: UI content German; code, comments, identifiers and commit messages English. The user communicates in German; answer in German.
+- **Commits**: commit finished, self-contained changes promptly with a concise English subject; do not bundle unrelated files.
 
-## Commands (run from the repo root)
+## Verification
 
 ```bash
-pnpm dev              # Dev server with Turbopack
-pnpm build            # Production build
-pnpm lint             # ESLint
-pnpm validate-content # Content validation
-pnpm test:e2e         # Playwright smoke tests (build first!)
-pnpm format           # Format all files with Prettier (incl. MDX)
-pnpm format:check     # Check formatting without writing
-npx serve out         # Preview built site locally (equivalent to `pnpm start`)
+pnpm lint && pnpm validate-content && pnpm test:unit
+pnpm test:e2e          # build + Playwright (desktop and mobile)
+pnpm test:basepath     # build under a basePath + Playwright (export must work on any static host)
+pnpm compare <path>    # local page against live: screenshots, text, head
+pnpm serve-apache && pnpm check-htaccess   # out/.htaccess on a local Apache 2.4
 ```
-
-## ⚠️ Critical Workflow Rules
-
-### Build after every MDX change
-
-After creating or modifying **any** MDX file, immediately run `pnpm build` to catch parse errors. MDX issues (Unicode quotes, optional chaining) only surface at build time — `pnpm validate-content` catches schema errors but **not** MDX compilation failures.
-
-### Static export means NO server features
-
-Do not create: API routes (`app/api/`), middleware, server actions, `getServerSideProps`, database connections, or CMS integrations. All data comes from local MDX/YAML files read at build time. Never suggest adding a CMS — the project deliberately uses file-based "content as code".
-
-### Stale `.next` cache
-
-If the dev server shows broken styling or CSS 404 errors, the `.next` cache is likely stale. Fix with: `rm -rf .next && pnpm dev`. This commonly occurs after killed dev servers or switching branches.
-
-### Verify changes with tests
-
-After completing page or component changes, run the full verification: `pnpm build && pnpm test:e2e`. When Playwright MCP browser is available, also visually inspect affected pages to catch rendering issues that automated tests miss.

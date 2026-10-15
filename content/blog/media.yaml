@@ -1,0 +1,1913 @@
+# Written by `pnpm import-blog` (scripts/import-blog.ts), do not edit by hand.
+- id: 716
+  file: /blog/wp-content/uploads/2024/12/News_01.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_01-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_01-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_01-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_01-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_01-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_01-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_01-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_01-1280x710.png
+      width: 1280
+      height: 710
+- id: 717
+  file: /blog/wp-content/uploads/2024/12/News_02.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_02-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_02-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_02-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_02-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_02-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_02-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_02-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_02-1280x710.png
+      width: 1280
+      height: 710
+- id: 718
+  file: /blog/wp-content/uploads/2024/12/News_03.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_03-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_03-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_03-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_03-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_03-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_03-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_03-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_03-1280x710.png
+      width: 1280
+      height: 710
+- id: 719
+  file: /blog/wp-content/uploads/2024/12/News_04.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_04-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_04-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_04-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_04-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_04-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_04-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_04-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_04-1280x710.png
+      width: 1280
+      height: 710
+- id: 720
+  file: /blog/wp-content/uploads/2024/12/News_05.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_05-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_05-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_05-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_05-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_05-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_05-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_05-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_05-1280x710.png
+      width: 1280
+      height: 710
+- id: 721
+  file: /blog/wp-content/uploads/2024/12/News_06.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_06-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_06-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_06-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_06-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_06-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_06-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_06-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_06-1280x710.png
+      width: 1280
+      height: 710
+- id: 722
+  file: /blog/wp-content/uploads/2024/12/News_07.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_07-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_07-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_07-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_07-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_07-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_07-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_07-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_07-1280x710.png
+      width: 1280
+      height: 710
+- id: 723
+  file: /blog/wp-content/uploads/2024/12/News_08.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_08-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_08-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_08-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_08-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_08-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_08-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_08-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_08-1280x710.png
+      width: 1280
+      height: 710
+- id: 724
+  file: /blog/wp-content/uploads/2024/12/News_09.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_09-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_09-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_09-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_09-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_09-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_09-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_09-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_09-1280x710.png
+      width: 1280
+      height: 710
+- id: 725
+  file: /blog/wp-content/uploads/2024/12/News_10.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_10-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_10-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_10-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_10-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_10-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_10-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_10-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_10-1280x710.png
+      width: 1280
+      height: 710
+- id: 726
+  file: /blog/wp-content/uploads/2024/12/News_11.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_11-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_11-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_11-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_11-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_11-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_11-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_11-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_11-1280x710.png
+      width: 1280
+      height: 710
+- id: 727
+  file: /blog/wp-content/uploads/2024/12/News_12.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_12-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_12-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_12-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_12-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_12-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_12-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_12-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_12-1280x710.png
+      width: 1280
+      height: 710
+- id: 728
+  file: /blog/wp-content/uploads/2024/12/News_13.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_13-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_13-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_13-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_13-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_13-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_13-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_13-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_13-1280x710.png
+      width: 1280
+      height: 710
+- id: 729
+  file: /blog/wp-content/uploads/2024/12/News_14.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_14-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_14-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_14-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_14-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_14-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_14-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_14-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_14-1280x710.png
+      width: 1280
+      height: 710
+- id: 730
+  file: /blog/wp-content/uploads/2024/12/News_15.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_15-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_15-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_15-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_15-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_15-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_15-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_15-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_15-1280x710.png
+      width: 1280
+      height: 710
+- id: 731
+  file: /blog/wp-content/uploads/2024/12/News_16.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_16-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_16-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_16-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_16-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_16-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_16-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_16-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_16-1280x710.png
+      width: 1280
+      height: 710
+- id: 732
+  file: /blog/wp-content/uploads/2024/12/News_17.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_17-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_17-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_17-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_17-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_17-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_17-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_17-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_17-1280x710.png
+      width: 1280
+      height: 710
+- id: 733
+  file: /blog/wp-content/uploads/2024/12/News_18.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_18-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_18-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_18-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_18-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_18-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_18-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_18-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_18-1280x710.png
+      width: 1280
+      height: 710
+- id: 734
+  file: /blog/wp-content/uploads/2024/12/News_19.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_19-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_19-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_19-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_19-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_19-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_19-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_19-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_19-1280x710.png
+      width: 1280
+      height: 710
+- id: 735
+  file: /blog/wp-content/uploads/2024/12/News_20.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_20-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_20-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_20-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_20-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_20-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_20-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_20-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_20-1280x710.png
+      width: 1280
+      height: 710
+- id: 736
+  file: /blog/wp-content/uploads/2024/12/News_21.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_21-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_21-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_21-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_21-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_21-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_21-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_21-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_21-1280x710.png
+      width: 1280
+      height: 710
+- id: 737
+  file: /blog/wp-content/uploads/2024/12/News_22.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_22-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_22-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_22-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_22-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_22-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_22-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_22-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_22-1280x710.png
+      width: 1280
+      height: 710
+- id: 738
+  file: /blog/wp-content/uploads/2024/12/News_23.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_23-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_23-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_23-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_23-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_23-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_23-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_23-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_23-1280x710.png
+      width: 1280
+      height: 710
+- id: 739
+  file: /blog/wp-content/uploads/2024/12/News_24.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_24-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_24-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_24-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_24-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_24-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_24-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_24-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_24-1280x710.png
+      width: 1280
+      height: 710
+- id: 740
+  file: /blog/wp-content/uploads/2024/12/News_25.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_25-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_25-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_25-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_25-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_25-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_25-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_25-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_25-1280x710.png
+      width: 1280
+      height: 710
+- id: 741
+  file: /blog/wp-content/uploads/2024/12/News_26.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_26-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_26-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_26-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_26-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_26-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_26-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_26-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_26-1280x710.png
+      width: 1280
+      height: 710
+- id: 742
+  file: /blog/wp-content/uploads/2024/12/News_27.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_27-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_27-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_27-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_27-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_27-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_27-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_27-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_27-1280x710.png
+      width: 1280
+      height: 710
+- id: 806
+  file: /blog/wp-content/uploads/2024/12/News_37.jpg
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_37-300x167.jpg
+      width: 300
+      height: 167
+    - name: large
+      file: News_37-1024x568.jpg
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_37-150x150.jpg
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_37-768x426.jpg
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_37-1536x852.jpg
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_37-88x88.jpg
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_37-900x500.jpg
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_37-1280x710.jpg
+      width: 1280
+      height: 710
+- id: 814
+  file: /blog/wp-content/uploads/2024/12/News_36.jpg
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_36-300x167.jpg
+      width: 300
+      height: 167
+    - name: large
+      file: News_36-1024x568.jpg
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_36-150x150.jpg
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_36-768x426.jpg
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_36-1536x852.jpg
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_36-88x88.jpg
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_36-900x500.jpg
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_36-1280x710.jpg
+      width: 1280
+      height: 710
+- id: 818
+  file: /blog/wp-content/uploads/2023/02/Kommentar_05_Blog.jpg
+  width: 2526
+  height: 1300
+  sizes:
+    - name: medium
+      file: Kommentar_05_Blog-300x154.jpg
+      width: 300
+      height: 154
+    - name: large
+      file: Kommentar_05_Blog-1024x527.jpg
+      width: 1024
+      height: 527
+    - name: thumbnail
+      file: Kommentar_05_Blog-150x150.jpg
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Kommentar_05_Blog-768x395.jpg
+      width: 768
+      height: 395
+    - name: 1536x1536
+      file: Kommentar_05_Blog-1536x790.jpg
+      width: 1536
+      height: 790
+    - name: 2048x2048
+      file: Kommentar_05_Blog-2048x1054.jpg
+      width: 2048
+      height: 1054
+    - name: post-thumbnail
+      file: Kommentar_05_Blog-88x88.jpg
+      width: 88
+      height: 88
+    - name: post-image
+      file: Kommentar_05_Blog-900x463.jpg
+      width: 900
+      height: 463
+    - name: post-image-cover
+      file: Kommentar_05_Blog-1280x659.jpg
+      width: 1280
+      height: 659
+- id: 824
+  file: /blog/wp-content/uploads/2024/12/Kommentar_04c_Blog-2048x1054-1.png
+  width: 2048
+  height: 1054
+  sizes:
+    - name: medium
+      file: Kommentar_04c_Blog-2048x1054-1-300x154.png
+      width: 300
+      height: 154
+    - name: large
+      file: Kommentar_04c_Blog-2048x1054-1-1024x527.png
+      width: 1024
+      height: 527
+    - name: thumbnail
+      file: Kommentar_04c_Blog-2048x1054-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Kommentar_04c_Blog-2048x1054-1-768x395.png
+      width: 768
+      height: 395
+    - name: 1536x1536
+      file: Kommentar_04c_Blog-2048x1054-1-1536x791.png
+      width: 1536
+      height: 791
+    - name: post-thumbnail
+      file: Kommentar_04c_Blog-2048x1054-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: Kommentar_04c_Blog-2048x1054-1-900x463.png
+      width: 900
+      height: 463
+    - name: post-image-cover
+      file: Kommentar_04c_Blog-2048x1054-1-1280x659.png
+      width: 1280
+      height: 659
+- id: 834
+  file: /blog/wp-content/uploads/2024/12/News_35.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_35-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_35-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_35-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_35-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_35-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_35-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_35-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_35-1280x710.png
+      width: 1280
+      height: 710
+- id: 837
+  file: /blog/wp-content/uploads/2024/12/Kommentar_Richtlinienkompetenz-2048x1054-1.png
+  width: 2048
+  height: 1054
+  sizes:
+    - name: medium
+      file: Kommentar_Richtlinienkompetenz-2048x1054-1-300x154.png
+      width: 300
+      height: 154
+    - name: large
+      file: Kommentar_Richtlinienkompetenz-2048x1054-1-1024x527.png
+      width: 1024
+      height: 527
+    - name: thumbnail
+      file: Kommentar_Richtlinienkompetenz-2048x1054-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Kommentar_Richtlinienkompetenz-2048x1054-1-768x395.png
+      width: 768
+      height: 395
+    - name: 1536x1536
+      file: Kommentar_Richtlinienkompetenz-2048x1054-1-1536x791.png
+      width: 1536
+      height: 791
+    - name: post-thumbnail
+      file: Kommentar_Richtlinienkompetenz-2048x1054-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: Kommentar_Richtlinienkompetenz-2048x1054-1-900x463.png
+      width: 900
+      height: 463
+    - name: post-image-cover
+      file: Kommentar_Richtlinienkompetenz-2048x1054-1-1280x659.png
+      width: 1280
+      height: 659
+- id: 847
+  file: /blog/wp-content/uploads/2024/12/34_04_RealityCheck.jpg
+  width: 1154
+  height: 650
+  sizes:
+    - name: medium
+      file: 34_04_RealityCheck-300x169.jpg
+      width: 300
+      height: 169
+    - name: large
+      file: 34_04_RealityCheck-1024x577.jpg
+      width: 1024
+      height: 577
+    - name: thumbnail
+      file: 34_04_RealityCheck-150x150.jpg
+      width: 150
+      height: 150
+    - name: medium_large
+      file: 34_04_RealityCheck-768x433.jpg
+      width: 768
+      height: 433
+    - name: post-thumbnail
+      file: 34_04_RealityCheck-88x88.jpg
+      width: 88
+      height: 88
+    - name: post-image
+      file: 34_04_RealityCheck-900x507.jpg
+      width: 900
+      height: 507
+- id: 849
+  file: /blog/wp-content/uploads/2024/12/News_34.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_34-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_34-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_34-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_34-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_34-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_34-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_34-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_34-1280x710.png
+      width: 1280
+      height: 710
+- id: 859
+  file: /blog/wp-content/uploads/2024/12/News_33.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_33-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_33-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_33-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_33-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_33-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_33-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_33-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_33-1280x710.png
+      width: 1280
+      height: 710
+- id: 863
+  file: /blog/wp-content/uploads/2024/12/Kommentar_02_Blog.png
+  width: 1263
+  height: 650
+  sizes:
+    - name: medium
+      file: Kommentar_02_Blog-300x154.png
+      width: 300
+      height: 154
+    - name: large
+      file: Kommentar_02_Blog-1024x527.png
+      width: 1024
+      height: 527
+    - name: thumbnail
+      file: Kommentar_02_Blog-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Kommentar_02_Blog-768x395.png
+      width: 768
+      height: 395
+    - name: post-thumbnail
+      file: Kommentar_02_Blog-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: Kommentar_02_Blog-900x463.png
+      width: 900
+      height: 463
+- id: 871
+  file: /blog/wp-content/uploads/2024/12/News_32.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_32-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_32-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_32-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_32-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_32-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_32-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_32-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_32-1280x710.png
+      width: 1280
+      height: 710
+- id: 874
+  file: /blog/wp-content/uploads/2024/12/News_31.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_31-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_31-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_31-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_31-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_31-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_31-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_31-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_31-1280x710.png
+      width: 1280
+      height: 710
+- id: 882
+  file: /blog/wp-content/uploads/2024/12/News_30.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_30-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_30-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_30-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_30-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_30-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_30-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_30-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_30-1280x710.png
+      width: 1280
+      height: 710
+- id: 885
+  file: /blog/wp-content/uploads/2024/12/Kommentar_01-1-2048x1054-1.png
+  width: 2048
+  height: 1054
+  sizes:
+    - name: medium
+      file: Kommentar_01-1-2048x1054-1-300x154.png
+      width: 300
+      height: 154
+    - name: large
+      file: Kommentar_01-1-2048x1054-1-1024x527.png
+      width: 1024
+      height: 527
+    - name: thumbnail
+      file: Kommentar_01-1-2048x1054-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Kommentar_01-1-2048x1054-1-768x395.png
+      width: 768
+      height: 395
+    - name: 1536x1536
+      file: Kommentar_01-1-2048x1054-1-1536x791.png
+      width: 1536
+      height: 791
+    - name: post-thumbnail
+      file: Kommentar_01-1-2048x1054-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: Kommentar_01-1-2048x1054-1-900x463.png
+      width: 900
+      height: 463
+    - name: post-image-cover
+      file: Kommentar_01-1-2048x1054-1-1280x659.png
+      width: 1280
+      height: 659
+- id: 893
+  file: /blog/wp-content/uploads/2024/12/News_29.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_29-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_29-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_29-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_29-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_29-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_29-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_29-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_29-1280x710.png
+      width: 1280
+      height: 710
+- id: 896
+  file: /blog/wp-content/uploads/2024/12/Erklaerung_01-2048x1054-1.png
+  width: 2048
+  height: 1054
+  sizes:
+    - name: medium
+      file: Erklaerung_01-2048x1054-1-300x154.png
+      width: 300
+      height: 154
+    - name: large
+      file: Erklaerung_01-2048x1054-1-1024x527.png
+      width: 1024
+      height: 527
+    - name: thumbnail
+      file: Erklaerung_01-2048x1054-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Erklaerung_01-2048x1054-1-768x395.png
+      width: 768
+      height: 395
+    - name: 1536x1536
+      file: Erklaerung_01-2048x1054-1-1536x791.png
+      width: 1536
+      height: 791
+    - name: post-thumbnail
+      file: Erklaerung_01-2048x1054-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: Erklaerung_01-2048x1054-1-900x463.png
+      width: 900
+      height: 463
+    - name: post-image-cover
+      file: Erklaerung_01-2048x1054-1-1280x659.png
+      width: 1280
+      height: 659
+- id: 899
+  file: /blog/wp-content/uploads/2024/12/AfD_Programm_Blog-2048x1134-1.png
+  width: 2048
+  height: 1134
+  sizes:
+    - name: medium
+      file: AfD_Programm_Blog-2048x1134-1-300x166.png
+      width: 300
+      height: 166
+    - name: large
+      file: AfD_Programm_Blog-2048x1134-1-1024x567.png
+      width: 1024
+      height: 567
+    - name: thumbnail
+      file: AfD_Programm_Blog-2048x1134-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: AfD_Programm_Blog-2048x1134-1-768x425.png
+      width: 768
+      height: 425
+    - name: 1536x1536
+      file: AfD_Programm_Blog-2048x1134-1-1536x851.png
+      width: 1536
+      height: 851
+    - name: post-thumbnail
+      file: AfD_Programm_Blog-2048x1134-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: AfD_Programm_Blog-2048x1134-1-900x498.png
+      width: 900
+      height: 498
+    - name: post-image-cover
+      file: AfD_Programm_Blog-2048x1134-1-1280x709.png
+      width: 1280
+      height: 709
+- id: 900
+  file: /blog/wp-content/uploads/2024/12/CDU_Programm_Blog-2048x1134-1.png
+  width: 2048
+  height: 1134
+  sizes:
+    - name: medium
+      file: CDU_Programm_Blog-2048x1134-1-300x166.png
+      width: 300
+      height: 166
+    - name: large
+      file: CDU_Programm_Blog-2048x1134-1-1024x567.png
+      width: 1024
+      height: 567
+    - name: thumbnail
+      file: CDU_Programm_Blog-2048x1134-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: CDU_Programm_Blog-2048x1134-1-768x425.png
+      width: 768
+      height: 425
+    - name: 1536x1536
+      file: CDU_Programm_Blog-2048x1134-1-1536x851.png
+      width: 1536
+      height: 851
+    - name: post-thumbnail
+      file: CDU_Programm_Blog-2048x1134-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: CDU_Programm_Blog-2048x1134-1-900x498.png
+      width: 900
+      height: 498
+    - name: post-image-cover
+      file: CDU_Programm_Blog-2048x1134-1-1280x709.png
+      width: 1280
+      height: 709
+- id: 901
+  file: /blog/wp-content/uploads/2024/12/FDP_Programm_Blog-2048x1134-1.png
+  width: 2048
+  height: 1134
+  sizes:
+    - name: medium
+      file: FDP_Programm_Blog-2048x1134-1-300x166.png
+      width: 300
+      height: 166
+    - name: large
+      file: FDP_Programm_Blog-2048x1134-1-1024x567.png
+      width: 1024
+      height: 567
+    - name: thumbnail
+      file: FDP_Programm_Blog-2048x1134-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: FDP_Programm_Blog-2048x1134-1-768x425.png
+      width: 768
+      height: 425
+    - name: 1536x1536
+      file: FDP_Programm_Blog-2048x1134-1-1536x851.png
+      width: 1536
+      height: 851
+    - name: post-thumbnail
+      file: FDP_Programm_Blog-2048x1134-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: FDP_Programm_Blog-2048x1134-1-900x498.png
+      width: 900
+      height: 498
+    - name: post-image-cover
+      file: FDP_Programm_Blog-2048x1134-1-1280x709.png
+      width: 1280
+      height: 709
+- id: 902
+  file: /blog/wp-content/uploads/2024/12/Gruene_Programm_Blog-2048x1134-1.png
+  width: 2048
+  height: 1134
+  sizes:
+    - name: medium
+      file: Gruene_Programm_Blog-2048x1134-1-300x166.png
+      width: 300
+      height: 166
+    - name: large
+      file: Gruene_Programm_Blog-2048x1134-1-1024x567.png
+      width: 1024
+      height: 567
+    - name: thumbnail
+      file: Gruene_Programm_Blog-2048x1134-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Gruene_Programm_Blog-2048x1134-1-768x425.png
+      width: 768
+      height: 425
+    - name: 1536x1536
+      file: Gruene_Programm_Blog-2048x1134-1-1536x851.png
+      width: 1536
+      height: 851
+    - name: post-thumbnail
+      file: Gruene_Programm_Blog-2048x1134-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: Gruene_Programm_Blog-2048x1134-1-900x498.png
+      width: 900
+      height: 498
+    - name: post-image-cover
+      file: Gruene_Programm_Blog-2048x1134-1-1280x709.png
+      width: 1280
+      height: 709
+- id: 903
+  file: /blog/wp-content/uploads/2024/12/Linke_Programm_Blog-2048x1134-1.png
+  width: 2048
+  height: 1134
+  sizes:
+    - name: medium
+      file: Linke_Programm_Blog-2048x1134-1-300x166.png
+      width: 300
+      height: 166
+    - name: large
+      file: Linke_Programm_Blog-2048x1134-1-1024x567.png
+      width: 1024
+      height: 567
+    - name: thumbnail
+      file: Linke_Programm_Blog-2048x1134-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Linke_Programm_Blog-2048x1134-1-768x425.png
+      width: 768
+      height: 425
+    - name: 1536x1536
+      file: Linke_Programm_Blog-2048x1134-1-1536x851.png
+      width: 1536
+      height: 851
+    - name: post-thumbnail
+      file: Linke_Programm_Blog-2048x1134-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: Linke_Programm_Blog-2048x1134-1-900x498.png
+      width: 900
+      height: 498
+    - name: post-image-cover
+      file: Linke_Programm_Blog-2048x1134-1-1280x709.png
+      width: 1280
+      height: 709
+- id: 904
+  file: /blog/wp-content/uploads/2024/12/SPD_Programm_Blog-2048x1134-1.png
+  width: 2048
+  height: 1134
+  sizes:
+    - name: medium
+      file: SPD_Programm_Blog-2048x1134-1-300x166.png
+      width: 300
+      height: 166
+    - name: large
+      file: SPD_Programm_Blog-2048x1134-1-1024x567.png
+      width: 1024
+      height: 567
+    - name: thumbnail
+      file: SPD_Programm_Blog-2048x1134-1-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: SPD_Programm_Blog-2048x1134-1-768x425.png
+      width: 768
+      height: 425
+    - name: 1536x1536
+      file: SPD_Programm_Blog-2048x1134-1-1536x851.png
+      width: 1536
+      height: 851
+    - name: post-thumbnail
+      file: SPD_Programm_Blog-2048x1134-1-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: SPD_Programm_Blog-2048x1134-1-900x498.png
+      width: 900
+      height: 498
+    - name: post-image-cover
+      file: SPD_Programm_Blog-2048x1134-1-1280x709.png
+      width: 1280
+      height: 709
+- id: 924
+  file: /blog/wp-content/uploads/2024/12/News_28.png
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: News_28-300x167.png
+      width: 300
+      height: 167
+    - name: large
+      file: News_28-1024x568.png
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: News_28-150x150.png
+      width: 150
+      height: 150
+    - name: medium_large
+      file: News_28-768x426.png
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: News_28-1536x852.png
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: News_28-88x88.png
+      width: 88
+      height: 88
+    - name: post-image
+      file: News_28-900x500.png
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: News_28-1280x710.png
+      width: 1280
+      height: 710
+- id: 939
+  file: /blog/wp-content/uploads/2025/12/Dez-38.jpg
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: Dez-38-300x167.jpg
+      width: 300
+      height: 167
+    - name: large
+      file: Dez-38-1024x568.jpg
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: Dez-38-150x150.jpg
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Dez-38-768x426.jpg
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: Dez-38-1536x852.jpg
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: Dez-38-88x88.jpg
+      width: 88
+      height: 88
+    - name: post-image
+      file: Dez-38-900x500.jpg
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: Dez-38-1280x710.jpg
+      width: 1280
+      height: 710
+- id: 967
+  file: /blog/wp-content/uploads/2026/06/Spendenkonto2.jpg
+  width: 1600
+  height: 888
+  sizes:
+    - name: medium
+      file: Spendenkonto2-300x167.jpg
+      width: 300
+      height: 167
+    - name: large
+      file: Spendenkonto2-1024x568.jpg
+      width: 1024
+      height: 568
+    - name: thumbnail
+      file: Spendenkonto2-150x150.jpg
+      width: 150
+      height: 150
+    - name: medium_large
+      file: Spendenkonto2-768x426.jpg
+      width: 768
+      height: 426
+    - name: 1536x1536
+      file: Spendenkonto2-1536x852.jpg
+      width: 1536
+      height: 852
+    - name: post-thumbnail
+      file: Spendenkonto2-88x88.jpg
+      width: 88
+      height: 88
+    - name: post-image
+      file: Spendenkonto2-900x500.jpg
+      width: 900
+      height: 500
+    - name: post-image-cover
+      file: Spendenkonto2-1280x710.jpg
+      width: 1280
+      height: 710

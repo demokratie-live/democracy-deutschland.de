@@ -1,0 +1,113 @@
+---
+# Über uns (live: State about, default_about.tpl)
+# Team cards: content/team/team.yaml. The section "Praktikanten & Volunteers"
+# is commented out in the live template and not ported.
+state: about
+---
+
+<Section id="about-statement">
+<h1 id="statement-heading">DEMOCRACY Deutschland e.V.</h1>
+<h4 id="statement-content" style={{ paddingTop: "30px" }}>Wir sind ein gemeinnütziger Verein, der sich für Demokratie als politische Selbstbestimmung einsetzt.</h4>
+<h4 id="statement-content" style={{ marginBottom: "-20px", lineHeight: "160%" }}>Unsere Arbeit ist unabhängig, überparteilich, allgemeinnützig und nichtkommerziell – von Menschen für Menschen</h4>
+</Section>
+
+<VideoSection
+  rowId="mission-statement"
+  title="Initiativenleitbild / Mission Statement (10:46)"
+  linkHref="/spenden/"
+  linkLabel="DEMOCRACY Spenden"
+  youtube="https://www.youtube.com/embed/E3KvgGrGQO4"
+/>
+
+<Section id="about" style={{ minHeight: "unset" }}>
+<h1 className="col-lg-12" style={{ paddingBottom: "5vh", paddingTop: "2vh" }}>Unser demokratisches Verständnis</h1>
+
+<ComparisonAccordion leftTitle="Das unterstützen wir" leftColor="#4494d3" rightTitle={<>Das unterstützen wir <u>nicht</u></>} rightColor="#e67c89">
+  <ComparisonRow
+    left="Demokratie als aufklärerische Idee"
+    right="Nicht-demokratische Regierungsformen"
+    leftText="Demokratie, in seiner aufklärerischen Idee verstanden als Regierung durch die Bevölkerung mit dem Prinzip ein Mensch – eine Stimme"
+    rightText="Diktatur (Regierung der Befehlenden), Oligarchie (Regierung der Vermögenden), Epistokratie (Regierung der Expert:innen)"
+  />
+  <ComparisonRow
+    left="Souveränität des Einzelnen"
+    right="Fremdbestimmung des Einzelnen"
+    leftText="Die Selbstbestimmung des Individuums und seine Fähigkeit, eigenständig vernünftige Entscheidungen zu treffen sowie den verfassungsmäßigen Schutz dieser Würde"
+    rightText="Haltungen, die die universelle Befähigung des Menschen, eigenständig vernünftige Entscheidungen zu treffen, aberkennen und/oder Bewegungen, die Freiheits- und Mitbestimmungsrechte des Einzelnen abbauen (wollen)"
+  />
+  <ComparisonRow
+    left="Meinungsfreiheit & breite Debatten"
+    right="Verengung des Meinungskorridors"
+    leftText="Meinungsfreiheit, verstanden in der Idee Rosa Luxemburgs, als die Freiheit der Andersdenkenden (bzw. Voltaires “Ich mag verdammen, was du sagst, aber ich werde mein Leben dafür einsetzen, dass du es sagen darfst.”)"
+    rightText="(staatliche) Beschneidung oder Kontrolle von Informationen und homogene Berichterstattung"
+  />
+  <ComparisonRow
+    left="Direkte Beteiligung"
+    right="Zuschauer-Demokratie"
+    leftText="umfassende Mitbestimmungsmöglichkeiten im politischen Prozess während der Legislaturperiode und eine politisch aktive Bevölkerung"
+    rightText="einen Zustand, in dem Wirtschaftslobbyisten täglich politische Entscheidungen beeinflussen, während Bürger:innen zwischen Wahlen passiv zuschauen müssen"
+  />
+  <ComparisonRow
+    left="Transparenz & Informationssouveränität"
+    right="Hinterzimmer-Politik"
+    leftText="größtmögliche Transparenz im politischen Prozess und einen freien und benutzerfreundlichen Zugang zu allen Informationen, sodass Bürger:innen ihre Repräsentanten und deren Arbeit verfolgen können"
+    rightText="intransparente Entscheidungsfindungen, bei denen Bürger:innen wenig Einblick haben, was passiert und auch nicht überprüfen können, warum und wie Entscheidungen zustande kommen und wer auf sie Einfluss genommen hat"
+  />
+  <ComparisonRow
+    left="rückkoppelnde Politiker,"
+    right="entkoppelte Politiker,"
+    leftText="die Erwartungen und Wünsche aus der Bevölkerung einbeziehen (wollen), sich in ständigem Austausch mit der Bevölkerung als Vertreter dieser verstehen und falls nötig vom Kurs ihrer Partei abweichen und nach ihrem Gewissen entscheiden."
+    rightText="die eigene Interessen verfolgen, während der Legislaturperiode kein Interesse an der Bevölkerung haben und sich im undurchsichtigen parlamentarischen Betrieb ihrer Rechenschaftspflicht entziehen"
+  />
+</ComparisonAccordion>
+</Section>
+
+<div className="background-white">
+<div className="container main-container">
+<div className="row">
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "50px" }} />
+</div>
+</div>
+<div className="row" style={{ paddingTop: "50px" }}>
+<div className="col-12">
+<h1>Mitarbeiter</h1>
+<h4 style={{ paddingTop: "30px" }}>an DEMOCRACY arbeiten</h4>
+</div>
+<Team />
+<div className="col-md-3" style={{ marginTop: "50px" }}>
+<iframe src="https://discordapp.com/widget?id=372403545086885888&theme=light" width="100%" height="100%" allowtransparency="true" frameBorder="0" style={{ paddingBottom: "15px", minHeight: "30p0x" }}></iframe>
+</div>
+</div>
+<div className="row">
+<div className="col-12">
+<Img src="/files/images/democracy-bar.png" className="divider" style={{ paddingTop: "75px" }} />
+</div>
+</div>
+<div className="row" style={{ paddingBottom: "100px" }}>
+<div className="col-12" style={{ paddingTop: "50px", paddingBottom: "50px" }}>
+<h1>Unsere Philosophie</h1>
+<h4 style={{ paddingTop: "30px", lineHeight: "160%" }}>Unsere Arbeit ist unabhängig, überparteilich, allgemeinnützig und nichtkommerziell –<br />von Menschen für Menschen</h4>
+</div>
+<ServicesIcon icon="magnify" text="TRANSPARENT" subtext="Open Source & Open Book" />
+<ServicesIcon icon="shield" text="NICHT PROFITORIENTIERT" subtext="kein Datenverkauf, keine Werbung" />
+<div className="clearfix"></div>
+<br />
+<br />
+<br />
+<br />
+<ServicesIcon icon="heart2" text="DATENSPARSAM" subtext="geringstmögliche Datensammlung" />
+<div className="col-md-2"></div>
+<div className="col-md-1">
+<Img src="/files/images/quotes@3x.png" style={{ width: "60px", paddingLeft: "12px", paddingTop: "25px" }} />
+</div>
+<div className="col-md-7" style={{ textAlign: "left", paddingTop: "25px" }}>
+<span>Mit DEMOCRACY wollen wir der Zivilgesellschaft eine Infrastruktur zur Verfügung stellen, die das Funktionieren von tatsächlicher Demokratie begünstigt. Der Weisheit letzter Schluss liegt für uns in der solidarischen Kooperation zum Vorteil aller. Für uns ist es selbstverständlich, unseren Source-Code und unsere Bücher offen zu legen (Transparenz). Und weil Profitinteressen die Idee nur korrumpieren würden, haben wir uns auch äußerlich eine Rechtsform gegeben, die eine Verfremdung oder Bereicherungsabsicht per Satzung für immer ausschließt. DEMOCRACY ist und bleibt spendenfinanziert. Daten, die bei der Nutzung der App entstehen, sind für uns keine handelbaren Wirtschaftsgüter, sondern im Sinne der informationellen Selbstbestimmung zu vermeiden bzw. zu schützen.</span>
+<div id="quote-name-about">
+<a className="ri-link" id="ri-link-about"><b className="ri-quote-bold">{"Marius Krüger, "}</b>Gründer</a>
+</div>
+</div>
+<div className="col-md-2"></div>
+</div>
+</div>
+</div>

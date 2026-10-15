@@ -6,13 +6,13 @@ on:
   pull_request:
     branches: [main]
 
+# Plesk serves the site (docs/hosting-plesk.md), GitHub Pages is no longer used
+# (hosting outside the US). The basePath build stays as a CI check.
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages-${{ github.ref }}
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -51,41 +51,51 @@ jobs:
       - name: E2E smoke tests
         run: pnpm exec playwright test
 
-      - name: Build (for deploy, with basePath)
-        env:
-          NEXT_PUBLIC_BASE_PATH: /democracy-deutschland.de
-        run: pnpm build
-
-      - name: Upload preview artifact
+      # The export without basePath is what Plesk serves at the domain root;
+      # on pull requests it is the preview, on main the job build-branch uses it.
+      - name: Upload export (Plesk and preview)
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: website-preview-${{ github.run_id }}
+          name: website-root-${{ github.run_id }}
           path: out
+          include-hidden-files: true # out/.htaccess
           retention-days: 7
 
-      - name: Add preview artifact info to summary
+      - name: Add preview info to summary
         run: |
           {
-            echo "### Preview artifact"
+            echo "### Preview"
             echo ""
-            echo "- Name: \`website-preview-${GITHUB_RUN_ID}\`"
-            echo "- Download it from the workflow run artifacts and serve \`out/\` locally with \`npx serve out\`."
+            echo "- Artifact: \`website-root-${GITHUB_RUN_ID}\` (export without basePath, with \`.htaccess\`)"
+            echo "- Download it from the workflow run and serve it with \`npx serve out\` (or \`pnpm serve-apache\` for the redirects)."
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload Pages artifact
-        if: github.ref == 'refs/heads/main'
-        uses: actions/upload-pages-artifact@v5.0.0
-        with:
-          path: out
+      # Same command as locally: build under a basePath with the test endpoints
+      # of the forms, then Playwright (playwright.basepath.config.ts).
+      - name: Build and E2E tests with basePath
+        run: pnpm test:basepath
 
-  deploy:
-    if: github.ref == 'refs/heads/main'
+  # Plesk-Git pulls the branch `deploy` and copies it into the document root
+  # (docs/hosting-plesk.md). One commit per build; reset the branch to roll back.
+  build-branch:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: write
+    concurrency:
+      group: build-branch
+      cancel-in-progress: false
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5.0.0
+      - uses: actions/checkout@v6.0.2
+
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: website-root-${{ github.run_id }}
+          path: site
+
+      - name: Commit the export to the branch deploy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          sh scripts/publish-build-branch.sh site deploy origin

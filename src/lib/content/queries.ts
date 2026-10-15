@@ -1,124 +1,93 @@
 import {
-  blogFrontmatterSchema,
-  type BlogFrontmatter,
-  navigationSchema,
-  type Navigation,
-  pageFrontmatterSchema,
-  type PageFrontmatter,
-  faqListSchema,
-  type FAQEntry,
-  teamDataSchema,
-  type TeamData,
-  donateConfigSchema,
-  type DonateConfig,
-  roadmapListSchema,
-  type RoadmapGoal,
-  pressListSchema,
-  type PressEntry,
-  globalSeoSchema,
-  type GlobalSEO,
+  appLinksSchema,
+  donationSchema,
   footerSchema,
-  type FooterData,
+  headSchema,
+  navigationSchema,
+  pageFrontmatterSchema,
+  routesSchema,
+  type AppLinks,
+  type Donation,
+  type Footer,
+  type Head,
+  type Navigation,
+  type PageFrontmatter,
+  type Routes,
+  teamSchema,
+  type Team,
+  pressMediaSchema,
+  type PressMedia,
+  faqSchema,
+  type Faq,
+  formsSchema,
+  type Forms,
+  roadmapSchema,
+  type Roadmap,
 } from "../schemas";
-import { loadMdx, loadAllMdx } from "./load-mdx";
+import fs from "fs/promises";
+import path from "path";
+import { loadMdx } from "./load-mdx";
 import { loadYaml } from "./load-yaml";
 
-// --- Pages ---
-
-/**
- * Load a page by its file identifier (the MDX filename without extension),
- * e.g. `"home"`, `"wahlometer"`. This is **not** the frontmatter `slug` field
- * (which is a user-facing URL path).
- */
+/** Load content/pages/<pageId>.mdx (pageId = file name without extension). */
 export async function getPage(pageId: string) {
   return loadMdx<PageFrontmatter>(`pages/${pageId}.mdx`, pageFrontmatterSchema);
 }
 
-// --- Blog ---
-
-export async function getAllBlogPosts() {
-  const posts = await loadAllMdx<BlogFrontmatter>("blog", blogFrontmatterSchema);
-  return posts.sort(
-    (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime(),
-  );
+export async function getHead(): Promise<Head> {
+  return loadYaml("site/head.yaml", headSchema);
 }
 
-export async function getBlogPost(slug: string) {
-  const posts = await getAllBlogPosts();
-  const post = posts.find((p) => p.frontmatter.slug === slug);
-  if (!post) throw new Error(`Blog post not found: ${slug}`);
-  return post;
+export async function getRoutes(): Promise<Routes> {
+  return loadYaml("site/routes.yaml", routesSchema);
 }
-
-export async function getBlogPostsByTag(tag: string) {
-  const posts = await getAllBlogPosts();
-  return posts.filter((p) => p.frontmatter.tags.includes(tag));
-}
-
-// --- Navigation ---
 
 export async function getNavigation(): Promise<Navigation> {
   return loadYaml("site/navigation.yaml", navigationSchema);
 }
 
-// --- FAQ ---
-
-export async function getFAQ(): Promise<FAQEntry[]> {
-  return loadYaml("faq/allgemein.yaml", faqListSchema);
-}
-
-// --- Team ---
-
-export async function getTeam(): Promise<TeamData> {
-  return loadYaml("team/members.yaml", teamDataSchema);
-}
-
-// --- Donate ---
-
-/**
- * Returned donate config with derived `progress.goal` = sum of category amounts.
- * `goal` is NOT part of the YAML (see donateProgressSchema) — categories are the
- * single source of truth.
- */
-export type DonateConfigWithGoal = DonateConfig & {
-  progress: DonateConfig["progress"] & { goal: number };
-};
-
-export async function getDonateConfig(): Promise<DonateConfigWithGoal> {
-  const config = await loadYaml("donate/config.yaml", donateConfigSchema);
-  const goal = config.categories.reduce((sum, c) => sum + c.amount, 0);
-  return {
-    ...config,
-    progress: { ...config.progress, goal },
-  };
-}
-
-// --- Roadmap ---
-
-export async function getRoadmap(): Promise<RoadmapGoal[]> {
-  return loadYaml("roadmap/goals.yaml", roadmapListSchema);
-}
-
-// --- Press ---
-
-export async function getPressEntries(): Promise<PressEntry[]> {
-  const entries = await loadYaml("press/media.yaml", pressListSchema);
-  return [...entries].sort((a, b) => {
-    if (a.date && b.date) return b.date.getTime() - a.date.getTime();
-    if (a.date) return -1;
-    if (b.date) return 1;
-    return 0;
-  });
-}
-
-// --- Global SEO ---
-
-export async function getGlobalSEO(): Promise<GlobalSEO> {
-  return loadYaml("site/seo.yaml", globalSeoSchema);
-}
-
-// --- Footer ---
-
-export async function getFooter(): Promise<FooterData> {
+export async function getFooter(): Promise<Footer> {
   return loadYaml("site/footer.yaml", footerSchema);
+}
+
+export async function getAppLinks(): Promise<AppLinks> {
+  return loadYaml("site/app-links.yaml", appLinksSchema);
+}
+
+/** content/donate/donation.yaml: donation status for /spenden/ and the app JSON. */
+export async function getDonation(): Promise<Donation> {
+  return loadYaml("donate/donation.yaml", donationSchema);
+}
+
+/** content/team/team.yaml: team cards of /ueber-uns/. */
+export async function getTeam(): Promise<Team> {
+  return loadYaml("team/team.yaml", teamSchema);
+}
+
+/** content/press/media.yaml: media tiles of /presse/. */
+export async function getPressMedia(): Promise<PressMedia> {
+  return loadYaml("press/media.yaml", pressMediaSchema);
+}
+
+/** content/faq/faq.yaml: category menu and questions of /faq/. */
+export async function getFaq(): Promise<Faq> {
+  return loadYaml("faq/faq.yaml", faqSchema);
+}
+
+/** content/engineering/roadmap.yaml: roadmap table of /engineering/. */
+export async function getRoadmap(): Promise<Roadmap> {
+  return loadYaml("engineering/roadmap.yaml", roadmapSchema);
+}
+
+/** content/site/forms.yaml: recipient, subject and alert texts of the forms. */
+export async function getForms(): Promise<Forms> {
+  return loadYaml("site/forms.yaml", formsSchema);
+}
+
+export const LEGAL_TEXTS = ["impressum", "datenschutz", "nutzungsbedingungen"] as const;
+export type LegalTextName = (typeof LEGAL_TEXTS)[number];
+
+/** content/legal/<name>.md: legal text (live: system_text `<name>_text`), Markdown with HTML. */
+export async function getLegalText(name: LegalTextName): Promise<string> {
+  return fs.readFile(path.join(process.cwd(), "content", "legal", `${name}.md`), "utf-8");
 }

@@ -1,0 +1,61 @@
+# Routing table: every state of the old hash router (#!<state>, ?page=<state>)
+# with its new path. Used for the legacy redirects and for the navbar state.
+#
+# menu:      navbar item (navigation.yaml `id`) that init_<state>() marks as
+#            active. Missing = init_<state>() removes every active class.
+# startpage: true when init_<state>() adds the navbar class "startpage".
+#
+# Pages that are not ported yet still need their entry so old links already
+# point to the final path.
+
+# Default state of `new SYSTEM('./api.php', 1, 'home')`. Unknown states land here.
+start: home
+
+routes:
+  - state: home
+    path: /
+    menu: home
+    startpage: true
+  - state: wahlometer
+    path: /wahlometer/
+    menu: wahlometer
+    startpage: true
+  - state: about
+    path: /ueber-uns/
+    menu: about
+  # init_press() does not mark "Presse" as active (live behaviour).
+  - state: press
+    path: /presse/
+  - state: donate
+    path: /spenden/
+    menu: donate
+  - state: contact
+    path: /kontakt/
+  - state: faq
+    path: /faq/
+  - state: blog
+    path: /blogseite/
+  # The menu items for engineering, citizen and politicians are commented out
+  # in the live navbar, so nothing is highlighted on these pages.
+  - state: engineering
+    path: /engineering/
+    menu: engineering
+  - state: citizen
+    path: /buerger/
+    menu: citizen
+  - state: politicians
+    path: /politiker/
+    menu: politicians
+  - state: impressum
+    path: /impressum/
+  - state: datenschutz
+    path: /datenschutz/
+  - state: nutzungsbedingungen
+    path: /nutzungsbedingungen/
+  - state: unsubscribe
+    path: /unsubscribe/
+
+# Additional paths that only forward to another path.
+aliases:
+  - from: /democracy/
+    to: /

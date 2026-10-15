@@ -1,0 +1,103 @@
+# Written by `pnpm import-blog` (scripts/import-blog.ts), do not edit by hand.
+authors:
+  - id: 3
+    slug: marius
+    name: Marius Krüger
+  - id: 5
+    slug: timo
+    name: Timo Sieg
+  - id: 6
+    slug: jasper
+    name: Jasper Bennink
+categories:
+  - id: 1
+    slug: allgemein
+    name: Allgemein
+  - id: 2
+    slug: newsletter
+    name: Newsletter
+  - id: 90
+    slug: kommentar
+    name: Kommentar
+  - id: 107
+    slug: erklaerung
+    name: Erklärung
+  - id: 108
+    slug: reality-check
+    name: Reality-Check
+tags:
+  - id: 7
+    slug: "2021"
+    name: "2021"
+  - id: 9
+    slug: afd
+    name: AFD
+  - id: 16
+    slug: bundestagswahl
+    name: Bundestagswahl
+  - id: 18
+    slug: buendnis-90-die-gruenen
+    name: Bündnis 90/Die Grünen
+  - id: 23
+    slug: cdu-csu
+    name: CDU/CSU
+  - id: 28
+    slug: democracy
+    name: Democracy
+  - id: 29
+    slug: die-linke
+    name: Die Linke
+  - id: 36
+    slug: fdp
+    name: FDP
+  - id: 59
+    slug: neujahrsbrief
+    name: Neujahrsbrief
+  - id: 60
+    slug: news24
+    name: News#24
+  - id: 61
+    slug: newsletter
+    name: Newsletter
+  - id: 70
+    slug: spd
+    name: SPD
+  - id: 91
+    slug: demokratie
+    name: Demokratie
+  - id: 92
+    slug: luetzrath
+    name: Lützrath
+  - id: 94
+    slug: raeumung
+    name: Räumung
+  - id: 95
+    slug: kommentar
+    name: Kommentar
+  - id: 97
+    slug: ampel
+    name: Ampel
+  - id: 100
+    slug: buendnis90-die-gruenen
+    name: Bündnis90/Die Grünen
+  - id: 101
+    slug: richtlinienkompetenz
+    name: Richtlinienkompetenz
+  - id: 102
+    slug: reality-check
+    name: Reality-Check
+  - id: 103
+    slug: democracy-app
+    name: DEMOCRACY App
+  - id: 104
+    slug: impfpflicht
+    name: Impfpflicht
+  - id: 105
+    slug: handynummer
+    name: Handynummer
+  - id: 106
+    slug: verifikation
+    name: Verifikation
+  - id: 109
+    slug: wahlprogramm
+    name: Wahlprogramm

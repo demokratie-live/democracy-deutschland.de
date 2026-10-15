@@ -1,0 +1,353 @@
+# Roadmap of /engineering/ (live: table `roadmap` in the SAI, sorted by
+# `order`, and the texts with the tag "roadmap"). Taken from live on 2026-10-13.
+#
+# Column heads: `text`, the line below it (`date`) and its colour class
+# rmicon-<color> (blue, grey, red, green, black).
+columns:
+  beta:
+    text: "Master Beta"
+    color: blue
+    date: "30.4.19"
+  mvp:
+    text: "Public MVP"
+    color: green
+    date: "01.10.18"
+  dream:
+    text: "Post MVP"
+    color: black
+    # &nbsp; keeps the line as high as the others.
+    date: "\u00A0"
+
+# One row per goal, in this order. `sub: true` indents the goal (three
+# &nbsp; on live), `bold: true` sets it in <b>, `issue` links a GitHub issue
+# of democracy-client (#<issue>).
+#
+# beta, mvp, dream: status code of icon_class() (src/lib/roadmap.ts):
+#   0 = empty; tens = icon: 0 check-square, 1 square, 2 pencil-square,
+#   3 plus-square, 4 minus-square, 5 odnoklassniki-square, 6 github-square,
+#   7 times-circle; ones = colour: 1 blue, 2 grey, 3 red, 4 and 5 green.
+#   Live only uses 0, 1 (blue check) and 2 (grey check).
+goals:
+  - goal: "Identifikation: Token-Einladung"
+    beta: 1
+    mvp: 0
+    dream: 0
+  - goal: "Identifikation: SMS-Verifikation"
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Liste Bundestagsgesetzgebungen"
+    bold: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "aktuelle Abstimmungen"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "vergangene Abstimmungen"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Abstimmungen in Vorbereitung"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "What’s hot?"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Details zu jeder Bundestagsgesetzgebung"
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Vorgangs-ID gem. DIP21"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Schlagwörter gem. DIP21"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Sachgebiet gem. DIP21"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Aktueller Stand gem. DIP21"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Inhaltsangabe gem. DIP21"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "alle einschlägigen Bundesdrucksachen"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Abstimmungszeitpunkt gem. TOP"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "PDF-Reader einbinden"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "eigene Schlagwörter hinzufügen"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Schlagwörter upvoten"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Gesetzes-Meilenstein-Karte"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Nutzerabstimmung"
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Auswahlbestätigung/Schon gewusst?"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Ergebnisdarstellung (Pie Chart) gesamt"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Ergebnis vor/nach BT-Abstimmung"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "offizielles Bundestagsergebnis"
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Gesamtergebnis (Pie Chart)"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Fraktionsergebnisse (Bar Chart)"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Abgeordnetenergebnisse nach Wahlkreis"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "vorläufige Ergebnisse (Beschlussempf. Bei Anträgen)"
+    sub: true
+    beta: 0
+    mvp: 0
+    dream: 1
+  - goal: "Push-Benachrichtigung(en)"
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Jetzt Abstimmen"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Neues Papier"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Update (Glocke)"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Vor der Sitzungswoche"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "relevantes Papier"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Bundestagsergebnis verfügbar"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Neue(s) Version/Feature verfügbar"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Profil"
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "persönliche History"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Wahl-O-Meter (Wahl-O-Mat für immer)"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Spielstand"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "persönliche Invite-Codes"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Gesetz suchen"
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Suche optimieren"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Tutorial"
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "zzgl. In-App-Tutorial"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Abstimmung teilen (Social Media)"
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Filter Ressort/Sachgebiet"
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Abo Ressort/Sachgebiet"
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Sicherheit einstellen"
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "quittungsfreie Abstimmung"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "lokale Speicherung"
+    sub: true
+    beta: 1
+    mvp: 2
+    dream: 2
+  - goal: "Übertragbarkeit auf neues Handy"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Forum"
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Information/Argument einbringen"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Information/Argument lesen"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Information/Argument liken"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Information/Argument melden"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Redaktionsbereich"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Desktop-Version"
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Liste Bundestagsvorgänge"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Details"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Dokumente"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Darstellung der verg. Ergebnisse"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Social-Media-Kompatibilität"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Forum"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "Abstimmung via Handy-Bestätigung"
+    sub: true
+    beta: 0
+    mvp: 1
+    dream: 2
+  - goal: "kryptographisches Wahlverfahren"
+    beta: 0
+    mvp: 0
+    dream: 1
+  - goal: "eigene Abstimmungslisten"
+    beta: 0
+    mvp: 0
+    dream: 1
