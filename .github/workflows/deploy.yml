@@ -5,14 +5,19 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Preview on test.democracy-deutschland.de: run the workflow by hand on any
+  # branch; the job build-branch-test publishes its export to `deploy-test`.
+  workflow_dispatch:
 
 # Plesk serves the site (docs/hosting-plesk.md), GitHub Pages is no longer used
 # (hosting outside the US). The basePath build stays as a CI check.
 permissions:
   contents: read
 
+# The event is part of the group: a manual run on main must not cancel the push
+# run that deploys production.
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -99,3 +104,28 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           sh scripts/publish-build-branch.sh site deploy origin
+
+  # Plesk-Git on test.democracy-deutschland.de pulls the branch `deploy-test`.
+  # Only manual runs (workflow_dispatch) write it, from the branch they run on.
+  build-branch-test:
+    if: github.event_name == 'workflow_dispatch'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: build-branch-test
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: website-root-${{ github.run_id }}
+          path: site
+
+      - name: Commit the export to the branch deploy-test
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          sh scripts/publish-build-branch.sh site deploy-test origin
