@@ -51,9 +51,9 @@ jobs:
       - name: E2E smoke tests
         run: pnpm exec playwright test
 
-      # The export without basePath is what Plesk serves at the domain root.
-      - name: Upload export for Plesk
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      # The export without basePath is what Plesk serves at the domain root;
+      # on pull requests it is the preview, on main the job build-branch uses it.
+      - name: Upload export (Plesk and preview)
         uses: actions/upload-artifact@v4.6.2
         with:
           name: website-root-${{ github.run_id }}
@@ -61,29 +61,19 @@ jobs:
           include-hidden-files: true # out/.htaccess
           retention-days: 7
 
-      - name: Build (CI check, with basePath)
-        env:
-          NEXT_PUBLIC_BASE_PATH: /democracy-deutschland.de
-        run: pnpm build
-
-      - name: E2E tests with basePath
-        run: pnpm exec playwright test --config playwright.basepath.config.ts
-
-      - name: Upload preview artifact
-        uses: actions/upload-artifact@v4.6.2
-        with:
-          name: website-preview-${{ github.run_id }}
-          path: out
-          retention-days: 7
-
-      - name: Add preview artifact info to summary
+      - name: Add preview info to summary
         run: |
           {
-            echo "### Preview artifact"
+            echo "### Preview"
             echo ""
-            echo "- Name: \`website-preview-${GITHUB_RUN_ID}\`"
-            echo "- Download it from the workflow run artifacts and serve \`out/\` locally with \`npx serve out\`."
+            echo "- Artifact: \`website-root-${GITHUB_RUN_ID}\` (export without basePath, with \`.htaccess\`)"
+            echo "- Download it from the workflow run and serve it with \`npx serve out\` (or \`pnpm serve-apache\` for the redirects)."
           } >> "$GITHUB_STEP_SUMMARY"
+
+      # Same command as locally: build under a basePath with the test endpoints
+      # of the forms, then Playwright (playwright.basepath.config.ts).
+      - name: Build and E2E tests with basePath
+        run: pnpm test:basepath
 
   # Plesk-Git pulls the branch `deploy` and copies it into the document root
   # (docs/hosting-plesk.md). One commit per build; reset the branch to roll back.

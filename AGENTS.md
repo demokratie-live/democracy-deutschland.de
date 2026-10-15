@@ -74,8 +74,8 @@ tests/legacy-urls.ts (every kind of old URL and its target, for Playwright and c
 The step-by-step guides for editors are in the README; keep both in sync.
 
 - **Content:** page text in `content/pages/<id>.mdx`, frame data in `content/site/*.yaml`; lists with their own file and README section: donation status (`donate/donation.yaml`, also the app JSON), team, press, FAQ, legal texts, roadmap, blog (`pnpm import-blog` while WordPress runs, Markdown afterwards). Always `pnpm validate-content`.
-- **Preview:** `pnpm dev`; the export with `pnpm build && pnpm start`, with `.htaccess` via `pnpm serve-apache` + `pnpm check-htaccess`; against live with `pnpm compare`. CI uploads `website-root-<run>` (main) and `website-preview-<run>` (basePath).
-- **Deploy:** Plesk, not GitHub Pages (decision Manuel 2026-10-13, hosting outside the US). `.github/workflows/deploy.yml` checks every PR and push (lint, content, unit, build, e2e, basePath build + e2e); on push to `main` the job `build-branch` commits the export without basePath to the branch `deploy`, which Plesk-Git deploys. Details, rollback and the switch from the PHP site: `docs/hosting-plesk.md`. Never add a Pages deployment back.
+- **Preview:** `pnpm dev`; the export with `pnpm build && pnpm start`, with `.htaccess` via `pnpm serve-apache` + `pnpm check-htaccess`; against live with `pnpm compare`. CI uploads the export without basePath as `website-root-<run>` on every run.
+- **Deploy:** Plesk, not GitHub Pages (decision Manuel 2026-10-13, hosting outside the US). `.github/workflows/deploy.yml` checks every PR and push (lint, content, unit, build, e2e, then `pnpm test:basepath`: basePath build with the test endpoints of the forms + e2e; keep CI and the script identical); on push to `main` the job `build-branch` commits the export without basePath to the branch `deploy`, which Plesk-Git deploys. Details, rollback and the switch from the PHP site: `docs/hosting-plesk.md`. Never add a Pages deployment back.
 
 ## Porting a module
 

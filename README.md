@@ -240,17 +240,17 @@ for screenshots by mail. Its two wordings (with and without endpoint) are the pr
   local Apache instead: `pnpm serve-apache` (http://127.0.0.1:3098, `pnpm serve-apache stop`
   to end) and `pnpm check-htaccess`.
 - **Against live:** `pnpm compare <path>` (see above) for pixels, text and head data.
-- **From a pull request:** every CI run uploads the export without basePath
-  (`website-root-<run>`, on `main` only) and the export under a basePath
-  (`website-preview-<run>`) as workflow artifacts.
+- **From a pull request:** every CI run uploads the export without basePath (with
+  `.htaccess`) as the workflow artifact `website-root-<run>`; on `main` the same export
+  goes to the branch `deploy`.
 
 ## Deploy
 
 The site is served from the Plesk server of the association (Apache, no GitHub Pages:
 hosting stays outside the US). `.github/workflows/deploy.yml` runs on every pull request
 and push to `main`: lint, `validate-content`, unit tests, build, Playwright tests, then a
-second build under a basePath with its own Playwright tests (the export must work on any
-static host).
+second build under a basePath with its own Playwright tests (`pnpm test:basepath`, the
+export must work on any static host).
 
 On a push to `main` the job `build-branch` commits the export without basePath (with
 `.htaccess`) to the branch `deploy` (`scripts/publish-build-branch.sh`, one commit per
