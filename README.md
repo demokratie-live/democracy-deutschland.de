@@ -254,10 +254,17 @@ export must work on any static host).
 
 On a push to `main` the job `build-branch` commits the export without basePath (with
 `.htaccess`) to the branch `deploy` (`scripts/publish-build-branch.sh`, one commit per
-build). Plesk-Git pulls that branch into the document root of the domain. Merging into
-`main` is therefore the deploy; whether Plesk deploys automatically or on a click is set
-in Plesk. Setup, rollback (reset `deploy` to an older build) and the switch from the PHP
-site are described in [`docs/hosting-plesk.md`](docs/hosting-plesk.md).
+build). Plesk-Git deploys that branch automatically (GitHub webhook) into the document
+root of the domain. Merging into `main` is therefore the deploy: the change is live a few
+minutes later, once CI is green.
+
+**Test host:** run the workflow by hand (Actions → "Build & Deploy" → "Run workflow", pick
+a branch). After the checks the job `build-branch-test` commits that branch's export to
+the branch `deploy-test`, which Plesk deploys to `test.democracy-deutschland.de`
+(`noindex`). Run it again with another branch to test the next one.
+
+Setup, rollback (reset `deploy` to an older build) and the switch from the PHP site
+(done on 2026-10-15) are described in [`docs/hosting-plesk.md`](docs/hosting-plesk.md).
 
 ## Documentation
 
