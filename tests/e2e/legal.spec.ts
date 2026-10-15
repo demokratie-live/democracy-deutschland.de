@@ -48,6 +48,13 @@ async function words(page: Page) {
   });
 }
 
+/** Link targets of the legal text as written in the markup, in document order. */
+async function hrefs(page: Page) {
+  return page.evaluate(() =>
+    [...document.querySelectorAll("#content .main-container a")].map((a) => a.getAttribute("href")),
+  );
+}
+
 for (const { state, path: route, heading, title } of PAGES) {
   test(`${route}: text is word for word the saved live text`, async ({ page }) => {
     // ?_escaped_fragment_=<state> of 2026-10-13, byte for byte.
@@ -58,12 +65,15 @@ for (const { state, path: route, heading, title } of PAGES) {
     await page.route("**/*", (r) => r.abort()); // the fixture must not load anything
     await page.setContent(live, { waitUntil: "domcontentloaded" });
     const expected = await words(page);
+    const expectedHrefs = await hrefs(page);
     await page.unroute("**/*");
 
     await page.goto(route);
     const actual = await words(page);
     expect(expected.length).toBeGreaterThan(1000);
     expect(actual).toBe(expected);
+    // Same link targets as live, even where live links nowhere (TASK-87).
+    expect(await hrefs(page)).toEqual(expectedHrefs);
   });
 
   test(`${route}: loads without errors, navbar marks nothing (like init_${state})`, async ({
@@ -107,21 +117,29 @@ test("links of the legal texts", async ({ page }) => {
   ).toHaveText("contact@democracy-deutschland.de");
 
   await page.goto("/datenschutz/");
-  // Live: href="#!datenschutz"; internal links use the new paths.
+  // Like live: href="#!datenschutz" (same page, the click does nothing).
   const own = page.locator("#content a", {
     hasText: "https://www.democracy-deutschland.de/#!datenschutz",
   });
-  await expect(own).toHaveAttribute("href", "/datenschutz/");
+  await expect(own).toHaveAttribute("href", "#!datenschutz");
+  // Live the click changes nothing; here it must not reload or scroll either.
+  await own.scrollIntoViewIfNeeded();
+  await page.evaluate(() => ((window as unknown as { marker: number }).marker = 1));
+  const scrollY = await page.evaluate(() => window.scrollY);
+  await own.click();
+  await expect(page).toHaveURL(/\/datenschutz\/$/);
+  expect(await page.evaluate(() => (window as unknown as { marker?: number }).marker)).toBe(1);
+  expect(await page.evaluate(() => window.scrollY)).toBe(scrollY);
   await expect(page.locator("#content a", { hasText: /^Link$/ })).toHaveAttribute(
     "href",
     "http://tools.google.com/dlpage/gaoptout?hl=de",
   );
 
   await page.goto("/nutzungsbedingungen/");
-  // Live links the misspelled state #!nutzungsbedinungen (lands on the start page).
+  // Like live: the misspelled state #!nutzungsbedinungen (lands on the start page).
   await expect(
     page.locator("#content a", { hasText: "democracy-deutschland.de/#!nutzungsbedinungen" }),
-  ).toHaveAttribute("href", "http://democracy-deutschland.de/#!nutzungsbedingungen");
+  ).toHaveAttribute("href", "http://democracy-deutschland.de/#!nutzungsbedinungen");
   await expect(
     page.locator("#content a", { hasText: "http://ec.europa.eu/consumers/odr" }),
   ).toHaveAttribute("target", "_blank");

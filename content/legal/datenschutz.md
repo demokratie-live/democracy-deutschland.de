@@ -129,4 +129,4 @@ Wenn Sie der Ansicht sein sollten, dass die Verarbeitung Ihrer personenbezogenen
 
 ## <br>**11. Änderung dieser Datenschutzerklärung**
 
-Wir behalten es uns vor, diese Datenschutzerklärung notwendigen Änderungen zu unterziehen. Die aktuelle Fassung der Datenschutzerklärung kannst Du stets unter&nbsp;[https://www.democracy-deutschland.de/#!datenschutz](/datenschutz/)&nbsp;abrufen. Wir werden Sie hierüber informieren.
+Wir behalten es uns vor, diese Datenschutzerklärung notwendigen Änderungen zu unterziehen. Die aktuelle Fassung der Datenschutzerklärung kannst Du stets unter&nbsp;[https://www.democracy-deutschland.de/#!datenschutz](#!datenschutz)&nbsp;abrufen. Wir werden Sie hierüber informieren.
