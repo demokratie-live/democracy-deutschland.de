@@ -1,0 +1,76 @@
+1:"$Sreact.fragment"
+5:I[79802,["/_next/static/chunks/139frg5e5a2zz.js","/_next/static/chunks/004bqgatb.25p.js"],"OutletBoundary"]
+6:"$Sreact.suspense"
+2:T2f64,<p class="wp-block-paragraph">Hallo lieber Unterstützer,</p>
+<p class="wp-block-paragraph">genau ein Jahr ist es her, seit ich Dir das letzte Mal geschrieben habe. Ich möchte diesen Weihnachtsbrief nutzen, um Dir zusammenzufassen, was in 2024 passiert ist und wie es mit DEMOCRACY weitergeht.</p>
+<p class="wp-block-paragraph">Ein frohes Fest, einen guten Rutsch und viel Spaß beim Lesen,</p>
+<p class="wp-block-paragraph">Dein Marius Krüger</p>
+<span id="more-800"></span>
+<h2 class="wp-block-heading">01 Vergeblicher Spendenaufruf</h2>
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="576" src="/blog/wp-content/uploads/2024/12/image-1024x576.png" alt="" class="wp-image-801" srcset="/blog/wp-content/uploads/2024/12/image-1024x576.png 1024w, /blog/wp-content/uploads/2024/12/image-300x169.png 300w, /blog/wp-content/uploads/2024/12/image-768x432.png 768w, /blog/wp-content/uploads/2024/12/image-900x506.png 900w, /blog/wp-content/uploads/2024/12/image.png 1156w" sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+<p class="wp-block-paragraph">Am 18. Januar 2023 wandte ich mich an die Öffentlichkeit mit einem dringlichen <a href="https://youtu.be/lWr_wpEzU_E?si=B3oUhxxRhiMyInCh"><strong>Spendenaufruf</strong></a>. Wie viele andere gemeinnützige Organisationen verzeichneten wir Ende 2022 einen massiven (u.a. inflationsbedingten) Spendenrückgang von fast 50%, der den Weiterbetrieb der DEMOCRACY App gefährdete. </p>
+<p class="wp-block-paragraph">Leider hat sich dieser <strong>Spendenrückgang</strong> in 2023 und 2024 <strong>fortgesetzt</strong> (aktueller Stand: 75% Rückgang), sodass ich im Interesse der Organisation die <strong>Entscheidung getroffen</strong> habe, u.a. mein seit 6,5 Jahren bestehendes hauptamtliches Arbeitsverhältnis mit DEMOCRACY Deutschland e.V. zu beenden.</p>
+<p class="wp-block-paragraph">Ich erhoffe mir, mit diesem Schritt dazu beizutragen, DEMOCRACY als Service erhalten zu können.</p>
+<p class="has-text-align-center wp-block-paragraph"><a href="https://youtu.be/lWr_wpEzU_E">SPENDEN-APPELL</a></p>
+<p class="wp-block-paragraph"></p>
+<h2 class="wp-block-heading">02 Wie geht es weiter?</h2>
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="576" src="/blog/wp-content/uploads/2024/12/image-1-1024x576.png" alt="" class="wp-image-802" srcset="/blog/wp-content/uploads/2024/12/image-1-1024x576.png 1024w, /blog/wp-content/uploads/2024/12/image-1-300x169.png 300w, /blog/wp-content/uploads/2024/12/image-1-768x432.png 768w, /blog/wp-content/uploads/2024/12/image-1-900x506.png 900w, /blog/wp-content/uploads/2024/12/image-1.png 1156w" sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+<p class="wp-block-paragraph">Du fragst Dich jetzt sicherlich: Wie geht es weiter? Hat die Initiative noch eine Chance, wenn Du nicht mehr Vollzeit bei DEMOCRACY arbeitest?</p>
+<p class="wp-block-paragraph">Meine Antwort: Ja, denn Manuel und ich bleiben der Organisation ehrenamtlich respektive als Geringfügig-Beschäftigte erhalten. </p>
+<p class="wp-block-paragraph"><strong>Die Arbeit an DEMOCRACY geht</strong> insofern <strong>weiter, wenn auch mit deutlich weniger zeitlichen Ressourcen</strong> und dementsprechender Konzentration auf das Wesentliche. </p>
+<p class="wp-block-paragraph">Für uns ist das:</p>
+<ol class="wp-block-list">
+<li>die Erhaltung des Services (d.h. Redaktion, Wartung und Reparatur)</li>
+<li>kleine, machbare Weiterentwicklungen</li>
+</ol>
+<p class="wp-block-paragraph">Wie Du vielleicht gesehen hast, haben wir alle anderen Aktivitäten auf ein Minimum reduziert. Ich hoffe, das ist okay für Dich.</p>
+<p class="has-text-align-center wp-block-paragraph"><a href="https://www.democracy-deutschland.de/#!contact">WÜNSCHE</a></p>
+<p class="wp-block-paragraph"></p>
+<h2 class="wp-block-heading">03 Danke, Elisa!</h2>
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="576" src="/blog/wp-content/uploads/2024/12/image-2-1024x576.png" alt="" class="wp-image-803" srcset="/blog/wp-content/uploads/2024/12/image-2-1024x576.png 1024w, /blog/wp-content/uploads/2024/12/image-2-300x169.png 300w, /blog/wp-content/uploads/2024/12/image-2-768x432.png 768w, /blog/wp-content/uploads/2024/12/image-2-900x506.png 900w, /blog/wp-content/uploads/2024/12/image-2.png 1156w" sizes="auto, (max-width: 1024px) 100vw, 1024px" loading="lazy"></figure>
+<p class="wp-block-paragraph">Von den drastischen finanziellen Einbußen ebenfalls <strong>betroffen ist auch</strong> unsere langjährige Administrations-, Kommunikations- und Buchhaltungsmitarbeiterin <strong>Elisa Menne</strong>. Nach längerem Hoffen auf Besserung <strong>mussten</strong> wir Ende Oktober schweren Herzens die Entscheidung treffen, das <strong>Arbeitsverhältnis zum Jahresende zu beenden.</strong></p>
+<p class="wp-block-paragraph">Elisa Menne war vom 01.03.2021 bis einschließlich 31.12.2024 in unserem Verein als studentische Hilfskraft im Bereich Administration tätig. Wir danken Elisa für die exzellente Zusammenarbeit und wünschen ihr für ihre private und berufliche Zukunft alles Gute.</p>
+<p class="wp-block-paragraph">Danke, Elisa!</p>
+<p class="has-text-align-center wp-block-paragraph"><a href="https://www.democracy-deutschland.de/#!contact">ELISA ZURÜCKHOLEN</a></p>
+<p class="wp-block-paragraph"></p>
+<h2 class="wp-block-heading">04 Automatisierte Redaktion</h2>
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="576" src="/blog/wp-content/uploads/2024/12/image-3-1024x576.png" alt="" class="wp-image-804" srcset="/blog/wp-content/uploads/2024/12/image-3-1024x576.png 1024w, /blog/wp-content/uploads/2024/12/image-3-300x169.png 300w, /blog/wp-content/uploads/2024/12/image-3-768x432.png 768w, /blog/wp-content/uploads/2024/12/image-3-900x506.png 900w, /blog/wp-content/uploads/2024/12/image-3.png 1156w" sizes="auto, (max-width: 1024px) 100vw, 1024px" loading="lazy"></figure>
+<p class="wp-block-paragraph">Wie im letzten Jahresnewsletter bereits angedeutet, fließt ein wesentlicher Teil unserer Arbeit in Redaktionsaufgaben. </p>
+<p class="wp-block-paragraph">Wir setzen, u.a. um die ehemals von Elisa händisch erledigten Aufgaben aufzufangen, insofern ab dem neuen Jahr auf Automatisierung.</p>
+<p class="wp-block-paragraph">Das bedeutet: <strong>In Zukunft</strong> werden 100% der Prosa-<strong>Bundestagsergebnisse von Chat-GPT</strong> interpretiert, um sie in der App als Fraktionsergebnisse anzuzeigen. </p>
+<p class="wp-block-paragraph">Sollten Dir dabei Fehler auffallen, hoffen wir – wie gewohnt – auf Dein Reporting!</p>
+<p class="has-text-align-center wp-block-paragraph"><a href="mailto:contact@democracy-deutschland.deFehlerreportHallo%20liebes%20DEMOCRACY-Team%2C%0D%0A%0D%0Amir%20ist%20bei%20der%20Prozedur%20(ID%20%23%23%23%23%23%23)%20aufgefallen%2C%20dass%20das%20Ergebnis%20vom%20Beschlusstext%20abweicht.%0D%0A%0D%0ALiebe%20Grüße%2C%0D%0A">FEHLER REPORTEN</a></p>
+<p class="wp-block-paragraph"></p>
+<h2 class="wp-block-heading">05 Ausblick Bundestagswahl 2025</h2>
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="576" src="/blog/wp-content/uploads/2024/12/image-4-1024x576.png" alt="" class="wp-image-805" srcset="/blog/wp-content/uploads/2024/12/image-4-1024x576.png 1024w, /blog/wp-content/uploads/2024/12/image-4-300x169.png 300w, /blog/wp-content/uploads/2024/12/image-4-768x432.png 768w, /blog/wp-content/uploads/2024/12/image-4-900x506.png 900w, /blog/wp-content/uploads/2024/12/image-4.png 1156w" sizes="auto, (max-width: 1024px) 100vw, 1024px" loading="lazy"></figure>
+<p class="wp-block-paragraph"><strong>Im kommenden Jahr steht eine vorgezogene Bundestagswahl an.</strong></p>
+<p class="wp-block-paragraph"><strong>Um darauf optimal vorbereitet zu sein, empfehlen wir</strong> Dir, <strong>unsere App zu nutzen</strong> und (z.B. via Top-100-Liste) Abstimmungen zu sammeln.</p>
+<p class="wp-block-paragraph">Der Wahl-O-Meter gleicht automatisiert Deine Abstimmungsergebnisse mit denen der Parteien und Politiker ab, und zeigt Dir, mit wem Du wie stark übereinstimmt.</p>
+<p class="wp-block-paragraph">Wie genau das funktioniert, eine <strong>bewusste Wahlentscheidung</strong> zu <strong>treffen</strong>, erklären wir Dir in einem Kurzfilm (1:00): <br>
+<a href="https://www.youtube.com/watch?v=uWwQquy_MD0">https://www.youtube.com/watch?v=uWwQquy_MD0</a></p>
+<p class="wp-block-paragraph">Mehr Infos über den <strong>Wahl-O-Meter</strong> findest Du auf unserer Website unter:<br>
+<a href="https://www.democracy-deutschland.de/#!wahlometer">https://www.democracy-deutschland.de/#!wahlometer</a></p>
+<p class="wp-block-paragraph"><strong>HINWEIS</strong>❗️</p>
+<p class="wp-block-paragraph"><strong>Um unseren Service, so wie zur Zeit, auch in 2025 anbieten zu können, brauchen wir Deine finanzielle Unterstützung</strong> – und mindestens das aktuelle Spendenaufkommen.</p>
+<p class="wp-block-paragraph">Ich bedanke mich im Voraus für Deinen Beitrag!</p>
+<p class="has-text-align-center wp-block-paragraph"><a href="https://www.democracy-deutschland.de/#!donate">SPENDEN</a></p>
+<h2 class="wp-block-heading">Spendenfortschritt</h2>
+<p class="wp-block-paragraph">2.054€ von <strong>9.300 €</strong> (min. Finanzierungsziel/Monat)<br>
+<a href="https://web.archive.org/web/20240723230613/https://www.democracy-deutschland.de/#!donate">Mehr Informationen zum Spendenstand</a></p>
+<h2 class="wp-block-heading">Spendenkonto</h2>
+<p class="wp-block-paragraph">Unsere Bankverbindung für direkte Spenden, Überweisungen oder Daueraufträge lautet:</p>
+<p class="wp-block-paragraph">Kontoinhaber: DEMOCRACY Deutschland e.V.<br>
+IBAN: DE33 5003 1000 1049 7560 00<br>
+BIC: TRODDEF1</p>
+<p class="wp-block-paragraph">Der Verein DEMOCRACY Deutschland e.V. ist mit Bescheid des Finanzamts Göttingen vom 01.10.2019 als gemeinnütziger Verein zur Förderung des demokratischen Staatswesens sowie der Volks- und Berufsbildung offiziell anerkannt (<a href="https://web.archive.org/web/20240723230613/https://www.democracy-deutschland.de/files/download/Freistellungsbescheid.pdf">Nachweis der Gemeinnützigkeit</a>; <a href="https://web.archive.org/web/20240723230613/https://www.democracy-deutschland.de/files/download/Satzung_DEMOCRACY.pdf">Satzung</a>). Ihre Spenden sind daher steuerlich abzugsfähig. Für Spenden unter 200€ jährlich genügt der Zahlungsnachweis (z. B. Kontoauszug) zusammen mit unserem <a href="https://web.archive.org/web/20240723230613/https://www.democracy-deutschland.de/files/download/Vereinfachter_Zuwendungsnachweis_2019.pdf">Vereinfachten Zuwendungsnachweis</a>. Wenn Sie eine separate Zuwendungsbestätigung benötigen, schreiben Sie uns bitte eine E-Mail oder geben Sie in Ihrer Überweisung Ihre Wohnadresse an.</p>
+<h2 class="wp-block-heading">Der Verein</h2>
+<p class="wp-block-paragraph">DEMOCRACY Deutschland e.V. (gemeinnützig)<br>
+Industriestraße 10<br>
+37079 Göttingen<br>
+Telefon: +49 176 470 40 213<br>
+E-Mail: <a href="https://web.archive.org/web/20240723230613/mailto:contact@democracy-deutschland.de">contact@democracy-deutschland.de</a></p>
+<p class="wp-block-paragraph"><a href="https://web.archive.org/web/20240723230613/https://www.facebook.com/democracygermany/">Facebook</a>, <a href="https://web.archive.org/web/20240723230613/https://twitter.com/democracy_de">Twitter</a>, <a href="https://web.archive.org/web/20240723230613/https://www.instagram.com/democracy_app/">Instagram</a>, <a href="https://web.archive.org/web/20240723230613/https://www.youtube.com/channel/UC2R4cGTq1LjFZ2DvDaVhDyg">YouTube</a>, <a href="https://web.archive.org/web/20240723230613/https://github.com/demokratie-live/">GitHub</a>, <a href="https://web.archive.org/web/20240723230613/https://discord.gg/Pdu3ZEV">Discord</a><br>
+<a href="https://web.archive.org/web/20240723230613/https://www.democracy-deutschland.de/#!nutzungsbedingungen">Nutzungsbedingungen</a>, <a href="https://web.archive.org/web/20240723230613/https://www.democracy-deutschland.de/#!datenschutz">Datenschutz</a></p>0:{"rsc":["$","$1","c",{"children":[["$","article",null,{"id":"post-800","className":"post single post-800 type-post status-publish format-standard has-post-thumbnail hentry category-newsletter","children":[["$","div",null,{"className":"post-inner","children":[["$","div",null,{"className":"post-header","children":[["$","h1",null,{"className":"post-title","children":["$","a",null,{"href":"/blog/2024/12/news-37-weihnachtsbrief-24/","children":"News #37 – Weihnachtsbrief ’24"}]}],["$","div",null,{"className":"post-meta","children":[["$","p",null,{"className":"post-author","children":[["$","span",null,{"children":"Von "}],["$","a",null,{"href":"/blog/author/marius/","rel":"author","children":"Marius Krüger"}]]}]," ",["$","p",null,{"className":"post-date","children":[["$","span",null,{"children":"Am "}],["$","a",null,{"href":"/blog/2024/12/news-37-weihnachtsbrief-24/","children":"14. Dezember 2024"}]]}]," ",["$","p",null,{"className":"post-categories","children":[["$","span",null,{"children":"In "}],[["$","$1","newsletter",{"children":[null,["$","a",null,{"href":"/blog/category/newsletter/","rel":"category tag","children":"Newsletter"}]]}]]]}]]}]]}],["$","div",null,{"className":"post-content entry-content","dangerouslySetInnerHTML":{"__html":"$2"}}],null]}],"$L3"]}],null,"$L4"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"HWiEXnVpRJ-z40H-HxqBK"}
+3:["$","div",null,{"className":"post-navigation","children":["$","div",null,{"className":"post-navigation-inner group","children":[["$","div",null,{"className":"post-nav-prev","children":[["$","p",null,{"children":"Vorheriger"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2023/12/news-36-weihnachtsbrief-23/","children":"News #36 – Weihnachtsbrief ’23"}]}]]}],["$","div",null,{"className":"post-nav-next","children":[["$","p",null,{"children":"Nächster"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2025/12/news-38-weihnachtsbrief-25/","children":"News #38 – Weihnachtsbrief ’25"}]}]]}]]}]}]
+4:["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]
+7:null

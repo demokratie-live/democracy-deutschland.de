@@ -1,0 +1,52 @@
+1:"$Sreact.fragment"
+5:I[79802,["/_next/static/chunks/139frg5e5a2zz.js","/_next/static/chunks/004bqgatb.25p.js"],"OutletBoundary"]
+6:"$Sreact.suspense"
+2:T1892,<p class="wp-block-paragraph">Hallo lieber Unterstützer,</p>
+<p class="wp-block-paragraph">ich melde mich heute mit einer unerfreulichen Nachricht: <strong>Die Triodos Bank <a href="https://www.triodos.de/pressemitteilungen/2025/triodos-bank-beschliesst-die-einstellung-des-bankgeschaefts-in-deutschland" target="_blank" rel="noreferrer noopener">stellt ihr gesamtes Bankgeschäft in Deutschland ein</a></strong> und kündigt damit auch unser Konto.</p>
+<p class="wp-block-paragraph">Die Folge für uns ist gravierend: Mit dem Spenden-Konto brechen auf einen Schlag sämtliche Daueraufträge und Direktspenden weg, die DEMOCRACY tragen. Damit daraus kein Problem wird, brauchen wir kurz Deine Mithilfe.</p>
+<p class="wp-block-paragraph">Deshalb wende ich mich heute mit einer Bitte an Dich.</p>
+<p class="wp-block-paragraph">Dein Marius Krüger</p>
+<span id="more-952"></span>
+<p class="wp-block-paragraph"><strong>Unser bisheriges Spendenkonto bei der Triodos Bank wird geschlossen</strong>. Auf der <a href="https://www.triodos.de/schliessung" target="_blank" rel="noreferrer noopener">Website der Bank</a> heißt es dazu:<br>
+<br>
+„Nach derzeitigem Stand erhalten Sie bis spätestens Ende 2026 eine schriftliche Kündigungserklärung zu Ihrem jeweiligen Vertrag. In diesem Schreiben informieren wir Sie über das genaue Datum, zu dem Ihr Vertrag beziehungsweise unsere Dienstleistung endet. […] Sie haben ab Zugang der Kündigung mindestens 2 Monate Zeit, um die notwendigen Schritte für einen Wechsel zu einer anderen Bank vorzunehmen, etwa um Ihr Guthaben auf ein anderes Konto zu überweisen und/oder um Ihre Lastschriftmandate umzustellen.“<br>
+<br>
+Und, weiter: „Viele Banken bieten einen Kontowechselservice an und übernehmen für Sie – abhängig vom jeweiligen Service-Umfang – die Benachrichtigung Ihrer Zahlungspartner:innen (z. B. Arbeitgeber:innen, regelmäßige Zahlungen, Vereine oder Finanzbehörden). So müssen Sie nicht jede Stelle einzeln kontaktieren.“<br>
+<br>
+Das Problem ist, ein solcher Kontowechsel-Service existiert nur für Lastschriftmandate oder sonstige Einzüge – nicht für Daueraufträge.</p>
+<p class="wp-block-paragraph"><strong>Das Wichtigste in Kürze:</strong> Wenn Du uns per Dauerauftrag / Direkt-Überweisung unterstützt, bitten wir Dich die <strong>Empfänger-IBAN</strong> in Deinem Dauerauftrag <strong>auf unser neues Konto umzustellen</strong>, sodass Deine Spende auch in Zukunft bei uns ankommt. Betrag und Rhythmus kannst Du unverändert lassen.</p>
+<h2 class="wp-block-heading">Unser neues Spendenkonto</h2>
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph"><strong>Kontoinhaber:</strong> DEMOCRACY Deutschland e.V.<br><strong>Bank: </strong>Sparkasse Göttingen<br><strong>IBAN:</strong> DE83 2605 0001 0056 1290 91<br><strong>BIC:</strong> NOLADE21GOE <br><strong>Verwendungszweck:</strong> Spende DEMOCRACY [ggf. wie bisher]</p>
+</blockquote>
+<h2 class="wp-block-heading">So passt Du Deinen Dauerauftrag an</h2>
+<p class="wp-block-paragraph">Ein Dauerauftrag liegt bei Deiner eigenen Bank – deshalb können wir ihn leider <strong>nicht zentral auf unsere neue IBAN </strong>umstellen. Was Du tun musst:</p>
+<ol class="wp-block-list">
+<li>Logge Dich in Dein Online-Banking ein</li>
+<li>Öffne den bestehenden Dauerauftrag an DEMOCRACY (bisherige Triodos-IBAN).</li>
+<li>Trage als neue Empfänger-IBAN unser oben genannten Sparkassen-Kontos ein: DE83 2605 0001 0056 1290 91</li>
+<li>Den Betrag und das Intervall kannst Du lassen wie gehabt – Speichern – fertig.</li>
+</ol>
+<p class="wp-block-paragraph">Diese Bitte betrifft ausschließlich Daueraufträge / Direkt-Überweisungen auf unser Bankkonto. Wer uns auf anderem Weg unterstützt (PayPal oder Donorbox), muss nichts ändern – um die Umstellung kümmern wir uns auf unserer Seite.</p>
+<p class="wp-block-paragraph">Ich weiß, dass so ein Bankwechsel lästig ist, und möchte mich an der Stelle für die Unannehmlichkeit entschuldigen.</p>
+<p class="wp-block-paragraph">Im Voraus bedanke ich mich bei Dir, dass Du uns verbunden bleibst und Deinen Dauerauftrag anpasst.</p>
+<p class="wp-block-paragraph">Wir werden in den nächsten Wochen versuchen, Dich – mit allergrößter Kreativität – auf allen erdenklichen Wegen zu erreichen.</p>
+<p class="wp-block-paragraph"><br>Dein Marius Krüger<br></p>
+<h2 class="wp-block-heading">Spendenfortschritt</h2>
+<p class="wp-block-paragraph">1.563 von <strong>9.300 €</strong> (min. Finanzierungsziel/Monat)<br>
+<a href="https://web.archive.org/web/20240723230613/https://www.democracy-deutschland.de/#!donate">Mehr Informationen zum Spendenstand</a></p>
+<h2 class="wp-block-heading">Spendenkonto</h2>
+<p class="wp-block-paragraph">Unsere <strong>neue Bankverbindung</strong> für direkte Spenden, Überweisungen oder Daueraufträge lautet:</p>
+<p class="wp-block-paragraph">Kontoinhaber: DEMOCRACY Deutschland e.V.<br>
+IBAN: DE83 2605 0001 0056 1290 91<br>
+BIC: NOLADE21GOE</p>
+<p class="wp-block-paragraph">Der Verein DEMOCRACY Deutschland e.V. ist mit Bescheid des Finanzamts Göttingen vom 01.10.2019 als gemeinnütziger Verein zur Förderung des demokratischen Staatswesens sowie der Volks- und Berufsbildung offiziell anerkannt (<a href="https://democracy-deutschland.de/files/download/Freistellungsbescheid.pdf">Nachweis der Gemeinnützigkeit</a>; <a href="https://democracy-deutschland.de/files/download/Satzung_DEMOCRACY.pdf">Satzung</a>). Ihre Spenden sind daher steuerlich abzugsfähig. Für Spenden unter 200€ jährlich genügt der Zahlungsnachweis (z. B. Kontoauszug) zusammen mit unserem <a href="https://democracy-deutschland.de/files/download/Vereinfachter_Zuwendungsnachweis_2025.pdf">Vereinfachten Zuwendungsnachweis</a>. Wenn Sie eine separate Zuwendungsbestätigung benötigen, schreiben Sie uns bitte eine E-Mail oder geben Sie in Ihrer Überweisung Ihre Wohnadresse an.</p>
+<h2 class="wp-block-heading">Der Verein</h2>
+<p class="wp-block-paragraph">DEMOCRACY Deutschland e.V. (gemeinnützig)<br>
+Am Klausberge 12<br>
+37075 Göttingen<br>
+Telefon: +49 176 470 40 213<br>
+E-Mail: <a href="https://web.archive.org/web/20240723230613/mailto:contact@democracy-deutschland.de">contact@democracy-deutschland.de</a></p>0:{"rsc":["$","$1","c",{"children":[["$","article",null,{"id":"post-952","className":"post single post-952 type-post status-publish format-standard has-post-thumbnail hentry category-allgemein","children":[["$","div",null,{"className":"post-inner","children":[["$","div",null,{"className":"post-header","children":[["$","h1",null,{"className":"post-title","children":["$","a",null,{"href":"/blog/2026/06/spendenkonto-zieht-um/","children":"📌 In eigener Sache: Unser Spendenkonto zieht um"}]}],["$","div",null,{"className":"post-meta","children":[["$","p",null,{"className":"post-author","children":[["$","span",null,{"children":"Von "}],["$","a",null,{"href":"/blog/author/marius/","rel":"author","children":"Marius Krüger"}]]}]," ",["$","p",null,{"className":"post-date","children":[["$","span",null,{"children":"Am "}],["$","a",null,{"href":"/blog/2026/06/spendenkonto-zieht-um/","children":"14. Juni 2026"}]]}]," ",["$","p",null,{"className":"post-categories","children":[["$","span",null,{"children":"In "}],[["$","$1","allgemein",{"children":[null,["$","a",null,{"href":"/blog/category/allgemein/","rel":"category tag","children":"Allgemein"}]]}]]]}]]}]]}],["$","div",null,{"className":"post-content entry-content","dangerouslySetInnerHTML":{"__html":"$2"}}],null]}],"$L3"]}],null,"$L4"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"HWiEXnVpRJ-z40H-HxqBK"}
+3:["$","div",null,{"className":"post-navigation","children":["$","div",null,{"className":"post-navigation-inner group","children":[["$","div",null,{"className":"post-nav-prev","children":[["$","p",null,{"children":"Vorheriger"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2025/12/news-38-weihnachtsbrief-25/","children":"News #38 – Weihnachtsbrief ’25"}]}]]}],null]}]}]
+4:["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]
+7:null

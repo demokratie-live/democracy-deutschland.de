@@ -1,0 +1,72 @@
+1:"$Sreact.fragment"
+5:I[79802,["/_next/static/chunks/139frg5e5a2zz.js","/_next/static/chunks/004bqgatb.25p.js"],"OutletBoundary"]
+6:"$Sreact.suspense"
+2:T23c9,<p class="wp-block-paragraph">Falls dieser Blog nicht korrekt dargestellt wird, können Sie diesen <a href="https://static.democracy-app.de/newsletter/newsletter20.html">hier</a> als Original-Newsletter im Browser öffnen.</p>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/05/20_header-1024x394.png" alt="" class="wp-image-329"></figure>
+<h3 class="wp-block-heading">Hallo liebe/r Unterstützer/in,</h3>
+<p class="wp-block-paragraph">mehr als vier Monate sind vergangen seit unserem letzten Newsletter: dem Weihnachtsbrief. Umso mehr freut es uns, Ihnen die 20. Ausgabe in einem neuem Design präsentieren zu können.</p>
+<p class="wp-block-paragraph">Wir wünschen viel Spaß beim Lesen und danken Ihnen für Ihre Unterstützung, Herzliche Grüße</p>
+<p class="wp-block-paragraph">Ihr TEAM DEMOCRACY<br>
+Marius Krüger &#x26; Manuel Ruck</p>
+<span id="more-328"></span>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">01 DEMOCRACY 1.3 verfügbar</h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/05/20_DEMOCRACY-1.3-verfügbar-1024x523.png" alt="" class="wp-image-331"></figure>
+<p class="wp-block-paragraph">Nach dem letzten Release am 24. März 2019 konnten wir nach rund einem Jahr des Achterbahnfahrens am <strong>15./17. März 2020</strong> endlich unsere dritte Version der App – DEMOCRACY 1.3 – der Öffentlichkeit zur Verfügung stellen. Neben der technischen Generalüberholung und damit verbundenen <strong>PERFORMANCE</strong>-Verbesserungen enthält 1.3 <strong>AUTOMATISCHE ERGEBNISPUSHS</strong> und eine <strong>BESSERE ÜBERSICHT</strong>. Warum so lange nichts mehr passiert ist, was uns dazu bewogen hat, eine neue Version zu machen und was 1.3 kann, können Sie im Live-Release-Video vom 15.03. nachhören.</p>
+<h4 class="wp-block-heading has-text-align-center"><a href="https://web.facebook.com/democracygermany/videos/508070640147440/">RELEASE-VIDEO ANSEHEN</a></h4>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">02 100.000+ Downloads</h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/05/20_100.000-1024x527.png" alt="" class="wp-image-332"></figure>
+<p class="wp-block-paragraph">DEMOCRACY ist gold! Gut 1,5 Jahre nach der Erstveröffentlichung der App im Oktober 2018 konnten wir im März 2020 die 100.000-Downloads-Marke knacken. Aktuell zählen die Stores knapp <strong>125.000 Downloads </strong>(30.003 iOS, 94.141 Android) und 43.726 aktive Nutzer in den letzten 30 Tagen. Wir sind unglaublich stolz, bereits so viele Menschen mit unserer Arbeit erreicht zu haben, auch wenn es, ehrlich gesagt, einen längeren Atem brauchte als wir uns in unserer Euphorie erhofft hatten. In jedem Fall arbeiten wir schon jetzt an den nächsten 100.000.</p>
+<h4 class="wp-block-heading has-text-align-center"><a href="https://democracy-deutschland.de">APP HERUNTERLADEN</a></h4>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">03 Ulf geht</h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/05/20_Ulf-geht-1024x527.png" alt="" class="wp-image-333"></figure>
+<p class="wp-block-paragraph">Die Achterbahnfahrt des letzten Jahres hatte einige positive Auswirkungen auf unsere Motivation und unser Zusammenwirken als Team – vor allem aber strapazierte sie unser aller Nervenkostüm. <strong>Ulf hat sich</strong> – nach einigen persönlichen und arbeitsorganisatorischen Differenzen – daraufhin <strong>entschieden</strong>, die <strong>Initiative zu verlassen</strong> und seinen Arbeitsvertrag im beidseitigen Einverständnis zum 30.03. aufgekündigt. <strong>Um den Wegfall</strong> von Ulf <strong>zu kompensieren</strong>, <strong>setzen wir</strong> in der Entwicklung momentan stark <strong>auf Freiwilligenunterstützung</strong>. Sollten Sie auch Lust haben, in dieser besonderen Zeit, Ihre Fähigkeiten einzubringen, laden wir sie ganz herzlich ein, bei uns mitzuprogrammieren.</p>
+<h4 class="wp-block-heading has-text-align-center"><a href="https://github.com/demokratie-live/democracy-client/issues">MITPROGRAMMIEREN</a></h4>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">04 Partizipation in Zeiten von Corona</h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/05/20_Partizipation-in-Zeiten-von-Corona-1024x527.png" alt="" class="wp-image-334"></figure>
+<p class="wp-block-paragraph">Wir leben im Moment in einem Ausnahmezustand, der uns dazu zwingt, deutlicher denn je darauf hinzuweisen:</p>
+<p class="wp-block-paragraph">1., dass wir als Bürger schnellstens eine Möglichkeit brauchen, ad hoc Einfluss auf die große Politik zu nehmen.</p>
+<p class="wp-block-paragraph">2., dass diese Möglichkeit in Zeiten von Grundrechtseinschränkungen (wie z.B. dem Demonstrationsverbot) eigentlich nur digital funktionieren kann, und</p>
+<p class="wp-block-paragraph">3., dass ein solches Unterfangen auf gar keinen Fall staatlich, sondern in jedem Fall zivilgesellschaftlich organisiert werden muss, um unabhängig zu sein.</p>
+<p class="wp-block-paragraph">Das alles leistet DEMOCRACY! Wir bauen Software, die Sie mächtiger macht – seit 3,5 Jahren. Damit das weiterhin klappt, brauchen wir Ihre regelmäßige finanzielle Unterstützung. Vielen Dank!</p>
+<h4 class="wp-block-heading has-text-align-center"><a href="https://www.democracy-deutschland.de/#!donate">UNTERSTÜTZEN</a></h4>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">05 Bundestagswahl 2021</h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/05/20_Bundestagswahl-2021-1024x527.png" alt="" class="wp-image-335"></figure>
+<p class="wp-block-paragraph">Und zum Abschluss dieser Ausgabe ein kleiner Ausblick: Nächstes Jahr ist Bundestagswahl! Haben Sie sich schon die Frage gestellt, was Sie sich für 2021 von uns wünschen? Wir könnten z.B. unseren Wahl-O-Meter zu einem vollständigen Kandidaten-Check umfunktionieren oder ein Werbekit zum Selber-Basteln ausarbeiten und eine riesige Kampagne organisieren. Fest steht, 2021 wird groß. Wir fangen bereits jetzt an zu planen. Gestalten Sie unsere Aktionen zur Bundestagswahl 2021 mit! Wir freuen uns auf Ihre Ideen!</p>
+<h4 class="wp-block-heading has-text-align-center"><a href="https://www.democracy-deutschland.de/#!contact">IDEE EINREICHEN</a></h4>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">Spendenfortschritt</h3>
+<p class="wp-block-paragraph">4.861€ von <strong>10.537€</strong> (min. Finanzierungsziel/Monat)<br>
+<a href="https://www.democracy-deutschland.de/#!donate">Mehr Informationen zum Spendenstand</a></p>
+<h3 class="wp-block-heading">Spendenkonto</h3>
+<p class="wp-block-paragraph">Unsere Bankverbindung für direkte Spenden, Überweisungen oder Daueraufträge lautet:</p>
+<p class="wp-block-paragraph">Kontoinhaber: DEMOCRACY Deutschland e.V.<br>
+IBAN: DE33 5003 1000 1049 7560 00<br>
+BIC: TRODDEF1</p>
+<p class="wp-block-paragraph">Der Verein DEMOCRACY Deutschland e.V. ist mit Bescheid des Finanzamts Göttingen vom 01.10.2019 als gemeinnütziger Verein zur Förderung des demokratischen Staatswesens sowie der Volks- und Berufsbildung offiziell anerkannt (<a href="https://www.democracy-deutschland.de/files/download/Freistellungsbescheid.pdf">Nachweis der Gemeinnützigkeit</a>; <a href="https://www.democracy-deutschland.de/files/download/Satzung_DEMOCRACY.pdf">Satzung</a>). Ihre Spenden sind daher steuerlich abzugsfähig. Für Spenden unter 200€ jährlich genügt der Zahlungsnachweis (z. B. Kontoauszug) zusammen mit unserem <a href="https://www.democracy-deutschland.de/files/download/Vereinfachter_Zuwendungsnachweis_2019.pdf">Vereinfachten Zuwendungsnachweis</a>. Wenn Sie eine separate Zuwendungsbestätigung benötigen, schreiben Sie uns bitte eine E-Mail oder geben Sie in Ihrer Überweisung Ihre Wohnadresse an.</p>
+<h3 class="wp-block-heading">Der Verein</h3>
+<p class="wp-block-paragraph">DEMOCRACY Deutschland e.V. (gemeinnützig)<br>
+Industriestraße 10<br>
+37079 Göttingen<br>
+Telefon: +49 176 470 40 213<br>
+E-Mail: <a href="mailto:contact@democracy-deutschland.de">contact@democracy-deutschland.de</a></p>
+<p class="wp-block-paragraph"><a href="https://www.facebook.com/democracygermany/">Facebook</a>, <a href="https://twitter.com/democracy_de">Twitter</a>, <a href="https://www.youtube.com/channel/UC2R4cGTq1LjFZ2DvDaVhDyg">YouTube</a>, <a href="https://github.com/demokratie-live/">GitHub</a>, <a href="https://discord.gg/Pdu3ZEV">Discord</a><br>
+<a href="https://www.democracy-deutschland.de/#!nutzungsbedingungen">Nutzungsbedingungen</a>, <a href="https://www.democracy-deutschland.de/#!datenschutz">Datenschutz</a></p>0:{"rsc":["$","$1","c",{"children":[["$","article",null,{"id":"post-328","className":"post single post-328 type-post status-publish format-standard has-post-thumbnail hentry category-newsletter","children":[["$","div",null,{"className":"post-inner","children":[["$","div",null,{"className":"post-header","children":[["$","h1",null,{"className":"post-title","children":["$","a",null,{"href":"/blog/2020/05/news-20-1-3-corona/","children":"News #20 – 1.3 & Corona"}]}],["$","div",null,{"className":"post-meta","children":[["$","p",null,{"className":"post-author","children":[["$","span",null,{"children":"Von "}],["$","a",null,{"href":"/blog/author/marius/","rel":"author","children":"Marius Krüger"}]]}]," ",["$","p",null,{"className":"post-date","children":[["$","span",null,{"children":"Am "}],["$","a",null,{"href":"/blog/2020/05/news-20-1-3-corona/","children":"7. Mai 2020"}]]}]," ",["$","p",null,{"className":"post-categories","children":[["$","span",null,{"children":"In "}],[["$","$1","newsletter",{"children":[null,["$","a",null,{"href":"/blog/category/newsletter/","rel":"category tag","children":"Newsletter"}]]}]]]}]]}]]}],["$","div",null,{"className":"post-content entry-content","dangerouslySetInnerHTML":{"__html":"$2"}}],null]}],"$L3"]}],null,"$L4"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"HWiEXnVpRJ-z40H-HxqBK"}
+3:["$","div",null,{"className":"post-navigation","children":["$","div",null,{"className":"post-navigation-inner group","children":[["$","div",null,{"className":"post-nav-prev","children":[["$","p",null,{"children":"Vorheriger"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2019/12/news-19-weihnachtsbrief-von-marius-krueger/","children":"News #19 – Weihnachtsbrief von Marius Krüger"}]}]]}],["$","div",null,{"className":"post-nav-next","children":[["$","p",null,{"children":"Nächster"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2020/06/news-21-stellenanzeige-flyeraktion/","children":"News #21 – Stellenanzeige & Flyeraktion"}]}]]}]]}]}]
+4:["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]
+7:null

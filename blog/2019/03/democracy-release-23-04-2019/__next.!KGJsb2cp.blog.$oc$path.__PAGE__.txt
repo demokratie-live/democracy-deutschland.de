@@ -1,0 +1,28 @@
+1:"$Sreact.fragment"
+5:I[79802,["/_next/static/chunks/139frg5e5a2zz.js","/_next/static/chunks/004bqgatb.25p.js"],"OutletBoundary"]
+6:"$Sreact.suspense"
+2:Tcc2,<p class="anrede">Liebe/r UnterstützerIn,</p>
+<p>wie angekündigt können wir Ihnen nun endlich den offiziellen Termin bekanntgeben: <b>DEMOCRACY+ wird am 24.03.</b>hochoffiziell mit Releasefilm &#x26; Spendenkampagne <b>vorgestellt</b>!</p>
+<p>Es wäre fantastisch, wenn Sie uns dabei helfen, diese Neuigkeit zu verbreiten, indem Sie <b>an der offiziellen FB-Veranstaltung teilnehmen </b>(<a href="https://www.facebook.com/events/2245858845695900/">https://www.facebook.com/events/2245858845695900/</a>) und <b>alle Ihre Freunde zu dieser Veranstaltung einladen</b>, vgl. -> Teilen -> Freunde einladen.</p>
+<p>Am 24.03. werden wir Sie mit einer weiteren Mail daran erinnern, den Releasefilm in Ihren Netzwerken zu verbreiten.</p>
+<p>Bis dahin, 1000 Grüße!</p>
+<p>Ihr Marius Krüger</p>
+<p>————————————————————-</p>
+<p>PS: Was ist eigentlich neu an <b>DEMOCRACY+?</b></p>
+<p><b>WAHL-O-METER</b><br>
+Sie wollten schon immer wissen, ob die Partei, die Sie gewählt haben, auch während der Legislaturperiode noch auf Ihrer politischen Kurslinie liegt und wie stark Sie mit dem Abstimmungsverhalten Ihres Direktkandidaten übereinstimmen, dem Sie Ihr Vertrauen zugesprochen haben? Der Wahl-O-Meter macht’s möglich, denn mit diesem Release enthält die App endlich auch den systematischen Vergleich des eigenen Abstimmungsverhaltens mit dem der Fraktionen bzw. dem jeweiligen Direktkandidaten.</p>
+<p><b>WAHLKREISERGEBNISSE &#x26; ABGEORDNETENPROFILE</b><br>
+Um den bürgerlobbyistischen Einfluss auf die Politik zu erhöhen, schlüsseln wir ab sofort das Community-Ergebnis zusätzlich nach Wahlkreisen auf. Haben Sie zuvor Ihre Postleitzahl eingegeben, sehen Sie ab sofort eine weitere Grafik, die Sie über das Abstimmungsergebnis der User in Ihrem Wahlkreis informiert. Auf diese Weise möchten wir den Druck auf die Direktkandidaten erhöhen, sich regelmäßig mit unseren Meinungen zu beschäftigen und uns Rede und Antwort zu stehen. Um die Politiker zu kontaktieren, stehen in den Abgeordnetenprofilen Möglichkeiten zur Verfügung.</p>
+<p><b>NEUE INTERAKTIONEN</b><br>
+Haben Sie zu einem Vorgang Ihre Stimme abgegeben, bieten wir Ihnen mit DEMOCRACY+ jetzt schnelle weitere Interaktionsmöglichkeiten an: Sie können ab sofort mit einem Klick die Benachrichtigungen aktivieren und/oder das Gesetz teilen. Für Anträge in Vorbereitung haben wir diese Logik um das Upvoten erweitert.</p>
+<div class="footer">
+<p>DEMOCRACY ist ein Produkt des gemeinnützigen Vereins DEMOCRACY Deutschland e.V., der die Zukunft der deutschen Demokratie neu denkt und gestaltet.</p>
+<p><img decoding="async" id="<democracy_logo>" class="logo Apple-web-attachment Singleton" style="display: block; border: 0px none; height: auto; line-height: 14px; outline: none; text-decoration: none; opacity: 1;" src="/blog/wp-content/uploads/inline/democracy-release-23-04-2019-1.png" alt="DEMOCRACY Logo">DEMOCRACY Deutschland e.V.<br>
+mobil +49 176 470 40 213<br>
+<a href="mailto:contact@democracy-deutschland.de">contact@democracy-deutschland.de </a><br>
+<a href="https://www.democracy-deutschland.de/">https://www.democracy-deutschland.de </a><br>
+<a href="https://github.com/demokratie-live/">https://github.com/demokratie-live</a></p>
+</div>0:{"rsc":["$","$1","c",{"children":[["$","article",null,{"id":"post-271","className":"post single post-271 type-post status-publish format-standard has-post-thumbnail hentry category-newsletter","children":[["$","div",null,{"className":"post-inner","children":[["$","div",null,{"className":"post-header","children":[["$","h1",null,{"className":"post-title","children":["$","a",null,{"href":"/blog/2019/03/democracy-release-23-04-2019/","children":"DEMOCRACY+ // Release 24.03.2019"}]}],["$","div",null,{"className":"post-meta","children":[["$","p",null,{"className":"post-author","children":[["$","span",null,{"children":"Von "}],["$","a",null,{"href":"/blog/author/marius/","rel":"author","children":"Marius Krüger"}]]}]," ",["$","p",null,{"className":"post-date","children":[["$","span",null,{"children":"Am "}],["$","a",null,{"href":"/blog/2019/03/democracy-release-23-04-2019/","children":"14. März 2019"}]]}]," ",["$","p",null,{"className":"post-categories","children":[["$","span",null,{"children":"In "}],[["$","$1","newsletter",{"children":[null,["$","a",null,{"href":"/blog/category/newsletter/","rel":"category tag","children":"Newsletter"}]]}]]]}]]}]]}],["$","div",null,{"className":"post-content entry-content","dangerouslySetInnerHTML":{"__html":"$2"}}],null]}],"$L3"]}],null,"$L4"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"HWiEXnVpRJ-z40H-HxqBK"}
+3:["$","div",null,{"className":"post-navigation","children":["$","div",null,{"className":"post-navigation-inner group","children":[["$","div",null,{"className":"post-nav-prev","children":[["$","p",null,{"children":"Vorheriger"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2019/03/news-15-aktueller-stand-finanzierung-und-zukunft/","children":"News #15 – Aktueller Stand, Finanzierung und Zukunft"}]}]]}],["$","div",null,{"className":"post-nav-next","children":[["$","p",null,{"children":"Nächster"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2019/03/news-16-launch-spenden-und-empfehlungen/","children":"News #16 – Launch, Spenden und Empfehlungen"}]}]]}]]}]}]
+4:["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]
+7:null

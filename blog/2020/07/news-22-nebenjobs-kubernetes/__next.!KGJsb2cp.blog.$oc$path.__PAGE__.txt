@@ -1,0 +1,81 @@
+1:"$Sreact.fragment"
+5:I[79802,["/_next/static/chunks/139frg5e5a2zz.js","/_next/static/chunks/004bqgatb.25p.js"],"OutletBoundary"]
+6:"$Sreact.suspense"
+2:T2774,<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/07/22_Header-1024x394.jpeg" alt="" class="wp-image-360"></figure>
+<h3 class="wp-block-heading">Hallo liebe/r Unterstützer/in,</h3>
+<p class="wp-block-paragraph">ein Monat der intensiven Kandidatinnensuche liegt seit unserem letzten Newsletter hinter uns. Um es vorweg zu nehmen: Ohne Erfolg. Deshalb ändern wir ab sofort die Strategie und suchen drei Personen.</p>
+<p class="wp-block-paragraph">Wir wünschen viel Spaß beim Lesen und danken Ihnen für Ihre Unterstützung,</p>
+<p class="wp-block-paragraph">Herzliche Grüße,</p>
+<p class="wp-block-paragraph">Ihr TEAM DEMOCRACY<br>
+Marius Krüger &#x26; Manuel Ruck</p>
+<span id="more-359"></span>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">01 Stellensuche Operative Projektleitung </h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/07/21_01_Stellenanzeige-1024x527.png" alt="" class="wp-image-361"></figure>
+<p class="wp-block-paragraph">Wie in der Einleitung schon angedeutet, blieb unsere operative <strong>Nachfolgesuche bislang ohne Erfolg</strong>. Nach der Veröffentlichung der Stellenanzeige haben uns zahlreiche Zuschriften erreicht. 17 davon haben wir uns „in einem etwas anderen Assesment“ angehört. Es war kein Volltreffer dabei, aber durchaus Kandidaten, die für die Stelle überwiegend geeignet erschienen, mit dem Gehalt aber nicht zu bekommen waren. Wir ziehen als <strong>Fazit</strong> unserer letztmonatlichen Bemühungen deshalb, unsere <strong>Strategie</strong> zu <strong>ändern</strong> und die <strong>ausgeschriebene Vollzeitstelle in drei Nebentätigkeiten auf</strong>zu<strong>teilen</strong>. Ab sofort suchen wir also Verstärkungen für unser Team (auf 450€-Basis mit flexibler 10 Wochenstundenarbeitszeit) in den Bereichen Communitymanagement, Content Creation und Medienarbeit &#x26; PR.</p>
+<h4 class="wp-block-heading has-text-align-center"><strong><a href="mailto:jobs@democracy-deutschland.de?subject=Initiativbewerbung%20als%20">INITIATIVBEWERBUNG</a></strong></h4>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">02 Nebenjob #1: Communitymanagement</h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/07/22_02_Communitymanagement-1024x527.png" alt="" class="wp-image-362"></figure>
+<p class="wp-block-paragraph">Als bissigstes Start-Up der deutschen Civic-Tech-Szene <strong>suchen</strong> wir <strong>ab sofort eine/n </strong><a href="https://de.indeed.com/Zeige-Job?t=communitymanagement+mwd&#x26;jk=557c776d0e55299d&#x26;_ga=2.84999133.537692420.1595066968-804042350.1592647038"><strong>Communitymanager*in</strong></a><strong> auf 450€-Basis</strong>. Zu den Aufgaben zählen:</p>
+<p class="wp-block-paragraph">∙ tägliches Beantworten von Mails &#x26; Anfragen in SM<br>
+∙ User-Support und Erfassung von Fehlerreports<br>
+∙ operatives Fundraising / Spenderansprache<br>
+∙ Aufbau &#x26; Ausschreibung freiwilliger Mitarbeit</p>
+<p class="wp-block-paragraph">Die vollständige <strong>Stellenausschreibung</strong> samt der Bewerbungshinweise finden Sie <strong>zum Herunterladen angehängt</strong>.</p>
+<h4 class="wp-block-heading has-text-align-center"><strong><a href="https://www.democracy-deutschland.de/files/download/Stellenanzeige_Communitymanagement_200718.pdf">STELLENANZEIGE #1 DOWNLOADEN</a></strong></h4>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">03 Nebenjob #2: Content Creation</h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/07/22_03_ContentCreation-1024x527.png" alt="" class="wp-image-363"></figure>
+<p class="wp-block-paragraph">Weiterhin <strong>suchen</strong> wir <strong>ab sofort eine/n <a href="https://de.indeed.com/Zeige-Job?t=content+creation+mwd&#x26;jk=a5905f1ab8d7e706&#x26;_ga=2.115710018.537692420.1595066968-804042350.1592647038">Content-Creator*in</a> auf 450€-Basis</strong>. Die Aufgaben hier sind:</p>
+<p class="wp-block-paragraph">∙ Entwicklung von Content-Strategien<br>
+∙ Konzeption und Umsetzung von Werbeassets<br>
+∙ regelmäßiges Posten in Social Media<br>
+∙ monatliches Newslettering</p>
+<p class="wp-block-paragraph">Die vollständige <strong>Stellenausschreibung</strong> samt der Bewerbungshinweise finden Sie <strong>zum Herunterladen angehängt</strong>.</p>
+<h4 class="wp-block-heading has-text-align-center"><strong><a href="https://www.democracy-deutschland.de/files/download/Stellenanzeige_Content-Creation_200718.pdf">STELLENANZEIGE #2 DOWNLOADEN</a></strong></h4>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">04 Nebenjob #3: Medienarbeit &#x26; PR</h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/07/22_04_MedienPR-1024x527.png" alt="" class="wp-image-364"></figure>
+<p class="wp-block-paragraph">Und zu guter letzt <strong>suchen</strong> wir <strong>ab sofort</strong> auch noch <strong>eine/n Expert*in für </strong><a href="https://de.indeed.com/Zeige-Job?t=medienarbeit+pr+mwd&#x26;jk=b4ced0e17b91f8b8&#x26;_ga=2.85449565.537692420.1595066968-804042350.1592647038#"><strong>Medienarbeit &#x26; PR</strong></a><strong> auf 450€-Basis</strong>. Die Aufgaben hier sind:<br>
+</p>
+<p class="wp-block-paragraph">∙ Ansprechpartner #1 für Medienanfragen<br>
+∙ Teilnahme an / Organisation von Veranstaltungen<br>
+∙ öffentliches Präsentieren von DEMOCRACY<br>
+∙ strategisches Fundraising</p>
+<p class="wp-block-paragraph">Die vollständige <strong>Stellenausschreibung</strong> samt der Bewerbungshinweise finden Sie <strong>zum Herunterladen angehängt</strong>. Wir bitten Sie, uns bei der Verbreitung der Stellenanzeigen zu helfen, indem sie unsere diesbezüglichen Beiträge in den Sozialen Medien teilen und sie <strong>an potentielle Student*innen aus ihrem Bekanntenkreis weiterleiten</strong>.</p>
+<h4 class="wp-block-heading has-text-align-center"><strong><a href="https://www.democracy-deutschland.de/files/download/Stellenanzeige_Medienarbeit&#x26;PR_200718.pdf">STELLENANZEIGE #3 DOWNLOADEN</a></strong></h4>
+<h3 class="wp-block-heading">05 DEMOCRACY X Kubernetes</h3>
+<figure class="wp-block-image"><img decoding="async" src="/blog/wp-content/uploads/2020/07/22_05_Kubernetes-1024x527.png" alt="" class="wp-image-365"></figure>
+<p class="wp-block-paragraph">Seit Anfang März hat unsere App – wie im letzten Newsletter bereits erwähnt – 70.000 neue Downloads erhalten. So sehr wir uns über dieses rasante <strong>Anwachsen der Community</strong> und die hohen Zugriffszahlen auf unsere Systeme gefreut haben (!), <strong>hat</strong> es <strong>die Performance der App</strong> doch massiv <strong>auf die Probe gestellt</strong>. Wir <strong>haben</strong> uns deshalb <strong>entschieden</strong>, <strong>unsere Serverinfrastruktur von einem monolithischen System auf Microservices</strong> (ein Kubernetes Cluster) <strong>um</strong>zu<strong>stellen</strong> und damit die App technisch für ein Millionenpublikum auszulegen. Nach rund 2 Monaten Arbeit freuen wir uns, diesen Meilenstein demnächst in einer ersten Version live zu schalten. Aus unserer Perspektive kann damit der nächste große Hype kommen!</p>
+<h4 class="wp-block-heading has-text-align-center"><strong><a href="https://github.com/orgs/demokratie-live/packages">CODE CHECKEN</a></strong></h4>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<p class="wp-block-paragraph"></p>
+<h3 class="wp-block-heading">Spendenfortschritt</h3>
+<p class="wp-block-paragraph">5.087€ von <strong>10.537€</strong> (min. Finanzierungsziel/Monat)<br>
+<a href="https://www.democracy-deutschland.de/#!donate">Mehr Informationen zum Spendenstand</a></p>
+<h3 class="wp-block-heading">Spendenkonto</h3>
+<p class="wp-block-paragraph">Unsere Bankverbindung für direkte Spenden, Überweisungen oder Daueraufträge lautet:</p>
+<p class="wp-block-paragraph">Kontoinhaber: DEMOCRACY Deutschland e.V.<br>
+IBAN: DE33 5003 1000 1049 7560 00<br>
+BIC: TRODDEF1</p>
+<p class="wp-block-paragraph">Der Verein DEMOCRACY Deutschland e.V. ist mit Bescheid des Finanzamts Göttingen vom 01.10.2019 als gemeinnütziger Verein zur Förderung des demokratischen Staatswesens sowie der Volks- und Berufsbildung offiziell anerkannt (<a href="https://www.democracy-deutschland.de/files/download/Freistellungsbescheid.pdf">Nachweis der Gemeinnützigkeit</a>; <a href="https://www.democracy-deutschland.de/files/download/Satzung_DEMOCRACY.pdf">Satzung</a>). Ihre Spenden sind daher steuerlich abzugsfähig. Für Spenden unter 200€ jährlich genügt der Zahlungsnachweis (z. B. Kontoauszug) zusammen mit unserem <a href="https://www.democracy-deutschland.de/files/download/Vereinfachter_Zuwendungsnachweis_2019.pdf">Vereinfachten Zuwendungsnachweis</a>. Wenn Sie eine separate Zuwendungsbestätigung benötigen, schreiben Sie uns bitte eine E-Mail oder geben Sie in Ihrer Überweisung Ihre Wohnadresse an.</p>
+<h3 class="wp-block-heading">Der Verein</h3>
+<p class="wp-block-paragraph">DEMOCRACY Deutschland e.V. (gemeinnützig)<br>
+Industriestraße 10<br>
+37079 Göttingen<br>
+Telefon: +49 176 470 40 213<br>
+E-Mail: <a href="mailto:contact@democracy-deutschland.de">contact@democracy-deutschland.de</a></p>
+<p class="wp-block-paragraph"><a href="https://www.facebook.com/democracygermany/">Facebook</a>, <a href="https://twitter.com/democracy_de">Twitter</a>, <a href="https://www.youtube.com/channel/UC2R4cGTq1LjFZ2DvDaVhDyg">YouTube</a>, <a href="https://github.com/demokratie-live/">GitHub</a>, <a href="https://discord.gg/Pdu3ZEV">Discord</a><br>
+<a href="https://www.democracy-deutschland.de/#!nutzungsbedingungen">Nutzungsbedingungen</a>, <a href="https://www.democracy-deutschland.de/#!datenschutz">Datenschutz</a></p>0:{"rsc":["$","$1","c",{"children":[["$","article",null,{"id":"post-359","className":"post single post-359 type-post status-publish format-standard has-post-thumbnail hentry category-newsletter","children":[["$","div",null,{"className":"post-inner","children":[["$","div",null,{"className":"post-header","children":[["$","h1",null,{"className":"post-title","children":["$","a",null,{"href":"/blog/2020/07/news-22-nebenjobs-kubernetes/","children":"News #22 – Nebenjobs & Kubernetes"}]}],["$","div",null,{"className":"post-meta","children":[["$","p",null,{"className":"post-author","children":[["$","span",null,{"children":"Von "}],["$","a",null,{"href":"/blog/author/marius/","rel":"author","children":"Marius Krüger"}]]}]," ",["$","p",null,{"className":"post-date","children":[["$","span",null,{"children":"Am "}],["$","a",null,{"href":"/blog/2020/07/news-22-nebenjobs-kubernetes/","children":"18. Juli 2020"}]]}]," ",["$","p",null,{"className":"post-categories","children":[["$","span",null,{"children":"In "}],[["$","$1","newsletter",{"children":[null,["$","a",null,{"href":"/blog/category/newsletter/","rel":"category tag","children":"Newsletter"}]]}]]]}]]}]]}],["$","div",null,{"className":"post-content entry-content","dangerouslySetInnerHTML":{"__html":"$2"}}],null]}],"$L3"]}],null,"$L4"]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"HWiEXnVpRJ-z40H-HxqBK"}
+3:["$","div",null,{"className":"post-navigation","children":["$","div",null,{"className":"post-navigation-inner group","children":[["$","div",null,{"className":"post-nav-prev","children":[["$","p",null,{"children":"Vorheriger"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2020/06/news-21-stellenanzeige-flyeraktion/","children":"News #21 – Stellenanzeige & Flyeraktion"}]}]]}],["$","div",null,{"className":"post-nav-next","children":[["$","p",null,{"children":"Nächster"}],["$","h4",null,{"children":["$","a",null,{"href":"/blog/2020/10/news-23-nebenjobs-kubernetes/","children":"News #23 – Justem & Stimmübertragung"}]}]]}]]}]}]
+4:["$","$L5",null,{"children":["$","$6",null,{"name":"Next.MetadataOutlet","children":"$@7"}]}]
+7:null
