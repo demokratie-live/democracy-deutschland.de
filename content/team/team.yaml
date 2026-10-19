@@ -28,10 +28,3 @@ members:
         url: mailto:m.ruck@democracy-deutschland.de
       - icon: fab fa-xing
         url: https://www.xing.com/profile/Manuel_Ruck
-
-  - name: Elisa Menne
-    text: [Administration, Kommunikation & Buchhaltung]
-    img: /files/wir/Elisa.jpg
-    links:
-      - icon: fa fa-envelope
-        url: mailto:e.menne@democracy-deutschland.de
