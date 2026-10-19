@@ -16,4 +16,4 @@
 :HL["/files/images/democracy-bar.png","image"]
 :HL["/files/images/HES_INNOKO_LOGO_RGB.jpg","image"]
 :HL["/files/images/Bubble.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"spenden","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"aIP__A87r8g-JhMb1XmCX"}
+0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"spenden","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"yEf-vxKa78BD3qSjKjgSt"}

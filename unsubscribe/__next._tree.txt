@@ -13,4 +13,4 @@
 :HL["/css/default_politicians.css","style"]
 :HL["/css/default_press.css","style"]
 :HL["/vendor/YouTubeHDThumbnail/css/YouTube.HD.Thumbnail.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"unsubscribe","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"aIP__A87r8g-JhMb1XmCX"}
+0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"unsubscribe","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"yEf-vxKa78BD3qSjKjgSt"}
