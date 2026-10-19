@@ -5,4 +5,4 @@
 :HL["/blog/wp-content/themes/lovecraft/assets/css/genericons.min.css?ver=7.1.3","style",{"media":"all"}]
 :HL["/blog/wp-content/themes/lovecraft/style.css?ver=2.1.1","style",{"media":"all"}]
 :HL["/blog/wp-content/uploads/2024/12/cropped-Blog_Header.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(blog)","param":null,"prefetchHints":0,"slots":{"children":{"name":"blog","param":null,"prefetchHints":0,"slots":{"children":{"name":"path","param":{"type":"oc","key":"page/4","siblings":null},"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"o9tiwQ3OfjNtoyhCL5vwE"}
+0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(blog)","param":null,"prefetchHints":0,"slots":{"children":{"name":"blog","param":null,"prefetchHints":0,"slots":{"children":{"name":"path","param":{"type":"oc","key":"page/4","siblings":null},"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"ZJ6MpenqbfcgFYHhxYk68"}
