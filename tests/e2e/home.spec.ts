@@ -3,6 +3,11 @@ import { contentYaml, expectVideoStartsOnClick, waitForScrollEnd } from "./helpe
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
+  // The donation account banner slides in after load and pushes the page down;
+  // wait until it is open, so positions measured by the tests stay put.
+  await expect
+    .poll(async () => (await page.locator("#donation-account-notice").boundingBox())?.y)
+    .toBe(0);
 });
 
 test("texts from MDX", async ({ page }) => {
@@ -99,4 +104,66 @@ test("YouTube thumbnail starts the video on click", async ({ page }) => {
     page.locator(".yt-hd-thumbnail-inner-container"),
     "DFXcnRdXA7k",
   );
+});
+
+test("donation account banner slides in at the top and can be closed", async ({ page }) => {
+  const banner = page.locator("#donation-account-notice");
+  await expect(banner).toBeVisible();
+  await expect(banner.locator(".donation-account-iban")).toHaveText("DE83 2605 0001 0056 1290 91");
+  await expect(banner).toContainText("NOLADE21GOE");
+  await expect(banner.getByRole("link", { name: "Mehr dazu im Blog" })).toHaveAttribute(
+    "href",
+    /\/blog\/2026\/06\/spendenkonto-zieht-um\/$/,
+  );
+  await expect(banner.getByRole("link", { name: "Zur Spendenseite" })).toHaveAttribute(
+    "href",
+    /\/spenden\/$/,
+  );
+  const navbar = page.locator(".navbar");
+  for (const size of [
+    { width: 1280, height: 800 },
+    { width: 1366, height: 768 },
+  ]) {
+    await page.setViewportSize(size);
+    // Fully slid in at the top; the navbar sits right below it.
+    await expect.poll(async () => (await banner.boundingBox())?.y).toBe(0);
+    const height = (await banner.boundingBox())!.height;
+    await expect.poll(async () => (await navbar.boundingBox())?.y).toBeCloseTo(height, 0);
+    await expect(banner).toBeInViewport({ ratio: 1 });
+  }
+
+  // Scrolls away with the page, the navbar stays at the top.
+  await page.evaluate(() => window.scrollTo(0, 400));
+  await expect.poll(async () => (await navbar.boundingBox())?.y).toBe(0);
+  await page.evaluate(() => window.scrollTo(0, 0));
+
+  await banner.getByRole("button", { name: "Hinweis schließen" }).click();
+  await expect(banner).toBeHidden();
+  await expect.poll(async () => (await navbar.boundingBox())?.y).toBe(0);
+  expect(await page.evaluate(() => document.body.style.paddingTop)).toBe("");
+
+  // Closed stays closed.
+  await page.reload();
+  await page.waitForTimeout(1500);
+  await expect(banner).toBeHidden();
+});
+
+test("donation account banner keeps the reading position of a visitor who scrolled", async ({
+  page,
+}) => {
+  await page.reload();
+  await page.evaluate(() => window.scrollTo(0, 600));
+  const before = await page.locator("#about").first().boundingBox();
+  // Fully open: the page is pushed down by the whole banner height.
+  await expect
+    .poll(() =>
+      page.evaluate(
+        () =>
+          parseFloat(document.body.style.paddingTop) ===
+          document.getElementById("donation-account-notice")!.offsetHeight,
+      ),
+    )
+    .toBe(true);
+  const after = await page.locator("#about").first().boundingBox();
+  expect(Math.abs(after!.y - before!.y)).toBeLessThanOrEqual(1);
 });

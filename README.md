@@ -106,6 +106,20 @@ The figures of the donation page (`/spenden/`) and the JSON the app reads
 The app only finds the JSON if the site is served at the domain root, see
 [`docs/server-funktionen.md`](docs/server-funktionen.md#spenden-json-für-die-app).
 
+## Donation account banner on the start page
+
+The banner "Unser Spendenkonto hat sich geändert" at the top of `/` is the element
+`<DonationAccountNotice … />` in [`content/pages/home.mdx`](content/pages/home.mdx).
+Its texts, IBAN, bank, BIC and links are props there. It slides in after half a
+second, pushes the page down and can be closed; the browser remembers that in
+`localStorage` (key `DISMISSED_KEY` in `src/components/home/DonationAccountNotice.tsx`;
+change the key to show the banner again to everyone who closed it).
+
+To remove the banner, delete the element and its comment, and the test "donation
+account banner …" in `tests/e2e/home.spec.ts` and `tests/e2e/home.mobile.spec.ts`.
+After changing the texts, run `pnpm test:e2e`: it checks that the banner fits the first
+screen at 1280×800, 1366×768 and 375×812.
+
 ## Updating the team
 
 The cards under "Mitarbeiter" on `/ueber-uns/` come from
