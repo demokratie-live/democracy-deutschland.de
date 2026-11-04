@@ -23,4 +23,4 @@
 :HL["/files/images/campaigncorner@3x.png","image"]
 :HL["/files/images/Logo-Landingpage.png","image"]
 :HL["/files/images/WahlOMeter.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"wahlometer","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"O7771k0rOEisun9BcCwUA"}
+0:{"tree":{"name":"","param":null,"prefetchHints":0,"slots":{"children":{"name":"(site)","param":null,"prefetchHints":16,"slots":{"children":{"name":"wahlometer","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"pNvS6kSxHeFLKzg9C8cc2"}
