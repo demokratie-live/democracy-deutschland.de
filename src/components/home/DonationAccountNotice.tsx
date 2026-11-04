@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState, type CSSProperties } from "react";
+import { Fragment, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@/components/shared/Link";
 import { easings, tween, type Tween } from "@/lib/animate";
 import { asset } from "@/lib/base-path";
@@ -111,7 +111,8 @@ export function DonationAccountNotice({
   closeLabel,
 }: {
   heading: string;
-  text: string;
+  /** May contain <br /> (MDX fragment) */
+  text: ReactNode;
   iban: string;
   holder: string;
   bank: string;
