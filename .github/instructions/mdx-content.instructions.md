@@ -36,6 +36,6 @@ state: wahlometer # state of the old hash router, must exist in content/site/rou
 - Inline `<style>` blocks of a template: a template literal as child, ``<style>{`…`}</style>``.
 - Structured data (team, donation figures, press media, FAQ, roadmap) lives in YAML, not in the MDX text. FAQ answers in `content/faq/faq.yaml` are MDX in one paragraph: `<br />` for line breaks, no blank lines.
 - Legal texts are not MDX: `content/legal/<name>.md` is plain Markdown with inline HTML (`<br>`, `<ol style="…">`), rendered by `<LegalText name="…" />`. Keep the wording word for word (README, "Updating the legal texts").
-- New content that the old site did not have (the donation account notice `<DonationAccountNotice … />` inside `<AppHeader>` on the start page) goes into `docs/abweichungen.md`; keep it removable as one element.
+- New content that the old site did not have (the donation account banner `<DonationAccountNotice … />` on the start page) goes into `docs/abweichungen.md`; keep it removable as one element.
 - Page MDX is not formatted by Prettier; keep the indentation by hand.
 - After editing: `pnpm validate-content` and `pnpm build`.
