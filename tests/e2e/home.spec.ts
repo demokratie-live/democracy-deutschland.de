@@ -100,3 +100,32 @@ test("YouTube thumbnail starts the video on click", async ({ page }) => {
     "DFXcnRdXA7k",
   );
 });
+
+test("donation account notice shows the new IBAN in the first viewport", async ({ page }) => {
+  const notice = page.locator(".header-home #donation-account-notice");
+  await expect(notice.locator(".donation-account-iban")).toHaveText("DE83 2605 0001 0056 1290 91");
+  await expect(notice).toContainText("NOLADE21GOE");
+  await expect(notice.getByRole("link", { name: "Mehr dazu im Blog" })).toHaveAttribute(
+    "href",
+    /\/blog\/2026\/06\/spendenkonto-zieht-um\/$/,
+  );
+  await expect(notice.getByRole("link", { name: "Zur Spendenseite" })).toHaveAttribute(
+    "href",
+    /\/spenden\/$/,
+  );
+  for (const size of [
+    { width: 1280, height: 800 },
+    { width: 1366, height: 768 },
+  ]) {
+    await page.setViewportSize(size);
+    await expect(notice).toBeInViewport({ ratio: 1 });
+    // The card sits between headline and store badges without overlapping them.
+    const [headline, card, badges] = await Promise.all(
+      ["#index-headline", "#donation-account-notice", ".header-home .badges"].map((selector) =>
+        page.locator(selector).boundingBox(),
+      ),
+    );
+    expect(card!.y).toBeGreaterThanOrEqual(headline!.y + headline!.height);
+    expect(badges!.y).toBeGreaterThanOrEqual(card!.y + card!.height);
+  }
+});

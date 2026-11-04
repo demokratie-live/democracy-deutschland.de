@@ -9,6 +9,7 @@ import { ModalToggle } from "@/components/donate/ModalToggle";
 import { BugReportForm, VolunteerForm } from "@/components/engineering/EngineeringForms";
 import { Roadmap } from "@/components/engineering/Roadmap";
 import { Faq } from "@/components/faq/Faq";
+import { DonationAccountNotice } from "@/components/home/DonationAccountNotice";
 import { FeatureVideos, InfoBadge } from "@/components/home/FeatureVideos";
 import { LegalText } from "@/components/legal/LegalText";
 import { BlogTeasers, PressMedia } from "@/components/press/PressTiles";
@@ -33,6 +34,7 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   Img,
   Section,
   AppHeader,
+  DonationAccountNotice,
   ScrollIcon,
   VideoSection,
   PressLogos,

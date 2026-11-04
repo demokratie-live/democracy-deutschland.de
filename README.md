@@ -106,6 +106,18 @@ The figures of the donation page (`/spenden/`) and the JSON the app reads
 The app only finds the JSON if the site is served at the domain root, see
 [`docs/server-funktionen.md`](docs/server-funktionen.md#spenden-json-für-die-app).
 
+## Donation account notice on the start page
+
+The white card "Unser Spendenkonto hat sich geändert" in the header of `/` is the
+element `<DonationAccountNotice … />` inside `<AppHeader>` in
+[`content/pages/home.mdx`](content/pages/home.mdx). Its texts, IBAN, bank, BIC and
+links are props there. To remove the notice, delete the element (and its comment) and
+close `<AppHeader … />` again. The test "donation account notice …" in
+`tests/e2e/home.spec.ts` and `tests/e2e/home.mobile.spec.ts` goes with it.
+
+After changing the texts, check that the card still fits into the first screen:
+`pnpm test:e2e` (1280×800, 1366×768 and 375×812).
+
 ## Updating the team
 
 The cards under "Mitarbeiter" on `/ueber-uns/` come from

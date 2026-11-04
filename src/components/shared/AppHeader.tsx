@@ -1,4 +1,4 @@
-import { Fragment, type CSSProperties } from "react";
+import { Fragment, type CSSProperties, type ReactNode } from "react";
 import { asset } from "@/lib/base-path";
 import { getAppLinks } from "@/lib/content";
 import { StoreBadge } from "./StoreBadge";
@@ -54,6 +54,7 @@ export async function AppHeader({
   version,
   headline,
   apkLabel,
+  children,
 }: {
   variant: "home" | "wahlometer";
   title: string;
@@ -61,6 +62,8 @@ export async function AppHeader({
   headline: string;
   /** Link text of the APK download, e.g. "APK (v1.5.10) " */
   apkLabel: string;
+  /** Extra content between headline and store badges (home: DonationAccountNotice) */
+  children?: ReactNode;
 }) {
   const links = await getAppLinks();
   const home = variant === "home";
@@ -93,6 +96,7 @@ export async function AppHeader({
                 <h1 id="index-headline" className={slide} style={BLOCK}>
                   {headline}
                 </h1>
+                {children}
                 <div className="badges">
                   <div className="row">
                     <div className="col-lg-5">

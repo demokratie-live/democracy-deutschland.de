@@ -214,6 +214,7 @@ Old URLs are forwarded in two ways from the same data:
 | `Link`                                  | internal/external link (also used for Markdown links)                               |
 | `Section`                               | `.background-white > .container.page` wrapper; `raised`, `style`, `after`           |
 | `AppHeader`                             | blue header of home/wahlometer (`variant`), store badges, APK/AAB links from YAML   |
+| `DonationAccountNotice`                 | home: new donation account card, child of `AppHeader` (not on the old site)         |
 | `ScrollIcon`                            | chevron below the header, scrolls to the first `#about`                             |
 | `VideoSection`                          | video title (three parts or `title`), link, YouTube thumbnail (`youtube="<id>"`)    |
 | `PressLogos` / `PressLogo`              | "bekannt aus" logo row                                                              |
