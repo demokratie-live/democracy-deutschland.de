@@ -65,7 +65,7 @@ test.describe("footer", () => {
     await expect(footer.locator("#sm .fa-instagram")).toHaveCount(1);
     await expect(footer.locator("#sm .fa-telegram")).toHaveCount(1);
     await expect(page.locator(".copyright")).toHaveText(
-      "BY NC ND 4.0 — 2025 DEMOCRACY Deutschland e.V.",
+      "BY NC ND 4.0 — 2026 DEMOCRACY Deutschland e.V.",
     );
   });
 });
