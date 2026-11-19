@@ -3,21 +3,35 @@ import path from "node:path";
 import { expect, test, type Page } from "@playwright/test";
 import { trackErrors } from "./helpers";
 
+/**
+ * `fixture`: the text is still word for word the old live text (saved 2026-10-13).
+ * Datenschutz and Nutzungsbedingungen were rewritten in November 2026 (TASK-87; board approval
+ * and legal review pending before merge); for them the Markdown is the source, so the tests check that it renders
+ * completely instead of comparing with the old live state.
+ */
 const PAGES = [
-  { state: "impressum", path: "/impressum/", heading: "h1", title: "Impressum" },
+  { state: "impressum", path: "/impressum/", heading: "h1", title: "Impressum", fixture: true },
   {
     state: "datenschutz",
     path: "/datenschutz/",
     heading: "h1",
-    title: "DEMOCRACY App – Datenschutzerklärung",
+    title: "Datenschutzerklärung",
+    fixture: false,
   },
   {
     state: "nutzungsbedingungen",
     path: "/nutzungsbedingungen/",
-    heading: "h2",
+    heading: "h1",
     title: "Nutzungsbedingungen",
+    fixture: false,
   },
 ];
+
+/** Headings of a legal Markdown file (ATX `#`–`###`), without emphasis markers. */
+function markdownHeadings(state: string) {
+  const source = fs.readFileSync(path.join(process.cwd(), `content/legal/${state}.md`), "utf-8");
+  return [...source.matchAll(/^#{1,3} (.+)$/gm)].map((m) => m[1].replace(/\*\*/g, "").trim());
+}
 
 /**
  * Words of the legal text as a reader sees them: text nodes in document
@@ -55,8 +69,21 @@ async function hrefs(page: Page) {
   );
 }
 
-for (const { state, path: route, heading, title } of PAGES) {
+for (const { state, path: route, heading, title, fixture } of PAGES) {
+  test(`${route}: renders every section of the Markdown source`, async ({ page }) => {
+    test.skip(fixture, "compared word for word with the live text below");
+    await page.goto(route);
+    const rendered = await page
+      .locator("#content .main-container")
+      .locator("h1, h2, h3")
+      .allTextContents();
+    const expected = markdownHeadings(state);
+    expect(expected.length).toBeGreaterThan(10);
+    expect(rendered.map((h) => h.trim())).toEqual(expected);
+  });
+
   test(`${route}: text is word for word the saved live text`, async ({ page }) => {
+    test.skip(!fixture, "rewritten text, the Markdown is the source");
     // ?_escaped_fragment_=<state> of 2026-10-13, byte for byte.
     const live = fs.readFileSync(
       path.join(process.cwd(), `tests/fixtures/${state}.live.html`),
@@ -101,48 +128,24 @@ for (const { state, path: route, heading, title } of PAGES) {
   });
 }
 
-test("Nutzungsbedingungen: lettered lists (a, b, c) like the editor markup", async ({ page }) => {
-  await page.goto("/nutzungsbedingungen/");
-  const lists = page.locator("#content ol");
-  await expect(lists).toHaveCount(8);
-  for (const list of await lists.all()) {
-    await expect(list).toHaveCSS("list-style-type", "lower-alpha");
-  }
-});
-
 test("links of the legal texts", async ({ page }) => {
   await page.goto("/impressum/");
   await expect(
     page.locator('#content a[href="mailto:contact@democracy-deutschland.de"]'),
   ).toHaveText("contact@democracy-deutschland.de");
 
-  await page.goto("/datenschutz/");
-  // Like live: href="#!datenschutz" (same page, the click does nothing).
-  const own = page.locator("#content a", {
-    hasText: "https://www.democracy-deutschland.de/#!datenschutz",
-  });
-  await expect(own).toHaveAttribute("href", "#!datenschutz");
-  // Live the click changes nothing; here it must not reload or scroll either.
-  await own.scrollIntoViewIfNeeded();
-  await page.evaluate(() => ((window as unknown as { marker: number }).marker = 1));
-  const scrollY = await page.evaluate(() => window.scrollY);
-  await own.click();
-  await expect(page).toHaveURL(/\/datenschutz\/$/);
-  expect(await page.evaluate(() => (window as unknown as { marker?: number }).marker)).toBe(1);
-  expect(await page.evaluate(() => window.scrollY)).toBe(scrollY);
-  await expect(page.locator("#content a", { hasText: /^Link$/ })).toHaveAttribute(
-    "href",
-    "http://tools.google.com/dlpage/gaoptout?hl=de",
-  );
-
-  await page.goto("/nutzungsbedingungen/");
-  // Like live: the misspelled state #!nutzungsbedinungen (lands on the start page).
-  await expect(
-    page.locator("#content a", { hasText: "democracy-deutschland.de/#!nutzungsbedinungen" }),
-  ).toHaveAttribute("href", "http://democracy-deutschland.de/#!nutzungsbedinungen");
-  await expect(
-    page.locator("#content a", { hasText: "http://ec.europa.eu/consumers/odr" }),
-  ).toHaveAttribute("target", "_blank");
+  for (const route of ["/datenschutz/", "/nutzungsbedingungen/"]) {
+    await page.goto(route);
+    // Rewritten texts link to each other with the new paths and name the contact address.
+    const other = route === "/datenschutz/" ? "/nutzungsbedingungen/" : "/datenschutz/";
+    await expect(page.locator(`#content a[href="${other}"]`).first()).toBeVisible();
+    await expect(
+      page.locator('#content a[href="mailto:contact@democracy-deutschland.de"]').first(),
+    ).toBeVisible();
+    // No links into the old hash router and none to the EU ODR platform (shut down 2025-07-20).
+    await expect(page.locator('#content a[href*="#!"]')).toHaveCount(0);
+    await expect(page.locator('#content a[href*="ec.europa.eu/consumers/odr"]')).toHaveCount(0);
+  }
 });
 
 test("FAQ link to the privacy policy works", async ({ page }) => {
@@ -150,5 +153,5 @@ test("FAQ link to the privacy policy works", async ({ page }) => {
   await page.goto("/faq/");
   await page.locator('#content .panel-body a[href="/datenschutz/"]').first().click();
   await expect(page).toHaveURL(/\/datenschutz\/$/);
-  await expect(page.locator("#content h1")).toHaveText("DEMOCRACY App – Datenschutzerklärung");
+  await expect(page.locator("#content h1")).toHaveText("Datenschutzerklärung");
 });

@@ -179,16 +179,21 @@ are plain Markdown (CommonMark, not MDX), rendered into the page frame of
   Markdown does not work, write links as `<a href="…">`.
 - Non-breaking spaces stay visible as `&nbsp;`. Some umlauts are stored decomposed
   (`u` + combining diaeresis), as on live; they look the same.
-- Links stay exactly as on live, even the two that lead nowhere (`#!datenschutz`,
-  `#!nutzungsbedinungen`). The texts change only with the approval of the board
-  (Marius Krüger).
+- The texts change only with the approval of the board (Marius Krüger).
+
+**Datenschutz and Nutzungsbedingungen** were rewritten in November 2026 (TASK-87, structure
+modelled on decipher): plain Markdown (`#`–`###` headings, lists, links with the new paths
+such as `/datenschutz/`), no HTML except `<br>` in the address blocks. Places that still
+need a decision are marked **[OFFEN: …]** or **[PRÜFEN: …]** and must be resolved before
+the texts go live. The app ships a copy of both texts (`democracy-client`,
+`src/screens/About/data.ts`); change both together.
+
+**Impressum** is still the old live text: links stay exactly as on live.
 
 `pnpm validate-content` checks the internal links. `tests/e2e/legal.spec.ts` compares the
-words and the link targets of each page with the live responses saved on 2026-10-13
-(`tests/fixtures/<name>.live.html`). Until the domain moves to the static site, live is
-the source: if a text changes there, save the new `?_escaped_fragment_=<name>` response
-as the fixture and update the Markdown until the test passes. After the move the
-Markdown is the source and the comparison with the old live state can go.
+Impressum word for word with the live response saved on 2026-10-13
+(`tests/fixtures/impressum.live.html`); for the rewritten texts it checks that every
+Markdown heading is rendered and that they link to each other.
 
 ## Updating the roadmap
 

@@ -1,96 +1,218 @@
-## **Nutzungsbedingungen**
+# Nutzungsbedingungen
 
-Wir, der DEMOCRACY Deutschland e.V., Am Klausberge 12, 37075 Göttingen, Deutschland (im Folgenden auch „wir“/”uns”), haben die Applikation DEMOCRACY (nachfolgend „DEMOCRACY“ oder „App“) entwickelt, die unter www.democracy-deutschland.de und weiteren Domains heruntergeladen oder online genutzt werden kann.
+_Stand: November 2026_
 
-<span>
-Die App DEMOCRACY ermöglicht den Nutzern, vergangene, aktuelle und zukünftige Abstimmungen des Deutschen Bundestages zu beobachten und sich anhand der offiziellen Parlamentsinformationen über Anträge und Gesetzgebungsverfahren einschließlich der Abstimmungsergebnisse zu informieren. Registrierte Nutzer können zusätzlich als virtuelle Bundestagsabgeordnete selbst über die Vorgänge abstimmen. Mit der Funktion Wahl-⦻-Meter kann der registrierte Nutzer sein individuelles Abstimmungsverhalten mit den offiziellen Resultaten des Bundestages vergleichen.<br><br>
-</span>
+---
 
-#### **1. Geltungsbereich**
+> **Hinweis:**
+> DEMOCRACY bildet Vorgänge und Abstimmungen des Deutschen Bundestages auf Grundlage öffentlicher Parlamentsinformationen ab und ermöglicht Dir, selbst darüber abzustimmen. Abstimmungen in der App sind **keine amtlichen Wahlen oder Abstimmungen** und rechtlich unverbindlich. Die Ergebnisse der DEMOCRACY-Community sind nicht repräsentativ für die Bevölkerung.
+>
+> Wir bereiten die Parlamentsinformationen sorgfältig auf, können aber Fehler und Verzögerungen nicht ausschließen – insbesondere bei automatisiert oder KI-gestützt ausgewerteten Daten (siehe Ziffer 2.3). Maßgeblich sind stets die amtlichen Dokumente des Deutschen Bundestages. Wenn Dir ein Fehler auffällt, freuen wir uns über eine [Rückmeldung](mailto:contact@democracy-deutschland.de).
 
-<ol style="list-style-type: lower-alpha;">
-<li>Diese allgemeinen Nutzungsbedingungen gelten für die Nutzung der Funktionen, die in der App registrierten Nutzern zur Verfügung stehen; darin inbegriffen sind insbesondere die Abstimmungsfunktion und die Funktion Wahl-⦻-Meter.<br><br></li>
-<li>Für bestimmte Features oder Nutzungsmöglichkeiten innerhalb von DEMOCRACY können zusätzliche Nutzungsbedingungen vereinbart werden. Werden Leistungen oder Dienste von Kooperationspartnern oder Dritten erbracht, können zusätzlich Allgemeine Geschäftsbedingungen der Partner/Dritten gelten. Die Nutzer werden vor Inanspruchnahme solcher gesondert Leistungen darauf hingewiesen.<br><br></li>
-<li>Abweichende allgemeine Geschäftsbedingungen werden nicht anerkannt, es sei denn, wir stimmen ihrer Geltung ausdrücklich schriftlich zu.<br><br></li>
-</ol>
+---
 
-#### **2. Vertragsgegenstand**
+## 1. Geltungsbereich und Vertragspartner
 
-<ol style="list-style-type: lower-alpha;">
-<li>Gegenstand des Vertrages ist die Bereitstellung der DEMOCRACY Applikation. Wir bieten mit DEMOCRACY eine Applikation, welche auf Grundlage der offiziellen Parlamentsinformationen das selbstständige und qualitative Beobachten des Deutschen Bundestags ermöglicht. Dafür stellen wir die technischen Voraussetzungen in Form der Applikationen sowie der dazugehörigen Serverinfrastruktur bereit. Dadurch hat jeder Nutzer die Möglichkeit, vergangene, aktuelle und zukünftige Abstimmungen des Deutschen Bundestages zu beobachten und sich über Anträge und Gesetzgebungsverfahren einschließlich der Abstimmungsergebnisse zu informieren.<br><br></li>
-<li>Jeder nach Ziff. 3 verifizierte Nutzer kann darüber hinaus als virtueller Bundestagsabgeordneter anonym Gesetzgebungs- und Antragsverfahren des Deutschen Bundestages bewerten, mit den drei Antwortmöglichkeiten „stimme zu“, „enthalte mich“ oder „lehne ab“.<br>Die App-Funktion „Wahl-⦻-Meter“ stellt eine lokale Auswertungsmöglichkeit zur Verfügung, die dem Nutzer für den parlamentarischen Echtbetrieb zeigt, mit welcher (Bundestags-) Partei er wie stark übereinstimmt..Für die Teilnahme an Abstimmungen und die Nutzung des Wahl-⦻-Meters muss der Nutzer die Speicherung einer lokalen Kopie seiner Abstimmungsergebnisse zulassen, da wir diese Daten entsprechend unserer Datenschutzbestimmung (vgl. 10.) serverseitig nicht vorhalten.<br><br></li>
-<li>Die Bereitstellung der Dienste erfolgt unentgeltlich.<br><br></li>
-</ol>
+Diese Nutzungsbedingungen regeln die Nutzung der App **DEMOCRACY** (nachfolgend „App") und der damit verbundenen Dienste. Sie bilden die Grundlage des Nutzungsverhältnisses zwischen Dir und:
 
-#### **3. Vertragsschluss/Registrierung**
+**DEMOCRACY Deutschland e.V.**<br>
+Am Klausberge 12<br>
+37075 Göttingen
 
-<ol style="list-style-type: lower-alpha;">
-<li>Nutzer von DEMOCRACY müssen das 7. Lebensjahr vollendet haben.<br><br></li>
-<li>Beim ersten erfolgreichen Login legt DEMOCRACY basierend auf der verschlüsselten Handy-Identifikationsnummer (Geräte-ID) eine Nutzeridentität an. Diese wird in einem Token verschlüsselt auf dem Mobiltelefon hinterlegt.<br><br></li>
-<li>DEMOCRACY kann als mobile App für unterschiedliche Endgeräte in verschiedenen App-Stores heruntergeladen werden. Für die Teilnahme an Abstimmungen und die Nutzung des Wahl-⦻-Meters ist eine Registrierung notwendig.<br><br></li>
-<li>Nach Installation der App kann jeder Nutzer eine Anfrage auf Registrierung stellen. Durch diese Anfrage auf Registrierung gibt der Nutzer ein Angebot auf Abschluss des Nutzungsvertrages ab.<br><br></li>
-<li>Die Registrierung erfolgt in der App unter Angabe der notwendigen persönlichen Daten). Diese Registrierung erfordert die Angabe einer deutschen Handynummer. DEMOCRACY Deutschland e.V. übermittelt diese Handynummer zusammen mit einem generierten Verifikationsschlüssel daraufhin an den SMS-Service-Provider SMSFlatrate (smsflatrate.net, Kloppe Media, Ansbacher Str. 85, 91541 Rothenburg), der den Nutzer per SMS über seinen Verifikationsschlüssel unterrichtet. Die Handynummer und die Device ID werden verschlüsselt in einer Datenbank des Vereins abgelegt; eine weitere Verwendung der Handynummer und Device ID ist insofern ausgeschlossen.<br><br></li>
-<li>Das Angebot des Nutzers wird durch eine erfolgreiche “Registrierung” angenommen.<br><br></li>
-<li>Es ist technisch für uns nicht möglich, die angegebene Identität eines registrierten Nutzers auf ihre Richtigkeit zu überprüfen. Wir übernehmen aus diesem Grund keine Gewährleistung für die korrekte Identität jedes einzelnen Nutzers.<br><br></li>
-</ol>
+Vertreten durch den Vorstand: Marius Krüger, Andreas Krüger<br>
+Vereinsregister: Amtsgericht Göttingen, VR 201924<br>
+E-Mail: [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de)
 
-#### **4. Pflichten der Nutzer**
+Die Verarbeitung Deiner Daten regelt unsere [Datenschutzerklärung](/datenschutz/).
 
-<ol style="list-style-type: lower-alpha;">
-<li>Der Nutzer hat den Verein unverzüglich über vermuteten Missbrauch seiner Anmeldedaten per E-Mail unter der E-Mail-Adresse contact@democracy-deutschland.dezu informieren.<br><br></li>
-<li>Angriffe auf die Funktionsfähigkeit von DEMOCRACY sind verboten. Hierzu zählen beispielsweise Hacking-Versuche, Brute-Force-Attacken und die Verwendung von Spionage-Software, Viren und Würmern. Bei Angriffen eines Nutzers auf den stabilen Betrieb von DEMOCRACY kann der Verein den Nutzer verwarnen, vorübergehend sperren oder in besonders schweren Fällen vollständig von der Nutzung von DEMOCRACY ausschließen.<br><br></li>
-<li>Zur Einpflege technischer Verbesserungen, Beseitigung von Fehlern und Störungen etc. kann eine vorübergehende Sperrung der DEMOCRACY-Dienste notwendig werden.<br><br></li>
-</ol>
+Die App wird über den Apple App Store und Google Play vertrieben. Für Bezug und Nutzung gelten zusätzlich die Bedingungen des jeweiligen Store-Betreibers, insbesondere die Standard-Lizenzvereinbarung von Apple für lizenzierte Anwendungen (Licensed Application End User License Agreement) bzw. die Google-Play-Nutzungsbedingungen. Bei Widersprüchen gehen zwingende Vorgaben des jeweiligen Stores diesen Nutzungsbedingungen vor.
 
-#### **5. Pflichten von DEMOCRACY e.V.**
+Abweichende Bedingungen der Nutzer:innen gelten nicht, es sei denn, wir stimmen ihnen ausdrücklich zu.
 
-<span>
-Wir bemühen uns um eine durchgehende Verfügbarkeit und fehlerfreie Funktionalität der DEMOCRACY-Dienste. Der Nutzer erkennt jedoch an, dass die Verfügbarkeit durch äußere Einflüsse (etwa Störungen der Fernmeldenetze, Verfügbarkeit der Originaldokumente des Bundestags) beeinträchtigt werden kann, sodass kein Anspruch auf ständige Zugriffsmöglichkeit besteht. Darüber hinaus behalten wir uns eine zeitliche und/oder umfängliche Zugriffsbeschränkung vor. Insbesondere die Einpflege technischer Verbesserungen, Beseitigung von Fehlern und Störungen können eine vorübergehende Sperrung der DEMOCRACY-Dienste erfordern.
-</span>
+---
 
-#### <br>**6. Haftungsbeschränkung**
+## 2. Leistungsbeschreibung
 
-<ol style="list-style-type: lower-alpha;">
-<li>Der Verein haftet unbeschränkt nach den gesetzlichen Bestimmungen: für Schäden, die aus der Verletzung von Leben, Körper oder Gesundheit entstehen; bei Vorsatz; bei grober Fahrlässigkeit; und gemäß dem Produkthaftungsgesetz.<br><br></li>
-<li>Darüber hinaus haftet er für leichte Fahrlässigkeit nur im Falle der Verletzung einer sich aus dieser Vereinbarung ergebenden wesentlichen Pflicht. Dies sind Pflichten, die für die Erfüllung der Vereinbarung erforderlich sind und deren Verletzung den Zweck der Vereinbarung gefährden würde. In diesen Fällen ist die Haftung auf typische und vorhersehbare Schäden beschränkt; in anderen Fällen besteht keine Haftung für leichte Fahrlässigkeit.<br><br></li>
-<li>Der Verein haftet nicht für einen Datenverlust des Nutzers. Auch haften wir nicht dafür, wenn Angaben und Informationen, welche der Nutzer selbst Dritten zugänglich gemacht hat, von diesen missbräuchlich genutzt werden.<br><br></li>
-<li>Außerhalb seines Herrschaftsbereichs trägt der Verein nicht die Gefahr des Datenverlustes auf dem Übertragungsweg. Der Gefahrenübergang erfolgt mit Bereitstellung der Daten zum Abruf auf dem Server. Zudem übernimmt er außerhalb seines Herrschaftsbereichs keine Haftung für die Datensicherheit.<br><br></li>
-</ol>
+### 2.1 Funktionen
 
-#### **7. Haftungsfreistellung**
+Die App bietet:
 
-<ol style="list-style-type: lower-alpha;">
-<li>Der Nutzer stellt den Verein von sämtlichen Ansprüchen Dritter, die gegen den Verein aufgrund einer Rechtsverletzung durch den Nutzer erhoben werden sollten, frei. Hierzu gehören auch Ansprüche von Behörden.<br><br></li>
-<li>Die Freistellung beinhaltet auch die Rechtsverfolgung/-verteidigung durch den Verein bzw. umfasst den Ersatz der dem Verein durch die notwendige Rechtsverfolgung/-verteidigung entstehenden bzw. entstandenen Kosten, soweit diese nicht von Dritten zu erstatten sind. Alle weitergehenden Rechte sowie Schadenersatzansprüche des Vereins bleiben hiervon unberührt.<br><br></li>
-</ol>
+- **Informieren:** vergangene, aktuelle und kommende Vorgänge, Anträge und Gesetzgebungsverfahren des Deutschen Bundestages mit den zugehörigen Dokumenten und den offiziellen Abstimmungsergebnissen, Informationen zu Abgeordneten und Wahlkreisen
+- **Abstimmen:** Verifizierte Nutzer:innen können als „virtuelle Abgeordnete" selbst über Vorgänge abstimmen – mit „stimme zu", „enthalte mich" oder „lehne ab". Die App zeigt die Ergebnisse der Community insgesamt und, falls Du einen Wahlkreis wählst, für Deinen Wahlkreis.
+- **Wahl-O-Meter:** ein Vergleich Deines Abstimmungsverhaltens mit dem der Fraktionen und Abgeordneten des Bundestages, ausschließlich auf Deinem Gerät berechnet
+- **Spenden:** die Möglichkeit, den Verein freiwillig zu unterstützen (siehe Ziffer 5)
 
-#### **8. Laufzeit und Ende des Vertrags**
+### 2.2 Datenquellen
 
-<ol style="list-style-type: lower-alpha;">
-<li>Der Nutzungsvertrag wird auf unbestimmte Zeit geschlossen.<br><br></li>
-<li>Der Nutzer kann den Vertrag jederzeit ohne Einhaltung einer Frist kündigen, indem er eine E-Mail mit dem Hinweis „Delete my Account“ an die Adresse <a href="mailto:contact@democracy-deutschland.de">contact@democracy-deutschland.de</a> sendet und dadurch den Auftrag zur Löschung seines Accounts gibt .<br><br></li>
-<li>Der Verein kann den Nutzungsvertrag mit einer Frist von zwei 2 Wochen schriftlich (E-Mail ist ausreichend) kündigen.<br><br></li>
-<li>Nach der Kündigung werden alle personenbezogenen Daten, mit Ausnahme der nicht zurückverfolgbaren anonymisierten Abstimmungsdaten, von unserem Server gelöscht.<br><br></li>
-</ol>
+Die Inhalte stammen aus öffentlichen Quellen, insbesondere dem Dokumentations- und Informationssystem für Parlamentsmaterialien (DIP) und der Website des Deutschen Bundestages. Wir übernehmen sie automatisiert und bereiten sie redaktionell auf.
 
-#### **9. Datenschutz**
+### 2.3 KI-gestützte Auswertung
 
-Wir beachten die gesetzlichen Datenschutzbestimmungen. Daten der Nutzer werden vertraulich behandelt. Eine Weitergabe an Dritte erfolgt nur, soweit dies die gesetzlichen Datenschutzbestimmungen gestatten oder der Nutzer hierin einwilligt. Es gilt die folgende Datenschutzerklärung ([https://www.democracy-deutschland.de/#!datenschutz](https://www.democracy-deutschland.de/#!datenschutz)).<br><br>
-**10. Schlussbestimmungen und Änderungen der Nutzungsbedingungen**
+Ergebnisse nicht-namentlicher Abstimmungen (z. B. per Handzeichen) veröffentlicht der Bundestag nur im Fließtext der Plenarprotokolle. Wir werten diese Protokolle teilweise KI-gestützt aus. Solche automatisiert ermittelten Ergebnisse können Fehler oder Fehlinterpretationen enthalten; maßgeblich ist das amtliche Plenarprotokoll.
 
-<ol style="list-style-type: lower-alpha;">
-<li>Es gilt das Recht der Bundesrepublik Deutschland. Diese Rechtswahl gilt gegenüber Verbrauchern jedoch nur insoweit, als dass damit nicht der gewährte Schutz durch zwingende Bestimmungen des Rechts des Staates, in dem der Verbraucher seinen gewöhnlichen Aufenthalt hat, entzogen wird. Für den Vertragsschluss steht ausschließlich die deutsche Sprache zur Verfügung.<br><br></li>
-<li>Hat der Nutzer keinen allgemeinen Gerichtsstand in Deutschland oder in einem anderen EU-Mitgliedsstaat, hat sich nach Wirksamwerden dieser Nutzungsbedingungen sein Wohnsitz ins Ausland außerhalb der EU verlegt oder ist sein gewöhnlicher Aufenthaltsort zum Zeitpunkt der Klageerhebung nicht bekannt, so ist ausschließlicher Gerichtsstand für sämtliche Streitigkeiten aus diesem Vertrag der Sitz des Vereins (Göttingen).<br><br></li>
-<li>Sollten einzelne Bestimmungen dieser Nutzungsbedingungen unwirksam oder nichtig sein oder werden, so wird hierdurch die Wirksamkeit der Nutzungsbedingungen im Übrigen nicht berührt.<br><br></li>
-<li>Änderungen, Ergänzungen und die Aufhebung dieses Vertrags bedürfen zu ihrer Wirksamkeit der Schriftform. Dies gilt auch für die Änderung dieser Schriftformklausel selbst. Das vorstehende Schriftformerfordernis findet keine Anwendung bei Abreden, die nach Vertragsschluss unmittelbar zwischen den Parteien mündlich getroffen werden.<br><br></li>
-<li>Der Verein behält sich vor, diese Nutzungsbedingungen mit Auslieferung einer neuen Version der App für die Zukunft zu ändern. Änderungen werden dem Nutzer spätestens einen Monat vor dem vorgeschlagenen Zeitpunkt ihres Wirksamwerdens in elektronischer Form angeboten. Der Nutzer kann der Geltung der neuen Nutzungsbedingungen bis zum Zeitpunkt &nbsp;ihres vorgeschlagenen Inkrafttretens widersprechen. Andernfalls gelten die neuen Nutzungsbedingungen als akzeptiert. Der Verein weist den Nutzer auf die Bedeutung der Monatsfrist und des Widerspruchsrechts sowie die Rechtsfolgen des Schweigens gesondert in geeigneter Form hin.<br>Dieser Änderungsmechanismus gilt nicht für etwaige Änderungen der vertraglichen Hauptleistungspflichten der Parteien.<br>Die jeweils aktuelle Version der Nutzungsbedingungen kann über contact@democracy-deutschland.de &nbsp;angefordert oder auf&nbsp;<a href="http://democracy-deutschland.de/#!nutzungsbedinungen">democracy-deutschland.de/#!nutzungsbedinungen</a>&nbsp;abgerufen werden.<br><br></li>
-<li>Das Nichtberufen des Vereins auf eine Bestimmung der Nutzungsbedingungen stellt keinen Verzicht auf die jeweilige Bestimmung dar.</li>
-</ol>
+### 2.4 Unentgeltlichkeit
 
-<br>
+Die Nutzung der App ist kostenlos und werbefrei. Ein Anspruch auf bestimmte Funktionen oder Inhalte besteht nicht; wir entwickeln die App laufend weiter und können Funktionen ändern, ergänzen oder einstellen.
 
-#### **11. Informationen zur Online-Streitbeilegung**
+---
 
-Gemäß der Richtlinie 2013/11/EU richtet die EU-Kommission eine Internetplattform zur Online-Beilegung von Streitigkeiten („OS-Plattform“) zwischen Unternehmern und Verbrauchern ein. Diese ist unter folgendem Link erreichbar:&nbsp;<a href="http://ec.europa.eu/consumers/odr" target="_blank">http://ec.europa.eu/consumers/odr</a>
+## 3. Nutzerkonto und Verifizierung
 
-&nbsp;<br>
+### 3.1 Voraussetzungen
+
+Die Informationsfunktionen stehen allen offen. Zum Abstimmen musst Du Dich verifizieren. Personen unter 16 Jahren benötigen dafür die Zustimmung ihrer Erziehungsberechtigten. **[PRÜFEN: Mindestalter – bisher „7. Lebensjahr vollendet"; mit Ziffer 17 der Datenschutzerklärung abstimmen.]**
+
+### 3.2 Nutzerkonto
+
+Beim ersten Start legt die App auf Basis einer verschlüsselten (gehashten) Gerätekennung ein Nutzerkonto an. Name, E-Mail-Adresse oder Passwort brauchst Du nicht.
+
+### 3.3 Verifizierung per SMS
+
+Für die Verifizierung gibst Du eine deutsche Mobilfunknummer an, an die wir einen Bestätigungscode per SMS senden. Damit stellen wir sicher, dass jede Person nur einmal abstimmt. Mit der erfolgreichen Verifizierung kommt der Nutzungsvertrag über die Abstimmungsfunktion zustande.
+
+Wir können die Identität verifizierter Nutzer:innen nicht überprüfen und übernehmen keine Gewähr dafür, dass hinter jeder Telefonnummer eine andere Person steht.
+
+### 3.4 Kontosicherheit
+
+Dein Konto ist an Dein Gerät und Deine Telefonnummer gebunden. Informiere uns unverzüglich unter [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de), wenn Du einen Missbrauch vermutest. Bei einem Gerätewechsel oder einer Neuinstallation gehen Deine lokal gespeicherten Abstimmungsquittungen und Wahl-O-Meter-Daten verloren.
+
+---
+
+## 4. Abstimmungsgeheimnis
+
+Deine Abstimmungsentscheidung speichern wir serverseitig nicht so, dass sie Dir zugeordnet werden kann: Wir addieren sie nur zu den Summen des Vorgangs und vermerken getrennt davon, dass Dein Konto teilgenommen hat. Eine Quittung bleibt ausschließlich auf Deinem Gerät. Einzelheiten beschreibt unsere [Datenschutzerklärung](/datenschutz/).
+
+---
+
+## 5. Spenden
+
+### 5.1 Freiwilligkeit
+
+Spenden sind freiwillig und ohne Gegenleistung; sie sind kein Mitgliedsbeitrag und kein Entgelt für die Nutzung der App. Die App bleibt auch ohne Spende vollständig nutzbar.
+
+### 5.2 Zahlungsabwicklung
+
+Spenden in der App wickelt der Zahlungsdienstleister **Stripe** ab (Stripe Payments Europe, Ltd., Dublin, Irland), je nach Auswahl per Kreditkarte, SEPA-Lastschrift, Apple Pay, Google Pay oder PayPal. Es gelten ergänzend die Bedingungen des jeweiligen Zahlungsanbieters. Spenden in der App sind keine In-App-Käufe über Apple oder Google.
+
+Die Zahlungsgebühr kannst Du freiwillig übernehmen; der Aufschlag wird Dir vor der Zahlung angezeigt. Maßgeblich ist der im Zahlungsfenster angezeigte Betrag.
+
+### 5.3 Dauerspende und Kündigung
+
+Eine monatliche Spende wird jeden Monat am selben Tag wie die erste Abbuchung eingezogen. Du kannst sie jederzeit **mit Wirkung zum Ende des laufenden Monats** kündigen und ihren Betrag für künftige Abbuchungen ändern – in der App unter „Spenden → Dauerspende verwalten" oder auf jedem Gerät über den Link in Deiner Willkommens-E-Mail (Kundenportal von Stripe). Scheitern Abbuchungen wiederholt, beenden wir die Dauerspende und informieren Dich per E-Mail.
+
+### 5.4 Rückerstattung
+
+Eine Spende ist eine Schenkung; ein gesetzliches Widerrufsrecht besteht nicht. Hast Du versehentlich gespendet, melde Dich innerhalb von 14 Tagen unter [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de); wir erstatten den Betrag dann in der Regel. Eine bereits ausgestellte Zuwendungsbestätigung verliert damit ihre Gültigkeit. **[PRÜFEN: Kulanzregel und Frist mit dem Vorstand abstimmen.]**
+
+### 5.5 Zuwendungsbestätigung
+
+Der DEMOCRACY Deutschland e.V. ist als gemeinnützig anerkannt. Für Spenden bis 300 € genügt dem Finanzamt Dein Zahlungsnachweis zusammen mit unserer Bestätigungs-E-Mail und unserem vereinfachten Zuwendungsnachweis (§ 50 Abs. 4 EStDV). Eine formale Zuwendungs- oder Sammelbestätigung erstellen wir auf Anfrage; dafür benötigen wir Deinen vollständigen Namen und Deine Anschrift.
+
+### 5.6 Kommunikation
+
+Bestätigungen und Informationen zu Spenden erhältst Du per E-Mail, sofern Du eine E-Mail-Adresse angegeben hast.
+
+---
+
+## 6. Verbotene Handlungen
+
+Du verpflichtest Dich, die App nur im Rahmen dieser Nutzungsbedingungen und des geltenden Rechts zu nutzen. Untersagt sind insbesondere:
+
+- **Manipulation von Abstimmungen:** mehrfache Verifizierung, Nutzung fremder Telefonnummern, automatisierte oder gekaufte Stimmen
+- **Angriffe und Überlastung:** Hacking-Versuche, Brute-Force-Angriffe, Denial-of-Service, Schadsoftware sowie Versuche, Sicherheitsmaßnahmen oder Begrenzungen zu umgehen
+- **Automatisierte Massenabfragen** unserer Schnittstellen über das für die App übliche Maß hinaus ohne vorherige Absprache
+- **Missbrauch der Spendenfunktion,** z. B. das Testen fremder oder gestohlener Zahlungsdaten
+
+Bei Verstößen können wir Dich verwarnen, Dein Konto vorübergehend sperren oder Dich in schweren Fällen dauerhaft ausschließen.
+
+---
+
+## 7. Automatisierte Maßnahmen und Rechtsbehelfe
+
+Zum Schutz der App und aller Nutzer:innen setzen wir automatisierte Schutzmaßnahmen ein:
+
+- **Begrenzung von SMS-Codes:** Neue Bestätigungscodes können erst nach einer Wartezeit angefordert werden.
+- **Begrenzung von Zahlungsversuchen:** Zu viele Spendenversuche in kurzer Zeit werden vorübergehend abgelehnt.
+- **Sperrung:** Bei schwerwiegenden oder wiederholten Verstößen kann ein Konto manuell gesperrt werden.
+
+Diese Maßnahmen sind vorübergehend und stellen keine automatisierten Einzelentscheidungen im Sinne von Art. 22 DS-GVO dar. Wenn Du meinst, dass eine Sperre irrtümlich erfolgt ist, wende Dich an [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de); wir prüfen den Fall.
+
+---
+
+## 8. Inhalte und Rechte
+
+### 8.1 Parlamentsinformationen
+
+Amtliche Dokumente des Bundestages sind gemeinfrei (§ 5 UrhG). Fotos von Abgeordneten und weitere Medien des Deutschen Bundestages unterliegen dessen Nutzungsbedingungen; die Rechte verbleiben bei den jeweiligen Inhaber:innen.
+
+### 8.2 Open Source
+
+DEMOCRACY ist ein Open-Source-Projekt. Der Quellcode ist auf [GitHub](https://github.com/demokratie-live) veröffentlicht; für ihn gelten die dort angegebenen Lizenzen (z. B. Apache License 2.0). **[PRÜFEN: Lizenz der App (democracy-client) – im Repository ist keine Lizenzdatei hinterlegt.]** Name, Logo und Marke „DEMOCRACY" sind von diesen Lizenzen nicht umfasst.
+
+### 8.3 Ergebnisse der Community
+
+Die aggregierten, anonymen Abstimmungsergebnisse der Community dürfen wir veröffentlichen und für die Arbeit des Vereins nutzen, z. B. in Auswertungen oder gegenüber Medien und Politik.
+
+---
+
+## 9. Haftung und Gewährleistung
+
+### 9.1 Verfügbarkeit
+
+Wir bemühen uns um eine durchgehende Verfügbarkeit und fehlerfreie Funktion. Ein Anspruch darauf besteht nicht: Die Verfügbarkeit kann durch äußere Einflüsse (z. B. Störungen von Netzen, Verfügbarkeit der Daten des Bundestages, Ausfälle von Dienstleistern) beeinträchtigt sein. Wartung, Fehlerbehebung und Weiterentwicklung können vorübergehende Einschränkungen erfordern.
+
+### 9.2 Haftungsbeschränkung
+
+Wir haften unbeschränkt bei Vorsatz und grober Fahrlässigkeit, für Schäden aus der Verletzung von Leben, Körper oder Gesundheit sowie nach dem Produkthaftungsgesetz. Bei leichter Fahrlässigkeit haften wir nur bei Verletzung einer wesentlichen Vertragspflicht (Kardinalpflicht), deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung Du regelmäßig vertrauen darfst; in diesem Fall ist die Haftung auf den vertragstypischen, vorhersehbaren Schaden begrenzt. Im Übrigen ist die Haftung ausgeschlossen. Da wir unsere Leistungen unentgeltlich erbringen, gelten ergänzend die gesetzlichen Haftungserleichterungen (§§ 521, 599 BGB entsprechend). **[PRÜFEN: Haftungsklausel juristisch prüfen lassen.]**
+
+### 9.3 Richtigkeit der Inhalte
+
+Für die Richtigkeit, Vollständigkeit und Aktualität der Parlamentsinformationen, insbesondere automatisiert oder KI-gestützt ermittelter Ergebnisse, übernehmen wir keine Gewähr (siehe Ziffer 2.3). Die App ersetzt keine amtlichen Dokumente.
+
+### 9.4 Datenverlust
+
+Wir haften nicht für den Verlust von Daten, die ausschließlich auf Deinem Gerät gespeichert sind (z. B. Abstimmungsquittungen, Wahl-O-Meter-Daten, Spender-Schlüssel), etwa nach einer Neuinstallation oder einem Gerätewechsel.
+
+---
+
+## 10. Laufzeit und Kündigung
+
+### 10.1 Kündigung durch Dich
+
+Das Nutzungsverhältnis läuft auf unbestimmte Zeit. Du kannst es jederzeit ohne Frist beenden, indem Du die App löschst und uns an [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de) mit dem Betreff „Konto löschen" bittest, Dein Konto zu löschen. Eine Dauerspende beendest Du gesondert (siehe Ziffer 5.3).
+
+### 10.2 Kündigung durch uns
+
+Wir können das Nutzungsverhältnis mit einer Frist von zwei Wochen kündigen. Das Recht zur außerordentlichen Kündigung bei schwerwiegenden Verstößen (siehe Ziffer 6) bleibt unberührt.
+
+### 10.3 Folgen der Kündigung
+
+Nach der Löschung Deines Kontos löschen wir Deine personenbezogenen Daten nach Maßgabe der [Datenschutzerklärung](/datenschutz/). Die anonymen Abstimmungssummen bleiben bestehen, weil sie Dir nicht zugeordnet werden können. Daten zu Spenden bewahren wir im Rahmen der gesetzlichen Fristen auf.
+
+---
+
+## 11. Änderungen der Nutzungsbedingungen
+
+Wir können diese Nutzungsbedingungen für die Zukunft ändern, etwa wenn sich Funktionen der App oder die Rechtslage ändern. Über Änderungen informieren wir Dich mindestens **einen Monat** vor ihrem Inkrafttreten in der App. Widersprichst Du nicht bis zum Inkrafttreten, gelten die geänderten Bedingungen als angenommen; auf diese Folge, Dein Widerspruchsrecht und die Frist weisen wir Dich in der Mitteilung gesondert hin. Im Fall des Widerspruchs können beide Seiten das Nutzungsverhältnis beenden. Änderungen der Hauptleistungen bedürfen Deiner ausdrücklichen Zustimmung.
+
+Die jeweils aktuelle Fassung findest Du unter [democracy-deutschland.de/nutzungsbedingungen](/nutzungsbedingungen/) und in der App unter „Über DEMOCRACY".
+
+---
+
+## 12. Anwendbares Recht und Gerichtsstand
+
+Es gilt das Recht der **Bundesrepublik Deutschland** unter Ausschluss des UN-Kaufrechts. Bist Du Verbraucher:in, gilt diese Rechtswahl nur, soweit Dir dadurch nicht der Schutz zwingender Bestimmungen des Staates entzogen wird, in dem Du Deinen gewöhnlichen Aufenthalt hast.
+
+Hast Du keinen allgemeinen Gerichtsstand in Deutschland oder einem anderen EU-Mitgliedstaat, ist Gerichtsstand für alle Streitigkeiten aus diesem Vertrag der Sitz des Vereins (**Göttingen**).
+
+Wir sind weder bereit noch verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+
+---
+
+## 13. Salvatorische Klausel
+
+Sollten einzelne Bestimmungen dieser Nutzungsbedingungen unwirksam sein oder werden, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. An die Stelle der unwirksamen Bestimmung treten die gesetzlichen Vorschriften.
+
+---
+
+Fragen zu diesen Nutzungsbedingungen: [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de)
