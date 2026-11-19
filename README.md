@@ -170,8 +170,8 @@ Impressum, Datenschutz and Nutzungsbedingungen live in
 are plain Markdown (CommonMark, not MDX), rendered into the page frame of
 `content/pages/<name>.mdx`.
 
-- Headings, paragraphs, bullet lists and links are Markdown. Bold headings are written
-  `#### **Titel**` like the old editor output.
+- Headings, paragraphs, bullet lists and links are Markdown. In the Impressum, bold headings are
+  written `#### **Titel**` like the old editor output; the rewritten texts use `#`–`###`.
 - HTML only where Markdown cannot produce the live layout: `<br>` inside headings and at
   the end of paragraphs (the blank lines of the old texts), the lettered lists
   `<ol style="list-style-type: lower-alpha;"><li>…</li></ol>`, text outside a paragraph
@@ -179,16 +179,22 @@ are plain Markdown (CommonMark, not MDX), rendered into the page frame of
   Markdown does not work, write links as `<a href="…">`.
 - Non-breaking spaces stay visible as `&nbsp;`. Some umlauts are stored decomposed
   (`u` + combining diaeresis), as on live; they look the same.
-- Links stay exactly as on live, even the two that lead nowhere (`#!datenschutz`,
-  `#!nutzungsbedinungen`). The texts change only with the approval of the board
-  (Marius Krüger).
+- The texts change only with the approval of the board (Marius Krüger).
+
+**Datenschutz and Nutzungsbedingungen** were rewritten in November 2026 (TASK-87, structure
+modelled on decipher): plain Markdown (`#`–`###` headings, lists, links with the new paths
+such as `/datenschutz/`), no HTML except `<br>` in the address blocks. Places that still
+need a decision are marked **[OFFEN: …]** or **[PRÜFEN: …]** and must be resolved before
+the texts go live. The app ships a copy of both texts (`democracy-client`,
+`src/screens/About/data.ts`): after a change here run `node scripts/sync-legal-texts.mjs` in the
+client repo (it refuses texts that still contain [OFFEN]/[PRÜFEN] markers).
+
+**Impressum** is still the old live text: links stay exactly as on live.
 
 `pnpm validate-content` checks the internal links. `tests/e2e/legal.spec.ts` compares the
-words and the link targets of each page with the live responses saved on 2026-10-13
-(`tests/fixtures/<name>.live.html`). Until the domain moves to the static site, live is
-the source: if a text changes there, save the new `?_escaped_fragment_=<name>` response
-as the fixture and update the Markdown until the test passes. After the move the
-Markdown is the source and the comparison with the old live state can go.
+Impressum word for word with the live response saved on 2026-10-13
+(`tests/fixtures/impressum.live.html`); for the rewritten texts it checks that every
+Markdown heading is rendered and that they link to each other.
 
 ## Updating the roadmap
 
