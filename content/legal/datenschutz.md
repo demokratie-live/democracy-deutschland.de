@@ -5,7 +5,7 @@ _Stand: November 2026_
 ---
 
 > **Präambel:**
-> Der gemeinnützige Verein DEMOCRACY Deutschland e.V. entwickelt mit der App „DEMOCRACY" eine öffentliche Beteiligungsinfrastruktur: Die App informiert Dich über die Vorgänge und Abstimmungen im Deutschen Bundestag und lässt Dich selbst darüber abstimmen. Deine Daten sind für uns kein Wirtschaftsgut, sondern im Sinne des Grundgesetzes zu schützen. Das Abstimmungsgeheimnis ist Kern unserer Arbeit: Wie Du abstimmst, speichern wir nicht so, dass es Dir zugeordnet werden kann.
+> Der gemeinnützige Verein DEMOCRACY Deutschland e.V. entwickelt mit der App „DEMOCRACY" eine öffentliche Beteiligungsinfrastruktur: Die App informiert Dich über die Vorgänge und Abstimmungen im Deutschen Bundestag und lässt Dich selbst darüber abstimmen. Deine Daten sind für uns kein Wirtschaftsgut, sondern im Sinne des Grundgesetzes zu schützen. Das Abstimmungsgeheimnis ist Kern unserer Arbeit: Deine Abstimmungsentscheidung soll Dir nicht zugeordnet werden können. Wo das technisch derzeit nur eingeschränkt gilt, sagen wir es Dir offen (Ziffer 8.3).
 >
 > Wir verarbeiten Deine Daten nach der Datenschutz-Grundverordnung (DS-GVO), dem Bundesdatenschutzgesetz (BDSG) und dem Telekommunikation-Digitale-Dienste-Datenschutz-Gesetz (TDDDG) und folgen dabei dem Grundsatz der Datensparsamkeit. Mit dieser Datenschutzerklärung informieren wir Dich, welche Daten wir bei der Nutzung der App, unserer Website und unserer Spendenangebote verarbeiten und welche Rechte Du hast.
 >
@@ -58,7 +58,7 @@ Wir verarbeiten personenbezogene Daten nur, soweit eine Rechtsgrundlage nach Art
 - **Sicherheit und Stabilität** unserer Systeme, Abwehr von Angriffen und Missbrauch sowie Fehleranalyse (Art. 6 Abs. 1 lit. f DS-GVO).
 - **Einwilligungen**, etwa für den Newsletter oder für Systemberechtigungen Deines Geräts (Art. 6 Abs. 1 lit. a DS-GVO, § 25 Abs. 1 TDDDG). Vor einer Einwilligung informieren wir Dich über den Zweck und Dein Widerrufsrecht.
 
-**Politische Meinungen (Art. 9 DS-GVO):** Deine Abstimmungsentscheidung („stimme zu", „enthalte mich", „lehne ab") kann eine politische Meinung erkennen lassen und gehört damit zu den besonderen Kategorien personenbezogener Daten. Wir sind technisch so aufgebaut, dass wir Deine Entscheidung serverseitig nicht Dir zugeordnet speichern (siehe Ziffer 8.3). Soweit sie bei der Stimmabgabe kurzzeitig verarbeitet wird, geschieht das, weil Du die Abstimmung ausdrücklich selbst auslöst (Art. 9 Abs. 2 lit. a DS-GVO). **[PRÜFEN: Rechtsgrundlage nach Art. 9 Abs. 2 DS-GVO und Form der ausdrücklichen Einwilligung durch Rechtsberatung bestätigen lassen.]**
+**Politische Meinungen (Art. 9 DS-GVO):** Deine Abstimmungsentscheidung („stimme zu", „enthalte mich", „lehne ab") kann eine politische Meinung erkennen lassen und gehört damit zu den besonderen Kategorien personenbezogener Daten. Wir speichern sie nur als Teil von Summen; die derzeitigen technischen Einschränkungen beschreibt Ziffer 8.3. Die Verarbeitung erfolgt, weil Du die Abstimmung ausdrücklich selbst auslöst (Art. 9 Abs. 2 lit. a DS-GVO). **[PRÜFEN: Rechtsgrundlage nach Art. 9 Abs. 2 DS-GVO und Form der ausdrücklichen Einwilligung – auch für den Export der Stimmen (Ziffer 8.3) – durch Rechtsberatung bestätigen lassen.]**
 
 ---
 
@@ -86,10 +86,13 @@ Wir speichern Deine Daten nur so lange, wie es für den jeweiligen Zweck erforde
 
 - **Gerätekennung, verifizierte Telefonnummer (als Hashwert) und Nutzerkonto:** bis Du die Löschung verlangst (siehe Ziffer 10). **[OFFEN: Automatische Löschung inaktiver Konten festlegen, z. B. nach 24 Monaten ohne Nutzung.]**
 - **Verifizierungsvorgänge** (SMS-Code, Zeitpunkte): **[OFFEN: Derzeit ohne automatische Löschung. Empfehlung: Löschung spätestens 30 Tage nach Abschluss bzw. Ablauf des Codes – vor Veröffentlichung technisch umsetzen.]**
-- **Abstimmungsergebnisse:** dauerhaft, aber nur als anonyme Summen je Vorgang und Wahlkreis. Der Vermerk, _dass_ Du an einer Abstimmung teilgenommen hast, wird mit Deinem Konto gelöscht.
+- **Abstimmungsergebnisse:** dauerhaft als Summen je Vorgang und Wahlkreis. Der Vermerk, _dass_ Du an einer Abstimmung teilgenommen hast, die Liste Deiner Aktivitäten und Deine Benachrichtigungseinstellungen werden mit Deinem Konto gelöscht.
+- **Replikationsprotokoll der Datenbank (Oplog):** Jede Änderung der Datenbank – auch die Stimmabgabe – wird für die Replikation zwischen den Datenbankservern protokolliert, bis der feste Speicherplatz des Protokolls überschrieben wird. **[OFFEN: Zeitfenster bestimmen und begrenzen; siehe Ziffer 8.3.]**
+- **Datensicherungen und Altbestände:** **[OFFEN: Gibt es Datenbank-Sicherungen bzw. alte Datenträger (DigitalOcean-Volumes, Datenbank der früheren Website auf dem Webserver mit Kontaktanfragen, alten Newsletter-Adressen, Beta-Testern)? Löschen oder mit Frist nennen.]**
+- **Push-Token aus früheren App-Versionen:** **[OFFEN: Derzeit ohne Löschung gespeichert – löschen, siehe Ziffer 13.]**
 - **Server-Protokolle mit IP-Adresse:** **[OFFEN: Aufbewahrungsdauer der Ingress-/Server-Logs bei DigitalOcean und des Website-Hostings angeben, Empfehlung höchstens 14 Tage.]**
-- **Fehlerprotokolle des Servers** (ohne Telefonnummern, Stimmen oder Spenderdaten): **[OFFEN: Löschfrist festlegen; derzeit ohne automatische Löschung.]**
-- **Spenden:** Zahlungs- und Buchungsdaten bewahren wir gemäß den steuer- und handelsrechtlichen Fristen auf (je nach Unterlage 6, 8 oder 10 Jahre nach § 147 AO und § 257 HGB). Die Zuordnung zwischen Deinem Gerät und einer Dauerspende löschen wir automatisch 90 Tage nach deren Ende, technische Webhook-Protokolle nach 30 Tagen.
+- **Fehlerprotokolle des Servers** (technische Kennungen, z. B. Stripe-IDs; keine Telefonnummern, Stimmen oder E-Mail-Adressen): **[OFFEN: Löschfrist festlegen; derzeit ohne automatische Löschung. Außerdem schreibt der Server bei der Verifizierung Bestätigungscodes und Hashwerte in seine Konsolenausgabe – entfernen.]**
+- **Spenden:** Zahlungs- und Buchungsdaten bewahren wir gemäß den steuer- und handelsrechtlichen Fristen auf (je nach Unterlage 6, 8 oder 10 Jahre nach § 147 AO und § 257 HGB). Die Zuordnung zwischen Deinem Gerät und einer Dauerspende löschen wir automatisch 90 Tage nach deren Ende (bzw. 90 Tage nach dem Anlegen, wenn keine Dauerspende zustande kam), technische Webhook-Protokolle nach 30 Tagen. **[OFFEN: Löschfrist für Kundendaten bei Stripe (E-Mail, Name, Zahlungsart) festlegen.]**
 - **Newsletter:** bis zur Abmeldung.
 - **E-Mail-Anfragen:** bis zur abschließenden Bearbeitung, danach im Rahmen gesetzlicher Aufbewahrungspflichten.
 
@@ -101,7 +104,7 @@ Darüber hinaus können wir Daten aufbewahren, wenn es zu rechtlichen Auseinande
 
 Wir setzen technische und organisatorische Maßnahmen ein, um Deine Daten gegen Manipulation, Verlust, Zerstörung und unbefugten Zugriff zu schützen, und passen sie an den Stand der Technik an.
 
-Die Kommunikation zwischen App bzw. Browser und unseren Servern erfolgt ausschließlich verschlüsselt über HTTPS (TLS). Telefonnummer und Gerätekennung speichern wir nur als Hashwerte; Zugangs-Token und Deine lokalen Abstimmungsquittungen liegen auf Deinem Gerät (teilweise im geschützten Schlüsselbund, iOS Keychain bzw. Android Keystore).
+Die Kommunikation zwischen App bzw. Browser und unseren Servern erfolgt ausschließlich verschlüsselt über HTTPS (TLS). Telefonnummer und Gerätekennung speichern wir auf dem Server nur als Hashwerte. Auf Deinem Gerät liegen Zugangs-Token und der Hashwert Deiner Telefonnummer im App-Speicher, Deine Abstimmungsquittungen und gegebenenfalls Dein Spender-Schlüssel im geschützten Schlüsselbund (iOS Keychain bzw. Android Keystore).
 
 ---
 
@@ -123,11 +126,13 @@ Beim Start der App und bei jeder Anfrage an unseren Server verarbeiten wir:
 - App-Version und Plattform (iOS/Android)
 - die **IP-Adresse** Deines Geräts und den Zeitpunkt der Anfrage (technisch notwendig, in Server-Protokollen)
 - von Dir gewählte Einstellungen, z. B. Benachrichtigungswünsche
-- **Suchbegriffe**, die Du in der App eingibst – gespeichert nur als Begriff mit Zeitpunkt, ohne Bezug zu Deinem Gerät oder Konto
+- **Suchbegriffe**, die Du in der App eingibst – sie werden zur Suche an unseren Server übertragen, derzeit aber nicht gespeichert
 
 Beim ersten Kontakt legen wir auf Basis der Gerätekennung ein Nutzerkonto an, damit die App Dich wiedererkennt (Zugangs-Token auf Deinem Gerät). Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DS-GVO, für die Server-Protokolle Art. 6 Abs. 1 lit. f DS-GVO (Betriebssicherheit).
 
 Bilder von Abgeordneten und Bundestagsdokumente (PDF) lädt die App direkt von Servern des Deutschen Bundestages; dabei wird Deine IP-Adresse an den Bundestag übermittelt (siehe Ziffer 16.9).
+
+Den aktuellen Spendenstand (Spenden-Bereich und Seitenleiste) lädt die App von unserer Website democracy-deutschland.de. Dabei erhält der Website-Server Deine IP-Adresse, aber keine Gerätekennung, keine Telefonnummer und kein Zugangs-Token (siehe Ziffer 16.2).
 
 ### 8.2 Bei der Verifizierung
 
@@ -137,19 +142,26 @@ Zur Verifizierung gibst Du Deine Mobilfunknummer ein. Wir verarbeiten:
 - den **Bestätigungscode** und die Zeitpunkte des Verifizierungsvorgangs
 - die Verknüpfung zwischen Gerätekennung und Telefonnummer (Hashwerte), damit jede Telefonnummer nur einmal abstimmen kann
 
-Bitte beachte: Weil es nur begrenzt viele Telefonnummern gibt, lässt sich ein Hashwert einer Telefonnummer mit erheblichem Rechenaufwand zurückrechnen. Wir behandeln ihn deshalb als **pseudonymisiertes** personenbezogenes Datum, nicht als anonym.
+Bitte beachte: Der Hashwert einer Telefonnummer lässt sich mit geringem Aufwand zurückrechnen, weil es nur begrenzt viele Telefonnummern gibt. Wir behandeln ihn deshalb als **pseudonymisiertes** personenbezogenes Datum, nicht als anonym. **[OFFEN: Hash mit geheimem Schlüssel (HMAC) absichern.]**
+
+Brichst Du die Verifizierung ab, bleibt die eingegebene Nummer bis zu einem neuen Versuch lokal in der App gespeichert. **[OFFEN: lokal löschen.]**
 
 ### 8.3 Bei Abstimmungen und im Wahl-O-Meter
 
-Wenn Du abstimmst, trennen wir Deine Identität und Deine Entscheidung (Konzept „Urnenbuch"):
+Wenn Du abstimmst, soll Deine Entscheidung Dir nicht zugeordnet werden können:
 
-- Auf dem Server wird Deine Entscheidung nur zu den **Summen** des jeweiligen Vorgangs addiert – gesamt und, falls Du einen Wahlkreis gewählt hast, für diesen Wahlkreis. Welche Entscheidung von welchem Konto stammt, wird nicht gespeichert.
-- Getrennt davon speichern wir den Vermerk, **dass** Dein Konto an diesem Vorgang teilgenommen hat, damit niemand mehrfach abstimmt.
-- Eine **Quittung Deiner Entscheidung** speichern wir nur lokal auf Deinem Gerät. Das Wahl-O-Meter, das Dein Abstimmungsverhalten mit dem des Bundestages vergleicht, wertet ausschließlich diese lokalen Daten aus.
+- Auf dem Server wird Deine Entscheidung nur zu den **Summen** des jeweiligen Vorgangs addiert – gesamt und, falls Du einen Wahlkreis gewählt hast, für diesen Wahlkreis. Im gespeicherten Datensatz steht nicht, welche Entscheidung von welchem Konto stammt.
+- Im selben Schritt vermerken wir, **dass** Dein Konto an diesem Vorgang teilgenommen hat, damit niemand mehrfach abstimmt. Außerdem speichern wir zu Deinem Konto, an welchen Vorgängen Du aktiv warst, und – wenn Du Benachrichtigungen zu Ergebnissen aktiviert hast – die Vorgänge, denen Du folgst.
+- Eine **Quittung Deiner Entscheidung** speichern wir nur auf Deinem Gerät. Das Wahl-O-Meter wertet ausschließlich diese lokalen Daten aus; an den Server gehen dafür nur die Kennungen der Vorgänge.
 
-Beim Löschen der App oder beim Gerätewechsel gehen die lokalen Quittungen verloren; wir können sie nicht wiederherstellen. Wie die Trennung technisch umgesetzt ist, kannst Du im öffentlichen Quellcode nachvollziehen: [github.com/demokratie-live](https://github.com/demokratie-live).
+**Derzeitige Einschränkungen – bitte beachten:**
 
-Zur Weiterentwicklung der App werten wir nur anonyme, aggregierte Zahlen aus (z. B. Anzahl der Abstimmungen und Aktivität je Vorgang).
+- Summe und Teilnahmevermerk werden in **einer** Datenbankoperation geschrieben. Das Replikationsprotokoll der Datenbank (Oplog) hält diese Operation fest, bis es überschrieben wird. Solange kann jemand mit direktem Zugriff auf die Datenbank Deine Entscheidung (samt Wahlkreis) Deinem Konto zuordnen. Zugriff haben nur die Administrator:innen des Vereins. **[OFFEN: technisch beheben (Vermerk und Summen getrennt und zeitversetzt schreiben, Protokollfenster begrenzen) und Zeitraum hier nennen.]**
+- Die Summen je Wahlkreis veröffentlichen wir ohne Mindestanzahl. Haben in einem Wahlkreis nur sehr wenige Personen abgestimmt, kann man daraus auf einzelne Entscheidungen schließen. **[OFFEN: Mindestanzahl für die Anzeige einführen.]**
+
+**Deine Quittungen auf dem Gerät:** Sie liegen im Schlüsselbund Deines Geräts. Unter iOS können sie eine Neuinstallation und eine Geräte-Wiederherstellung überstehen; beim Gerätewechsel oder Löschen der App können sie verloren gehen – wir können sie nicht wiederherstellen. Unter „Einstellungen → Stimmen übertragen" kannst Du sie als Datei (mit Wahlkreis) exportieren und auf einem anderen Gerät importieren. Den Weg der Übertragung (z. B. E-Mail oder Messenger) wählst Du selbst; der gewählte Dienst erhält dabei Deine Abstimmungsentscheidungen.
+
+Statistisch werten wir zur Weiterentwicklung nur aggregierte Zahlen aus (z. B. Anzahl der Abstimmungen und Aktivität je Vorgang). Wie die Speicherung technisch umgesetzt ist, kannst Du im öffentlichen Quellcode nachvollziehen: [github.com/demokratie-live](https://github.com/demokratie-live).
 
 ### 8.4 Beim Besuch unserer Website
 
@@ -163,6 +175,10 @@ Beim Aufruf von www.democracy-deutschland.de verarbeitet unser Hosting-Anbieter 
 
 Diese Daten dienen der Auslieferung der Website, der Sicherheit (insbesondere Abwehr von Angriffen) und der Fehleranalyse (Art. 6 Abs. 1 lit. f DS-GVO). Eine Zusammenführung mit anderen Datenquellen findet nicht statt. Auf der Website setzen wir **keine Analyse- oder Tracking-Werkzeuge** und keine Cookies ein (siehe Ziffer 15).
 
+### 8.5 Browser-Version (democracy-app.de)
+
+Die Browser-Version unter democracy-app.de nutzt dieselben Schnittstellen wie die App und speichert Zugangsdaten und Einstellungen im lokalen Speicher Deines Browsers (localStorage). **[PRÜFEN: welche Kennung sie statt der Geräte-ID verwendet und welche Daten sie speichert.]**
+
 ---
 
 ## 9. Kontaktaufnahme per E-Mail (Art. 6 Abs. 1 lit. a, b DS-GVO)
@@ -175,13 +191,13 @@ Wenn Du uns per E-Mail schreibst – auch über die Kontakt- und Mithelfen-Links
 
 Für die Nutzung der App brauchst Du weder Namen noch E-Mail-Adresse noch Passwort. Dein Nutzerkonto ist an Deine Gerätekennung und – nach der Verifizierung – an Deine Telefonnummer (als Hashwert) gebunden. Die App erhält ein Zugangs-Token (gültig einen Tag, erneuerbar für sieben Tage), das auf Deinem Gerät gespeichert wird.
 
-**Löschung:** Eine Löschfunktion in der App gibt es derzeit nicht. Schreib uns an [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de) mit dem Betreff „Konto löschen" und der Telefonnummer, mit der Du Dich verifiziert hast. Wir löschen dann Konto, Gerätekennung, Telefonnummer (Hashwert), Verifizierungsdaten und Teilnahmevermerke. Die anonymen Abstimmungssummen bleiben bestehen, da sie Dir nicht zugeordnet werden können. Daten, die wir aus gesetzlichen Gründen aufbewahren müssen (z. B. zu Spenden), sperren wir bis zum Fristablauf. **[OFFEN: Löschfunktion in der App oder dokumentierter interner Löschprozess.]**
+**Löschung:** Eine Löschfunktion in der App gibt es derzeit nicht. Schreib uns an [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de) mit dem Betreff „Konto löschen" und der Telefonnummer, mit der Du Dich verifiziert hast. Wir löschen dann Konto, Gerätekennung, Telefonnummer (Hashwert), Verifizierungsdaten, Teilnahmevermerke, Aktivitäten, Benachrichtigungseinstellungen und gespeicherte Push-Token. Die Abstimmungssummen bleiben bestehen. Daten, die wir aus gesetzlichen Gründen aufbewahren müssen (z. B. zu Spenden), sperren wir bis zum Fristablauf. Hast Du Dich nicht verifiziert, können wir Dein Konto Dir nicht sicher zuordnen. **[OFFEN: Löschfunktion in der App – Apple verlangt sie für Apps mit Konto –, Löschweg für nicht verifizierte Konten, dokumentierter interner Löschprozess.]**
 
 ---
 
 ## 11. Spenden und Bezahlsysteme (Art. 6 Abs. 1 lit. b, c DS-GVO)
 
-Du kannst DEMOCRACY freiwillig mit einer Spende unterstützen. Spenden sind technisch und organisatorisch **vollständig von Deinem Nutzerkonto und Deinen Abstimmungen getrennt**: Anfragen zu Spenden senden keine Gerätekennung, keine Telefonnummer und kein Zugangs-Token, und wir speichern zu Spendenanfragen keine IP-Adressen.
+Du kannst DEMOCRACY freiwillig mit einer Spende unterstützen. Spenden sind technisch und organisatorisch **von Deinem Nutzerkonto und Deinen Abstimmungen getrennt**: Anfragen an unsere Spenden-Schnittstelle und die Abfrage des Spendenstands senden keine Gerätekennung, keine Telefonnummer und kein Zugangs-Token. Für die Spenden-Schnittstelle ist die Protokollierung von IP-Adressen abgeschaltet; nur bei Serverfehlern kann das Fehlerprotokoll des Webservers sie kurzzeitig enthalten. **[OFFEN: Spenden in der App sind noch nicht freigeschaltet – diesen Abschnitt mit dem Start veröffentlichen.]**
 
 ### 11.1 Spenden in der App
 
@@ -191,7 +207,7 @@ Wir bzw. Stripe verarbeiten dabei: Betrag, Rhythmus (einmalig/monatlich), ob Du 
 
 **Dauerspenden:** Für die Verwaltung einer monatlichen Spende erzeugt die App einen zufälligen **Spender-Schlüssel**, der nur auf Deinem Gerät im Schlüsselbund liegt. Wir speichern lediglich einen Hashwert dieses Schlüssels und die Zuordnung zu Deiner Dauerspende bei Stripe – ohne Bezug zu Deinem DEMOCRACY-Konto. Diese Zuordnung löschen wir automatisch 90 Tage nach Ende der Dauerspende. Auf anderen Geräten verwaltest Du Deine Dauerspende über das Kundenportal von Stripe (Anmeldung per E-Mail-Link).
 
-**Bestätigungen per E-Mail:** Hast Du eine E-Mail-Adresse angegeben, senden wir Dir eine Spendenbestätigung sowie bei Dauerspenden Bestätigungen zu jeder Abbuchung und zur Kündigung (siehe Ziffer 16.5). Eine formale Zuwendungsbestätigung erstellen wir auf Anfrage; dafür benötigen wir Deinen Namen und Deine Anschrift.
+**E-Mails zu Spenden:** Wir senden Dir an die in der App oder im Zahlungsfenster angegebene E-Mail-Adresse eine Spendenbestätigung, einen Hinweis bei einer gescheiterten Lastschrift sowie bei Dauerspenden Bestätigungen zu jeder Abbuchung, zur Kündigung und zum Ende der Dauerspende (siehe Ziffer 16.5). Erinnerungen bei fehlgeschlagenen Abbuchungen einer Dauerspende verschickt Stripe in unserem Auftrag. Eine formale Zuwendungsbestätigung erstellen wir auf Anfrage; dafür benötigen wir Deinen Namen und Deine Anschrift.
 
 ### 11.2 Spenden über die Website und per Überweisung
 
@@ -205,7 +221,7 @@ Zahlungsdaten sind nach dem US-EU Data Privacy Framework (Stripe, PayPal) bzw. d
 
 ## 12. Newsletter (Art. 6 Abs. 1 lit. a DS-GVO)
 
-Über unsere Website kannst Du einen kostenlosen Newsletter abonnieren. Dafür verarbeiten wir Deine E-Mail-Adresse sowie die Zeitpunkte von Anmeldung und Bestätigung. Den Newsletter versenden wir mit der Open-Source-Software **listmonk**, die wir selbst auf unserer Infrastruktur bei DigitalOcean betreiben (siehe Ziffer 16.1). **[OFFEN: Double-Opt-in aktiv? SMTP-Anbieter für den Versand?]**
+Über unsere Website kannst Du einen kostenlosen Newsletter abonnieren. Dafür verarbeiten wir Deine E-Mail-Adresse, gegebenenfalls Deinen Namen sowie die Zeitpunkte von Anmeldung und Bestätigung. Den Newsletter versenden wir mit der Open-Source-Software **listmonk** (listmonk.democracy-app.de). **[OFFEN: Wo läuft listmonk (DigitalOcean?), ist Double-Opt-in aktiv, welcher SMTP-Anbieter versendet? Die Newsletter-Vorlagen laden Schriften von Google Fonts – lokal einbinden oder hier nennen.]**
 
 Du kannst den Newsletter jederzeit über den Abmeldelink in jeder E-Mail abbestellen und damit Deine Einwilligung widerrufen.
 
@@ -213,7 +229,9 @@ Du kannst den Newsletter jederzeit über den Abmeldelink in jeder E-Mail abbeste
 
 ## 13. Push-Benachrichtigungen
 
-Derzeit versenden wir **keine Push-Benachrichtigungen**, und die App überträgt keine Push-Token an unsere Server. Falls Du in den Einstellungen Benachrichtigungen erlaubst, betrifft das nur die Berechtigung auf Deinem Gerät. Sollten wir Push-Benachrichtigungen wieder einführen, informieren wir Dich vorher und holen Deine Einwilligung ein.
+Derzeit versenden wir **keine Push-Benachrichtigungen**, und die aktuelle App überträgt keine Push-Token an unsere Server. Falls Du in den Einstellungen Benachrichtigungen erlaubst, betrifft das nur die Berechtigung auf Deinem Gerät. Sollten wir Push-Benachrichtigungen wieder einführen, informieren wir Dich vorher und holen Deine Einwilligung ein.
+
+Aus früheren App-Versionen können Push-Token (Kennungen von Apple bzw. Google für Dein Gerät) bei uns gespeichert sein; ältere App-Versionen können sie weiterhin übermitteln. **[OFFEN: gespeicherte Token löschen und die Annahme abschalten.]** Die Android-App enthält die Push-Komponente von Google (Firebase Cloud Messaging). **[PRÜFEN: ob sie beim Start ein Token bei Google anlegt – falls ja, Google Ireland Ltd. hier als Empfänger nennen.]**
 
 ---
 
@@ -225,11 +243,11 @@ Wir treffen keine Entscheidungen, die ausschließlich auf einer automatisierten 
 
 ## 15. Cookies und andere Technologien (Art. 6 Abs. 1 lit. b, f DS-GVO, § 25 TDDDG)
 
-**Website:** Wir setzen keine Cookies, keine Analyse- oder Tracking-Werkzeuge und keine Schriftarten von Drittanbietern ein. Videos (YouTube) und das Discord-Widget werden erst geladen, wenn Du sie anklickst (siehe Ziffer 16.10 und 16.11).
+**Website:** Wir setzen keine Cookies, keine Analyse- oder Tracking-Werkzeuge und keine Schriftarten von Drittanbietern ein. Videos (YouTube) und das Discord-Widget werden erst geladen, wenn Du sie anklickst (siehe Ziffer 16.10 und 16.11). Schließt Du auf der Startseite den Hinweis auf unser Spendenkonto, merkt sich Dein Browser das im lokalen Speicher (localStorage), ohne personenbezogene Daten. **[PRÜFEN: Einordnung nach § 25 Abs. 2 TDDDG.]**
 
-**App:** Die App speichert auf Deinem Gerät nur, was für ihre Funktion unbedingt erforderlich ist (§ 25 Abs. 2 Nr. 2 TDDDG): Zugangs-Token, den Hashwert Deiner Telefonnummer, Einstellungen (z. B. gewählter Wahlkreis), Deine lokalen Abstimmungsquittungen und – bei einer Dauerspende – den Spender-Schlüssel. Für die Gerätekennung greift die App auf die Geräte-ID Deines Smartphones zu und überträgt nur deren Hashwert. Dies ist **keine Werbe-ID**; ein geräte- oder app-übergreifendes Tracking findet nicht statt.
+**App:** Die App speichert auf Deinem Gerät nur, was für ihre Funktion erforderlich ist (§ 25 Abs. 2 Nr. 2 TDDDG): im App-Speicher Zugangs-Token, den Hashwert Deiner Telefonnummer und Einstellungen (z. B. gewählter Wahlkreis), im Schlüsselbund Deine Abstimmungsquittungen und – bei einer Dauerspende – den Spender-Schlüssel. Für die Gerätekennung greift die App auf die Geräte-ID Deines Smartphones zu und überträgt nur deren Hashwert. Dies ist **keine Werbe-ID**; ein geräte- oder app-übergreifendes Tracking findet nicht statt.
 
-In der App setzen wir **keine** Analyse-, Tracking- oder Absturzberichts-SDKs ein. Absturz- und Diagnosedaten entstehen gegebenenfalls nur plattformseitig bei Apple bzw. Google (siehe Ziffer 16.12). Während einer Spende verarbeitet das Stripe-SDK Geräte- und Verbindungsdaten zur Betrugsprävention (siehe Ziffer 11.1).
+In der App setzen wir **keine** Analyse-, Tracking- oder Absturzberichts-SDKs ein. Absturz- und Diagnosedaten entstehen gegebenenfalls nur plattformseitig bei Apple bzw. Google (siehe Ziffer 16.13). Während einer Spende verarbeitet das Stripe-SDK Geräte- und Verbindungsdaten zur Betrugsprävention (siehe Ziffer 11.1).
 
 ---
 
@@ -243,7 +261,7 @@ Verarbeitet werden alle in Ziffer 8.1–8.3, 11.1 und 12 genannten serverseitige
 
 ### 16.2 Hosting der Website
 
-Unsere Website wird auf einem Server bei der **IONOS SE**, Elgendorfer Str. 57, 56410 Montabaur, bereitgestellt. Dabei werden die in Ziffer 8.4 genannten Daten verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DS-GVO. **[OFFEN: Wer betreibt den Server (eigener Vertrag mit IONOS oder Dienstleister, z. B. Atmanspacher)? Anbieter und Auftragsverarbeitungsvertrag bestätigen; ebenso Mail-Hosting für @democracy-deutschland.de.]**
+Unsere Website wird auf einem Server bei der **IONOS SE**, Elgendorfer Str. 57, 56410 Montabaur, bereitgestellt. Dabei werden die in Ziffer 8.4 genannten Daten verarbeitet; außerdem ruft die App dort den Spendenstand ab (Ziffer 8.1). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DS-GVO. **[OFFEN: Wer betreibt den Server (eigener Vertrag mit IONOS oder Dienstleister, z. B. Atmanspacher)? Anbieter und Auftragsverarbeitungsvertrag bestätigen; ebenso Mail-Hosting für @democracy-deutschland.de.]**
 
 ### 16.3 SMS-Versand zur Verifizierung
 
@@ -267,7 +285,7 @@ Unser Quellcode ist auf **GitHub** (GitHub, Inc., 88 Colin P. Kelly Jr. Street, 
 
 ### 16.8 KI-gestützte Auswertung von Parlamentsdokumenten
 
-Ergebnisse nicht-namentlicher Abstimmungen werten wir teilweise KI-gestützt aus öffentlichen Plenarprotokollen des Bundestages aus; dafür nutzen wir die Claude API der Anthropic, PBC (USA). Dabei werden **ausschließlich öffentliche Bundestagsdokumente** verarbeitet, keine Daten unserer Nutzer:innen.
+Ergebnisse nicht-namentlicher Abstimmungen werten wir teilweise KI-gestützt aus öffentlichen Dokumenten des Bundestages aus (u. a. Plenarprotokolle und Beschlusstexte); dafür nutzen wir die Claude API der Anthropic, PBC (USA). Dabei werden **ausschließlich öffentliche Bundestagsdokumente** verarbeitet, keine Daten unserer Nutzer:innen.
 
 ### 16.9 Deutscher Bundestag
 
@@ -281,7 +299,11 @@ Auf unserer Website binden wir Videos von **YouTube** (Google Ireland Ltd., Gord
 
 Auf unserer Website kannst Du per Klick ein Widget unserer **Discord**-Community laden (Discord Netherlands BV, Schiphol Boulevard 195, 1118 BG Schiphol, Niederlande). Erst nach dem Klick werden Daten (u. a. Deine IP-Adresse) an Discord übertragen, gegebenenfalls auch in die USA (Art. 6 Abs. 1 lit. a DS-GVO). **[OFFEN: Vertragspartner von Discord für EU-Nutzer:innen bestätigen.]** Weitere Informationen: [discord.com/privacy](https://discord.com/privacy).
 
-### 16.12 App-Stores (Apple App Store, Google Play)
+### 16.12 QR-Codes
+
+Unsere QR-Codes (z. B. auf Plakaten) führen über qr.democracy-deutschland.de zur App bzw. Website. Dabei speichern wir nur die Kennung des QR-Codes und den Zeitpunkt des Aufrufs, keine IP-Adressen. **[PRÜFEN: Server-Protokolle des QR-Dienstes.]**
+
+### 16.13 App-Stores (Apple App Store, Google Play)
 
 Bezug und Aktualisierung der App erfolgen über den Apple App Store bzw. Google Play. Die Betreiber – Apple Distribution International Ltd., Hollyhill Industrial Estate, Hollyhill, Cork, Irland, bzw. Google Ireland Ltd., Gordon House, Barrow Street, Dublin 4, Irland – verarbeiten dabei in eigener Verantwortung Daten (z. B. Download- und Nutzungsstatistiken sowie plattformseitige Absturz- und Diagnoseberichte). Darauf haben wir keinen Einfluss; es gelten die Datenschutzbestimmungen von [Apple](https://www.apple.com/legal/privacy/) bzw. [Google](https://policies.google.com/privacy).
 
@@ -291,7 +313,7 @@ Bezug und Aktualisierung der App erfolgen über den Apple App Store bzw. Google 
 
 ## 17. Kinder und Jugendliche
 
-Die Informationsfunktionen der App stehen allen offen. Personen unter 16 Jahren sollen sich nur mit Zustimmung ihrer Erziehungsberechtigten verifizieren, abstimmen oder spenden. Wir bitten Eltern und Erziehungsberechtigte, die Online-Aktivitäten ihrer Kinder zu begleiten. **[PRÜFEN: Abgleich mit dem Mindestalter in den Nutzungsbedingungen (bisher 7 Jahre).]**
+Die Informationsfunktionen der App stehen allen offen. Personen unter 16 Jahren benötigen für die Verifizierung, das Abstimmen und das Spenden die Zustimmung ihrer Erziehungsberechtigten. Wir bitten Eltern und Erziehungsberechtigte, die Online-Aktivitäten ihrer Kinder zu begleiten. **[PRÜFEN: Mindestalter mit dem Vorstand festlegen (bisher 7 Jahre in den alten Nutzungsbedingungen).]**
 
 ---
 

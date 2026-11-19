@@ -170,8 +170,8 @@ Impressum, Datenschutz and Nutzungsbedingungen live in
 are plain Markdown (CommonMark, not MDX), rendered into the page frame of
 `content/pages/<name>.mdx`.
 
-- Headings, paragraphs, bullet lists and links are Markdown. Bold headings are written
-  `#### **Titel**` like the old editor output.
+- Headings, paragraphs, bullet lists and links are Markdown. In the Impressum, bold headings are
+  written `#### **Titel**` like the old editor output; the rewritten texts use `#`–`###`.
 - HTML only where Markdown cannot produce the live layout: `<br>` inside headings and at
   the end of paragraphs (the blank lines of the old texts), the lettered lists
   `<ol style="list-style-type: lower-alpha;"><li>…</li></ol>`, text outside a paragraph
@@ -186,7 +186,8 @@ modelled on decipher): plain Markdown (`#`–`###` headings, lists, links with t
 such as `/datenschutz/`), no HTML except `<br>` in the address blocks. Places that still
 need a decision are marked **[OFFEN: …]** or **[PRÜFEN: …]** and must be resolved before
 the texts go live. The app ships a copy of both texts (`democracy-client`,
-`src/screens/About/data.ts`); change both together.
+`src/screens/About/data.ts`): after a change here run `node scripts/sync-legal-texts.mjs` in the
+client repo (it refuses texts that still contain [OFFEN]/[PRÜFEN] markers).
 
 **Impressum** is still the old live text: links stay exactly as on live.
 

@@ -40,7 +40,7 @@ Die App bietet:
 - **Informieren:** vergangene, aktuelle und kommende Vorgänge, Anträge und Gesetzgebungsverfahren des Deutschen Bundestages mit den zugehörigen Dokumenten und den offiziellen Abstimmungsergebnissen, Informationen zu Abgeordneten und Wahlkreisen
 - **Abstimmen:** Verifizierte Nutzer:innen können als „virtuelle Abgeordnete" selbst über Vorgänge abstimmen – mit „stimme zu", „enthalte mich" oder „lehne ab". Die App zeigt die Ergebnisse der Community insgesamt und, falls Du einen Wahlkreis wählst, für Deinen Wahlkreis.
 - **Wahl-O-Meter:** ein Vergleich Deines Abstimmungsverhaltens mit dem der Fraktionen und Abgeordneten des Bundestages, ausschließlich auf Deinem Gerät berechnet
-- **Spenden:** die Möglichkeit, den Verein freiwillig zu unterstützen (siehe Ziffer 5)
+- **Spenden:** die Möglichkeit, den Verein freiwillig zu unterstützen (siehe Ziffer 5) **[OFFEN: Spenden in der App erst mit deren Start in diese Fassung aufnehmen.]**
 
 ### 2.2 Datenquellen
 
@@ -48,7 +48,7 @@ Die Inhalte stammen aus öffentlichen Quellen, insbesondere dem Dokumentations- 
 
 ### 2.3 KI-gestützte Auswertung
 
-Ergebnisse nicht-namentlicher Abstimmungen (z. B. per Handzeichen) veröffentlicht der Bundestag nur im Fließtext der Plenarprotokolle. Wir werten diese Protokolle teilweise KI-gestützt aus. Solche automatisiert ermittelten Ergebnisse können Fehler oder Fehlinterpretationen enthalten; maßgeblich ist das amtliche Plenarprotokoll.
+Ergebnisse nicht-namentlicher Abstimmungen (z. B. per Handzeichen) veröffentlicht der Bundestag nur im Fließtext seiner Dokumente. Wir werten Plenarprotokolle und Beschlusstexte teilweise KI-gestützt aus. Solche automatisiert ermittelten Ergebnisse können Fehler oder Fehlinterpretationen enthalten; maßgeblich ist das amtliche Plenarprotokoll.
 
 ### 2.4 Unentgeltlichkeit
 
@@ -64,7 +64,7 @@ Die Informationsfunktionen stehen allen offen. Zum Abstimmen musst Du Dich verif
 
 ### 3.2 Nutzerkonto
 
-Beim ersten Start legt die App auf Basis einer verschlüsselten (gehashten) Gerätekennung ein Nutzerkonto an. Name, E-Mail-Adresse oder Passwort brauchst Du nicht.
+Beim ersten Start legt die App auf Basis einer gehashten Gerätekennung ein Nutzerkonto an. Name, E-Mail-Adresse oder Passwort brauchst Du nicht.
 
 ### 3.3 Verifizierung per SMS
 
@@ -74,13 +74,13 @@ Wir können die Identität verifizierter Nutzer:innen nicht überprüfen und üb
 
 ### 3.4 Kontosicherheit
 
-Dein Konto ist an Dein Gerät und Deine Telefonnummer gebunden. Informiere uns unverzüglich unter [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de), wenn Du einen Missbrauch vermutest. Bei einem Gerätewechsel oder einer Neuinstallation gehen Deine lokal gespeicherten Abstimmungsquittungen und Wahl-O-Meter-Daten verloren.
+Dein Konto ist an Dein Gerät und Deine Telefonnummer gebunden. Informiere uns unverzüglich unter [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de), wenn Du einen Missbrauch vermutest. Bei einem Gerätewechsel oder einer Neuinstallation können Deine lokal gespeicherten Abstimmungsquittungen und Wahl-O-Meter-Daten verloren gehen; unter „Einstellungen → Stimmen übertragen" kannst Du sie vorher exportieren.
 
 ---
 
 ## 4. Abstimmungsgeheimnis
 
-Deine Abstimmungsentscheidung speichern wir serverseitig nicht so, dass sie Dir zugeordnet werden kann: Wir addieren sie nur zu den Summen des Vorgangs und vermerken getrennt davon, dass Dein Konto teilgenommen hat. Eine Quittung bleibt ausschließlich auf Deinem Gerät. Einzelheiten beschreibt unsere [Datenschutzerklärung](/datenschutz/).
+Deine Abstimmungsentscheidung speichern wir auf dem Server nur als Teil von Summen und vermerken, dass Dein Konto teilgenommen hat. Eine Quittung bleibt auf Deinem Gerät. Einzelheiten – auch zu den derzeitigen technischen Einschränkungen – beschreibt unsere [Datenschutzerklärung](/datenschutz/) in Ziffer 8.3.
 
 ---
 
@@ -98,7 +98,7 @@ Die Zahlungsgebühr kannst Du freiwillig übernehmen; der Aufschlag wird Dir vor
 
 ### 5.3 Dauerspende und Kündigung
 
-Eine monatliche Spende wird jeden Monat am selben Tag wie die erste Abbuchung eingezogen. Du kannst sie jederzeit **mit Wirkung zum Ende des laufenden Monats** kündigen und ihren Betrag für künftige Abbuchungen ändern – in der App unter „Spenden → Dauerspende verwalten" oder auf jedem Gerät über den Link in Deiner Willkommens-E-Mail (Kundenportal von Stripe). Scheitern Abbuchungen wiederholt, beenden wir die Dauerspende und informieren Dich per E-Mail.
+Eine monatliche Spende wird jeden Monat am selben Tag wie die erste Abbuchung eingezogen. Du kannst sie jederzeit **zum Ende des laufenden Abrechnungsmonats** (also vor der nächsten Abbuchung) kündigen und ihren Betrag für künftige Abbuchungen ändern – in der App unter „Spenden → Dauerspende verwalten" oder auf jedem Gerät über den Link in Deiner Willkommens-E-Mail (Kundenportal von Stripe). Scheitern Abbuchungen wiederholt, beenden wir die Dauerspende und informieren Dich per E-Mail.
 
 ### 5.4 Rückerstattung
 
@@ -147,7 +147,7 @@ Amtliche Dokumente des Bundestages sind gemeinfrei (§ 5 UrhG). Fotos von Abgeor
 
 ### 8.2 Open Source
 
-DEMOCRACY ist ein Open-Source-Projekt. Der Quellcode ist auf [GitHub](https://github.com/demokratie-live) veröffentlicht; für ihn gelten die dort angegebenen Lizenzen (z. B. Apache License 2.0). **[PRÜFEN: Lizenz der App (democracy-client) – im Repository ist keine Lizenzdatei hinterlegt.]** Name, Logo und Marke „DEMOCRACY" sind von diesen Lizenzen nicht umfasst.
+DEMOCRACY ist ein Open-Source-Projekt. Der Quellcode der App und des Servers ist auf [GitHub](https://github.com/demokratie-live) veröffentlicht; für ihn gelten die dort angegebenen Lizenzen (z. B. Apache License 2.0). Einzelne Hilfsdienste (z. B. die KI-gestützte Auswertung) sind nicht öffentlich. **[PRÜFEN: Lizenz der App (democracy-client) – im Repository ist keine Lizenzdatei hinterlegt.]** Name, Logo und Marke „DEMOCRACY" sind von diesen Lizenzen nicht umfasst.
 
 ### 8.3 Ergebnisse der Community
 
@@ -171,7 +171,7 @@ Für die Richtigkeit, Vollständigkeit und Aktualität der Parlamentsinformation
 
 ### 9.4 Datenverlust
 
-Wir haften nicht für den Verlust von Daten, die ausschließlich auf Deinem Gerät gespeichert sind (z. B. Abstimmungsquittungen, Wahl-O-Meter-Daten, Spender-Schlüssel), etwa nach einer Neuinstallation oder einem Gerätewechsel.
+Wir haften nicht für den Verlust von Daten, die ausschließlich auf Deinem Gerät gespeichert sind (z. B. Abstimmungsquittungen, Wahl-O-Meter-Daten, Spender-Schlüssel), etwa nach einer Neuinstallation oder einem Gerätewechsel. Für Daten, die Du selbst exportierst und über andere Dienste überträgst, sind diese Dienste verantwortlich.
 
 ---
 
@@ -179,7 +179,7 @@ Wir haften nicht für den Verlust von Daten, die ausschließlich auf Deinem Ger�
 
 ### 10.1 Kündigung durch Dich
 
-Das Nutzungsverhältnis läuft auf unbestimmte Zeit. Du kannst es jederzeit ohne Frist beenden, indem Du die App löschst und uns an [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de) mit dem Betreff „Konto löschen" bittest, Dein Konto zu löschen. Eine Dauerspende beendest Du gesondert (siehe Ziffer 5.3).
+Das Nutzungsverhältnis läuft auf unbestimmte Zeit. Du kannst es jederzeit ohne Frist beenden, indem Du die App löschst und uns an [contact@democracy-deutschland.de](mailto:contact@democracy-deutschland.de) mit dem Betreff „Konto löschen" und der Telefonnummer, mit der Du Dich verifiziert hast, bittest, Dein Konto zu löschen. Eine Dauerspende beendest Du gesondert (siehe Ziffer 5.3).
 
 ### 10.2 Kündigung durch uns
 
@@ -187,7 +187,7 @@ Wir können das Nutzungsverhältnis mit einer Frist von zwei Wochen kündigen. D
 
 ### 10.3 Folgen der Kündigung
 
-Nach der Löschung Deines Kontos löschen wir Deine personenbezogenen Daten nach Maßgabe der [Datenschutzerklärung](/datenschutz/). Die anonymen Abstimmungssummen bleiben bestehen, weil sie Dir nicht zugeordnet werden können. Daten zu Spenden bewahren wir im Rahmen der gesetzlichen Fristen auf.
+Nach der Löschung Deines Kontos löschen wir Deine personenbezogenen Daten nach Maßgabe der [Datenschutzerklärung](/datenschutz/). Die Abstimmungssummen bleiben bestehen. Daten zu Spenden bewahren wir im Rahmen der gesetzlichen Fristen auf.
 
 ---
 
